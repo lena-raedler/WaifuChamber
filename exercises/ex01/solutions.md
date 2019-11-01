@@ -27,7 +27,7 @@ no issues here
 
 `clang -std=c++17 -Xclang -ast-dump -fsyntax-only -Wno-vexing-parse vec.cpp`
 
-[HERE]{AST.txt}
+The output of this can be found [HERE](AST.txt).
 
 > Notice any oddities -- something that looks counter intuitive?
 
