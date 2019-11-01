@@ -1,0 +1,100 @@
+TranslationUnitDecl 0x56128f7806a8 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0x56128f780c60 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0x56128f780940 '__int128'
+|-TypedefDecl 0x56128f780cd0 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0x56128f780960 'unsigned __int128'
+|-TypedefDecl 0x56128f781018 <<invalid sloc>> <invalid sloc> implicit __NSConstantString '__NSConstantString_tag'
+| `-RecordType 0x56128f780dc0 '__NSConstantString_tag'
+|   `-CXXRecord 0x56128f780d28 '__NSConstantString_tag'
+|-TypedefDecl 0x56128f7810b0 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0x56128f781070 'char *'
+|   `-BuiltinType 0x56128f780740 'char'
+|-TypedefDecl 0x56128f7b82c8 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list '__va_list_tag [1]'
+| `-ConstantArrayType 0x56128f7b8270 '__va_list_tag [1]' 1 
+|   `-RecordType 0x56128f7811a0 '__va_list_tag'
+|     `-CXXRecord 0x56128f781108 '__va_list_tag'
+|-CXXRecordDecl 0x56128f7b8320 <vec.cpp:1:1, line:10:1> line:1:7 referenced class Vec3 definition
+| |-DefinitionData pass_in_registers standard_layout trivially_copyable literal has_user_declared_ctor has_constexpr_non_copy_move_ctor can_const_default_init
+| | |-DefaultConstructor exists non_trivial constexpr defaulted_is_constexpr
+| | |-CopyConstructor simple trivial has_const_param implicit_has_const_param
+| | |-MoveConstructor exists simple trivial
+| | |-CopyAssignment trivial has_const_param needs_implicit implicit_has_const_param
+| | |-MoveAssignment exists simple trivial needs_implicit
+| | `-Destructor simple irrelevant trivial
+| |-CXXRecordDecl 0x56128f7b8448 <col:1, col:7> col:7 implicit referenced class Vec3
+| |-AccessSpecDecl 0x56128f7b84e0 <line:2:3, col:9> col:3 public
+| |-CXXConstructorDecl 0x56128f7b85b0 <line:3:2, col:17> col:2 used constexpr Vec3 'void () noexcept' default
+| | |-CXXCtorInitializer Field 0x56128f7b8958 'x' 'int'
+| | | `-CXXDefaultInitExpr 0x56128f7e8360 <col:2> 'int'
+| | |-CXXCtorInitializer Field 0x56128f7b89b8 'y' 'int'
+| | | `-CXXDefaultInitExpr 0x56128f7e83a8 <col:2> 'int'
+| | |-CXXCtorInitializer Field 0x56128f7b8a18 'z' 'int'
+| | | `-CXXDefaultInitExpr 0x56128f7e83f0 <col:2> 'int'
+| | `-CompoundStmt 0x56128f7e8450 <col:17>
+| |-CXXConstructorDecl 0x56128f7b8850 <line:4:2, col:48> col:2 used Vec3 'void (int, int, int)'
+| | |-ParmVarDecl 0x56128f7b8678 <col:7, col:11> col:11 used x 'int'
+| | |-ParmVarDecl 0x56128f7b86f0 <col:14, col:18> col:18 used y 'int'
+| | |-ParmVarDecl 0x56128f7b8768 <col:21, col:25> col:25 used z 'int'
+| | |-CXXCtorInitializer Field 0x56128f7b8958 'x' 'int'
+| | | `-ImplicitCastExpr 0x56128f7b8b70 <col:32> 'int' <LValueToRValue>
+| | |   `-DeclRefExpr 0x56128f7b8b18 <col:32> 'int' lvalue ParmVar 0x56128f7b8678 'x' 'int'
+| | |-CXXCtorInitializer Field 0x56128f7b89b8 'y' 'int'
+| | | `-ImplicitCastExpr 0x56128f7b8c08 <col:38> 'int' <LValueToRValue>
+| | |   `-DeclRefExpr 0x56128f7b8bb0 <col:38> 'int' lvalue ParmVar 0x56128f7b86f0 'y' 'int'
+| | |-CXXCtorInitializer Field 0x56128f7b8a18 'z' 'int'
+| | | `-ImplicitCastExpr 0x56128f7b8ca0 <col:44> 'int' <LValueToRValue>
+| | |   `-DeclRefExpr 0x56128f7b8c48 <col:44> 'int' lvalue ParmVar 0x56128f7b8768 'z' 'int'
+| | `-CompoundStmt 0x56128f7b8cf8 <col:47, col:48>
+| |-AccessSpecDecl 0x56128f7b8918 <line:6:3, col:10> col:3 private
+| |-FieldDecl 0x56128f7b8958 <line:7:2, col:10> col:6 x 'int'
+| | `-IntegerLiteral 0x56128f7b8ab8 <col:10> 'int' 0
+| |-FieldDecl 0x56128f7b89b8 <line:8:2, col:10> col:6 y 'int'
+| | `-IntegerLiteral 0x56128f7b8ad8 <col:10> 'int' 0
+| |-FieldDecl 0x56128f7b8a18 <line:9:2, col:10> col:6 z 'int'
+| | `-IntegerLiteral 0x56128f7b8af8 <col:10> 'int' 0
+| |-CXXConstructorDecl 0x56128f7b8f18 <line:1:7> col:7 implicit constexpr Vec3 'void (const Vec3 &)' inline default trivial noexcept-unevaluated 0x56128f7b8f18
+| | `-ParmVarDecl 0x56128f7b9050 <col:7> col:7 'const Vec3 &'
+| |-CXXConstructorDecl 0x56128f7b90e8 <col:7> col:7 implicit constexpr Vec3 'void (Vec3 &&)' inline default trivial noexcept-unevaluated 0x56128f7b90e8
+| | `-ParmVarDecl 0x56128f7e82c0 <col:7> col:7 'Vec3 &&'
+| `-CXXDestructorDecl 0x56128f7e8b68 <col:7> col:7 implicit referenced ~Vec3 'void () noexcept' inline default trivial
+`-FunctionDecl 0x56128f7b8d68 <line:12:1, line:23:1> line:12:5 main 'int ()'
+  `-CompoundStmt 0x56128f7e9100 <line:13:1, line:23:1>
+    |-DeclStmt 0x56128f7e8490 <line:14:2, col:9>
+    | `-VarDecl 0x56128f7b8e88 <col:2, col:7> col:7 v0 'Vec3' callinit
+    |   `-CXXConstructExpr 0x56128f7e8460 <col:7> 'Vec3' 'void () noexcept'
+    |-DeclStmt 0x56128f7e85b0 <line:15:2, col:11>
+    | `-FunctionDecl 0x56128f7e8500 parent 0x56128f7806a8 <col:2, col:10> col:7 v1 'Vec3 ()'
+    |-DeclStmt 0x56128f7e8720 <line:16:2, col:18>
+    | `-VarDecl 0x56128f7e85d8 <col:2, col:17> col:7 v2 'Vec3' callinit
+    |   `-CXXConstructExpr 0x56128f7e86d8 <col:7, col:17> 'Vec3' 'void (int, int, int)'
+    |     |-IntegerLiteral 0x56128f7e8638 <col:10> 'int' 1
+    |     |-IntegerLiteral 0x56128f7e8658 <col:13> 'int' 2
+    |     `-IntegerLiteral 0x56128f7e8678 <col:16> 'int' 3
+    |-DeclStmt 0x56128f7e88a8 <line:17:2, col:18>
+    | `-VarDecl 0x56128f7e8748 <col:2, col:17> col:7 v3 'Vec3' listinit
+    |   `-CXXConstructExpr 0x56128f7e8860 <col:7, col:17> 'Vec3' 'void (int, int, int)' list
+    |     |-IntegerLiteral 0x56128f7e87a8 <col:10> 'int' 1
+    |     |-IntegerLiteral 0x56128f7e87c8 <col:13> 'int' 2
+    |     `-IntegerLiteral 0x56128f7e87e8 <col:16> 'int' 3
+    |-DeclStmt 0x56128f7e8a30 <line:18:2, col:21>
+    | `-VarDecl 0x56128f7e88d0 <col:2, col:20> col:7 v4 'Vec3' cinit
+    |   `-CXXConstructExpr 0x56128f7e89e8 <col:12, col:20> 'Vec3' 'void (int, int, int)' list
+    |     |-IntegerLiteral 0x56128f7e8930 <col:13> 'int' 1
+    |     |-IntegerLiteral 0x56128f7e8950 <col:16> 'int' 2
+    |     `-IntegerLiteral 0x56128f7e8970 <col:19> 'int' 3
+    |-DeclStmt 0x56128f7e8d20 <line:20:2, col:18>
+    | `-VarDecl 0x56128f7e8a80 <col:2, col:17> col:7 v5 'Vec3':'Vec3' cinit
+    |   `-CXXTemporaryObjectExpr 0x56128f7e8b30 <col:12, col:17> 'Vec3' 'void () noexcept' list zeroing
+    |-DeclStmt 0x56128f7e8ed8 <line:21:2, col:25>
+    | `-VarDecl 0x56128f7e8d48 <col:2, col:24> col:7 v6 'Vec3':'Vec3' cinit
+    |   `-CXXTemporaryObjectExpr 0x56128f7e8e18 <col:12, col:24> 'Vec3' 'void (int, int, int)'
+    |     |-IntegerLiteral 0x56128f7e8db8 <col:17> 'int' 1
+    |     |-IntegerLiteral 0x56128f7e8dd8 <col:20> 'int' 2
+    |     `-IntegerLiteral 0x56128f7e8df8 <col:23> 'int' 3
+    `-DeclStmt 0x56128f7e90e8 <line:22:2, col:25>
+      `-VarDecl 0x56128f7e8f00 <col:2, col:24> col:7 v7 'Vec3':'Vec3' cinit
+        `-CXXTemporaryObjectExpr 0x56128f7e9028 <col:12, col:24> 'Vec3' 'void (int, int, int)' list
+          |-IntegerLiteral 0x56128f7e8f70 <col:17> 'int' 1
+          |-IntegerLiteral 0x56128f7e8f90 <col:20> 'int' 2
+          `-IntegerLiteral 0x56128f7e8fb0 <col:23> 'int' 3
+
