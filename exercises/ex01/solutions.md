@@ -10,7 +10,7 @@ sudo apt-get install libboost-all-dev
 a)
 
 ```
-g++ -std=c++17 -Wall -Wextra -02 -o hello hello.cpp
+g++ -std=c++17 -Wall -Wextra -O2 -o hello hello.cpp
 ```
 
 no issues here
@@ -18,7 +18,7 @@ no issues here
 b)
 
 ```
-g++ -std=c++17 -Wall -Wextra -02 -o hello_boost hello_boost.cpp
+g++ -std=c++17 -Wall -Wextra -O2 -o hello_boost hello_boost.cpp
 ```
 
 no issues here
