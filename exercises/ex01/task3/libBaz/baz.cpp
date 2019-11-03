@@ -2,7 +2,8 @@
 
 #include <iostream>
 
-#include "bar.hpp"
+//#include "bar.hpp"
+#include "../libBar/bar.hpp"
 
 void baz()
 {
