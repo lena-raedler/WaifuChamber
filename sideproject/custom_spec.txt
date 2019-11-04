@@ -1,0 +1,67 @@
+﻿## Our Goals (goals denoted with + will be implemented if we have enough time)
+
+We want to create a metroidvania style game. It will feature a mutable world, opening new pathways as you explore.
+
+- 3 consecutive areas, each:
+    - with its own tone (architecture, sprites, music, enemies etc)
+    - with a handful of rooms each
+    - a boss guarding an item / ability
+    - more difficult than the previous area
+    - containing save points
+    - containing unlockable shortcuts leading back to the checkpoint (á la Hollow Knight/Salt and Sanctuary)
+    + final area = first area with changes
+- basic movement
+    - running left / right
+    - jumping
+    - dropping from platforms
+    - interacting with game entities (save points, doors etc)
+    - dodge roll (with air dash being unlockable)
+    - some form of consecutive jump (jump resets or double jump)
+- main combat
+    - melee and/or ranged
+    - hitting enemies
+    - getting hit by enemies
+    - swappable special move
+    - dodge / parry projectiles
+- player character
+    - gets stronger over the course of the game (XP / level-up)
+    - can equip found items to further increase stats
+- non-hostile NPCs
+    - shopkeeper that take your hard earned currency
+    + small questlines
+    - a sort of safe hub with multiple NPCs
+- enemies
+    - attack the player character as it gets in range
+    - variants with melee attacks
+    - variants with ranged attacks
+    - bosses are capable of using different attacks
+    - late game bosses have multiple phases
+- map
+    - shows discovered rooms and their doorways
+    - shows discovered save points
+    - shows where the player is currently located
+- game over
+    - player dies
+    - player defeats final boss
++ new game+
+    + ability to restart the game after completion, keeping your equipment (sans key items) and scaling enemies accordingly
+- main menu
+    - options
+        + fully rebindable keys
+        + controller support
+    - new game
+    - load game
+    - exit
+- pause menu
+    - access to options menu
+    - shows player stats
+    - inventory management
+    - continue
+    - go to main menu
+- *internals*
+    - cap the frame-rate at a reasonable number
+    - timing related logic should be independent of the frame-rate, use a *time delta*
+
+
+
+*** Those are the initial specifications of the game. They may be adjusted as we see fit. ***
