@@ -37,3 +37,9 @@ The output of this can be found [HERE](AST.txt).
 ```
 
 Line 15 is treated as a function declaration, which is also show in the above shown part of the AST. Due to this the variable v1 is not of type Vec3, thus for example the assignment of another value, i.e. `v1 = v3` is not possible.
+
+
+## Task 3
+
+From the CMake documentation:
+CMAKE_BUILD_TYPE: Possible values are empty, Debug, Release, RelWithDebInfo and MinSizeRel.
