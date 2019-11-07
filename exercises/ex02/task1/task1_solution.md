@@ -27,7 +27,7 @@
 - design the error-handling strategy around invariants: to use an object it must be in a valid state and to recover from an error every object not destroyed must be in a valid state
 - let a constructor establish an invariant, and throw if it cannot
 - use RAII to prevent leaks, its the simplest and most systematic way of preventing leaks
-- never throw wohle bein the direc owner of an object, that would be a leak
+- never throw while being the direct owner of an object, that would be a leak
 - use purpose-designed user-defined types as esceptions, they are unlikely to clash with other people's exceptions
 - don't try to catch every exception in every function, here meaningful recovery action cannot be taken which leads to complexity and waste; instead let the exception propagate until a function is reached that can handle it
 - minimize the use of explicit `try`/`catch` as it is verbose and non-trivial uses are error-prone
