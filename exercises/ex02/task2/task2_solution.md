@@ -15,6 +15,6 @@ The actual behaviour of this executable depends on various factors.
 
 # Solution
 
-Compiling with only "g++ -o iterations iterations.cpp" gives no compiler warnings whatsoever. When the resulting program is run we are stuck in an infinite loop. This is expected. 
+Compiling with only "g++ -o iterations iterations.cpp" gives no compiler warnings whatsoever. When the resulting program is run we are stuck in an infinite loop. This is expected. The first for loop runs until our iterator is equal to the end of the traversed vector. However since in each iteration we add one element to the back of the vector we also shift the end of the vector. Therefore we will never reach the end and the program is stuck in an infinite loop. Two exceptions would be if the vector is either empty or has just a single element. 
 
 Compiling with "g++ -Wall -Werror -O2 -o iterations iterations.cpp" doesn't give any compiler warnings either. However when the program is run a segmentation fault occurs instead of the program being stuck in an infinite loop. 
