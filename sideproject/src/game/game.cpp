@@ -24,6 +24,7 @@ Game::Game() {
     if(renderer == NULL) {
         throw std::runtime_error("Could not create renderer");
     }
+    quit = false;
 }
 
 Game::~Game() {
@@ -34,7 +35,7 @@ Game::~Game() {
 }
 
 int Game::loop() {
-    while(1) {
+    while(!quit) {
         render();
     }
     return 0;
@@ -42,6 +43,12 @@ int Game::loop() {
 
 
 void Game::render() {
+
+    while(SDL_PollEvent(&e) != 0) {
+        if(e.type == SDL_QUIT) {
+            quit = true;
+        }
+    }
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderPresent(renderer);
