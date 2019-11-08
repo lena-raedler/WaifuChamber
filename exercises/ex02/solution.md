@@ -16,3 +16,11 @@ taken from the [C++ Core Guidelines](https://github.com/isocpp/CppCoreGuidelines
 ### Task 2
 
 ### Task 3
+
+The program is fine except for one thing: The for loop in contains() loops 6 times over array, though array only has 5 elements, i.e. the last element in array is at the 4th position. If we try to access array[5] we are out of bounds of the array. We do not know what value is stored behind this address and it could change anytime, therefore making the outcome unpredictable. This can be easily fixed by changing the '<=' in the loop condition to a '<'. 
+
+Compiling with "g++ -o strange strange.cpp" does not give any compiler warnings. The program runs fine and on our test machine the output of the 5th array element was always 0. 
+
+Compiling with "g++ -Wall -Werror -o strange strange.cpp" didn't change anything. Valgrind doesn't report any errors or other suspicious activity. 
+
+Compiling with "g++ -Wall -Werror -O2 -o strange strange.cpp" is where things get interesting. In contains() instead of returning to the main function after array[5] has been checked, the program simply continues to check array[6], array[7], ... until it runs out of memory and crashes. In our test run this was always after processing array[943]. 
