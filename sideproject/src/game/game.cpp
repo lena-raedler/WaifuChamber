@@ -19,10 +19,6 @@ Game::Game() {
         std::cout << "Couldn't inititalize SDL" << std::endl;
         throw std::runtime_error("Couldn't initialize SDL");
     }
-    window = SDL_CreateWindow("Waifu Quest", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
-    if(window == NULL) {
-        throw std::runtime_error("Could not create window");
-    }
     // initialize img loading
     int imageFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imageFlags) & imageFlags)) {
