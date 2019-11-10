@@ -9,6 +9,8 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include <string>
+#include "utils/renderer.h"
+#include <memory>
 
 
 Game::Game() {
@@ -21,19 +23,22 @@ Game::Game() {
     if(window == NULL) {
         throw std::runtime_error("Could not create window");
     }
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if(renderer == NULL) {
-        throw std::runtime_error("Could not create renderer");
-    }
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     // initialize img loading
     int imageFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imageFlags) & imageFlags)) {
         throw std::runtime_error("Could not initialize SDL_image");
     }
-
+    renderer = std::make_unique<Renderer>();
+    renderer->renderColor(0, 0, 0, 0);
     // load texture
-    texture = loadTexture("files/textures/test_player.png");
+    surface = IMG_Load("files/textures/test_player.png");
+    if(!surface) {
+        throw std::runtime_error("Could not create surface");
+    }
+    texture = renderer->createTextureFromSurface(surface);
+    if(!texture) {
+        std::cerr << "last idea" << std::endl;
+    }
     quit = false;
 
     //create rectangle to load the texture onto
@@ -41,11 +46,13 @@ Game::Game() {
     rectangle.y = 0;
     rectangle.w = 32;
     rectangle.h = 32;
+    std::cerr << "rectangle" << std::endl;
 }
 
 Game::~Game() {
     //close all SDL components here
-    SDL_DestroyRenderer(renderer);
+    SDL_DestroyTexture(texture);
+    SDL_FreeSurface(surface);
     SDL_DestroyWindow(window);
     IMG_Quit();
     SDL_Quit();
@@ -66,24 +73,10 @@ void Game::render() {
             quit = true;
         }
     }
-    SDL_RenderClear(renderer);
-    // SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-    SDL_RenderCopy(renderer, texture, NULL, &rectangle);
-    SDL_RenderPresent(renderer);
-}
-
-SDL_Texture* Game::loadTexture(std::string path) {
-    SDL_Texture* newTexture = NULL;
-
-    SDL_Surface* surface = IMG_Load(path.c_str());
-    if(!surface) {
-        std::cout << "error: " << SDL_GetError() << std::endl;
-        throw std::runtime_error("Could not load texture");
-    }
-    newTexture = SDL_CreateTextureFromSurface(renderer, surface);
-    if(!newTexture) {
-        std::cout << "error: " << SDL_GetError() << std::endl;
-    }
-    SDL_FreeSurface(surface);
-    return newTexture;
+    renderer->clear();
+    //renderer.renderColor(0, 0, 0, 0);
+    //SDL_RenderCopy(renderer, texture, NULL, &rectangle);
+    renderer->renderTexture(texture, nullptr, &rectangle);
+    //SDL_RenderPresent(renderer);
+    renderer->render();
 }
