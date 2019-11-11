@@ -10,6 +10,7 @@
 #include "SDL2/SDL_image.h"
 #include <string>
 #include "utils/renderer.h"
+#include "entities/player/player.h"
 #include <memory>
 
 
@@ -27,22 +28,24 @@ Game::Game() {
     renderer = std::make_unique<Renderer>();
     renderer->renderColor(0, 0, 0, 0);
     // load texture
-    surface = IMG_Load("files/textures/test_player.png");
+    surface = IMG_Load(player.getTextureLocation().c_str());
     if(!surface) {
         throw std::runtime_error("Could not create surface");
     }
     texture = renderer->createTextureFromSurface(surface);
     if(!texture) {
-        std::cerr << "last idea" << std::endl;
+        std::cerr << "could not create texture" << std::endl;
+        throw std::runtime_error("Could not create texture");
     }
     quit = false;
-
+    left = false;
+    right = false;
+    playerPosition = player.getPlayerPosition();
     //create rectangle to load the texture onto
-    rectangle.x = 0;
-    rectangle.y = 0;
-    rectangle.w = 32;
-    rectangle.h = 32;
-    std::cerr << "rectangle" << std::endl;
+    rectangle.x = playerPosition.first;
+    rectangle.y = playerPosition.second;
+    rectangle.w = surface->w;
+    rectangle.h = surface->h;
 }
 
 Game::~Game() {
@@ -56,19 +59,74 @@ Game::~Game() {
 
 int Game::loop() {
     while(!quit) {
+        processInput();
         render();
     }
     return 0;
 }
 
+void Game::processInput() {
+    while(SDL_PollEvent(&e) != 0) {
+        switch(e.type) {
+            case SDL_QUIT:
+                quit = true;
+                break;
+            case SDL_KEYDOWN:
+                switch(e.key.keysym.scancode) {
+                    case SDL_SCANCODE_A:
+                        left = true;
+                        break;
+                    case SDL_SCANCODE_D:
+                        right = true;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+
+            case SDL_KEYUP:
+                switch(e.key.keysym.scancode) {
+                    case SDL_SCANCODE_A:
+                        left = false;
+                        break;
+                    case SDL_SCANCODE_D:
+                        right = false;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+        }
+
+        // velocity in which we move
+        int velocity = 0;
+
+        // check which buttons were pressed
+        if(left && !right) {
+            velocity = -speed;}
+        if(right && !left) {
+            velocity = speed;}
+
+        // update the player position
+        playerPosition.first += velocity / 60;
+        rectangle.x = playerPosition.first;
+
+        player.updatePlayerPosition(playerPosition.first, playerPosition.second);
+
+        // TODO: add suitable collision detection -> this is just basic
+        // collision detection with bounds
+        if (playerPosition.first <= 0) playerPosition.first = 0;
+        if (playerPosition.second <= 0) playerPosition.second = 0;
+        if (playerPosition.first >= screenWidth - rectangle.w) playerPosition.first = screenWidth - rectangle.w;
+        if (playerPosition.second >= screenHeight - rectangle.h) playerPosition.second = screenHeight - rectangle.h;
+
+
+    }
+
+}
+
 
 void Game::render() {
-
-    while(SDL_PollEvent(&e) != 0) {
-        if(e.type == SDL_QUIT) {
-            quit = true;
-        }
-    }
     renderer->clear();
     //renderer.renderColor(0, 0, 0, 0);
     //SDL_RenderCopy(renderer, texture, NULL, &rectangle);

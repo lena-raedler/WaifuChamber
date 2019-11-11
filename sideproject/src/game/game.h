@@ -10,6 +10,8 @@
 #include <string>
 #include <memory>
 #include "utils/renderer.h"
+#include "entities/player/player.h"
+#include <utility>
 
 
 class Game {
@@ -20,6 +22,7 @@ public:
 
 private:
     void render();
+    void processInput();
     SDL_Window* window;
     SDL_Texture* texture;
     SDL_Event e;
@@ -27,6 +30,13 @@ private:
     std::unique_ptr<Renderer> renderer;
     bool quit;
     SDL_Surface* surface;
+    Player player;
+    bool left;
+    bool right;
+    const int speed = 300;
+    std::pair<int, int> playerPosition;
+    int screenHeight = 480;
+    int screenWidth = 640;
 
 };
 

@@ -3,7 +3,7 @@
 #and may not be redistributed without written permission.
 
 #OBJS specifies which files to compile as part of the project
-OBJS = main.cpp game/game.cpp game/utils/renderer.cpp
+OBJS = main.cpp game/game.cpp game/utils/renderer.cpp game/entities/player/player.cpp
 
 #CC specifies which compiler we're using
 CC = g++
