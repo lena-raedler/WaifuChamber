@@ -3,11 +3,11 @@
 ### Task 1
 taken from the [C++ Core Guidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md)
 
-- avoid `malloc()` and `free()`, they do not support construction and destruction
+- avoid `malloc()` and `free()`, they do not support construction and destruction; its error prone to use `free()` as it can simply be overlooked or forgotten, and for `malloc()` we have to check if it worked --> clumpy and ugly memory management
 
-- avoid calling `new` and `delete`explicitly; any pointer returned by `new` should belong to a resource handle and not to a plain or naked pointer, those could leak the object
+- avoid calling `new` and `delete` explicitly; any pointer returned by `new` should belong to a resource handle and not to a plain or naked pointer, those could leak the object --> lead to error-prone code; instead use `unique_ptr` or `shared_ptr`
 
-- don't try to catch every exception in every function, here meaningful recovery action cannot be taken which leads to complexity and waste; instead let the exception propagate until a function is reached that can handle it
+- don't try to catch every exception in every function, here meaningful recovery action cannot be taken which leads to complexity and waste; instead let the exception propagate until a function is reached that can handle it;
 
 - use `unique_ptr` or `shared_ptr` to represent ownership, they can prevent resource leaks; additionally prefer `unique_ptr` over `shared_ptr` unless ownership should be shared, `unique_ptr` is simpler and more predictable, and also faster
 
@@ -20,6 +20,8 @@ Compiling with only "g++ -o iterations iterations.cpp" gives no compiler warning
 It also sometimes happens that the program directly terminates with a segmentation fault. This happens mostly the first time the program is run after the compilation. However this is inconsistent and more often then not the infinite loop is prevalent. 
 
 Compiling with "g++ -Wall -Werror -O2 -o iterations iterations.cpp", or O3 instead of O2, doesn't give any compiler warnings either. 
+
+Using -O3 it aborts with message `terminate called after throwing an instance of std::bad_alloc`
 
 ### Task 3
 
