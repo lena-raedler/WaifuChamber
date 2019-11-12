@@ -3,15 +3,15 @@
 ### Task 1
 taken from the [C++ Core Guidelines](https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md)
 
-- avoid `malloc()` and `free()`, they do not support construction and destruction; its error prone to use `free()` as it can simply be overlooked or forgotten, and for `malloc()` we have to check if it worked --> clumpy and ugly memory management
+- R.10 Avoid `malloc()` and `free()`, they do not support construction and destruction; its error prone to use `free()` as it can simply be overlooked or forgotten, and for `malloc()` we have to check if it worked --> clumpy and ugly memory management
 
-- avoid calling `new` and `delete` explicitly; any pointer returned by `new` should belong to a resource handle and not to a plain or naked pointer, those could leak the object --> lead to error-prone code; instead use `unique_ptr` or `shared_ptr`
+- R.11 Avoid calling `new` and `delete` explicitly; any pointer returned by `new` should belong to a resource handle and not to a plain or naked pointer, those could leak the object --> lead to error-prone code; instead use `unique_ptr` or `shared_ptr`
 
-- don't try to catch every exception in every function, here meaningful recovery action cannot be taken which leads to complexity and waste; instead let the exception propagate until a function is reached that can handle it;
+- E.17 Don't try to catch every exception in every function, here meaningful recovery action cannot be taken which leads to complexity and waste; instead let the exception propagate until a function is reached that can handle it;
 
-- use `unique_ptr` or `shared_ptr` to represent ownership, they can prevent resource leaks; additionally prefer `unique_ptr` over `shared_ptr` unless ownership should be shared, `unique_ptr` is simpler and more predictable, and also faster
+- R.20 Use `unique_ptr` or `shared_ptr` to represent ownership, they can prevent resource leaks; additionally prefer `unique_ptr` over `shared_ptr` unless ownership should be shared, `unique_ptr` is simpler and more predictable, and also faster
 
-- manage resources automatically using resource handles and RAII to avoid leaks and complex manual resource management; when dealing with paired acquire/release function calls it is advised to encapsulate that resource in an object that already enforces pairing through the constructor and destructor
+- R.1 Manage resources automatically using resource handles and RAII to avoid leaks and complex manual resource management; when dealing with paired acquire/release function calls it is advised to encapsulate that resource in an object that already enforces pairing through the constructor and destructor
 
 ### Task 2
 
@@ -25,7 +25,11 @@ Using -O2 or -O3 and no segmentation faul is given the program aborts with the m
 
 ### Task 3
 
-The program is fine except for one thing: The for loop in contains() loops 6 times over array, though array only has 5 elements, i.e. the last element in array is at the 4th position. If we try to access array[5] we are out of bounds of the array. We do not know what value is stored behind this address and it could change anytime, therefore making the outcome unpredictable. This can be easily fixed by changing the '<=' in the loop condition to a '<'. 
+The program is fine except for one thing: The for loop in contains() loops 6 times over array, though array only has 5 elements, i.e. the last element in array is at the 4th position. 
+    ```
+    for (int i = 0; i <= 5; ++i) {
+    ```
+    If we try to access array[5] we are out of bounds of the array. We do not know what value is stored behind this address and it could change anytime, therefore making the outcome unpredictable. This can be easily fixed by changing the '<=' in the loop condition to a '<'. 
 
 #### GCC
 Compiling with "g++ -Wall -Werror -o strange strange.cpp" does not give any compiler warnings. The program runs fine and on our test machine the output of the 5th array element was always 0.  Valgrind doesn't report any errors, leaks or other suspicious activity. 
