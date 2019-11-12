@@ -36,7 +36,7 @@ Compiling with "g++ -Wall -Werror -o strange strange.cpp" does not give any comp
 
 However starting with "g++ -Wall -Werror -O1 -o strange strange.cpp" is where things get interesting. In contains() instead of returning to the main function after array[5] has been checked, the program simply continues to check array[6], array[7], ... until it runs out of memory and crashes. In our test run this was always after processing array[943]. Valgrind obviously crashes too and reports one error. 
 
-Somehow the iterator variable gets optimized out, and after not returning due to a lucky find of 0 on the first loop, the program is stuck in optimizing hell, also known as O(n^n).
+Somehow the iterator variable gets optimized out, and after not returning due to a lucky find of 0 on the first loop, the program is stuck in optimizing hell. 
 
 #### Clang
 Using clang the program worked without issues
