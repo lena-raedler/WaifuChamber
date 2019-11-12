@@ -15,14 +15,14 @@ We want to create a metroidvania style game. It will feature a mutable world, op
     - jumping
     - dropping from platforms
     - interacting with game entities (save points, doors etc)
-    - dodge roll (with air dash being unlockable)
+    + dodge roll (with air dash being unlockable)
     - some form of consecutive jump (jump resets or double jump)
 - main combat
     - melee and/or ranged
     - hitting enemies
     - getting hit by enemies
-    - swappable special move
-    - dodge / parry projectiles
+    + swappable special move
+    + dodge / parry projectiles
 - player character
     - gets stronger over the course of the game (XP / level-up)
     - can equip found items to further increase stats
@@ -35,7 +35,7 @@ We want to create a metroidvania style game. It will feature a mutable world, op
     - variants with melee attacks
     - variants with ranged attacks
     - bosses are capable of using different attacks
-    - late game bosses have multiple phases
+    + late game bosses have multiple phases
 - map
     - shows discovered rooms and their doorways
     - shows discovered save points
