@@ -32,9 +32,9 @@ The program is fine except for one thing: The for loop in contains() loops 6 tim
     If we try to access array[5] we are out of bounds of the array. We do not know what value is stored behind this address and it could change anytime, therefore making the outcome unpredictable. This can be easily fixed by changing the '<=' in the loop condition to a '<'. 
 
 #### GCC
-Compiling with "g++ -Wall -Werror -o strange strange.cpp" does not give any compiler warnings. The program runs fine and on our test machine the output of the 5th array element was always 0.  Valgrind doesn't report any errors, leaks or other suspicious activity. 
+Compiling with "g++ -Wall -Werror -o strange strange.cpp" does not give any compiler warnings. The program runs fine and on our test machine the output of the 5th array element was always 0. Valgrind doesn't report any errors, leaks or other suspicious activity. 
 
-However starting with "g++ -Wall -Werror -O1 -o strange strange.cpp" is where things get interesting. In contains() instead of returning to the main function after array[5] has been checked, the program simply continues to check array[6], array[7], ... until it runs out of memory and crashes. In our test run this was always after processing array[943]. Valgrind obviously crashes too and reports one error. 
+However starting with "g++ -Wall -Werror -O1 -o strange strange.cpp" is where things get interesting. In contains() instead of returning to the main function after array[5] has been checked, the program simply continues to check array[6], array[7], ... until it crashes on a segmentation fault. In our test run this was always after processing array[943]. Valgrind obviously crashes too and reports one error. 
 
 Somehow the iterator variable gets optimized out, and after not returning due to a lucky find of 0 on the first loop, the program is stuck in optimizing hell. 
 
