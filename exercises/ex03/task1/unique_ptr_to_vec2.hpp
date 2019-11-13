@@ -14,6 +14,9 @@ class unique_ptr_to_vec2 {
 public:
     unique_ptr_to_vec2(int x, int y);
     ~unique_ptr_to_vec2();
+    void setX(int x);
+    void setY(int y);
+    void set(int x, int y);
     void print();
 
 private:
