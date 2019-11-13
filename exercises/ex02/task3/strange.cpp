@@ -5,8 +5,8 @@ int array[5] = {};
 bool contains(int v)
 {
 	for (int i = 0; i <= 5; ++i) {
-	    printf("i = %d\t\t%d =?= %d\n", i, v, array[i]);
-		if (array[i] == v) {
+        std::cout << "i: " << i << " | " << array[i] << " =?= " << v << std::endl;
+        if (array[i] == v) {
 			return true;
 		}
 	}
