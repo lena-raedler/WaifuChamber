@@ -12,8 +12,9 @@ struct Vec2 {
 class unique_ptr_to_vec2 {
 
 public:
-    unique_ptr_to_vec2::unique_ptr_to_vec2(int x, int y);
-    void unique_ptr_to_vec2::print();
+    unique_ptr_to_vec2(int x, int y);
+    ~unique_ptr_to_vec2();
+    void print();
 
 private:
     Vec2 vec2;
