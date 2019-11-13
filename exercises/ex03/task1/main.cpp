@@ -6,11 +6,11 @@
 #include "unique_ptr_to_vec2.hpp"
 
 int main() {
-    unique_ptr_to_vec2 ptrToVec2 = unique_ptr_to_vec2(0, 0);
+    unique_ptr_to_vec2 ptrToVec2 = unique_ptr_to_vec2(1, 1);
     ptrToVec2.print();
 
-    ptrToVec2.setX(1);
-    ptrToVec2.setY(2);
+    ptrToVec2.setX(2);
+    ptrToVec2.setY(3);
     ptrToVec2.print();
 
     ptrToVec2.set(7, 7);
