@@ -4,14 +4,14 @@
 
 #include "unique_ptr_to_vec2.hpp"
 #include <iostream>
-#include <memory>
-#include <vector>
 
 unique_ptr_to_vec2::unique_ptr_to_vec2() {
     vec2 = new Vec2;
     vec2->x = 0;
     vec2->y = 0;
 }
+
+//unique_ptr_to_vec2::unique_ptr_to_vec2(const unique_ptr_to_vec2&) = delete;
 
 unique_ptr_to_vec2::~unique_ptr_to_vec2() {
     delete(vec2);
