@@ -1,5 +1,6 @@
 //
 // Created by lena on 11/10/19.
+// wrapper class for SDL_Renderer
 //
 
 #ifndef WAIFUCHAMBER_RENDERER_H

@@ -40,6 +40,7 @@ Game::Game() {
     quit = false;
     left = false;
     right = false;
+    isFalling = false;
     playerPosition = player.getPlayerPosition();
     //create rectangle to load the texture onto
     rectangle.x = playerPosition.first;
@@ -79,6 +80,9 @@ void Game::processInput() {
                     case SDL_SCANCODE_D:
                         right = true;
                         break;
+                    case SDL_SCANCODE_W:
+                        up = true;
+                        break;
                     default:
                         break;
                 }
@@ -98,20 +102,44 @@ void Game::processInput() {
                 break;
         }
 
-        // velocity in which we move
-        int velocity = 0;
+        // x_velocity in which we move
+        int x_velocity = 0;
 
         // check which buttons were pressed
         if(left && !right) {
-            velocity = -speed;}
+            x_velocity = -speed;}
         if(right && !left) {
-            velocity = speed;}
+            x_velocity = speed;}
+
+        // button has to be pressed to execute jump
+        if(up && !left && !right) {
+            if(jump >= jumpHeight || isFalling) {
+                if(jump == 0) {
+                    isFalling = false;
+                    break;
+                }
+                jump--;
+                playerPosition.second--;
+                isFalling = true;
+            } else if(jump <= 0 && isFalling) {
+                jump = 0;
+                isFalling = false;
+                up = false;
+            } else {
+                jump++;
+                playerPosition.second++;
+            }
+            std::cerr << playerPosition.second << std::endl;
+        }
 
         // update the player position
-        playerPosition.first += velocity / 60;
-        rectangle.x = playerPosition.first;
-
+        playerPosition.first += x_velocity / 60;
         player.updatePlayerPosition(playerPosition.first, playerPosition.second);
+
+        // update rectangle from player position
+        rectangle.x = playerPosition.first;
+        rectangle.y = playerPosition.second;
+
 
         // TODO: add suitable collision detection -> this is just basic
         // collision detection with bounds
@@ -128,9 +156,6 @@ void Game::processInput() {
 
 void Game::render() {
     renderer->clear();
-    //renderer.renderColor(0, 0, 0, 0);
-    //SDL_RenderCopy(renderer, texture, NULL, &rectangle);
     renderer->renderTexture(texture, nullptr, &rectangle);
-    //SDL_RenderPresent(renderer);
     renderer->render();
 }

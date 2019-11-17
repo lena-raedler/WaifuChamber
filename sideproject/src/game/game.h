@@ -33,10 +33,14 @@ private:
     Player player;
     bool left;
     bool right;
+    bool up;
+    bool isFalling;
     const int speed = 300;
     std::pair<int, int> playerPosition;
     int screenHeight = 480;
     int screenWidth = 640;
+    const int jumpHeight = 10;
+    int jump = 0;
 
 };
 
