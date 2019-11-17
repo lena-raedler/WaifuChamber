@@ -12,7 +12,8 @@ struct Vec2 {
 class unique_ptr_to_vec2 {
 
 public:
-    unique_ptr_to_vec2(int x, int y);
+    //unique_ptr_to_vec2(int x, int y);
+    unique_ptr_to_vec2(Vec2 vec2_arg);
     ~unique_ptr_to_vec2();
 
     void setX(int x);
@@ -22,7 +23,7 @@ public:
 
 private:
     Vec2* vec2;
-    //bool used;
+    static bool used;
 };
 
 
