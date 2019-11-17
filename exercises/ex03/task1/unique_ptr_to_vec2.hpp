@@ -14,7 +14,7 @@ class unique_ptr_to_vec2 {
 public:
     unique_ptr_to_vec2();
     unique_ptr_to_vec2(const unique_ptr_to_vec2&) = delete;
-    //unique_ptr_to_vec2& operator=(const unique_ptr_to_vec2&) = delete;
+    unique_ptr_to_vec2& operator=(const unique_ptr_to_vec2&) = delete;
     ~unique_ptr_to_vec2();
 
     void setX(int x);
