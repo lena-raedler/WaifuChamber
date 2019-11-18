@@ -13,7 +13,7 @@ unique_ptr_to_vec2::unique_ptr_to_vec2() {
 }
 
 unique_ptr_to_vec2::unique_ptr_to_vec2(unique_ptr_to_vec2 &&from) {
-    std::cout << "Moving unique_ptr_to_vec2 with constructor" << std::endl;
+    std::cout << "Moving construct unique_ptr_to_vec2" << std::endl;
     vec2 = from.vec2;
     from.vec2 = nullptr;
 }
@@ -24,7 +24,7 @@ unique_ptr_to_vec2::~unique_ptr_to_vec2() {
 }
 
 unique_ptr_to_vec2 &unique_ptr_to_vec2::operator=(unique_ptr_to_vec2 &&from) {
-    std::cout << "Moving unique_ptr_to_vec2 with operator" << std::endl;
+    std::cout << "Moving assign unique_ptr_to_vec2" << std::endl;
     vec2 = from.vec2;
     from.vec2 = nullptr;
     return *this;

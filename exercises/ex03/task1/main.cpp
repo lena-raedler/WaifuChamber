@@ -14,7 +14,7 @@ void printSeparatorLine();
 
 int main() {
     std::cout << "_.-~*° Show unique_ptr_to_vec2 °*~-._" << std::endl;
-    //showUniquePtr();
+    showUniquePtr();
 
     std::cout << "\n##################################################################\n\n";
 
@@ -23,12 +23,18 @@ int main() {
 }
 
 void showUniquePtr() {
-    {   // Default constructor
+    {
         std::cout << "Use default constructor" << std::endl;
         unique_ptr_to_vec2 ptrToVec2;
 
         // Moving(?), the move constructor does not get printed though :thinking:
         //unique_ptr_to_vec2 ptrToVec21 = unique_ptr_to_vec2();
+    }
+
+    {   // Does not work, we are not allowed to copy construct!
+        //std::cout << "Use copy constructor" << std::endl;
+        //unique_ptr_to_vec2 ptrToVec2;
+        //unique_ptr_to_vec2 ptrToVec21(ptrToVec2);
     }
 
     printSeparatorLine();
@@ -38,16 +44,26 @@ void showUniquePtr() {
         unique_ptr_to_vec2 ptrToVec2;
         unique_ptr_to_vec2 ptrToVec21(std::move(ptrToVec2));
 
-        // Use move assignment (still buggy), should move with assignment.
-        unique_ptr_to_vec2 ptrToVec22;
-        unique_ptr_to_vec2 ptrToVec23 = std::move(ptrToVec22);
+
     }
 
     printSeparatorLine();
 
-    {   // Does not work, we are not allowed to copy!
+    {
+        std::cout << "Use move assignment" << std::endl;
+        unique_ptr_to_vec2 ptrToVec2;
+        unique_ptr_to_vec2 ptrToVec21 = std::move(ptrToVec2);
+    }
+
+    printSeparatorLine();
+
+    {   // Does not work, we are not allowed to copy assign!
+        //std::cout << "Use copy assignment" << std::endl;
+        //unique_ptr_to_vec2 ptrToVec2;
         //unique_ptr_to_vec2 ptrToVec21 = ptrToVec2;
     }
+
+    printSeparatorLine();
 
     {
         std::cout << "Access unique_ptr_to_vec2 via *" << std::endl;
@@ -79,12 +95,9 @@ void showUniquePtr() {
 }
 
 void showSharedPtr() {
-    {   // Default constructor
+    {
         std::cout << "Use default constructor" << std::endl;
         shared_ptr_to_vec2 ptrToVec2;
-
-        // Moving(?), the move constructor does not get printed though :thinking:
-        //unique_ptr_to_vec2 ptrToVec21 = unique_ptr_to_vec2();
     }
 
     printSeparatorLine();
@@ -114,6 +127,11 @@ void showSharedPtr() {
     printSeparatorLine();
 
     {
+        std::cout << "Use move assignment" << std::endl;
+        shared_ptr_to_vec2 ptrToVec2;
+        shared_ptr_to_vec2 ptrToVec21 = std::move(ptrToVec2);
+
+        // Bug ahead! Frees less than it allocates!
         //std::cout << "Use move assignment" << std::endl;
         //shared_ptr_to_vec2 ptrToVec2;
         //shared_ptr_to_vec2 ptrToVec21;
