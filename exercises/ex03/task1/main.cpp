@@ -27,6 +27,7 @@ int main() {
         unique_ptr_to_vec2 ptrToVec2;
         unique_ptr_to_vec2 ptrToVec21(std::move(ptrToVec2));
 
+        // Use move assignment (still buggy)
         unique_ptr_to_vec2 ptrToVec22;
         unique_ptr_to_vec2 ptrToVec23 = std::move(ptrToVec22);
     }
