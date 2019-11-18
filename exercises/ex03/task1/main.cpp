@@ -81,7 +81,7 @@ void showUniquePtr() {
 void showSharedPtr() {
     {   // Default constructor
         std::cout << "Use default constructor" << std::endl;
-
+        shared_ptr_to_vec2 ptrToVec2;
 
         // Moving(?), the move constructor does not get printed though :thinking:
         //unique_ptr_to_vec2 ptrToVec21 = unique_ptr_to_vec2();

@@ -12,5 +12,5 @@ shared_ptr_to_vec2::shared_ptr_to_vec2() {
 }
 
 shared_ptr_to_vec2::~shared_ptr_to_vec2() {
-
+    delete vec2;
 }
