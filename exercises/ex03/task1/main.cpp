@@ -8,9 +8,6 @@
 #include <memory>
 
 int main() {
-    //std::unique_ptr<int> ptr = std::make_unique<int>();
-
-    //unique_ptr_to_vec2 ptrToVec2 = unique_ptr_to_vec2();
 
     {   // Default constructor
         unique_ptr_to_vec2 ptrToVec2;
@@ -21,15 +18,10 @@ int main() {
         //unique_ptr_to_vec2 ptrToVec21 = ptrToVec2;
     }
 
-    //ptrToVec2.print();
-    //ptrToVec2.print();
 
-    /*
-    ptrToVec2.setX(2);
-    ptrToVec2.setY(3);
-    ptrToVec2.print();
-
-    ptrToVec2.set(7, 7);
-    ptrToVec2.print();
-     */
+    {
+        unique_ptr_to_vec2 ptrToVec2;
+        std::cout << "(*unique_ptr_to_vec2).x = " << (*ptrToVec2)->x << std::endl;
+        std::cout << "(*unique_ptr_to_vec2).y = " << (*ptrToVec2)->y << std::endl;
+    }
 }

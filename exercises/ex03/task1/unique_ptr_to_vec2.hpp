@@ -17,6 +17,8 @@ public:
     unique_ptr_to_vec2& operator=(const unique_ptr_to_vec2&) = delete;
     ~unique_ptr_to_vec2();
 
+    Vec2* operator*();
+
     void setX(int x);
     void setY(int y);
     void set(int x, int y);

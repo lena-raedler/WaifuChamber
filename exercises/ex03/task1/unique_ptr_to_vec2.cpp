@@ -18,6 +18,12 @@ unique_ptr_to_vec2::~unique_ptr_to_vec2() {
 }
 
 
+Vec2* unique_ptr_to_vec2::operator*() {
+
+    return vec2;
+}
+
+
 
 
 
