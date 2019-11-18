@@ -2,8 +2,8 @@
 // Created by bnorb on 13.11.19.
 //
 
-#ifndef APP_MY_UNIQUE_PTR_HPP
-#define APP_MY_UNIQUE_PTR_HPP
+#ifndef APP_UNIQUE_PTR_TO_VEC2_HPP
+#define APP_UNIQUE_PTR_TO_VEC2_HPP
 
 struct Vec2 {
     float x, y;
@@ -32,4 +32,4 @@ private:
 };
 
 
-#endif //APP_MY_UNIQUE_PTR_HPP
+#endif //APP_UNIQUE_PTR_TO_VEC2_HPP
