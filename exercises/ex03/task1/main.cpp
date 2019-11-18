@@ -94,6 +94,14 @@ void showSharedPtr() {
         shared_ptr_to_vec2 ptrToVec2;
         shared_ptr_to_vec2 ptrToVec21 = ptrToVec2;
     }
+
+    printSeparatorLine();
+
+    {
+        std::cout << "Use move constructor" << std::endl;
+        shared_ptr_to_vec2 ptrToVec2;
+        shared_ptr_to_vec2 ptrToVec21 = std::move(ptrToVec2);
+    }
 }
 
 void printSeparatorLine() {
