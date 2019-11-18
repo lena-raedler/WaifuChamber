@@ -18,7 +18,6 @@ int main() {
         //unique_ptr_to_vec2 ptrToVec21 = ptrToVec2;
     }
 
-
     {
         std::cout << "\nAccess unique_ptr_to_vec2 via *" << std::endl;
         unique_ptr_to_vec2 ptrToVec2;
