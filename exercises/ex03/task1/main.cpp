@@ -62,7 +62,7 @@ void showUniquePtr() {
         //unique_ptr_to_vec2 ptrToVec21 = ptrToVec2;
     }
 
-    printSeparatorLine();
+    //printSeparatorLine();
 
     {
         std::cout << "Access unique_ptr_to_vec2 via *" << std::endl;
