@@ -10,7 +10,7 @@ class ReferenceCounter {
 
 public:
     ReferenceCounter();
-    unsigned int count;
+    int count;
 
 };
 

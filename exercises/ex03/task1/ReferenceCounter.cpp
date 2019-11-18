@@ -3,8 +3,9 @@
 //
 
 #include "ReferenceCounter.hpp"
+#include <iostream>
 
 ReferenceCounter::ReferenceCounter() {
     count = 0;
+    std::cout << "ReferenceCounter#" << this << " constructed" << std::endl;
 }
-

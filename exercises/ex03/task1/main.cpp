@@ -14,7 +14,7 @@ void printSeparatorLine();
 
 int main() {
     std::cout << "_.-~*° Show unique_ptr_to_vec2 °*~-._" << std::endl;
-    showUniquePtr();
+    //showUniquePtr();
 
     std::cout << "\n##################################################################\n\n";
 
@@ -85,6 +85,14 @@ void showSharedPtr() {
 
         // Moving(?), the move constructor does not get printed though :thinking:
         //unique_ptr_to_vec2 ptrToVec21 = unique_ptr_to_vec2();
+    }
+
+    printSeparatorLine();
+
+    {
+        std::cout << "Use copy constructor" << std::endl;
+        shared_ptr_to_vec2 ptrToVec2;
+        shared_ptr_to_vec2 ptrToVec21 = ptrToVec2;
     }
 }
 
