@@ -14,7 +14,7 @@ void printSeparatorLine();
 
 int main() {
     std::cout << "_.-~*° Show unique_ptr_to_vec2 °*~-._" << std::endl;
-    showUniquePtr();
+    //showUniquePtr();
 
     std::cout << "\n##################################################################\n\n";
 
@@ -108,7 +108,7 @@ void showSharedPtr() {
     {
         std::cout << "Use move constructor" << std::endl;
         shared_ptr_to_vec2 ptrToVec2;
-        //shared_ptr_to_vec2 ptrToVec21(std::move(ptrToVec2));
+        shared_ptr_to_vec2 ptrToVec21(std::move(ptrToVec2));
     }
 
     printSeparatorLine();

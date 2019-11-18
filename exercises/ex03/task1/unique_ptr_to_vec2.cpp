@@ -12,7 +12,7 @@ unique_ptr_to_vec2::unique_ptr_to_vec2() {
     std::cout << "unique_ptr_to_vec2#" << this << " constructed" << std::endl;
 }
 
-unique_ptr_to_vec2::unique_ptr_to_vec2(unique_ptr_to_vec2&& from) {
+unique_ptr_to_vec2::unique_ptr_to_vec2(unique_ptr_to_vec2 &&from) {
     std::cout << "Moving unique_ptr_to_vec2 with constructor" << std::endl;
     vec2 = from.vec2;
     from.vec2 = nullptr;

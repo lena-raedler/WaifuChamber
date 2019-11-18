@@ -29,16 +29,18 @@ shared_ptr_to_vec2::shared_ptr_to_vec2(shared_ptr_to_vec2 &&from) {
     std::cout << "Move construct shared_ptr_to_vec2" << std::endl;
     vec2 = from.vec2;
     referenceCounter = from.referenceCounter;
+
     from.vec2 = nullptr;
     from.referenceCounter = nullptr;
 }
 
 shared_ptr_to_vec2::~shared_ptr_to_vec2() {
-    referenceCounter->count--;
+    if (referenceCounter) {
+        referenceCounter->count--;
+    }
 
     // vec2 == nullptr is an indication that that instance has been moved!
-    // Checking for referenceCounter == nullptr gives warnings(?)
-    if (referenceCounter->count <= 0 && vec2) {
+    if (referenceCounter && referenceCounter->count <= 0 && vec2) {
         delete referenceCounter;
         delete vec2;
     }
