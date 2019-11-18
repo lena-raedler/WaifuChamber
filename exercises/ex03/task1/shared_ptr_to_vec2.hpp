@@ -13,7 +13,9 @@ class shared_ptr_to_vec2 {
 public:
     shared_ptr_to_vec2();
     shared_ptr_to_vec2(const shared_ptr_to_vec2 &from);
+    shared_ptr_to_vec2 &operator=(const shared_ptr_to_vec2 &from);
     shared_ptr_to_vec2(shared_ptr_to_vec2 &&from);
+    //shared_ptr_to_vec2 &operator=(shared_ptr_to_vec2 &&from);
     ~shared_ptr_to_vec2();
 
 private:
