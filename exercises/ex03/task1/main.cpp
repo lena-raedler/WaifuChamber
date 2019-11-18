@@ -112,6 +112,7 @@ void showSharedPtr() {
     {
         std::cout << "Use copy assignment" << std::endl;
         shared_ptr_to_vec2 ptrToVec2;
+        ptrToVec2 = ptrToVec2;
         shared_ptr_to_vec2 ptrToVec21 = ptrToVec2;
     }
 
@@ -128,6 +129,7 @@ void showSharedPtr() {
     {
         std::cout << "Use move assignment" << std::endl;
         shared_ptr_to_vec2 ptrToVec2;
+        ptrToVec2 = ptrToVec2;
         shared_ptr_to_vec2 ptrToVec21 = std::move(ptrToVec2);
 
         // Bug ahead! Frees less than it allocates!
