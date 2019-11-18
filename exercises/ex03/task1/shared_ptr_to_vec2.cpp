@@ -35,12 +35,12 @@ shared_ptr_to_vec2::shared_ptr_to_vec2(shared_ptr_to_vec2 &&from) {
 }
 
 shared_ptr_to_vec2::~shared_ptr_to_vec2() {
-    if (referenceCounter) {
-        referenceCounter->count--;
-    }
+    //if (referenceCounter) {
+        //referenceCounter->count--;
+    //}
 
     // vec2 == nullptr is an indication that that instance has been moved!
-    if (referenceCounter && referenceCounter->count <= 0 && vec2) {
+    if (referenceCounter && --(referenceCounter->count) <= 0 && vec2) {
         delete referenceCounter;
         delete vec2;
     }
