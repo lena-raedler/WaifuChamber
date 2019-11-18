@@ -4,14 +4,25 @@
 
 #include "main.hpp"
 #include "unique_ptr_to_vec2.hpp"
+#include "shared_ptr_to_vec2.hpp"
 #include <iostream>
-#include <memory>
 
+void showUniquePtr();
+void showSharedPtr();
 void printSeparatorLine();
 
 
 int main() {
+    std::cout << "_.-~*° Show unique_ptr_to_vec2 °*~-._" << std::endl;
+    showUniquePtr();
 
+    std::cout << "\n##################################################################\n\n";
+
+    std::cout << "_.-~*° Show shared_ptr_to_vec2 °*~-._" << std::endl;
+    showSharedPtr();
+}
+
+void showUniquePtr() {
     {   // Default constructor
         std::cout << "Use default constructor" << std::endl;
         unique_ptr_to_vec2 ptrToVec2;
@@ -64,6 +75,16 @@ int main() {
         ptrToVec2->y = 4;
         std::cout << "unique_ptr_to_vec2->x = " << ptrToVec2->x << std::endl;
         std::cout << "unique_ptr_to_vec2->y = " << ptrToVec2->y << std::endl;
+    }
+}
+
+void showSharedPtr() {
+    {   // Default constructor
+        std::cout << "Use default constructor" << std::endl;
+
+
+        // Moving(?), the move constructor does not get printed though :thinking:
+        //unique_ptr_to_vec2 ptrToVec21 = unique_ptr_to_vec2();
     }
 }
 

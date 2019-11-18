@@ -5,9 +5,7 @@
 #ifndef APP_UNIQUE_PTR_TO_VEC2_HPP
 #define APP_UNIQUE_PTR_TO_VEC2_HPP
 
-struct Vec2 {
-    float x, y;
-};
+#include "Vec2.hpp"
 
 class unique_ptr_to_vec2 {
 
