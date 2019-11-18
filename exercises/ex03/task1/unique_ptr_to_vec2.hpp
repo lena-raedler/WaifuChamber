@@ -15,11 +15,12 @@ public:
     unique_ptr_to_vec2();
 
     // Copy constructor and assignment should not be possible for unique_ptr
-    unique_ptr_to_vec2(const unique_ptr_to_vec2&) = delete;
-    unique_ptr_to_vec2& operator=(const unique_ptr_to_vec2&) = delete;
+    unique_ptr_to_vec2(const unique_ptr_to_vec2 &) = delete;
+    unique_ptr_to_vec2& operator=(const unique_ptr_to_vec2& ) = delete;
 
     // Move constructor and assignment
-    unique_ptr_to_vec2(unique_ptr_to_vec2&& from);
+    unique_ptr_to_vec2(unique_ptr_to_vec2 &&from);
+    unique_ptr_to_vec2& operator=(unique_ptr_to_vec2 &&from);
 
     ~unique_ptr_to_vec2();
 
