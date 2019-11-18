@@ -43,8 +43,6 @@ void showUniquePtr() {
         std::cout << "Use move constructor" << std::endl;
         unique_ptr_to_vec2 ptrToVec2;
         unique_ptr_to_vec2 ptrToVec21(std::move(ptrToVec2));
-
-
     }
 
     printSeparatorLine();
@@ -52,6 +50,7 @@ void showUniquePtr() {
     {
         std::cout << "Use move assignment" << std::endl;
         unique_ptr_to_vec2 ptrToVec2;
+        ptrToVec2 = std::move(ptrToVec2);   // Does not do anything
         unique_ptr_to_vec2 ptrToVec21 = std::move(ptrToVec2);
     }
 

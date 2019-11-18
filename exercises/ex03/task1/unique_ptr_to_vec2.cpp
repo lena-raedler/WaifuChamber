@@ -24,6 +24,9 @@ unique_ptr_to_vec2::~unique_ptr_to_vec2() {
 }
 
 unique_ptr_to_vec2 &unique_ptr_to_vec2::operator=(unique_ptr_to_vec2 &&from) {
+    if (&from == this) {
+        return *this;
+    }
     std::cout << "Moving assign unique_ptr_to_vec2" << std::endl;
     vec2 = from.vec2;
     from.vec2 = nullptr;

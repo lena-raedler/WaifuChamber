@@ -43,6 +43,10 @@ shared_ptr_to_vec2::~shared_ptr_to_vec2() {
 }
 
 shared_ptr_to_vec2 &shared_ptr_to_vec2::operator=(const shared_ptr_to_vec2 &from) {
+    if (&from == this) {
+        return *this;
+    }
+
     std::cout << "Copy assign shared_ptr_to_vec2" << std::endl;
     vec2 = from.vec2;
     referenceCounter = from.referenceCounter;
@@ -50,11 +54,9 @@ shared_ptr_to_vec2 &shared_ptr_to_vec2::operator=(const shared_ptr_to_vec2 &from
     return *this;
 }
 
-
-/*
 shared_ptr_to_vec2 &shared_ptr_to_vec2::operator=(shared_ptr_to_vec2 &&from) {
     // Assigning a shared_ptr_to_vec2 to itself should do nothing.
-    if (this == &from) {
+    if (&from == this) {
         return *this;
     }
 
@@ -66,7 +68,7 @@ shared_ptr_to_vec2 &shared_ptr_to_vec2::operator=(shared_ptr_to_vec2 &&from) {
 
     return *this;
 }
- */
+
 
 Vec2& shared_ptr_to_vec2::operator*() {
     return *vec2;
