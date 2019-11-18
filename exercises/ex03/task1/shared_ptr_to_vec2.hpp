@@ -21,9 +21,11 @@ public:
     Vec2& operator*();
     Vec2* operator->();
 
+    ReferenceCounter* referenceCounter;
+
 private:
     Vec2* vec2;
-    ReferenceCounter* referenceCounter;
+
 };
 
 

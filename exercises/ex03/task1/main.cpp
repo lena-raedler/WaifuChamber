@@ -112,8 +112,16 @@ void showSharedPtr() {
     {
         std::cout << "Use copy assignment" << std::endl;
         shared_ptr_to_vec2 ptrToVec2;
+        std::cout << "Reference count: " << ptrToVec2.referenceCounter->count << "\n\n";
+
+        std::cout << "Assign shared_ptr_to_vec2 to itself" << std::endl;
         ptrToVec2 = ptrToVec2;
+        std::cout << "Reference count: " << ptrToVec2.referenceCounter->count << "\n\n";
+
+        std::cout << "Copy shared_ptr to another ptr" << std::endl;
         shared_ptr_to_vec2 ptrToVec21 = ptrToVec2;
+        std::cout << "Reference count: " << ptrToVec21.referenceCounter->count << std::endl;
+
     }
 
     printSeparatorLine();
@@ -129,8 +137,17 @@ void showSharedPtr() {
     {
         std::cout << "Use move assignment" << std::endl;
         shared_ptr_to_vec2 ptrToVec2;
-        ptrToVec2 = ptrToVec2;
+        std::cout << "Reference count: " << ptrToVec2.referenceCounter->count << "\n\n";
+
+        std::cout << "Assign shared_ptr_to_vec2 to itself" << std::endl;
+        ptrToVec2 = std::move(ptrToVec2);
+        std::cout << "Reference count: " << ptrToVec2.referenceCounter->count << "\n\n";
+
+        std::cout << "Move shared_ptr to another ptr" << std::endl;
         shared_ptr_to_vec2 ptrToVec21 = std::move(ptrToVec2);
+        std::cout << "Reference count: " << ptrToVec21.referenceCounter->count << std::endl;
+
+
 
         // Bug ahead! Frees less than it allocates!
         //std::cout << "Use move assignment" << std::endl;
@@ -138,6 +155,8 @@ void showSharedPtr() {
         //shared_ptr_to_vec2 ptrToVec21;
         //ptrToVec2 = ptrToVec21;
     }
+
+    printSeparatorLine();
 
     {
         std::cout << "Access shared_ptr_to_vec2 via *" << std::endl;
