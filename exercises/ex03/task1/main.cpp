@@ -14,7 +14,7 @@ void printSeparatorLine();
 
 int main() {
     std::cout << "_.-~*° Show unique_ptr_to_vec2 °*~-._" << std::endl;
-    //showUniquePtr();
+    showUniquePtr();
 
     std::cout << "\n##################################################################\n\n";
 
@@ -28,7 +28,7 @@ void showUniquePtr() {
         unique_ptr_to_vec2 ptrToVec2;
 
         // Moving(?), the move constructor does not get printed though :thinking:
-        unique_ptr_to_vec2 ptrToVec21 = unique_ptr_to_vec2();
+        //unique_ptr_to_vec2 ptrToVec21 = unique_ptr_to_vec2();
     }
 
     printSeparatorLine();
@@ -38,7 +38,7 @@ void showUniquePtr() {
         unique_ptr_to_vec2 ptrToVec2;
         unique_ptr_to_vec2 ptrToVec21(std::move(ptrToVec2));
 
-        // Use move assignment (still buggy)
+        // Use move assignment (still buggy), should move with assignment.
         unique_ptr_to_vec2 ptrToVec22;
         unique_ptr_to_vec2 ptrToVec23 = std::move(ptrToVec22);
     }
@@ -118,6 +118,34 @@ void showSharedPtr() {
         //shared_ptr_to_vec2 ptrToVec2;
         //shared_ptr_to_vec2 ptrToVec21;
         //ptrToVec2 = ptrToVec21;
+    }
+
+    {
+        std::cout << "Access shared_ptr_to_vec2 via *" << std::endl;
+        unique_ptr_to_vec2 ptrToVec2;
+        std::cout << "(*shared_ptr_to_vec2).x = " << (*ptrToVec2).x << std::endl;
+        std::cout << "(*shared_ptr_to_vec2).y = " << (*ptrToVec2).y << std::endl;
+
+        std::cout << "\nChange values to x = -1, y = -3" << std::endl;
+        (*ptrToVec2).x = -1;
+        (*ptrToVec2).y = -3;
+        std::cout << "(*shared_ptr_to_vec2).x = " << (*ptrToVec2).x << std::endl;
+        std::cout << "(*shared_ptr_to_vec2).y = " << (*ptrToVec2).y << std::endl;
+    }
+
+    printSeparatorLine();
+
+    {
+        std::cout << "Access shared_ptr_to_vec2 via ->" << std::endl;
+        unique_ptr_to_vec2 ptrToVec2;
+        std::cout << "shared_ptr_to_vec2->x = " << ptrToVec2->x << std::endl;
+        std::cout << "shared_ptr_to_vec2->y = " << ptrToVec2->y << std::endl;
+
+        std::cout << "\nChange values to x = 11, y = 7" << std::endl;
+        ptrToVec2->x = 11;
+        ptrToVec2->y = 7;
+        std::cout << "shared_ptr_to_vec2->x = " << ptrToVec2->x << std::endl;
+        std::cout << "shared_ptr_to_vec2->y = " << ptrToVec2->y << std::endl;
     }
 }
 

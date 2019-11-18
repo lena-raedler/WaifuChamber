@@ -70,3 +70,11 @@ shared_ptr_to_vec2 &shared_ptr_to_vec2::operator=(shared_ptr_to_vec2 &&from) {
     return *this;
 }
  */
+
+Vec2& shared_ptr_to_vec2::operator*() {
+    return *vec2;
+}
+
+Vec2* shared_ptr_to_vec2::operator->() {
+    return vec2;
+}

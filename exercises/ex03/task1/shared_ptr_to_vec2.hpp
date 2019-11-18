@@ -18,6 +18,9 @@ public:
     //shared_ptr_to_vec2 &operator=(shared_ptr_to_vec2 &&from);
     ~shared_ptr_to_vec2();
 
+    Vec2& operator*();
+    Vec2* operator->();
+
 private:
     Vec2* vec2;
     ReferenceCounter* referenceCounter;
