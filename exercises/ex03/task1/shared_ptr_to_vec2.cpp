@@ -35,11 +35,15 @@ shared_ptr_to_vec2::shared_ptr_to_vec2(shared_ptr_to_vec2 &&from) {
 
 shared_ptr_to_vec2::~shared_ptr_to_vec2() {
     // vec2 == nullptr is an indication that that instance has been moved!
-    if (referenceCounter && --(referenceCounter->count) <= 0 && vec2) {
+    if (referenceCounter && --(referenceCounter->count) <= 0) {
         delete referenceCounter;
         delete vec2;
     }
     std::cout << "shared_ptr_to_vec2#" << this << " destroyed" << std::endl;
+}
+
+int shared_ptr_to_vec2::count() const{
+    return referenceCounter->count;
 }
 
 shared_ptr_to_vec2 &shared_ptr_to_vec2::operator=(const shared_ptr_to_vec2 &from) {
