@@ -3,7 +3,7 @@
  */
 public class manager {
     public static void main(String[] args) {
-        Room room = new Room(1, 5);
+        Room room = new Room(1, 3);
 
         Person person1 = new Person("Cindy", "LN", 23);
         Person person2 = new Person("Mandy", "LN", 23);
@@ -17,8 +17,8 @@ public class manager {
 
         room.getPeopleQuantity();
         room.checkPerson(person2);
-        room.exit(person2);
-        room.checkPerson(person2);
+        room.exit(person4);
+        room.exit(person3);
         room.listAllPeople();
     }
 }

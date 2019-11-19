@@ -24,7 +24,14 @@ public class Room {
     }
 
     public void exit(Person person) {
-        people.remove(person);
+        if(isInside(person)) {
+            people.remove(person);
+         }
+         else {
+            System.out.print("Could not remove ");
+            person.print();
+            System.out.println(".");
+         }
     }
 
     public void getPeopleQuantity() {
