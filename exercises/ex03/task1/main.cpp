@@ -14,7 +14,7 @@ void printSeparatorLine();
 
 int main() {
     std::cout << "_.-~*° Show unique_ptr_to_vec2 °*~-._" << std::endl;
-    showUniquePtr();
+    //showUniquePtr();
 
     std::cout << "\n##################################################################\n\n";
 
@@ -27,7 +27,7 @@ void showUniquePtr() {
         std::cout << "Use default constructor" << std::endl;
         unique_ptr_to_vec2 ptrToVec2;
 
-        // Moving(?), the move constructor does not get printed though :thinking:
+        // Moving(?), the move constructor does not get printed though
         //unique_ptr_to_vec2 ptrToVec21 = unique_ptr_to_vec2();
     }
 
@@ -147,13 +147,11 @@ void showSharedPtr() {
         shared_ptr_to_vec2 ptrToVec21 = std::move(ptrToVec2);
         std::cout << "Reference count: " << ptrToVec21.referenceCounter->count << std::endl;
 
-
-
         // Bug ahead! Frees less than it allocates!
-        //std::cout << "Use move assignment" << std::endl;
-        //shared_ptr_to_vec2 ptrToVec2;
-        //shared_ptr_to_vec2 ptrToVec21;
-        //ptrToVec2 = ptrToVec21;
+        //std::cout << "Use copy assignment" << std::endl;
+        //shared_ptr_to_vec2 ptrToVec22;
+        //shared_ptr_to_vec2 ptrToVec23;
+        //ptrToVec22 = ptrToVec23;
     }
 
     printSeparatorLine();
