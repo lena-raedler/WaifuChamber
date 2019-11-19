@@ -15,7 +15,7 @@ public class Room {
     }
 
     public boolean enter(Person person) {
-        if(people.size() < limit) {
+        if(people.size() < limit && !isInside(person)) {
             people.add(person);
             return true;
         } else {

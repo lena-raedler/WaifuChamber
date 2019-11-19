@@ -14,7 +14,7 @@ void printSeparatorLine();
 
 int main() {
     std::cout << "_.-~*° Show unique_ptr_to_vec2 °*~-._" << std::endl;
-    //showUniquePtr();
+    showUniquePtr();
 
     std::cout << "\n##################################################################\n\n";
 
@@ -26,10 +26,9 @@ void showUniquePtr() {
     {
         std::cout << "Use default constructor" << std::endl;
         unique_ptr_to_vec2 ptrToVec2;
-
-        // Moving(?), the move constructor does not get printed though
-        //unique_ptr_to_vec2 ptrToVec21 = unique_ptr_to_vec2();
     }
+
+    printSeparatorLine();
 
     {   // Does not work, we are not allowed to copy construct!
         //std::cout << "Use copy constructor" << std::endl;
@@ -37,7 +36,7 @@ void showUniquePtr() {
         //unique_ptr_to_vec2 ptrToVec21(ptrToVec2);
     }
 
-    printSeparatorLine();
+    //printSeparatorLine();
 
     {
         std::cout << "Use move constructor" << std::endl;
