@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 #include "../../utils/renderer.h"
-#include "../../utils/vec2.h"
+#include "../../utils/Vec2.h"
 #include <utility>
 
 
@@ -19,7 +19,7 @@ public:
     ~Player();
     void render(Renderer& renderer);
     std::string getTextureLocation();
-    vec2 position;
+    Vec2<double> position;
     void updatePlayerPosition(double x, double y);
     int jumps;
     void jump();
