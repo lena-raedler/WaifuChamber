@@ -5,7 +5,7 @@
 #include "game.h"
 
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include <string>
@@ -30,6 +30,11 @@ Game::Game() {
     // load texture
     surface = IMG_Load(player.getTextureLocation().c_str());
     if(!surface) {
+        std::string survey_fname;
+        std::string dir(__FILE__);
+        dir = dir.substr(0, dir.find_last_of("\\/"));
+        std::cout << "ERROR: File " << player.getTextureLocation() << " could not be loaded!" << std::endl;
+        std::cout << "PWD: " << dir << std::endl;
         throw std::runtime_error("Could not create surface");
     }
     texture = renderer->createTextureFromSurface(surface);
@@ -41,10 +46,10 @@ Game::Game() {
     left = false;
     right = false;
     isFalling = false;
-    playerPosition = player.getPlayerPosition();
+    playerPosition = player.position;
     //create rectangle to load the texture onto
-    rectangle.x = playerPosition.first;
-    rectangle.y = playerPosition.second;
+    rectangle.x = playerPosition.x;
+    rectangle.y = playerPosition.y;
     rectangle.w = surface->w;
     rectangle.h = surface->h;
 }
@@ -119,7 +124,7 @@ void Game::processInput() {
                     break;
                 }
                 jump--;
-                playerPosition.second--;
+                playerPosition.y--;
                 isFalling = true;
             } else if(jump <= 0 && isFalling) {
                 jump = 0;
@@ -127,26 +132,26 @@ void Game::processInput() {
                 up = false;
             } else {
                 jump++;
-                playerPosition.second++;
+                playerPosition.y++;
             }
-            std::cerr << playerPosition.second << std::endl;
+            std::cerr << playerPosition.y << std::endl;
         }
 
         // update the player position
-        playerPosition.first += x_velocity / 60;
-        player.updatePlayerPosition(playerPosition.first, playerPosition.second);
+        playerPosition.x += x_velocity / 60;
+        player.updatePlayerPosition(playerPosition.x, playerPosition.y);
 
         // update rectangle from player position
-        rectangle.x = playerPosition.first;
-        rectangle.y = playerPosition.second;
+        rectangle.x = playerPosition.x;
+        rectangle.y = playerPosition.y;
 
 
         // TODO: add suitable collision detection -> this is just basic
         // collision detection with bounds
-        if (playerPosition.first <= 0) playerPosition.first = 0;
-        if (playerPosition.second <= 0) playerPosition.second = 0;
-        if (playerPosition.first >= screenWidth - rectangle.w) playerPosition.first = screenWidth - rectangle.w;
-        if (playerPosition.second >= screenHeight - rectangle.h) playerPosition.second = screenHeight - rectangle.h;
+        if (playerPosition.x <= 0) playerPosition.x = 0;
+        if (playerPosition.y <= 0) playerPosition.y = 0;
+        if (playerPosition.x >= screenWidth - rectangle.w) playerPosition.x = screenWidth - rectangle.w;
+        if (playerPosition.y >= screenHeight - rectangle.h) playerPosition.y = screenHeight - rectangle.h;
 
 
     }

@@ -9,6 +9,7 @@
 #include "SDL2/SDL_image.h"
 #include <string>
 #include <memory>
+#include "utils/vec2.h"
 #include "utils/renderer.h"
 #include "entities/player/player.h"
 #include <utility>
@@ -36,7 +37,7 @@ private:
     bool up;
     bool isFalling;
     const int speed = 300;
-    std::pair<int, int> playerPosition;
+    vec2 playerPosition;
     int screenHeight = 480;
     int screenWidth = 640;
     const int jumpHeight = 10;

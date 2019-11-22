@@ -9,8 +9,8 @@
 #include <utility>
 
 Player::Player() {
-    x_position = 50;
-    y_position = 50;
+    position.x = 50;
+    position.y = 50;
     textureLocation = "files/textures/test_player.png";
 }
 
@@ -26,12 +26,7 @@ std::string Player::getTextureLocation() {
     return textureLocation;
 }
 
-std::pair<int, int> Player::getPlayerPosition() {
-    auto position = std::make_pair(x_position, y_position);
-    return position;
-}
-
-void Player::updatePlayerPosition(int x, int y) {
-    x_position = x;
-    y_position = y;
+void Player::updatePlayerPosition(double x, double y) {
+    position.x = x;
+    position.y = y;
 }

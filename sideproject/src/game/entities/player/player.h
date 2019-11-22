@@ -7,7 +7,9 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include "../../utils/renderer.h"
+#include "../../utils/vec2.h"
 #include <utility>
 
 
@@ -17,15 +19,18 @@ public:
     ~Player();
     void render(Renderer& renderer);
     std::string getTextureLocation();
-    std::pair<int, int> getPlayerPosition();
-    void updatePlayerPosition(int x, int y);
+    vec2 position;
+    void updatePlayerPosition(double x, double y);
+    int jumps;
+    void jump();
+    void moveLeft();
+    void moveRight();
+    //std::vector<statuseffect> statusEffects; TODO: implement status effects
 
 
 
 private:
     std::string textureLocation;
-    int x_position;
-    int y_position;
 
 
 };
