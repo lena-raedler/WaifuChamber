@@ -72,13 +72,32 @@ int Game::loop() {
 }
 
 vec_t Game::determineInput(){
+    vec_t out;
     while(SDL_PollEvent(&e) != 0){
-
+        switch(e.type) {
+            case SDL_QUIT:
+                quit = true;
+                break;
+            case SDL_KEYDOWN:
+                switch (e.key.keysym.scancode) {
+                    case SDL_SCANCODE_A:
+                        out.x = 1;
+                        break;
+                    case SDL_SCANCODE_D:
+                        out.x = -1;
+                        break;
+                    case SDL_SCANCODE_W:
+                        out.y = 10;
+                        break;
+                    default:
+                        break;
+                }
+        }
     }
-    return{0, 0};
+    return{out.x, out.y};
 }
 
-void Game::processInput() {
+void Game::processInput(){
     while(SDL_PollEvent(&e) != 0) {
         switch(e.type) {
             case SDL_QUIT:

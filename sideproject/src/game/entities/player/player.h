@@ -11,26 +11,29 @@
 #include "../../utils/renderer.h"
 #include "../../utils/Vec2.h"
 #include <utility>
+#include "Movable.h"
 
-
-class Player {
+struct attributes{
+    int str;
+    int dex;
+    int agi;
+    int bluedex;// (intelligence)
+    int con;
+};
+class Player : public Movable {
 public:
     Player();
     ~Player();
-    const void render(Renderer& renderer);
-    const std::string getTextureLocation();
-    vec_t position;
-    vec_t velocity;
+
     void updatePlayerPosition(double x, double y);
     int jumps;
     void jump();
-    void move(double delta);
+
     //std::vector<statuseffect> statusEffects; TODO: implement status effects
 
 
 
-private:
-    std::string textureLocation;
+
 
 
 };

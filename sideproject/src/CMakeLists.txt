@@ -11,6 +11,6 @@ PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 
-add_executable(waifu main.cpp game/game.cpp game/entities/player/player.cpp game/utils/renderer.cpp)
+add_executable(waifu main.cpp game/game.cpp game/entities/player/player.cpp game/utils/renderer.cpp game/entities/player/Movable.cpp)
 
 target_link_libraries(waifu ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES})

@@ -7,7 +7,7 @@
 #ifndef WAIFU_VEC2_H
 #define WAIFU_VEC2_H
 
-
+using value_t = double;
 template<typename T>
 struct Vec2 {
     T x;
@@ -47,11 +47,11 @@ struct Vec2 {
     Vec2 operator*(const T& scalar) const { return {x * scalar, y * scalar}; }
     Vec2 operator/(const T& scalar) const { return {x / scalar, y / scalar}; }
     bool operator==(const Vec2& rhs) const { return (x == rhs.x && y == rhs.y); }
-    double distance(){
+    value_t length(){
         return std::sqrt(x*x + y*y);
     }
 };
-using value_t = double;
+
 using vec_t = Vec2<value_t>;
 
 #endif //WAIFU_VEC2_H
