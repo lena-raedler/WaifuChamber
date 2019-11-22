@@ -24,6 +24,7 @@ public:
 private:
     void render();
     void processInput();
+    vec_t determineInput();
     SDL_Window* window;
     SDL_Texture* texture;
     SDL_Event e;
@@ -37,7 +38,7 @@ private:
     bool up;
     bool isFalling;
     const int speed = 300;
-    Vec2<double> playerPosition;
+    vec_t playerPosition;
     int screenHeight = 480;
     int screenWidth = 640;
     const int jumpHeight = 10;

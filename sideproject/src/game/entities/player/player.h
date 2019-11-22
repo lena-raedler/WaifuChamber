@@ -17,14 +17,14 @@ class Player {
 public:
     Player();
     ~Player();
-    void render(Renderer& renderer);
-    std::string getTextureLocation();
-    Vec2<double> position;
+    const void render(Renderer& renderer);
+    const std::string getTextureLocation();
+    vec_t position;
+    vec_t velocity;
     void updatePlayerPosition(double x, double y);
     int jumps;
     void jump();
-    void moveLeft();
-    void moveRight();
+    void move(double delta);
     //std::vector<statuseffect> statusEffects; TODO: implement status effects
 
 

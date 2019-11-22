@@ -18,15 +18,19 @@ Player::~Player() {
 
 }
 
-void Player::render(Renderer &renderer) {
+const void Player::render(Renderer &renderer) {
     //do something
 }
 
-std::string Player::getTextureLocation() {
+const std::string Player::getTextureLocation() {
     return textureLocation;
 }
 
 void Player::updatePlayerPosition(double x, double y) {
     position.x = x;
     position.y = y;
+}
+
+void Player::move(double delta){
+    position += velocity * delta;
 }

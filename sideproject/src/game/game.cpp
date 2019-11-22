@@ -71,6 +71,13 @@ int Game::loop() {
     return 0;
 }
 
+vec_t Game::determineInput(){
+    while(SDL_PollEvent(&e) != 0){
+
+    }
+    return{0, 0};
+}
+
 void Game::processInput() {
     while(SDL_PollEvent(&e) != 0) {
         switch(e.type) {
