@@ -16,17 +16,25 @@ struct Person {
     int age;
 
 
-// override ==
+    // override ==
+    bool operator==(Person& p){
+        std::cout << "equality using ==" << std::endl;
+        return (!first_name.compare(p.first_name) && !last_name.compare(p.last_name) && age == p.age);
+    }
 
-// override !=
+    // override !=
+    bool operator!=(Person& p) {
+        std::cout << "equality using !=" << std::endl;
+        return (first_name.compare(p.first_name) && last_name.compare(p.last_name) && age != p.age);
+    }
 
-//override <=
+    //override <=
 
-//override <
+    //override <
 
-// override >=
+    // override >=
 
-//override >
+    //override >
 
 
 
