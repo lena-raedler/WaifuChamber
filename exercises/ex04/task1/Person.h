@@ -17,27 +17,40 @@ struct Person {
 
 
     // override ==
-    bool operator==(Person& p){
+    bool operator==(const Person& p) const {
         std::cout << "equality using ==" << std::endl;
         return (!first_name.compare(p.first_name) && !last_name.compare(p.last_name) && age == p.age);
     }
 
     // override !=
-    bool operator!=(Person& p) {
+    bool operator!=(const Person& p) const {
         std::cout << "equality using !=" << std::endl;
         return (first_name.compare(p.first_name) && last_name.compare(p.last_name) && age != p.age);
     }
 
-    //override <=
-
     //override <
-
-    // override >=
+    bool operator<(const Person& p) const {
+        std::cout << "relation using <" << std::endl;
+        return (first_name.compare(p.first_name) && last_name.compare(p.last_name) && age < p.age);
+    }
 
     //override >
+    bool operator >(const Person& p) const {
+        std::cout << "relation using >" << std::endl;
+        return (first_name.compare(p.first_name) && last_name.compare(p.last_name) && age > p.age);
+    }
 
+    //override <=
+    bool operator<=(const Person& p) const {
+        std::cout << "relation using <=" << std::endl;
+        return !(!first_name.compare(p.first_name) && !last_name.compare(p.last_name) && age < p.age || age == p.age);
+    }
 
-
+    // override >=
+    bool operator >=(const Person& p) const {
+        std::cout << "relation using >=" << std::endl;
+        return (!first_name.compare(p.first_name) && !last_name.compare(p.last_name) && age > p.age || age == p.age);
+    }
 };
 
 // implement function to_string for Person based on to_string for simple types
