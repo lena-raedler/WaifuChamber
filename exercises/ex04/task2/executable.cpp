@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "foo.hpp"
+#include <dlfcn.h>
 
 int main()
 {
