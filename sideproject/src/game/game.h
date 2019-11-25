@@ -23,8 +23,8 @@ public:
 
 private:
     void render();
-    void processInput();
-    vec_t determineInput();
+    void processInput(double delta);
+    vec_t determineInput(double delta);
     SDL_Window* window;
     SDL_Texture* texture;
     SDL_Event e;

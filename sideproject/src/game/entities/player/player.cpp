@@ -25,4 +25,20 @@ void Player::updatePlayerPosition(double x, double y) {
     position.y = y;
 }
 
-
+void Player::upkeep(double delta){
+    move(delta);
+    if (position.y < 51){
+        jumps = 2;
+    }
+}
+void Player::jump(){
+    jumps--;
+    //do other stuff related to jumoing (moving is currently done in game change that jank shit later)
+}
+bool Player::canJump(){
+    std::cout << "YOU FOOL" << std::endl;
+    if(jumps > 0 && true /*TODO CD on jump*/){
+        return true;
+    }
+    return false;
+}

@@ -3,6 +3,7 @@
 //
 
 #include <cmath>
+#include <iostream>
 
 #ifndef WAIFU_VEC2_H
 #define WAIFU_VEC2_H
@@ -47,6 +48,10 @@ struct Vec2 {
     Vec2 operator*(const T& scalar) const { return {x * scalar, y * scalar}; }
     Vec2 operator/(const T& scalar) const { return {x / scalar, y / scalar}; }
     bool operator==(const Vec2& rhs) const { return (x == rhs.x && y == rhs.y); }
+    friend std::ostream& operator <<(std::ostream& os, const Vec2 vec2){
+        os << "( " << vec2.x << ", " << vec2.y << " )";
+        return os;
+    }
     value_t length(){
         return std::sqrt(x*x + y*y);
     }

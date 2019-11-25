@@ -28,6 +28,8 @@ public:
     void updatePlayerPosition(double x, double y);
     int jumps;
     void jump();
+    bool canJump();
+    void upkeep(double delta);//call this every frame
 
     //std::vector<statuseffect> statusEffects; TODO: implement status effects
 

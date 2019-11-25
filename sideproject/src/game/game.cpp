@@ -48,10 +48,12 @@ Game::Game() {
     isFalling = false;
     playerPosition = player.position;
     //create rectangle to load the texture onto
+
     rectangle.x = playerPosition.x;
     rectangle.y = playerPosition.y;
     rectangle.w = surface->w;
     rectangle.h = surface->h;
+    player.rec = std::make_unique<SDL_Rect>(rectangle);
 }
 
 Game::~Game() {
@@ -64,40 +66,81 @@ Game::~Game() {
 }
 
 int Game::loop() {
+    unsigned long long now = SDL_GetPerformanceCounter();
+    unsigned long long last = 0;
+    double deltaTime = 0;
     while(!quit) {
-        processInput();
+        last = now;
+        now = SDL_GetPerformanceCounter();
+        deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
+        //processInput(deltaTime);
+        auto move = determineInput(1);
+        player.velocity = move;
+        player.move(deltaTime);
         render();
     }
     return 0;
 }
 
-vec_t Game::determineInput(){
-    vec_t out;
-    while(SDL_PollEvent(&e) != 0){
+vec_t Game::determineInput(double delta){
+    vec_t out{0, 0};
+    while(SDL_PollEvent(&e) != 0) {
         switch(e.type) {
             case SDL_QUIT:
                 quit = true;
                 break;
             case SDL_KEYDOWN:
-                switch (e.key.keysym.scancode) {
+                switch(e.key.keysym.scancode) {
                     case SDL_SCANCODE_A:
-                        out.x = 1;
+                        left = true;
                         break;
                     case SDL_SCANCODE_D:
-                        out.x = -1;
+                        right = true;
                         break;
                     case SDL_SCANCODE_W:
-                        out.y = 10;
+                        std::cout << "we goin up" << std::endl;
+                        up = true;
                         break;
                     default:
                         break;
                 }
+                break;
+
+            case SDL_KEYUP:
+                switch(e.key.keysym.scancode) {
+                    case SDL_SCANCODE_A:
+                        left = false;
+                        break;
+                    case SDL_SCANCODE_D:
+                        right = false;
+                        break;
+                    case SDL_SCANCODE_W:
+                        up = false;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+        }
+
+        // check which buttons were pressed
+        if(left) {
+            out.x = -10;}
+        if(right) {
+            out.x = 10;}
+        if(up){
+            if(player.canJump()){
+                player.jump();
+                out.y = -1000;
+                up = false;
+            }
         }
     }
+
     return{out.x, out.y};
 }
 
-void Game::processInput(){
+void Game::processInput(double delta){
     while(SDL_PollEvent(&e) != 0) {
         switch(e.type) {
             case SDL_QUIT:
@@ -164,7 +207,7 @@ void Game::processInput(){
         }
 
         // update the player position
-        playerPosition.x += x_velocity / 60;
+        playerPosition.x += x_velocity * delta /60;
         player.updatePlayerPosition(playerPosition.x, playerPosition.y);
 
         // update rectangle from player position
@@ -187,6 +230,6 @@ void Game::processInput(){
 
 void Game::render() {
     renderer->clear();
-    renderer->renderTexture(texture, nullptr, &rectangle);
+    renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->render();
 }
