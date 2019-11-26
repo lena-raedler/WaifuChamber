@@ -22,11 +22,14 @@ namespace foo {
         std::cout << "Your ad could be printed here!" << std::endl;
 
         // create a symbol for the function call
-        void* symbol = dlsym(RTLD_NEXT, "_ZN3foo12just_a_printEv");
+        void* handle = dlopen("libfoo.so", RTLD_LAZY);
+        void* symbol = dlsym(handle, "_ZN3foo12just_a_printEv");
         // add the symbol to the function pointer
         another_print = (void (*)())symbol;
         // simulate function call
         another_print();
+
+        dlclose(handle);
         std::cout << "Your ad space ends here!" << std::endl;
     }
 }
