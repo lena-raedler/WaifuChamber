@@ -23,6 +23,10 @@ namespace foo {
 
         // create a symbol for the function call
         void* handle = dlopen("libfoo.so", RTLD_LAZY);
+
+        if (!handle)
+            return;
+
         void* symbol = dlsym(handle, "_ZN3foo12just_a_printEv");
         // add the symbol to the function pointer
         another_print = (void (*)())symbol;
