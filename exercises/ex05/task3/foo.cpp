@@ -15,7 +15,7 @@ public:
         std::cout << "deconstructing Foo plugin" << std::endl;
     }
 
-    extern "C" <std::unique_ptr<Plugin> createPlugin() {
+    extern "C" std::unique_ptr<Plugin> createPlugin() {
         std::cout << "creating Foo plugin" << std::endl;
         return std::make_unique(Foo);
     }

@@ -3,7 +3,6 @@
 //
 
 #include <iostream>
-
 #include "plugin.hpp"
 
 class Bar : public Plugin {
@@ -15,8 +14,10 @@ public:
         std::cout << "deconstructing Bar plugin" << std::endl;
     }
 
-    extern "C" <std::unique_ptr<Plugin> createPlugin() {
+    extern "C" {
+    std::unique_ptr<Plugin> createPlugin() {
         std::cout << "creating Bar plugin" << std::endl;
         return std::make_unique(Bar);
+    }
     }
 };
