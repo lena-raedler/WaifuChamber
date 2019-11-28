@@ -10,14 +10,15 @@ public:
     void run() {
         std::cout << "running Bar plugin" << std::endl;
     }
+
     ~Bar() {
         std::cout << "deconstructing Bar plugin" << std::endl;
     }
-
-    extern "C" {
-    std::unique_ptr<Plugin> createPlugin() {
-        std::cout << "creating Bar plugin" << std::endl;
-        return std::make_unique(Bar);
-    }
-    }
 };
+
+extern "C" {
+    std::unique_ptr<Plugin> create_plugin() {
+        std::cout << "creating Bar plugin" << std::endl;
+        return std::make_unique<Bar>();
+    }
+}

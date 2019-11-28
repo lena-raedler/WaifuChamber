@@ -11,12 +11,12 @@ public:
     void run() {
         std::cout << "running Foo plugin" << std::endl;
     }
-    ~Bar() {
+    ~Foo() {
         std::cout << "deconstructing Foo plugin" << std::endl;
     }
-
-    extern "C" std::unique_ptr<Plugin> createPlugin() {
-        std::cout << "creating Foo plugin" << std::endl;
-        return std::make_unique(Foo);
-    }
 };
+
+extern "C" std::unique_ptr<Plugin> create_plugin() {
+    std::cout << "creating Foo plugin" << std::endl;
+    return std::make_unique<Foo>();
+}
