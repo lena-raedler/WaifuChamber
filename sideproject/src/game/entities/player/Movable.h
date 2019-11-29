@@ -27,7 +27,8 @@ public:
     const std::string getTextureLocation();
     std::unique_ptr<SDL_Rect> rec;
     vec_t position;
-    vec_t velocity;
+    vec_t velocity {0, 0};
+    bool isFalling;
     GravityType gravityType;
     void move(double delta);
     std::string textureLocation;

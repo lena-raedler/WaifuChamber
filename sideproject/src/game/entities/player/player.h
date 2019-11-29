@@ -12,6 +12,10 @@
 #include "../../utils/Vec2.h"
 #include <utility>
 #include "Movable.h"
+#include <iostream>
+#include <chrono>
+#include <string>
+#include <utility>
 
 struct attributes{
     int str;
@@ -26,7 +30,9 @@ public:
     ~Player();
 
     void updatePlayerPosition(double x, double y);
-    int jumps;
+    int jumps = 2;
+    std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
+
     void jump();
     bool canJump();
     void upkeep(double delta);//call this every frame

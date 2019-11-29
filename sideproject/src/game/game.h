@@ -12,6 +12,7 @@
 #include "utils/Vec2.h"
 #include "utils/renderer.h"
 #include "entities/player/player.h"
+#include "utils/InputManager.h"
 #include <utility>
 
 
@@ -22,6 +23,7 @@ public:
     int loop();
 
 private:
+    InputManager inputManager;
     void render();
     void processInput(double delta);
     vec_t determineInput(double delta);
@@ -37,7 +39,7 @@ private:
     bool right;
     bool up;
     bool isFalling;
-    const int speed = 300;
+    const int speed = 10;
     vec_t playerPosition;
     int screenHeight = 480;
     int screenWidth = 640;

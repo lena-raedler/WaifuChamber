@@ -3,10 +3,7 @@
 //
 
 #include "player.h"
-#include "../../utils/renderer.h"
-#include <iostream>
-#include <string>
-#include <utility>
+
 
 Player::Player() {
     position.x = 50;
@@ -27,17 +24,30 @@ void Player::updatePlayerPosition(double x, double y) {
 
 void Player::upkeep(double delta){
     move(delta);
-    if (position.y < 51){
+    if (position.y > 199){
+        if (jumps != 2) {
+            std::cout << "Jumps reset!" << std::endl;
+        }
         jumps = 2;
+
+        isFalling = false;
+    } else{
+        isFalling = true;
     }
 }
 void Player::jump(){
     jumps--;
+    std::cout << "Jumping, Jumps left: " << jumps << std::endl;
+    lastJump = std::chrono::high_resolution_clock::now();
     //do other stuff related to jumoing (moving is currently done in game change that jank shit later)
 }
 bool Player::canJump(){
-    std::cout << "YOU FOOL" << std::endl;
-    if(jumps > 0 && true /*TODO CD on jump*/){
+
+    auto time = std::chrono::high_resolution_clock::now();
+    auto timeSinceLastJump = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastJump);
+    //std::chrono::duration<double, std::milli> fp_ms = time - lastJump;
+
+    if(jumps > 0 && (timeSinceLastJump > std::chrono::milliseconds(1000)) /*TODO CD on jump*/){
         return true;
     }
     return false;

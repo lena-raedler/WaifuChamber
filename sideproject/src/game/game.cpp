@@ -54,6 +54,7 @@ Game::Game() {
     rectangle.w = surface->w;
     rectangle.h = surface->h;
     player.rec = std::make_unique<SDL_Rect>(rectangle);
+    inputManager.init();
 }
 
 Game::~Game() {
@@ -75,8 +76,11 @@ int Game::loop() {
         deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
         //processInput(deltaTime);
         auto move = determineInput(1);
-        player.velocity = move;
-        player.move(deltaTime);
+
+        player.velocity.x *= 0.5;
+        player.velocity += move;
+        player.velocity.x = std::clamp(player.velocity.x, -20.0, 20.0);
+        player.upkeep(deltaTime/100);
         render();
     }
     return 0;
@@ -84,56 +88,18 @@ int Game::loop() {
 
 vec_t Game::determineInput(double delta){
     vec_t out{0, 0};
-    while(SDL_PollEvent(&e) != 0) {
-        switch(e.type) {
-            case SDL_QUIT:
-                quit = true;
-                break;
-            case SDL_KEYDOWN:
-                switch(e.key.keysym.scancode) {
-                    case SDL_SCANCODE_A:
-                        left = true;
-                        break;
-                    case SDL_SCANCODE_D:
-                        right = true;
-                        break;
-                    case SDL_SCANCODE_W:
-                        std::cout << "we goin up" << std::endl;
-                        up = true;
-                        break;
-                    default:
-                        break;
-                }
-                break;
+    quit = !inputManager.update();
 
-            case SDL_KEYUP:
-                switch(e.key.keysym.scancode) {
-                    case SDL_SCANCODE_A:
-                        left = false;
-                        break;
-                    case SDL_SCANCODE_D:
-                        right = false;
-                        break;
-                    case SDL_SCANCODE_W:
-                        up = false;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-        }
-
-        // check which buttons were pressed
-        if(left) {
-            out.x = -10;}
-        if(right) {
-            out.x = 10;}
-        if(up){
-            if(player.canJump()){
-                player.jump();
-                out.y = -1000;
-                up = false;
-            }
+    // check which buttons were pressed
+    if(inputManager.isPressed(KEY_A)) {
+        out.x += -speed;}
+    if(inputManager.isPressed(KEY_D)) {
+        out.x += speed;}
+    if(inputManager.isPressed(KEY_W)) {
+        if (player.canJump()) {
+            player.jump();
+            out.y = -500;
+            up = false;
         }
     }
 

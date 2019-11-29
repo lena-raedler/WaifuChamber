@@ -11,14 +11,19 @@ const std::string Movable::getTextureLocation() {
     return textureLocation;
 }
 vec_t Movable::gravity(){
+    value_t grav;
     switch(gravityType){
         case NORMAL:
-            return{0, 1};
+            grav = isFalling ? 1 : 0;
+            break;
         default:
-            return{0, 0.1};
+            grav = isFalling ? 0.01 : 0;
+            break;
     }
+    return {0, grav};
 }
 void Movable::move(double delta){
+    velocity.y = std::clamp(velocity.y, -100.0, 10.0);
     velocity += gravity();
     position += velocity * delta;
     position.y = std::clamp(position.y, 0.0, 200.0); //jank platform
