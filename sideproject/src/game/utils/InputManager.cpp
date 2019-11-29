@@ -46,12 +46,12 @@ bool InputManager::update()
 bool InputManager::isPressed(KeyboardKey key)
 {
 
-    if (!(this->keyboard))
+    if (!(keyboard))
         return false;
 
     int sdl_key = static_cast<int>(key);
 
-    if (this->keyboard[sdl_key])
+    if (keyboard[sdl_key])
         return true;
 
     return false;
