@@ -75,7 +75,7 @@ int Game::loop() {
         now = SDL_GetPerformanceCounter();
         deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
         //processInput(deltaTime);
-        player.velocity.x *= 0.1;
+        player.velocity.x *= 0.8;
         auto move = determineInput(1);
 
 
