@@ -24,7 +24,7 @@ void Player::updatePlayerPosition(double x, double y) {
 
 void Player::upkeep(double delta){
     move(delta);
-    if (position.y > 199){
+    if (position.y > 199 && velocity.y >= 0){
         if (jumps != 2) {
             std::cout << "Jumps reset!" << std::endl;
         }
@@ -47,7 +47,7 @@ bool Player::canJump(){
     auto timeSinceLastJump = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastJump);
     //std::chrono::duration<double, std::milli> fp_ms = time - lastJump;
 
-    if(jumps > 0 && (timeSinceLastJump > std::chrono::milliseconds(1000)) /*TODO CD on jump*/){
+    if(jumps > 0 && (timeSinceLastJump > std::chrono::milliseconds(jumpCooldown)) /**/){
         return true;
     }
     return false;

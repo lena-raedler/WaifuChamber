@@ -31,6 +31,7 @@ public:
 
     void updatePlayerPosition(double x, double y);
     int jumps = 2;
+    int jumpCooldown = 500; //ms
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
 
     void jump();
