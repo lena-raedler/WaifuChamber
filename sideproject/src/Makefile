@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/bnorb/CLionProjects/WaifuChamber/sideproject/src
+CMAKE_SOURCE_DIR = /home/lena/Documents/cpp_exercises/WaifuChamber/sideproject/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/bnorb/CLionProjects/WaifuChamber/sideproject/src
+CMAKE_BINARY_DIR = /home/lena/Documents/cpp_exercises/WaifuChamber/sideproject/src
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bnorb/CLionProjects/WaifuChamber/sideproject/src/CMakeFiles /home/bnorb/CLionProjects/WaifuChamber/sideproject/src/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lena/Documents/cpp_exercises/WaifuChamber/sideproject/src/CMakeFiles /home/lena/Documents/cpp_exercises/WaifuChamber/sideproject/src/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bnorb/CLionProjects/WaifuChamber/sideproject/src/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lena/Documents/cpp_exercises/WaifuChamber/sideproject/src/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -162,6 +162,114 @@ libUtils/fast:
 	$(MAKE) -f game/utils/CMakeFiles/libUtils.dir/build.make game/utils/CMakeFiles/libUtils.dir/build
 .PHONY : libUtils/fast
 
+game/entities/player/Movable.o: game/entities/player/Movable.cpp.o
+
+.PHONY : game/entities/player/Movable.o
+
+# target to build an object file
+game/entities/player/Movable.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Movable.cpp.o
+.PHONY : game/entities/player/Movable.cpp.o
+
+game/entities/player/Movable.i: game/entities/player/Movable.cpp.i
+
+.PHONY : game/entities/player/Movable.i
+
+# target to preprocess a source file
+game/entities/player/Movable.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Movable.cpp.i
+.PHONY : game/entities/player/Movable.cpp.i
+
+game/entities/player/Movable.s: game/entities/player/Movable.cpp.s
+
+.PHONY : game/entities/player/Movable.s
+
+# target to generate assembly for a file
+game/entities/player/Movable.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Movable.cpp.s
+.PHONY : game/entities/player/Movable.cpp.s
+
+game/entities/player/player.o: game/entities/player/player.cpp.o
+
+.PHONY : game/entities/player/player.o
+
+# target to build an object file
+game/entities/player/player.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/player.cpp.o
+.PHONY : game/entities/player/player.cpp.o
+
+game/entities/player/player.i: game/entities/player/player.cpp.i
+
+.PHONY : game/entities/player/player.i
+
+# target to preprocess a source file
+game/entities/player/player.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/player.cpp.i
+.PHONY : game/entities/player/player.cpp.i
+
+game/entities/player/player.s: game/entities/player/player.cpp.s
+
+.PHONY : game/entities/player/player.s
+
+# target to generate assembly for a file
+game/entities/player/player.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/player.cpp.s
+.PHONY : game/entities/player/player.cpp.s
+
+game/game.o: game/game.cpp.o
+
+.PHONY : game/game.o
+
+# target to build an object file
+game/game.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/game.cpp.o
+.PHONY : game/game.cpp.o
+
+game/game.i: game/game.cpp.i
+
+.PHONY : game/game.i
+
+# target to preprocess a source file
+game/game.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/game.cpp.i
+.PHONY : game/game.cpp.i
+
+game/game.s: game/game.cpp.s
+
+.PHONY : game/game.s
+
+# target to generate assembly for a file
+game/game.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/game.cpp.s
+.PHONY : game/game.cpp.s
+
+game/utils/renderer.o: game/utils/renderer.cpp.o
+
+.PHONY : game/utils/renderer.o
+
+# target to build an object file
+game/utils/renderer.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/renderer.cpp.o
+.PHONY : game/utils/renderer.cpp.o
+
+game/utils/renderer.i: game/utils/renderer.cpp.i
+
+.PHONY : game/utils/renderer.i
+
+# target to preprocess a source file
+game/utils/renderer.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/renderer.cpp.i
+.PHONY : game/utils/renderer.cpp.i
+
+game/utils/renderer.s: game/utils/renderer.cpp.s
+
+.PHONY : game/utils/renderer.s
+
+# target to generate assembly for a file
+game/utils/renderer.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/renderer.cpp.s
+.PHONY : game/utils/renderer.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -201,6 +309,18 @@ help:
 	@echo "... libGame"
 	@echo "... libPlayer"
 	@echo "... libUtils"
+	@echo "... game/entities/player/Movable.o"
+	@echo "... game/entities/player/Movable.i"
+	@echo "... game/entities/player/Movable.s"
+	@echo "... game/entities/player/player.o"
+	@echo "... game/entities/player/player.i"
+	@echo "... game/entities/player/player.s"
+	@echo "... game/game.o"
+	@echo "... game/game.i"
+	@echo "... game/game.s"
+	@echo "... game/utils/renderer.o"
+	@echo "... game/utils/renderer.i"
+	@echo "... game/utils/renderer.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
