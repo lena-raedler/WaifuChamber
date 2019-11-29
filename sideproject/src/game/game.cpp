@@ -75,11 +75,12 @@ int Game::loop() {
         now = SDL_GetPerformanceCounter();
         deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
         //processInput(deltaTime);
+        player.velocity.x *= 0.1;
         auto move = determineInput(1);
 
-        player.velocity.x *= 0.5;
+
         player.velocity += move;
-        player.velocity.x = std::clamp(player.velocity.x, -20.0, 20.0);
+        player.velocity.x = std::clamp(player.velocity.x, -20.0, 20.0); //terminal velocities
         player.upkeep(deltaTime/100);
         render();
     }
@@ -98,8 +99,6 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_W)) {
         if (player.canJump()) {
             player.jump();
-            out.y = -500;
-            up = false;
         }
     }
 

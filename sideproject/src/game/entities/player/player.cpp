@@ -38,6 +38,11 @@ void Player::upkeep(double delta){
 void Player::jump(){
     jumps--;
     std::cout << "Jumping, Jumps left: " << jumps << std::endl;
+    if(velocity.y > 0){
+        velocity.y = jumpSpeed;
+    } else{
+        velocity.y += jumpSpeed;
+    }
     lastJump = std::chrono::high_resolution_clock::now();
     //do other stuff related to jumoing (moving is currently done in game change that jank shit later)
 }
