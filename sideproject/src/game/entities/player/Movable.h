@@ -26,6 +26,7 @@ public:
     const void render(Renderer& renderer);
     const std::string getTextureLocation();
     std::unique_ptr<SDL_Rect> rec;
+    double gravityConstant = 2;
     vec_t position;
     vec_t velocity {0, 0};
     bool isFalling;

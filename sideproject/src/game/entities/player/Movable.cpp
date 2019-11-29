@@ -14,17 +14,17 @@ vec_t Movable::gravity(){
     value_t grav;
     switch(gravityType){
         case NORMAL:
-            grav = isFalling ? 0.01 : 0;
+            grav = isFalling ? gravityConstant : 0;
             break;
         default:
-            grav = isFalling ? 0.01 : 0;
+            grav = isFalling ? gravityConstant : 0;
             break;
     }
-    return {0, grav*0.4};
+    return {0, grav};
 }
 void Movable::move(double delta){//this is jank TODO fix
     velocity.y = std::clamp(velocity.y, -5000.0, 50.0);
-    velocity += gravity();
+    velocity += gravity()*delta;
     position += velocity * delta;
     position.y = std::clamp(position.y, 0.0, 200.0); //jank platform
     rec->x = position.x;
