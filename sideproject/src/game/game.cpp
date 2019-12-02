@@ -80,7 +80,7 @@ int Game::loop() {
 
 
         player.velocity += move;
-        player.velocity.x = std::clamp(player.velocity.x, -20.0, 20.0); //terminal velocities
+        player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/100);
         render();
     }
