@@ -1,0 +1,27 @@
+set term png size 1000,1000
+
+set title 'Inserting'
+set xlabel 'Size'
+set ylabel 'time (us)'
+
+set yrange [1:1000000]
+
+set grid
+
+set logscale x
+set logscale y
+
+set output "insertplot.png"
+plot 'vec.g' with linespoints title 'Vector', \
+     'list.g' with linespoints title 'List', \
+     'set.g' with linespoints title 'Set', \
+     'unordered.g' with linespoints title 'Unordered Set'
+
+set output "findplot.png"
+set title 'Find'
+plot 'vecl.g' with linespoints title 'Vector', \
+     'listl.g' with linespoints title 'List', \
+     'setl.g' with linespoints title 'Set', \
+     'unorderedl.g' with linespoints title 'Unordered Set'
+
+
