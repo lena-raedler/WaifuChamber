@@ -15,6 +15,7 @@
 
 
 Game::Game() {
+    debugshit();
     //initialize SDL components here
     if(SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cout << "Couldn't inititalize SDL" << std::endl;
@@ -192,9 +193,13 @@ void Game::processInput(double delta){
 
 }
 
-
 void Game::render() {
     renderer->clear();
     renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->render();
+}
+void Game::debugshit() {
+    triangle a{{0,0},{1,1},{0,1}};
+    triangle b{{1,0},{0,1},{1,1}};
+    std::cout << utility::bongo() << utility::triangleTriangleIntersection(a,b) << std::endl;
 }
