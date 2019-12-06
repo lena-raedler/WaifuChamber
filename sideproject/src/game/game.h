@@ -14,6 +14,7 @@
 #include "entities/player/player.h"
 #include "utils/InputManager.h"
 #include <utility>
+#include "utils/utility.h"
 
 
 class Game {

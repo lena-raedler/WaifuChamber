@@ -9,6 +9,7 @@
 #define WAIFU_VEC2_H
 
 using value_t = double;
+
 template<typename T>
 struct Vec2 {
     T x;
@@ -52,11 +53,17 @@ struct Vec2 {
         os << "( " << vec2.x << ", " << vec2.y << " )";
         return os;
     }
-    value_t length(){
+    value_t length() const{
         return std::sqrt(x*x + y*y);
     }
+    value_t sum() const{
+        return x +y;
+    }
+    value_t dot(const Vec2& other) const{
+        return x*other.x + y*other.y;
+    }
 };
-
 using vec_t = Vec2<value_t>;
+
 
 #endif //WAIFU_VEC2_H

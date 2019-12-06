@@ -23,6 +23,8 @@ enum GravityType{
 };
 class Movable {
 public:
+    int health = 1;
+    bool iframes;//switch this on for iframes/static objects like bullets
     const void render(Renderer& renderer);
     const std::string getTextureLocation();
     std::unique_ptr<SDL_Rect> rec;
