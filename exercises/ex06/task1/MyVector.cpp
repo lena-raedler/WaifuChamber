@@ -63,14 +63,21 @@ class MyVector {
             return *this;
         }
 
+        //template<T>
+        void push_back(const T& value) {
+            arr[offset++] = value;
+        }
+
         //template <class MyVector>
         void prettyPrint() {
+            if (offset <= 0)
+                return;
+
             std::cout << "Values: [";
             for (int i = 0; i < offset-1; i++) {
                 std::cout << arr[i] << ", ";
             }
-            if (offset > 0)
-                std::cout << arr[offset-1] << "]" << std::endl;
+            std::cout << arr[offset-1] << "]" << std::endl;
         }
 
         ~MyVector() {

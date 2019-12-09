@@ -12,9 +12,6 @@ int main () {
     {
         std::cout << "Creating an int vector" << std::endl;
         MyVector<int> vecInt;
-        int numbers[5] = {1,2,3,4,5};
-        MyVector<int> vecInt2{numbers, 5};
-        vecInt2.prettyPrint();
     }
 
     printSeparatorLine();
@@ -35,13 +32,16 @@ int main () {
 
     {
         std::cout << "Creating a Person vector" << std::endl;
-        Person person1;
-        person1.name = "MyFancyName";
-        person1.age = 21;
+        MyVector<Person> vecPerson;
+        //vecPerson.prettyPrint();
+
+        //Person person1;
+        //person1.name = "MyFancyName";
+        //person1.age = 21;
 
         //Person p = {};
-        Person persons[1] = {person1};
-        MyVector<Person> vecPerson{persons, 1};
+        //Person persons[1] = {person1};
+        //MyVector<Person> vecPerson{persons, 1};
         //vecPerson.prettyPrint();
     }
 
@@ -69,6 +69,28 @@ int main () {
         //std::cout << "Testing move assignment" << std::endl;
         //MyVector<int> vec1;
         //MyVector<int> vec2 = std::move(vec1);
+    }
+
+    printSeparatorLine();
+
+    {
+        std::cout << "Testing prettyPrint" << std::endl;
+        int numbers[5] = {1,2,3,4,5};
+        MyVector<int> vecInt2{numbers, 5};
+        vecInt2.prettyPrint();
+    }
+
+    {
+        std::cout << "Testing push_back()" << std::endl;
+        int numbers[1] = {1};
+        MyVector<int> vecInt {numbers, 1};
+        vecInt.prettyPrint();
+
+        vecInt.push_back(21);
+        vecInt.prettyPrint();
+
+        vecInt.push_back(-83);
+        vecInt.prettyPrint();
     }
 }
 
