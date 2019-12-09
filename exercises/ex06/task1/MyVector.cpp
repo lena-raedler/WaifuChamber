@@ -6,9 +6,16 @@ template <typename T, int Length>
 class MyVector {
     public:
         MyVector() {
-            std::cout << "Constructor" << std::endl;
+            std::cout << "Default constructor" << std::endl;
             arr = new T[Length];
             size = Length;
+        }
+
+        MyVector(T* t, int length) {
+            std::cout << "Full constructor" << std::endl;
+            size = length;
+            arr = new T[length];
+            memcpy(arr, t, length);
         }
 
         MyVector(const MyVector& from) {
