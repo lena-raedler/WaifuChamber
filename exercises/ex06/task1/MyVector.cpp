@@ -2,32 +2,34 @@
 #include <cstring>
 #include <iostream>
 
-template <typename T, int Length>
+template <typename T>
 class MyVector {
     public:
         MyVector() {
             std::cout << "Default constructor" << std::endl;
-            arr = new T[Length];
-            size = Length;
+            arr = new T[size];
+            offset = 0;
         }
 
         MyVector(T* t, int length) {
             std::cout << "Full constructor" << std::endl;
-            size = length;
-            arr = new T[length];
-            memcpy(arr, t, sizeof(T)*length);
+            arr = new T[size];
+            memcpy(arr, t, sizeof(T)*size);
+            offset = length-1;
         }
 
         MyVector(const MyVector& from) {
             std::cout << "Copy constructor" << std::endl;
             size = from.size;
             arr = new T[size];
+            offset = from.offset;
             memcpy(arr, from.arr, sizeof(T)*size);
         }
 
         MyVector(MyVector&& from) {
             std::cout << "Move constructor" << std::endl;
             size = from.size;
+            offset = from.offset;
             memcpy(arr, from.arr, sizeof(T)*size);     // No new memory allocated
 
             from.arr = nullptr;
@@ -41,6 +43,7 @@ class MyVector {
 
             // What if arr has a different size?
             size = from.size;
+            offset = from.offset;
             memcpy(arr, from.arr, sizeof(T)*size);
 
             return *this;
@@ -54,6 +57,7 @@ class MyVector {
 
             size = from.size;
             arr = from.arr;
+            offset = from.offset;
             from.arr = nullptr;
 
             return *this;
@@ -62,10 +66,10 @@ class MyVector {
         //template <class MyVector>
         void prettyPrint() {
             std::cout << "Values: [";
-            for (int i = 0; i < size-1; i++) {
+            for (int i = 0; i < offset; i++) {
                 std::cout << arr[i] << ", ";
             }
-            std::cout << arr[size-1] << "]" << std::endl;
+            std::cout << arr[offset] << "]" << std::endl;
         }
 
         ~MyVector() {
@@ -75,6 +79,6 @@ class MyVector {
 
     private:
         T* arr;
-        int size;
-        //int offset;
+        int size = 256;
+        int offset;
 };
