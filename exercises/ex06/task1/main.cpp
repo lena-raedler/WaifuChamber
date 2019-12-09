@@ -1,6 +1,3 @@
-//
-// Created by bnorb on 08.12.19.
-//
 
 #include <iostream>
 #include "MyVector.cpp"
@@ -22,8 +19,21 @@ int main () {
     }
 
     {
-        std::cout << "Testing copy- constructor and assignment" << std::endl;
+        std::cout << "Testing copy constructor" << std::endl;
         MyVector<int, 5> vec1;
         MyVector<int, 5> vec2(vec1);
+    }
+
+    {
+        std::cout << "Testing copy assignment" << std::endl;
+        MyVector<int, 5> vec1;
+        MyVector<int, 5> vec2;
+        vec2 = vec1;
+    }
+
+    {
+        //std::cout << "Testing move assignment" << std::endl;
+        //MyVector<int, 5> vec1;
+        //MyVector<int, 5> vec2 = std::move(vec1);
     }
 }
