@@ -7,30 +7,30 @@ class MyVector {
     public:
         MyVector() {
             std::cout << "Default constructor" << std::endl;
-            arr = new T[size];
+            arr = new T[maxSize];
             offset = 0;
         }
 
         MyVector(T* t, int length) {
             std::cout << "Full constructor" << std::endl;
-            arr = new T[size];
-            memcpy(arr, t, sizeof(T)*size);
+            arr = new T[maxSize];
+            memcpy(arr, t, maxSizeof(T)*maxSize);
             offset = length;
         }
 
         MyVector(const MyVector& from) {
             std::cout << "Copy constructor" << std::endl;
-            size = from.size;
-            arr = new T[size];
+            maxSize = from.maxSize;
+            arr = new T[maxSize];
             offset = from.offset;
-            memcpy(arr, from.arr, sizeof(T)*size);
+            memcpy(arr, from.arr, maxSizeof(T)*maxSize);
         }
 
         MyVector(MyVector&& from) {
             std::cout << "Move constructor" << std::endl;
-            size = from.size;
+            maxSize = from.maxSize;
             offset = from.offset;
-            memcpy(arr, from.arr, sizeof(T)*size);     // No new memory allocated
+            memcpy(arr, from.arr, maxSizeof(T)*maxSize);     // No new memory allocated
 
             from.arr = nullptr;
         }
@@ -41,10 +41,10 @@ class MyVector {
                 return *this;
             }
 
-            // What if arr has a different size?
-            size = from.size;
+            // What if arr has a different maxSize?
+            maxSize = from.maxSize;
             offset = from.offset;
-            memcpy(arr, from.arr, sizeof(T)*size);
+            memcpy(arr, from.arr, maxSizeof(T)*maxSize);
 
             return *this;
         }
@@ -55,12 +55,16 @@ class MyVector {
                 return *this;
             }
 
-            size = from.size;
+            maxSize = from.maxSize;
             arr = from.arr;
             offset = from.offset;
             from.arr = nullptr;
 
             return *this;
+        }
+
+        int size() {
+            return offset;
         }
 
         void push_back(const T& value) {
@@ -101,6 +105,6 @@ class MyVector {
 
     private:
         T* arr;
-        int size = 256;
-        int offset;
+        int maxSize = 256;
+        int offset;     // = number of elements currently stored
 };

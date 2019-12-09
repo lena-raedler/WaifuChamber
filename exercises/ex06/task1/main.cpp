@@ -80,6 +80,8 @@ int main () {
         vecInt2.prettyPrint();
     }
 
+    printSeparatorLine();
+
     {
         std::cout << "Testing push_back()" << std::endl;
         int numbers[1] = {1};
@@ -93,6 +95,8 @@ int main () {
         vecInt.prettyPrint();
     }
 
+    printSeparatorLine();
+
     {
         std::cout << "Test pop_back()" << std::endl;
         int numbers[5] = {1,2,3,4,5};
@@ -101,6 +105,8 @@ int main () {
         vecInt.pop_back();
         vecInt.prettyPrint();
     }
+
+    printSeparatorLine();
 
     {
         std::cout << "Test erase()" << std::endl;
