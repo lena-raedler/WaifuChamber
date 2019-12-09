@@ -94,11 +94,13 @@ int main () {
     printSeparatorLine();
 
     {
-        std::cout << "Test at() and []" << std::endl;
+        std::cout << "Test at(), [], front() and back()" << std::endl;
         MyVector<int> vecInt {numbers3, 3};
         vecInt.prettyPrint();
         std::cout << "vecInt.at(1) : " << vecInt.at(1) << std::endl;
         std::cout << "vecInt[1] : " << vecInt[1] << std::endl;
+        std::cout << "vecInt.front() : " << vecInt.front() << std::endl;
+        std::cout << "vecInt.back() : " << vecInt.back() << std::endl;
     }
 
     printSeparatorLine();

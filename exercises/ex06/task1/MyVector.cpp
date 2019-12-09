@@ -72,6 +72,12 @@ class MyVector {
         T& operator[](int pos) {
             return arr[pos];
         }
+        T& front() {
+            return arr[0];  // CppReference: Calling front on an empty container is undefined.
+        }
+        T& back() {
+            return arr[offset-1];   // CppReference: Calling back on an empty container is undefined.
+        }
 
         // Capacity
         bool empty() const {
