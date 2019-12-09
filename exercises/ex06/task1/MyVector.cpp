@@ -22,13 +22,13 @@ class MyVector {
             std::cout << "Copy constructor" << std::endl;
             size = from.size;
             arr = new T[size];
-            memcpy(arr, from.arr, size);
+            memcpy(arr, from.arr, sizeof(T)*size);
         }
 
         MyVector(MyVector&& from) {
             std::cout << "Move constructor" << std::endl;
             size = from.size;
-            memcpy(arr, from.arr, size);     // No new memory allocated
+            memcpy(arr, from.arr, sizeof(T)*size);     // No new memory allocated
 
             from.arr = nullptr;
         }
@@ -41,7 +41,7 @@ class MyVector {
 
             // What if arr has a different size?
             size = from.size;
-            memcpy(arr, from.arr, size);
+            memcpy(arr, from.arr, sizeof(T)*size);
 
             return *this;
         }
