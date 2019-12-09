@@ -63,8 +63,12 @@ class MyVector {
             return *this;
         }
 
-        int size() {
+        int size() const {
             return offset;
+        }
+
+        bool empty() const {
+            return offset <= 0;
         }
 
         void push_back(const T& value) {

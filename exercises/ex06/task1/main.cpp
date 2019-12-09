@@ -17,6 +17,10 @@ int main () {
     int numbers3[3] = {1,2,3};
     int numbers5[5] = {1,2,3,4,5};
 
+    double numbersDouble1[1] = {1.0};
+    double numbersDouble3[3] = {1.0, 2.0, 3.0};
+    double numbersDouble5[5] = {1.0, 2.0, 3.0, 4.0, 5.0};
+
     {
         std::cout << "Creating an int vector" << std::endl;
         MyVector<int> vecInt;
@@ -56,7 +60,7 @@ int main () {
     printSeparatorLine();
 
     {
-        std::cout << "Testing copy constructor" << std::endl;
+        std::cout << "Test copy constructor" << std::endl;
         MyVector<int> vec1;
         MyVector<int> vec2(vec1);
         vec2 = vec2;
@@ -65,7 +69,7 @@ int main () {
     printSeparatorLine();
 
     {
-        std::cout << "Testing copy assignment" << std::endl;
+        std::cout << "Test copy assignment" << std::endl;
         MyVector<int> vec1;
         MyVector<int> vec2;
         vec2 = vec1;
@@ -74,7 +78,7 @@ int main () {
     printSeparatorLine();
 
     {
-        //std::cout << "Testing move assignment" << std::endl;
+        //std::cout << "Test move assignment" << std::endl;
         //MyVector<int> vec1;
         //MyVector<int> vec2 = std::move(vec1);
     }
@@ -82,7 +86,7 @@ int main () {
     printSeparatorLine();
 
     {
-        std::cout << "Testing prettyPrint" << std::endl;
+        std::cout << "Test prettyPrint" << std::endl;
         MyVector<int> vecInt2{numbers5, 5};
         vecInt2.prettyPrint();
     }
@@ -112,7 +116,19 @@ int main () {
     printSeparatorLine();
 
     {
-        std::cout << "Testing push_back()" << std::endl;
+        std::cout << "Test empty()" << std::endl;
+        MyVector<double> vecDouble1;
+        vecDouble1.prettyPrint();
+        std::cout << "Empty? : " << vecDouble1.empty() << std::endl;
+
+        MyVector<double> vecDouble2 {numbersDouble1, 1};
+        std::cout << "Empty? : " << vecDouble2.empty() << std::endl;
+    }
+
+    printSeparatorLine();
+
+    {
+        std::cout << "Test push_back()" << std::endl;
         int numbers[1] = {1};
         MyVector<int> vecInt {numbers, 1};
         vecInt.prettyPrint();
