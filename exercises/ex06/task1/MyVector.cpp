@@ -14,7 +14,8 @@ class MyVector {
         MyVector(T* t, int length) {
             std::cout << "Full constructor" << std::endl;
             arr = new T[maxSize];
-            memcpy(arr, t, sizeof(T)*maxSize);
+            memcpy(arr, t, sizeof(T)*length);
+            //memcpy(arr, t, sizeof(T)*maxSize);
             offset = length;
         }
 
@@ -61,6 +62,11 @@ class MyVector {
             from.arr = nullptr;
 
             return *this;
+        }
+
+        ~MyVector() {
+            std::cout << "Destructor" << std::endl;
+            delete[] arr;
         }
 
         // Element access
@@ -113,6 +119,7 @@ class MyVector {
             offset--;
         }
 
+        // Other functions
         void prettyPrint() {
             std::cout << "Values: [";
 
@@ -125,11 +132,6 @@ class MyVector {
                 std::cout << arr[i] << ", ";
             }
             std::cout << arr[offset-1] << "]" << std::endl;
-        }
-
-        ~MyVector() {
-            std::cout << "Destructor" << std::endl;
-            delete[] arr;
         }
 
     private:

@@ -43,18 +43,19 @@ int main () {
     printSeparatorLine();
 
     {
+        // TODO Throws errors
         std::cout << "Creating a Person vector" << std::endl;
         MyVector<Person> vecPerson;
-        //vecPerson.prettyPrint();
+        vecPerson.prettyPrint();
 
-        //Person person1;
-        //person1.name = "MyFancyName";
-        //person1.age = 21;
+        Person person1;
+        person1.name = "MyFancyName";
+        person1.age = 21;
 
         //Person p = {};
-        //Person persons[1] = {person1};
-        //MyVector<Person> vecPerson{persons, 1};
-        //vecPerson.prettyPrint();
+        Person persons[1] = {person1};
+        MyVector<Person> vecPerson1{persons, 1};
+        //vecPerson1.prettyPrint();
     }
 
     printSeparatorLine();
