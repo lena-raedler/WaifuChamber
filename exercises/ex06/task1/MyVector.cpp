@@ -15,7 +15,7 @@ class MyVector {
             std::cout << "Full constructor" << std::endl;
             arr = new T[size];
             memcpy(arr, t, sizeof(T)*size);
-            offset = length-1;
+            offset = length;
         }
 
         MyVector(const MyVector& from) {
@@ -66,10 +66,11 @@ class MyVector {
         //template <class MyVector>
         void prettyPrint() {
             std::cout << "Values: [";
-            for (int i = 0; i < offset; i++) {
+            for (int i = 0; i < offset-1; i++) {
                 std::cout << arr[i] << ", ";
             }
-            std::cout << arr[offset] << "]" << std::endl;
+            if (offset > 0)
+                std::cout << arr[offset-1] << "]" << std::endl;
         }
 
         ~MyVector() {

@@ -1,32 +1,20 @@
 
 #include <iostream>
-#include <string>
-#include <utility>
+#include <ostream>
+
+#include "Person.hpp"
 #include "MyVector.cpp"
 
 
 void printSeparatorLine();
-
-struct Person {
-    std::string name = "";
-    int age = 0;
-
-    Person() = default;
-    Person(std::string& name, int age) : name(std::move(name)), age(age) {}
-};
-
 
 int main () {
     {
         std::cout << "Creating an int vector" << std::endl;
         MyVector<int> vecInt;
         int numbers[5] = {1,2,3,4,5};
-        //MyVector<int> vecInt2(numbers, 5);
-        //vecInt.prettyPrint();
-        //vecInt2.prettyPrint();
-
-        MyVector<int> vecInt3{numbers, 5};
-        vecInt3.prettyPrint();
+        MyVector<int> vecInt2{numbers, 5};
+        vecInt2.prettyPrint();
     }
 
     printSeparatorLine();
@@ -47,8 +35,14 @@ int main () {
 
     {
         std::cout << "Creating a Person vector" << std::endl;
-        Person person;
-        MyVector<Person> vecPerson;
+        Person person1;
+        person1.name = "MyFancyName";
+        person1.age = 21;
+
+        //Person p = {};
+        Person persons[1] = {person1};
+        MyVector<Person> vecPerson{persons, 1};
+        //vecPerson.prettyPrint();
     }
 
     printSeparatorLine();
