@@ -104,7 +104,8 @@ int main () {
         std::cout << "vecInt.front() : " << vecInt.front() << std::endl;
         std::cout << "vecInt.back() : " << vecInt.back() << std::endl;
 
-        MyVector<int>::iterator2<int*> it = vecInt.begin();
+        //MyVector<int>::iterator2<int*> it = vecInt.begin();
+        //MyVector<int>::iterator it = vecInt.begin();
     }
 
     printSeparatorLine();

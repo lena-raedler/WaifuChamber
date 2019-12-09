@@ -144,20 +144,14 @@ class MyVector {
             std::cout << arr[offset-1] << "]" << std::endl;
         }
 
-        //void test() {
-        //    MyVector<T>::iterator it;
-
-        //}
-
-
-        //template <T> class iterator{
-
-        //};
-
 
         // Iterator for task 2
+        // https://en.cppreference.com/w/cpp/iterator/iterator
+        // https://stackoverflow.com/questions/839958/custom-iterator-in-c
+        // https://stackoverflow.com/questions/3582608/how-to-correctly-implement-custom-iterators-and-const-iterators
+        // https://cpp-tip-of-the-day.blogspot.com/2014/05/building-custom-iterators.html
         template <T*>
-        class iterator2 : public std::iterator<
+        class iterator : public std::iterator<
                 std::input_iterator_tag,   // iterator_category
                 T,                         // value_type
                 ptrdiff_t ,                // difference_type
@@ -167,24 +161,17 @@ class MyVector {
         {
             long num = 0;
 
-            //public:
-                //iterator2 begin() {
-                //    return iterator2(arr[0]);
-                //}
+            public:
+                iterator begin() {
+                    return iterator(arr[0]);
+                }
         };
 
-        /*
-        template <T*>
-        iterator2 begin() {
-            //return iterator2(arr[0]);
-            return iterator2(arr);
-        }
-         */
+        //iterator begin() {
+        //    return iterator(arr);
+        //}
 
-
-
-
-    private:
+private:
         T* arr;
         int maxSize = 256;
         int offset;     // = number of elements currently stored
