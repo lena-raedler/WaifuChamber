@@ -101,6 +101,17 @@ int main () {
         vecInt.pop_back();
         vecInt.prettyPrint();
     }
+
+    {
+        std::cout << "Test erase()" << std::endl;
+        int numbers[5] = {1,2,3,4,5};
+        MyVector<int> vecInt {numbers, 5};
+        vecInt.prettyPrint();
+        vecInt.erase(-1);   // Does nothing because out of range
+        vecInt.erase(2);
+        vecInt.erase(5);    // Does nothing because out of range
+        vecInt.prettyPrint();
+    }
 }
 
 

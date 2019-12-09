@@ -72,6 +72,17 @@ class MyVector {
                 offset--;
         }
 
+        // TODO Replace int with iterator for ex02
+        void erase(const int pos) {
+            if (pos < 0 || offset <= pos)
+                return;
+
+            for (int i = pos; i < offset-1; i++) {
+                arr[i] = arr[i+1];
+            }
+            offset--;
+        }
+
         void prettyPrint() {
             if (offset <= 0)
                 return;
