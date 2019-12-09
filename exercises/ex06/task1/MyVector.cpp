@@ -14,7 +14,7 @@ class MyVector {
         MyVector(T* t, int length) {
             std::cout << "Full constructor" << std::endl;
             arr = new T[maxSize];
-            memcpy(arr, t, maxSizeof(T)*maxSize);
+            memcpy(arr, t, sizeof(T)*maxSize);
             offset = length;
         }
 
@@ -23,14 +23,14 @@ class MyVector {
             maxSize = from.maxSize;
             arr = new T[maxSize];
             offset = from.offset;
-            memcpy(arr, from.arr, maxSizeof(T)*maxSize);
+            memcpy(arr, from.arr, sizeof(T)*maxSize);
         }
 
         MyVector(MyVector&& from) {
             std::cout << "Move constructor" << std::endl;
             maxSize = from.maxSize;
             offset = from.offset;
-            memcpy(arr, from.arr, maxSizeof(T)*maxSize);     // No new memory allocated
+            memcpy(arr, from.arr, sizeof(T)*maxSize);     // No new memory allocated
 
             from.arr = nullptr;
         }
@@ -44,7 +44,7 @@ class MyVector {
             // What if arr has a different maxSize?
             maxSize = from.maxSize;
             offset = from.offset;
-            memcpy(arr, from.arr, maxSizeof(T)*maxSize);
+            memcpy(arr, from.arr, sizeof(T)*maxSize);
 
             return *this;
         }

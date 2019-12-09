@@ -8,7 +8,15 @@
 
 void printSeparatorLine();
 
+
+
 int main () {
+
+    // Used for testing
+    int numbers1[1] = {1};
+    int numbers3[3] = {1,2,3};
+    int numbers5[5] = {1,2,3,4,5};
+
     {
         std::cout << "Creating an int vector" << std::endl;
         MyVector<int> vecInt;
@@ -75,9 +83,30 @@ int main () {
 
     {
         std::cout << "Testing prettyPrint" << std::endl;
-        int numbers[5] = {1,2,3,4,5};
-        MyVector<int> vecInt2{numbers, 5};
+        MyVector<int> vecInt2{numbers5, 5};
         vecInt2.prettyPrint();
+    }
+
+    printSeparatorLine();
+
+    {
+        std::cout << "Test size()" << std::endl;
+
+        std::cout << "Create an empty int vector" << std::endl;
+        MyVector<int> vecInt;
+        std::cout << "Size: " << vecInt.size() << std::endl;
+
+        std::cout << "Create an int vector with 1 element" << std::endl;
+        MyVector<int> vecInt1 {numbers1, 1};
+        std::cout << "Size: " << vecInt1.size() << std::endl;
+
+        std::cout << "Create an int vector with 3 elements" << std::endl;
+        MyVector<int> vecInt2 {numbers3, 3};
+        std::cout << "Size: " << vecInt2.size() << std::endl;
+
+        std::cout << "Create an int vector with 5 elements" << std::endl;
+        MyVector<int> vecInt3 {numbers5, 5};
+        std::cout << "Size: " << vecInt3.size() << std::endl;
     }
 
     printSeparatorLine();
