@@ -6,18 +6,28 @@ template <typename T>
 class MyVector {
     public:
         MyVector() {
-            std::cout << "Default constructor" << std::endl;
+            //std::cout << "Default constructor" << std::endl;
             arr = new T[maxSize];
             offset = 0;
         }
 
         MyVector(T* t, int length) {
-            std::cout << "Full constructor" << std::endl;
+            //std::cout << "Full constructor" << std::endl;
             arr = new T[maxSize];
             memcpy(arr, t, sizeof(T)*length);
             //memcpy(arr, t, sizeof(T)*maxSize);
             offset = length;
         }
+
+        /*
+        MyVector(std::initializer_list<T> l) {
+            int count = 0;
+            for (T t : l) {
+                arr[count++] = t;
+            }
+            offset = l.size();
+        }
+         */
 
         MyVector(const MyVector& from) {
             std::cout << "Copy constructor" << std::endl;
@@ -65,7 +75,7 @@ class MyVector {
         }
 
         ~MyVector() {
-            std::cout << "Destructor" << std::endl;
+            //std::cout << "Destructor" << std::endl;
             delete[] arr;
         }
 
@@ -133,6 +143,46 @@ class MyVector {
             }
             std::cout << arr[offset-1] << "]" << std::endl;
         }
+
+        //void test() {
+        //    MyVector<T>::iterator it;
+
+        //}
+
+
+        //template <T> class iterator{
+
+        //};
+
+
+        // Iterator for task 2
+        template <T*>
+        class iterator2 : public std::iterator<
+                std::input_iterator_tag,   // iterator_category
+                T,                         // value_type
+                ptrdiff_t ,                // difference_type
+                const T*,                  // pointer
+                const T&                   // reference
+                >
+        {
+            long num = 0;
+
+            //public:
+                //iterator2 begin() {
+                //    return iterator2(arr[0]);
+                //}
+        };
+
+        /*
+        template <T*>
+        iterator2 begin() {
+            //return iterator2(arr[0]);
+            return iterator2(arr);
+        }
+         */
+
+
+
 
     private:
         T* arr;

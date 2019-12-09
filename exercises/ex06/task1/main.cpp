@@ -24,6 +24,7 @@ int main () {
     {
         std::cout << "Creating an int vector" << std::endl;
         MyVector<int> vecInt;
+        //MyVector<int> vecInt2 = {1,2,3,4,5};
     }
 
     printSeparatorLine();
@@ -54,7 +55,7 @@ int main () {
 
         //Person p = {};
         Person persons[1] = {person1};
-        MyVector<Person> vecPerson1{persons, 1};
+        //MyVector<Person> vecPerson1{persons, 1};
         //vecPerson1.prettyPrint();
     }
 
@@ -88,8 +89,8 @@ int main () {
 
     {
         std::cout << "Test prettyPrint" << std::endl;
-        MyVector<int> vecInt2{numbers5, 5};
-        vecInt2.prettyPrint();
+        MyVector<int> vecInt5{numbers5, 5};
+        vecInt5.prettyPrint();
     }
 
     printSeparatorLine();
@@ -102,6 +103,8 @@ int main () {
         std::cout << "vecInt[1] : " << vecInt[1] << std::endl;
         std::cout << "vecInt.front() : " << vecInt.front() << std::endl;
         std::cout << "vecInt.back() : " << vecInt.back() << std::endl;
+
+        MyVector<int>::iterator2<int*> it = vecInt.begin();
     }
 
     printSeparatorLine();
