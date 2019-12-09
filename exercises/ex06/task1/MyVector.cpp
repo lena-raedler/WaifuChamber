@@ -15,7 +15,9 @@ class MyVector {
             std::cout << "Full constructor" << std::endl;
             size = length;
             arr = new T[length];
-            memcpy(arr, t, length);
+            for (int i = 0; i < length; i++) {
+                arr[i] = t[i];
+            }
         }
 
         MyVector(const MyVector& from) {
@@ -59,6 +61,15 @@ class MyVector {
             return *this;
         }
 
+        //template <class MyVector>
+        void prettyPrint() {
+            std::cout << "Values: [";
+            for (int i = 0; i < size-1; i++) {
+                std::cout << arr[i] << ", ";
+            }
+            std::cout << arr[size-1] << "]" << std::endl;
+        }
+
         ~MyVector() {
             std::cout << "Destructor" << std::endl;
             delete[] arr;
@@ -67,4 +78,5 @@ class MyVector {
     private:
         T* arr;
         int size;
+        //int offset;
 };

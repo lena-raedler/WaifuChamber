@@ -21,7 +21,12 @@ int main () {
         std::cout << "Creating an int vector" << std::endl;
         MyVector<int, 5> vecInt;
         int numbers[5] = {1,2,3,4,5};
-        MyVector<int, 5> vecInt2(numbers, 5);
+        //MyVector<int, 5> vecInt2(numbers, 5);
+        //vecInt.prettyPrint();
+        //vecInt2.prettyPrint();
+
+        MyVector<int, 5> vecInt3{numbers, 5};
+        vecInt3.prettyPrint();
     }
 
     printSeparatorLine();
