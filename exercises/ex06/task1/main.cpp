@@ -5,6 +5,8 @@
 #include "MyVector.cpp"
 
 
+void printSeparatorLine();
+
 struct Person {
     std::string name = "";
     int age = 0;
@@ -22,21 +24,29 @@ int main () {
         MyVector<int, 5> vecInt2(numbers, 5);
     }
 
+    printSeparatorLine();
+
     {
         std::cout << "Creating a double vector" << std::endl;
         MyVector<double, 5> vecDouble;
     }
+
+    printSeparatorLine();
 
     {
         std::cout << "Creating a float vector" << std::endl;
         MyVector<float, 5> vecFloat;
     }
 
+    printSeparatorLine();
+
     {
         std::cout << "Creating a Person vector" << std::endl;
         Person person;
         MyVector<Person, 5> vecPerson;
     }
+
+    printSeparatorLine();
 
     {
         std::cout << "Testing copy constructor" << std::endl;
@@ -45,6 +55,8 @@ int main () {
         vec2 = vec2;
     }
 
+    printSeparatorLine();
+
     {
         std::cout << "Testing copy assignment" << std::endl;
         MyVector<int, 5> vec1;
@@ -52,9 +64,16 @@ int main () {
         vec2 = vec1;
     }
 
+    printSeparatorLine();
+
     {
         //std::cout << "Testing move assignment" << std::endl;
         //MyVector<int, 5> vec1;
         //MyVector<int, 5> vec2 = std::move(vec1);
     }
+}
+
+
+void printSeparatorLine() {
+    std::cout << "\n--------------------------------\n" << std::endl;
 }
