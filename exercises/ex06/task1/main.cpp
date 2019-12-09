@@ -92,6 +92,15 @@ int main () {
         vecInt.push_back(-83);
         vecInt.prettyPrint();
     }
+
+    {
+        std::cout << "Test pop_back()" << std::endl;
+        int numbers[5] = {1,2,3,4,5};
+        MyVector<int> vecInt {numbers, 5};
+        vecInt.prettyPrint();
+        vecInt.pop_back();
+        vecInt.prettyPrint();
+    }
 }
 
 

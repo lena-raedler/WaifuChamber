@@ -63,12 +63,15 @@ class MyVector {
             return *this;
         }
 
-        //template<T>
         void push_back(const T& value) {
             arr[offset++] = value;
         }
 
-        //template <class MyVector>
+        void pop_back() {
+            if (offset > 0)     // CppReference: Calling pop_back on an empty container is undefined.
+                offset--;
+        }
+
         void prettyPrint() {
             if (offset <= 0)
                 return;
