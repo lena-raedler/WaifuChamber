@@ -63,18 +63,34 @@ class MyVector {
             return *this;
         }
 
-        int size() const {
-            return offset;
+        // Element access
+        T& at(int pos) {
+            if (pos < 0 || offset <= pos)
+                throw std::out_of_range("Out of range");
+            return arr[pos];
+        }
+        T& operator[](int pos) {
+            return arr[pos];
         }
 
+        // Capacity
         bool empty() const {
             return offset <= 0;
         }
+        int size() const {
+            return offset;
+        }
+        int max_size() const {
+            return maxSize;
+        }
 
+        // Modifiers
+        void clear() {
+            offset = 0;
+        }
         void push_back(const T& value) {
             arr[offset++] = value;
         }
-
         void pop_back() {
             if (offset > 0)     // CppReference: Calling pop_back on an empty container is undefined.
                 offset--;
@@ -92,10 +108,13 @@ class MyVector {
         }
 
         void prettyPrint() {
-            if (offset <= 0)
-                return;
-
             std::cout << "Values: [";
+
+            if (offset <= 0) {
+                std::cout << "]" << std::endl;
+                return;
+            }
+
             for (int i = 0; i < offset-1; i++) {
                 std::cout << arr[i] << ", ";
             }

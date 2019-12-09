@@ -94,11 +94,22 @@ int main () {
     printSeparatorLine();
 
     {
-        std::cout << "Test size()" << std::endl;
+        std::cout << "Test at() and []" << std::endl;
+        MyVector<int> vecInt {numbers3, 3};
+        vecInt.prettyPrint();
+        std::cout << "vecInt.at(1) : " << vecInt.at(1) << std::endl;
+        std::cout << "vecInt[1] : " << vecInt[1] << std::endl;
+    }
+
+    printSeparatorLine();
+
+    {
+        std::cout << "Test size() and maxSize()" << std::endl;
 
         std::cout << "Create an empty int vector" << std::endl;
         MyVector<int> vecInt;
         std::cout << "Size: " << vecInt.size() << std::endl;
+        std::cout << "Max size: " << vecInt.max_size() << std::endl;
 
         std::cout << "Create an int vector with 1 element" << std::endl;
         MyVector<int> vecInt1 {numbers1, 1};
@@ -123,6 +134,19 @@ int main () {
 
         MyVector<double> vecDouble2 {numbersDouble1, 1};
         std::cout << "Empty? : " << vecDouble2.empty() << std::endl;
+    }
+
+    printSeparatorLine();
+
+    {
+        std::cout << "Test clear()" << std::endl;
+        MyVector<double> vecDouble1 {numbersDouble3, 3};
+        std::cout << "Size: " << vecDouble1.size() << std::endl;
+        vecDouble1.prettyPrint();
+        std::cout << "Clear all elements" << std::endl;
+        vecDouble1.clear();
+        std::cout << "Size: " << vecDouble1.size() << std::endl;
+        vecDouble1.prettyPrint();
     }
 
     printSeparatorLine();
