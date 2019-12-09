@@ -15,9 +15,7 @@ class MyVector {
             std::cout << "Full constructor" << std::endl;
             size = length;
             arr = new T[length];
-            for (int i = 0; i < length; i++) {
-                arr[i] = t[i];
-            }
+            memcpy(arr, t, sizeof(T)*length);
         }
 
         MyVector(const MyVector& from) {
