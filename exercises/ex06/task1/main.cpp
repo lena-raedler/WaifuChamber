@@ -21,9 +21,9 @@ int main () {
     double numbersDouble3[3] = {1.5, 2.5, 3.5};
     double numbersDouble5[5] = {1.5, 2.5, 3.5, 4.5, 5.5};
 
-    Person person1 {"MyFancyName1", 21};
-    Person person2 {"MyFancyName2", 37};
-    Person person3 {"MyFancyName3", 54};
+    Person person1 {"FirstName1", "Lastname1",  21};
+    Person person2 {"FirstName2", "Lastname1", 37};
+    Person person3 {"FirstName3", "Lastname1", 54};
     Person persons[3] = {person1, person2, person3};
 
     {

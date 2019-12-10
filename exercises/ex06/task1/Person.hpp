@@ -1,23 +1,68 @@
 //
-// Created by bnorb on 09.12.19.
+// Created by lena on 11/23/19.
 //
 
-#ifndef EXAMPLE_PERSON_HPP
-#define EXAMPLE_PERSON_HPP
+#ifndef WAIFUCHAMBER_PERSON_H
+#define WAIFUCHAMBER_PERSON_H
+
+
+#include <iostream>
+#include <memory>
+#include <string>
 
 struct Person {
-    std::string name;
+    std::string first_name;
+    std::string last_name;
     int age;
 
-    //Person() = default;
-    //Person(std::string& name, int age) : name(name), age(age) {}
+
+    // override ==
+    bool operator==(const Person &p) const {
+        std::cout << "equality using ==" << std::endl;
+        return (!first_name.compare(p.first_name) && !last_name.compare(p.last_name) && age == p.age);
+    }
+
+    // override !=
+    bool operator!=(const Person &p) const {
+        std::cout << "equality using !=" << std::endl;
+        return (first_name.compare(p.first_name) && last_name.compare(p.last_name) && age != p.age);
+    }
+
+    //override <
+    bool operator<(const Person &p) const {
+        std::cout << "relation using <" << std::endl;
+        return (first_name.compare(p.first_name) && last_name.compare(p.last_name) && age < p.age);
+    }
+
+    //override >
+    bool operator>(const Person &p) const {
+        std::cout << "relation using >" << std::endl;
+        return (first_name.compare(p.first_name) && last_name.compare(p.last_name) && age > p.age);
+    }
+
+    //override <=
+    bool operator<=(const Person &p) const {
+        std::cout << "relation using <=" << std::endl;
+        return !(!first_name.compare(p.first_name) && !last_name.compare(p.last_name) && age < p.age ||
+                 age == p.age);
+    }
+
+    // override >=
+    bool operator>=(const Person &p) const {
+        std::cout << "relation using >=" << std::endl;
+        return (!first_name.compare(p.first_name) && !last_name.compare(p.last_name) && age > p.age ||
+                age == p.age);
+    }
 };
 
+// implement function to_string for Person based on to_string for simple types
 std::string to_string(const Person &person) {
-    return person.name + ", age: " + std::to_string(person.age);
+    return person.first_name + ' ' + person.last_name + ", age: " + std::to_string(person.age);
 }
 
+// override ostream
 std::ostream& operator<<(std::ostream& os, const Person& person) {
     return os << to_string(person) << std::endl;
 }
-#endif //EXAMPLE_PERSON_HPP
+
+#endif //WAIFUCHAMBER_PERSON_H
