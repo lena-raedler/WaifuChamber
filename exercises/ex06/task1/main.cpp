@@ -21,10 +21,10 @@ int main () {
     double numbersDouble3[3] = {1.5, 2.5, 3.5};
     double numbersDouble5[5] = {1.5, 2.5, 3.5, 4.5, 5.5};
 
-    //Person person1 {"MyFancyName1", 21};
-    //Person person2 {"MyFancyName2", 37};
-    //Person person3 {"MyFancyName3", 54};
-    //Person persons[3] = {person1, person2, person3};
+    Person person1 {"MyFancyName1", 21};
+    Person person2 {"MyFancyName2", 37};
+    Person person3 {"MyFancyName3", 54};
+    Person persons[3] = {person1, person2, person3};
 
     {
         std::cout << "Creating a default int vector and one with {1,2,3}" << std::endl;
@@ -49,10 +49,9 @@ int main () {
     {
         // TODO Throws errors
         std::cout << "Creating a Person vector" << std::endl;
-        //MyVector<Person> vecPerson;
-        //vecPerson.prettyPrint();
-
-        //MyVector<Person>
+        MyVector<Person> vecPerson;
+        vecPerson.prettyPrint();
+        //MyVector<Person> vecPerson3 = {persons, 3};
     }
 
     printSeparatorLine();
