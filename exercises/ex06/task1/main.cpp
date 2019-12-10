@@ -201,6 +201,7 @@ int main () {
         MyVector<int> vecInt {numbers, 5};
         vecInt.prettyPrint();
         vecInt.erase(-1);   // Does nothing because out of range
+        std::cout << "Erase element at position 2" << std::endl;
         vecInt.erase(2);
         vecInt.erase(5);    // Does nothing because out of range
         vecInt.prettyPrint();

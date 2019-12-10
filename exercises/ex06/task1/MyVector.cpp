@@ -75,7 +75,6 @@ class MyVector {
             return *this;
         }
 
-
         ~MyVector() {
             //std::cout << "Destructor" << std::endl;
             delete[] arr;
