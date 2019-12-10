@@ -15,6 +15,6 @@ An improvement to this is the SOLID-C mnemonic:
 - composite reuse principle -> inheritance should be reserved for when its absolutely required
 
 In the provided example code templates are used to find components of a certain type, which makes the code extra generic.
-The downside to that is due to this the code is also slow.
+The downside to that is due to this the code is also slow due to dynamic casts. Normally templates do not add to the runtime of a given program, however with dynamic casts this is the case.
 
 If we use templates only when they are needed we resolve performance issues caused by this.
