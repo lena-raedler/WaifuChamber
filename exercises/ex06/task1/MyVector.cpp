@@ -1,6 +1,7 @@
 
 #include <cstring>
 #include <iostream>
+#include <algorithm>
 
 template <typename T>
 class MyVector {
@@ -73,6 +74,7 @@ class MyVector {
 
             return *this;
         }
+
 
         ~MyVector() {
             //std::cout << "Destructor" << std::endl;
@@ -175,4 +177,14 @@ private:
         T* arr;
         int maxSize = 256;
         int offset;     // = number of elements currently stored
+public: //REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+    template <typename V>
+    auto operator+(MyVector<V>& rhs) -> MyVector<decltype(arr[0] + rhs[0])>{
+        MyVector<decltype(arr[0] + rhs[0])> out;
+        auto minSize = std::min(size(), rhs.size());
+        for(auto i = 0; i < minSize; ++i){
+            out.push_back(arr[i] + rhs[i]);
+        }
+        return out;
+    }
 };

@@ -19,7 +19,9 @@ int main () {
 
     double numbersDouble1[1] = {1.0};
     double numbersDouble3[3] = {1.0, 2.0, 3.0};
-    double numbersDouble5[5] = {1.0, 2.0, 3.0, 4.0, 5.0};
+    double numbersDouble5[5] = {1.5, 2.5, 3.5, 4.5, 5.5};
+
+
 
     {
         std::cout << "Creating an int vector" << std::endl;
@@ -194,6 +196,14 @@ int main () {
         vecInt.erase(5);    // Does nothing because out of range
         vecInt.prettyPrint();
     }
+    {
+        std::cout << "Adding up vectors" << std::endl;
+        MyVector<double> doubleVec(numbersDouble5,5);
+        MyVector<int> intVec(numbers5, 5);
+        auto whatAmI = intVec + doubleVec;
+        whatAmI.prettyPrint();
+    }
+    printSeparatorLine();
 }
 
 
