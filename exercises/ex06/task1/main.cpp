@@ -21,19 +21,22 @@ int main () {
     double numbersDouble3[3] = {1.0, 2.0, 3.0};
     double numbersDouble5[5] = {1.5, 2.5, 3.5, 4.5, 5.5};
 
-
-
     {
-        std::cout << "Creating an int vector" << std::endl;
+        std::cout << "Creating a default int vector and one with {1,2,3}" << std::endl;
         MyVector<int> vecInt;
-        //MyVector<int> vecInt2 = {1,2,3,4,5};
+        vecInt.prettyPrint();
+        MyVector<int> vecInt3 = {numbers3, 3};
+        vecInt3.prettyPrint();
     }
 
     printSeparatorLine();
 
     {
-        std::cout << "Creating a double vector" << std::endl;
+        std::cout << "Creating a default double vector and one with {1.0, 2.0, 3.0}" << std::endl;
         MyVector<double> vecDouble;
+        vecDouble.prettyPrint();
+        MyVector<double> vecDouble3 = {numbersDouble3, 3};
+        vecDouble3.prettyPrint();
     }
 
     printSeparatorLine();
@@ -64,19 +67,10 @@ int main () {
     printSeparatorLine();
 
     {
-        std::cout << "Test copy constructor" << std::endl;
+        std::cout << "Test copy- constructor and assignment" << std::endl;
         MyVector<int> vec1;
         MyVector<int> vec2(vec1);
         vec2 = vec2;
-    }
-
-    printSeparatorLine();
-
-    {
-        std::cout << "Test copy assignment" << std::endl;
-        MyVector<int> vec1;
-        MyVector<int> vec2;
-        vec2 = vec1;
     }
 
     printSeparatorLine();
@@ -196,11 +190,19 @@ int main () {
         vecInt.erase(5);    // Does nothing because out of range
         vecInt.prettyPrint();
     }
+
+    printSeparatorLine();
+
     {
         std::cout << "Adding up vectors" << std::endl;
         MyVector<double> doubleVec(numbersDouble5,5);
         MyVector<int> intVec(numbers5, 5);
         auto whatAmI = intVec + doubleVec;
+
+        doubleVec.prettyPrint();
+        std::cout << " + " << std::endl;
+        intVec.prettyPrint();
+        std::cout << " = " << std::endl;
         whatAmI.prettyPrint();
     }
     printSeparatorLine();
