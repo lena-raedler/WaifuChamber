@@ -17,9 +17,14 @@ int main () {
     int numbers3[3] = {1,2,3};
     int numbers5[5] = {1,2,3,4,5};
 
-    double numbersDouble1[1] = {1.0};
-    double numbersDouble3[3] = {1.0, 2.0, 3.0};
+    double numbersDouble1[1] = {1.5};
+    double numbersDouble3[3] = {1.5, 2.5, 3.5};
     double numbersDouble5[5] = {1.5, 2.5, 3.5, 4.5, 5.5};
+
+    //Person person1 {"MyFancyName1", 21};
+    //Person person2 {"MyFancyName2", 37};
+    //Person person3 {"MyFancyName3", 54};
+    //Person persons[3] = {person1, person2, person3};
 
     {
         std::cout << "Creating a default int vector and one with {1,2,3}" << std::endl;
@@ -42,43 +47,51 @@ int main () {
     printSeparatorLine();
 
     {
-        std::cout << "Creating a float vector" << std::endl;
-        MyVector<float> vecFloat;
-    }
-
-    printSeparatorLine();
-
-    {
         // TODO Throws errors
         std::cout << "Creating a Person vector" << std::endl;
-        MyVector<Person> vecPerson;
-        vecPerson.prettyPrint();
+        //MyVector<Person> vecPerson;
+        //vecPerson.prettyPrint();
 
-        Person person1;
-        person1.name = "MyFancyName";
-        person1.age = 21;
-
-        //Person p = {};
-        Person persons[1] = {person1};
-        //MyVector<Person> vecPerson1{persons, 1};
-        //vecPerson1.prettyPrint();
+        //MyVector<Person>
     }
 
     printSeparatorLine();
 
     {
         std::cout << "Test copy- constructor and assignment" << std::endl;
-        MyVector<int> vec1;
-        MyVector<int> vec2(vec1);
-        vec2 = vec2;
+        MyVector<int> vecInt11 = {numbers1, 1};
+        std::cout << "vecInt11 : "; vecInt11.prettyPrint();
+
+        std::cout << "Copy vecInt11 to vecInt12" << std::endl;
+        MyVector<int> vecInt12(vecInt11);
+        std::cout << "vecInt12 : "; vecInt12.prettyPrint();
+
+        std::cout << "Self assign vecInt12. Has no effect" << std::endl;
+        vecInt12 = vecInt12;    // Self assignment has no effect
     }
 
     printSeparatorLine();
 
     {
-        //std::cout << "Test move assignment" << std::endl;
-        //MyVector<int> vec1;
-        //MyVector<int> vec2 = std::move(vec1);
+        std::cout << "Test move constructor" << std::endl;
+        MyVector<int> vecInt31 = {numbers3, 3};
+        std::cout << "vecInt31 : "; vecInt31.prettyPrint();
+        std::cout << "Move construct vecInt31 to vecInt32" << std::endl;
+        //MyVector<int> vecInt32(std::move(vecInt31));
+        //std::cout << "vecInt32 : "; vecInt32.prettyPrint();
+    }
+
+    printSeparatorLine();
+
+    {
+        std::cout << "Test move assignment" << std::endl;
+        MyVector<double> vecDouble3 = {numbersDouble3, 3};
+        MyVector<double> vecDouble5 = {numbersDouble5, 5};
+        std::cout << "vecDouble3 : "; vecDouble3.prettyPrint();
+        std::cout << "vecDouble5 : "; vecDouble5.prettyPrint();
+        std::cout << "Move vecDouble5 to vecDouble3" << std::endl;
+        vecDouble3 = std::move(vecDouble5);
+        std::cout << "vecDouble3 : "; vecDouble3.prettyPrint();
     }
 
     printSeparatorLine();
@@ -116,15 +129,18 @@ int main () {
 
         std::cout << "Create an int vector with 1 element" << std::endl;
         MyVector<int> vecInt1 {numbers1, 1};
+        vecInt1.prettyPrint();
         std::cout << "Size: " << vecInt1.size() << std::endl;
 
         std::cout << "Create an int vector with 3 elements" << std::endl;
-        MyVector<int> vecInt2 {numbers3, 3};
-        std::cout << "Size: " << vecInt2.size() << std::endl;
+        MyVector<int> vecInt3 {numbers3, 3};
+        vecInt3.prettyPrint();
+        std::cout << "Size: " << vecInt3.size() << std::endl;
 
         std::cout << "Create an int vector with 5 elements" << std::endl;
-        MyVector<int> vecInt3 {numbers5, 5};
-        std::cout << "Size: " << vecInt3.size() << std::endl;
+        MyVector<int> vecInt5 {numbers5, 5};
+        vecInt5.prettyPrint();
+        std::cout << "Size: " << vecInt5.size() << std::endl;
     }
 
     printSeparatorLine();

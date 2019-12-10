@@ -6,11 +6,11 @@
 #define EXAMPLE_PERSON_HPP
 
 struct Person {
-    std::string name = "";
-    int age = 0;
+    std::string name;
+    int age;
 
-    Person() = default;
-    Person(std::string& name, int age) : name(std::move(name)), age(age) {}
+    //Person() = default;
+    //Person(std::string& name, int age) : name(name), age(age) {}
 };
 
 std::string to_string(const Person &person) {
