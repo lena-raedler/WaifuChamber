@@ -13,6 +13,12 @@ public:
     // default constructor
     Vector<N>() : data{} {};
 
+    template <typename ... T>
+    Vector(T... args) : data{args...} {
+        // fails automatically
+        static_assert(sizeof...(args) == N);
+    }
+
     std::string to_string() {
         std::string output;
         for(auto i : data) {
@@ -30,8 +36,8 @@ private:
  * componentwise addition
  * to_string
  * default construction -> elements initialized to 0
- * copy/move constructors
- * additional constructor what takes N doubles to init data
+ * copy/move constructors --> should be already used (std)
+ * additional constructor that takes N doubles to init data
  * subscript operator
  * testing
  * */
