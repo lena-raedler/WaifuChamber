@@ -105,6 +105,12 @@ vec_t Game::determineInput(double delta){
             player.jump();
         }
     }
+    if(inputManager.isPressed(KEY_R)){//test
+        player.rest();
+    }
+    if(inputManager.isPressed(KEY_Q)){//test
+        std::cout<< player.position << std::endl;
+    }
 
     return{out.x, out.y};
 }
@@ -202,6 +208,11 @@ void Game::processInput(double delta){
 void Game::render() {
     renderer->clear();
     renderer->renderTexture(texture, nullptr, player.rec.get());
+    SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
+    SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
+    renderer->renderBar(50, 50, 100, 10, 200, hpCol, barBGCol);
+
+//    renderer->renderBar(50, 50, 100, 10, player.vit.hp/player.vit.maxHp, hpCol, barBGCol);
     renderer->render();
 }
 void Game::debugshit() {

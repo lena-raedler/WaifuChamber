@@ -42,7 +42,7 @@ namespace utility {
         value_t t,u;
         t = ((aStart.x - bStart.x)*(bStart.y - bEnd.y)-(aStart.y - bStart.y)*(bStart.x - bEnd.x))/tmp;
         u = ((aStart.x - aEnd.x)*(aStart.y - bStart.y)-(aStart.y - aEnd.y)*(aStart.x - bStart.x))/tmp;
-        u *= -1;
+        u *= -1; //not sure if this works
         std::cout << "t:" << t << " u:" << u << std::endl;
         return(t <= 1 && t >= 0 && u <= 1 && u >= 0);
     }

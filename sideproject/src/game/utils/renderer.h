@@ -23,6 +23,8 @@ public:
     void renderColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     // render texture onto a rectangle
     void renderTexture(SDL_Texture* texture, SDL_Rect* srcrect, SDL_Rect* dstrect);
+    void renderBar(int x, int y, int w, int h, float Percent, SDL_Color FGColor, SDL_Color BGColor);
+    static SDL_Color color(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 private:
     SDL_Window* window;

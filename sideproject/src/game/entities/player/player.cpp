@@ -23,6 +23,8 @@ void Player::updatePlayerPosition(double x, double y) {
 }
 
 void Player::upkeep(double delta){
+
+
     move(delta);
     if (position.y > 199 && velocity.y >= 0){
         if (jumps != 2) {
@@ -59,4 +61,10 @@ bool Player::canJump(){
         return true;
     }
     return false;
+}
+
+void Player::rest(){
+    //respawn enemies
+    vit.hp = vit.maxHp;
+    vit.mp = vit.maxMp;
 }

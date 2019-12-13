@@ -24,6 +24,14 @@ struct attributes{
     int bluedex;// (intelligence)
     int con;
 };
+struct vitals{
+    int maxHp = 100;
+    int hp = 50;
+    int maxStam = 100;
+    int stam;
+    int maxMp = 100;
+    int mp;
+};
 class Player : public Movable {
 public:
     Player();
@@ -34,10 +42,14 @@ public:
     int jumpCooldown = 250; //ms
     double jumpSpeed = -20;
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
+    attributes attr;
+    vitals vit;
 
     void jump();
     bool canJump();
     void upkeep(double delta);//call this every frame
+
+    void rest();
 
     //std::vector<statuseffect> statusEffects; TODO: implement status effects
 
