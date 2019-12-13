@@ -27,12 +27,17 @@ public:
         return output;
     }
     //subscript operators
-    double& operator[](unsigned pos) {
+    double operator[](unsigned pos) const &&{
         return data[pos];
     }
-    explicit operator double *() const { return data; }
+    double operator[](unsigned pos) const & {
+        return data[pos];
+    }
+    double&operator[](unsigned pos) & {
+        return data[pos];
+    }
 
-    Vector<N> operator+(Vector<N> &rhs) const {
+    Vector<N> operator+(const Vector<N> &rhs) const {
         Vector<N> result;
         for(int i = 0; i < data.size(); ++i) {
             result[i] = data[i] + rhs[i];

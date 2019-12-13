@@ -23,4 +23,7 @@ int main() {
     auto res = vec1 + vec2;
     std::cout << res.to_string() << std::endl;
 
+    vec1[1] = 6.0;
+    std::cout << vec1.to_string() << std::endl;
+
 }
