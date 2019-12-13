@@ -19,11 +19,14 @@ int main() {
     Vector<1> vec3(std::move(vec));
     std::cout << vec3.to_string() << std::endl;
 
-    std::cout << vec[1] << std::endl;
-    auto res = vec1 + vec2;
+    //std::cout << vec[1] << std::endl;
+    auto res = (vec1 + vec2);
     std::cout << res.to_string() << std::endl;
+
+    Vector<1> test{1.0};
 
     vec1[1] = 6.0;
     std::cout << vec1.to_string() << std::endl;
+    std::cout << test.x << std::endl;
 
 }

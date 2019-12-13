@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <array>
+#include <cstdlib>
 
 #pragma once
 
@@ -33,30 +34,64 @@ public:
     double operator[](unsigned pos) const & {
         return data[pos];
     }
-    double&operator[](unsigned pos) & {
+    double& operator[](unsigned pos) & {
         return data[pos];
     }
-
-    Vector<N> operator+(const Vector<N> &rhs) const {
+    /*Vector<N> operator+(const Vector<N> &rhs) const {
         Vector<N> result;
         for(int i = 0; i < data.size(); ++i) {
             result[i] = data[i] + rhs[i];
         }
         return result;
-    }
+    }*/
 
 
 private:
     std::array<double, N> data;
 };
 
+template <>
+class Vector<1> {
+    using TT = Vector<1>;
+public:
+    Vector<1>() : data{} {}; //c++ automatically initializes with 0
 
-/*TODO:
- * componentwise addition
- * to_string
- * default construction -> elements initialized to 0
- * copy/move constructors --> should be already used (std)
- * additional constructor that takes N doubles to init data
- * subscript operator
- * testing
- * */
+    template <typename ... T>
+    Vector(T... args) : data{args...} { // put the values into the data array
+        // fails automatically
+        static_assert(sizeof...(args) == 1);
+    }
+
+
+    std::string to_string() {
+        std::string output;
+        for(auto i : data) {
+            output += std::to_string(i) + " ";
+        }
+        return output;
+    }
+    //subscript operators
+    double operator[](unsigned pos) const &&{
+        return data[pos];
+    }
+    double operator[](unsigned pos) const & {
+        return data[pos];
+    }
+    double& operator[](unsigned pos) & {
+        return data[pos];
+    }
+    double &x = data[0];
+
+
+private:
+    std::array<double, 1> data;
+};
+
+template <long unsigned size>
+Vector<size> operator+(const Vector<size> &lhs, const Vector<size> &rhs) {
+    Vector<size> result;
+    for(int i = 0; i < size; ++i) {
+        result[i] = lhs[i] + rhs[i];
+    }
+    return result;
+}
