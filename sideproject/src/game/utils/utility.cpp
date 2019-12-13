@@ -46,11 +46,19 @@ namespace utility {
     }
     bool triangleTriangleIntersection(const triangle a, const triangle b) {
         for (int i = 0; i < 3; ++i) {
-            if (pointTriangleIntersection(a, b[i])) {
+            if (pointTriangleIntersection(a, b[i]) || pointTriangleIntersection(b, a[i])) {
                 return true;
             }
         }
-        return false;
+        return lineLineIntersection(a[0], a[1], b[0], b[1]) ||
+               lineLineIntersection(a[1], a[2], b[0], b[1]) ||
+               lineLineIntersection(a[0], a[2], b[0], b[1]) ||
+               lineLineIntersection(a[0], a[1], b[1], b[2]) ||
+               lineLineIntersection(a[1], a[2], b[1], b[2]) ||
+               lineLineIntersection(a[0], a[2], b[1], b[2]) ||
+               lineLineIntersection(a[0], a[1], b[0], b[2]) ||
+               lineLineIntersection(a[1], a[2], b[0], b[2]) ||
+               lineLineIntersection(a[0], a[2], b[0], b[2]);
 
     }
 }
