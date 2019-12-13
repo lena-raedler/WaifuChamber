@@ -18,14 +18,14 @@ namespace utility {
         double u, v;
         u = (cramer[2] * cramer[3] - cramer[1] * cramer[4]) / denom;
         v = (cramer[0] * cramer[4] - cramer[1] * cramer[3]) / denom;
-        return {u, v, u - v};
+        return {u, v, 1 - u - v};
 
     }
 
     bool pointTriangleIntersection(const triangle a,const vec_t b) {
         auto bary = getBarycentricCoordinates(a, b);
         for (auto d : bary) {
-            if (d >= 1 || d <= 0) {
+            if (d > 1 || d < 0) {
                 return false;
             }
         }
@@ -52,8 +52,5 @@ namespace utility {
         }
         return false;
 
-    }
-    int bongo(){
-        return 42;
     }
 }

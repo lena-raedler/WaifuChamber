@@ -205,5 +205,5 @@ void Game::debugshit() {
     vec_t be{1, -1};
     triangle a{{0,0},{1,1},{0,1}};
     triangle b{{1,0},{0,1},{1,1}};
-    std::cout << utility::bongo() << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
+    std::cout << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
 }
