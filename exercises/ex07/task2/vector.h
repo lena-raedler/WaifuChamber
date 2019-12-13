@@ -11,10 +11,10 @@ template <std::size_t N>
 class Vector {
 public:
     // default constructor
-    Vector<N>() : data{} {};
+    Vector<N>() : data{} {}; //c++ automatically initializes with 0
 
     template <typename ... T>
-    Vector(T... args) : data{args...} {
+    Vector(T... args) : data{args...} { // put the values into the data array
         // fails automatically
         static_assert(sizeof...(args) == N);
     }
@@ -26,6 +26,20 @@ public:
         }
         return output;
     }
+    //subscript operators
+    double& operator[](unsigned pos) {
+        return data[pos];
+    }
+    explicit operator double *() const { return data; }
+
+    Vector<N> operator+(Vector<N> &rhs) const {
+        Vector<N> result;
+        for(int i = 0; i < data.size(); ++i) {
+            result[i] = data[i] + rhs[i];
+        }
+        return result;
+    }
+
 
 private:
     std::array<double, N> data;
