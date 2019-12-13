@@ -199,8 +199,8 @@ void Game::render() {
     renderer->render();
 }
 void Game::debugshit() {
-    vec_t as{1,1};
-    vec_t ae{-1, -1};
+    vec_t as{-1,-1};
+    vec_t ae{1, 1};
     vec_t bs{-1, 1};
     vec_t be{1, -1};
     triangle a{{0,0},{1,1},{0,1}};
