@@ -18,14 +18,14 @@ namespace utility {
         double u, v;
         u = (cramer[2] * cramer[3] - cramer[1] * cramer[4]) / denom;
         v = (cramer[0] * cramer[4] - cramer[1] * cramer[3]) / denom;
-        return {u, v, u - v};
+        return {u, v, 1 - u - v};
 
     }
 
     bool pointTriangleIntersection(const triangle a,const vec_t b) {
         auto bary = getBarycentricCoordinates(a, b);
         for (auto d : bary) {
-            if (d >= 1 || d <= 0) {
+            if (d > 1 || d < 0) {
                 return false;
             }
         }
@@ -34,25 +34,33 @@ namespace utility {
     }
 
     bool lineLineIntersection(const vec_t aStart,const vec_t aEnd,const vec_t bStart,const vec_t bEnd){
-        value_t tmp = (aStart.x - aEnd.x)*(bStart.y - bStart.y) - (aStart.y - aEnd.y)*(bStart.x - bEnd.x);
-        if (tmp <= std::numeric_limits<value_t>::epsilon()){
+        value_t tmp = (aStart.x - aEnd.x)*(bStart.y - bEnd.y) - (aStart.y - aEnd.y)*(bStart.x - bEnd.x);
+        if (std::abs(tmp) <= std::numeric_limits<value_t>::epsilon()){
+            std::cout << "mungojunge" << std::endl;
             return false;//parallel
         }
         value_t t,u;
-        t = (aStart.x - bStart.x)*(bStart.y - bEnd.y)-(aStart.y - bStart.y)*(bStart.x - bEnd.x)/tmp;
-        u = (aStart.x - aEnd.x)*(aStart.y - bStart.y)-(aStart.y - aEnd.y)*(aStart.x - bStart.x)/tmp;
+        t = ((aStart.x - bStart.x)*(bStart.y - bEnd.y)-(aStart.y - bStart.y)*(bStart.x - bEnd.x))/tmp;
+        u = ((aStart.x - aEnd.x)*(aStart.y - bStart.y)-(aStart.y - aEnd.y)*(aStart.x - bStart.x))/tmp;
+        u *= -1;
+        std::cout << "t:" << t << " u:" << u << std::endl;
         return(t <= 1 && t >= 0 && u <= 1 && u >= 0);
     }
     bool triangleTriangleIntersection(const triangle a, const triangle b) {
         for (int i = 0; i < 3; ++i) {
-            if (pointTriangleIntersection(a, b[i])) {
+            if (pointTriangleIntersection(a, b[i]) || pointTriangleIntersection(b, a[i])) {
                 return true;
             }
         }
-        return false;
+        return lineLineIntersection(a[0], a[1], b[0], b[1]) ||
+               lineLineIntersection(a[1], a[2], b[0], b[1]) ||
+               lineLineIntersection(a[0], a[2], b[0], b[1]) ||
+               lineLineIntersection(a[0], a[1], b[1], b[2]) ||
+               lineLineIntersection(a[1], a[2], b[1], b[2]) ||
+               lineLineIntersection(a[0], a[2], b[1], b[2]) ||
+               lineLineIntersection(a[0], a[1], b[0], b[2]) ||
+               lineLineIntersection(a[1], a[2], b[0], b[2]) ||
+               lineLineIntersection(a[0], a[2], b[0], b[2]);
 
-    }
-    int bongo(){
-        return 42;
     }
 }

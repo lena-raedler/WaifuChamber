@@ -62,7 +62,7 @@ Game::~Game() {
     //close all SDL components here
     SDL_DestroyTexture(texture);
     SDL_FreeSurface(surface);
-    SDL_DestroyWindow(window);
+    SDL_DestroyWindow(window); //TODO: fix segfault here
     IMG_Quit();
     SDL_Quit();
 }
@@ -78,6 +78,9 @@ int Game::loop() {
         //processInput(deltaTime);
         player.velocity.x *= 0.8;
         auto move = determineInput(1);
+        if(quit){
+            break;
+        }
 
 
         player.velocity += move;
@@ -141,6 +144,9 @@ void Game::processInput(double delta){
                 }
                 break;
         }
+        if (quit) {
+            return;
+        }
 
         // x_velocity in which we move
         int x_velocity = 0;
@@ -199,7 +205,11 @@ void Game::render() {
     renderer->render();
 }
 void Game::debugshit() {
+    vec_t as{1,1};
+    vec_t ae{-1, -1};
+    vec_t bs{1, -1};
+    vec_t be{-1, 1};
     triangle a{{0,0},{1,1},{0,1}};
     triangle b{{1,0},{0,1},{1,1}};
-    std::cout << utility::bongo() << utility::triangleTriangleIntersection(a,b) << std::endl;
+    std::cout << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
 }
