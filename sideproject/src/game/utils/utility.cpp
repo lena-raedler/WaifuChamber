@@ -34,13 +34,14 @@ namespace utility {
     }
 
     bool lineLineIntersection(const vec_t aStart,const vec_t aEnd,const vec_t bStart,const vec_t bEnd){
-        value_t tmp = (aStart.x - aEnd.x)*(bStart.y - bStart.y) - (aStart.y - aEnd.y)*(bStart.x - bEnd.x);
+        value_t tmp = (aStart.x - aEnd.x)*(bStart.y - bEnd.y) - (aStart.y - aEnd.y)*(bStart.x - bEnd.x);
         if (tmp <= std::numeric_limits<value_t>::epsilon()){
             return false;//parallel
         }
         value_t t,u;
-        t = (aStart.x - bStart.x)*(bStart.y - bEnd.y)-(aStart.y - bStart.y)*(bStart.x - bEnd.x)/tmp;
-        u = (aStart.x - aEnd.x)*(aStart.y - bStart.y)-(aStart.y - aEnd.y)*(aStart.x - bStart.x)/tmp;
+        t = ((aStart.x - bStart.x)*(bStart.y - bEnd.y)-(aStart.y - bStart.y)*(bStart.x - bEnd.x))/tmp;
+        u = ((aStart.x - aEnd.x)*(aStart.y - bStart.y)-(aStart.y - aEnd.y)*(aStart.x - bStart.x))/tmp;
+        std::cout << "t:" << t << " u:" << u << std::endl;
         return(t <= 1 && t >= 0 && u <= 1 && u >= 0);
     }
     bool triangleTriangleIntersection(const triangle a, const triangle b) {

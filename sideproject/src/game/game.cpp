@@ -199,7 +199,11 @@ void Game::render() {
     renderer->render();
 }
 void Game::debugshit() {
+    vec_t as{1,1};
+    vec_t ae{-1, -1};
+    vec_t bs{-1, 1};
+    vec_t be{1, -1};
     triangle a{{0,0},{1,1},{0,1}};
     triangle b{{1,0},{0,1},{1,1}};
-    std::cout << utility::bongo() << utility::triangleTriangleIntersection(a,b) << std::endl;
+    std::cout << utility::bongo() << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
 }
