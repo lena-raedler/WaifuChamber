@@ -127,6 +127,44 @@ private:
     std::array<double, 2> data;
 };
 
+//specialization of 3
+template <>
+class Vector<3> {
+    using TT = Vector<3>;
+public:
+    Vector<3>() : data{} {};
+    template <typename ... T>
+    Vector(T... args) : data{args...} { // put the values into the data array
+        // fails automatically
+        static_assert(sizeof...(args) == 3);
+    }
+
+
+    std::string to_string() {
+        std::string output;
+        for(auto i : data) {
+            output += std::to_string(i) + " ";
+        }
+        return output;
+    }
+    //subscript operators
+    double operator[](unsigned pos) const &&{
+        return data[pos];
+    }
+    double operator[](unsigned pos) const & {
+        return data[pos];
+    }
+    double& operator[](unsigned pos) & {
+        return data[pos];
+    }
+    double &x = data[0];
+    double &y = data[1];
+    double &z = data[2];
+
+private:
+    std::array<double, 3> data;
+};
+
 template <long unsigned size>
 Vector<size> operator+(const Vector<size> &lhs, const Vector<size> &rhs) {
     Vector<size> result;
@@ -135,3 +173,7 @@ Vector<size> operator+(const Vector<size> &lhs, const Vector<size> &rhs) {
     }
     return result;
 }
+
+using Vec1 = Vector<1>;
+using Vec2 = Vector<2>;
+using Vec3 = Vector<3>;

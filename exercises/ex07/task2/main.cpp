@@ -47,7 +47,22 @@ int main() {
     dim2.x = 3.0;
     dim2.y = 4.5;
     std::cout << dim2.to_string() << std::endl;
-    Vector<2> vec4{5.0, 2.0};
+    Vec2 vec4{5.0, 2.0};
     std::cout << (vec4 + dim2).y << std::endl;
+
+    std::cout << "testing Vec<3>" << std::endl;
+    Vector<3> dim3{1.0, 2.0, 3.0};
+    std::cout << dim3.to_string() << std::endl;
+    std::cout << dim3.x << std::endl;
+    std::cout << dim3.y << std::endl;
+    std::cout << dim3.z << std::endl;
+    std::cout << dim3[1] << " " << dim3[2] << std::endl;
+
+    dim3.x = 2.0;
+    dim3.y += 4.0;
+    dim3.z = 21.0;
+    std::cout << dim3.to_string() << std::endl;
+    Vec3 vec5{1.0, 1.0, 1.0};
+    std::cout << (dim3 + vec5).z << std::endl;
 
 }
