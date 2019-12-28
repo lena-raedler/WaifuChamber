@@ -6,8 +6,9 @@
 
 std::vector<std::shared_ptr<Person>> createAndFillVector();
 std::vector<Person*> mapPerson(const std::vector<std::shared_ptr<Person>>& input);
+template <class T> void printVector(const T& vectorToPrint);
 void printSharedVector(const std::vector<std::shared_ptr<Person>>& vectorToPrint);
-void printVector(const std::vector<Person*>& vectorToPrint);
+void printVectorOld(const std::vector<Person*>& vectorToPrint);
 
 
 int main() {
@@ -15,9 +16,11 @@ int main() {
     auto vector = createAndFillVector();
     std::cout << "Done!\n" << std::endl;
 
-    printSharedVector(vector);
+    //printSharedVector(vector);
+    printVector(vector);
 
     std::vector<Person*> mappedVector = mapPerson(vector);
+   // printVector(mappedVector);
     printVector(mappedVector);
 }
 
@@ -26,7 +29,7 @@ std::vector<std::shared_ptr<Person>> createAndFillVector() {
     auto person2 = std::make_shared<Person>(Person{"FirstName2", "LastName2", 2});
     auto person3 = std::make_shared<Person>(Person{"FirstName3", "LastName3", 3});
 
-    std::vector<std::shared_ptr<Person>> vector {person1, person1, person2, person3};
+    std::vector<std::shared_ptr<Person>> vector {person1, person1, person2, person3, person1, person3};
     return vector;
 }
 
@@ -44,6 +47,15 @@ std::vector<Person*> mapPerson(const std::vector<std::shared_ptr<Person>>& input
     return output;
 }
 
+template <class T>
+void printVector(const T& vectorToPrint) {
+    std::cout << "Print vector..." << std::endl;
+    for (const auto& toPrint : vectorToPrint) {
+        std::cout << *toPrint << std::endl;
+    }
+    std::cout << std::endl;
+}
+
 void printSharedVector(const std::vector<std::shared_ptr<Person>>& vectorToPrint) {
     std::cout << "Print shared vector: " << std::endl;
     for (const auto& person_ptr : vectorToPrint) {
@@ -52,7 +64,7 @@ void printSharedVector(const std::vector<std::shared_ptr<Person>>& vectorToPrint
     std::cout << std::endl;
 }
 
-void printVector(const std::vector<Person*>& vectorToPrint) {
+void printVectorOld(const std::vector<Person*>& vectorToPrint) {
     std::cout << "Print vector: " << std::endl;
     for (const Person* person : vectorToPrint) {
         std::cout << *person << std::endl;
