@@ -8,17 +8,10 @@
 #include <vector>
 
 std::vector<std::shared_ptr<Person>> createAndFillVector();
-std::vector<Person*> mapPersonWithFor(const std::vector<std::shared_ptr<Person>>& input);
-std::vector<Person*> mapPersonsWithMemFn(const std::vector<std::shared_ptr<Person>>& input);
+std::vector<Person*> mapPersonsWithFor(const std::vector<std::shared_ptr<Person>>& input);
+std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& input);
 template <class T> void printVector(const T& vectorToPrint);
 
-Person* mapPerson(const std::shared_ptr<Person>& personToMap);
-
-struct Foo {
-    Person* mapPerson(const std::shared_ptr<Person>& personToMap) {
-        return &*personToMap;
-    }
-};
 
 int main() {
     std::cout << "Create vector..." << std::endl;
@@ -27,8 +20,11 @@ int main() {
 
     printVector(vector);
 
-    std::vector<Person*> mappedVector = mapPersonWithFor(vector);
+    std::vector<Person*> mappedVector = mapPersonsWithFor(vector);
     printVector(mappedVector);
+
+    std::vector<Person*> mappedVector2 = mapPersonsWithMemFn(vector);
+    printVector(mappedVector2);
 }
 
 std::vector<std::shared_ptr<Person>> createAndFillVector() {
@@ -40,7 +36,7 @@ std::vector<std::shared_ptr<Person>> createAndFillVector() {
     return vector;
 }
 
-std::vector<Person*> mapPersonWithFor(const std::vector<std::shared_ptr<Person>>& input) {
+std::vector<Person*> mapPersonsWithFor(const std::vector<std::shared_ptr<Person>>& input) {
     std::vector<Person*> output;
     std::set<std::shared_ptr<Person>> alreadyProcessed;
 
@@ -54,11 +50,23 @@ std::vector<Person*> mapPersonWithFor(const std::vector<std::shared_ptr<Person>>
     return output;
 }
 
-std::vector<Person*> mapPersonsWithMemFn(const std::vector<std::shared_ptr<Person>>& input) {
-    std::vector<Person*> output;
+struct Foo {
+    Person* mapPerson(std::shared_ptr<Person>& personToMap) {
+        return &*personToMap;
+    }
+};
 
-    std::transform(input.begin(), input.end(), input.begin(),
-            [](const std::shared_ptr<Person>&) -> Person* { return std::mem_fn(&Foo::mapPerson) });
+std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& input) {
+    std::vector<Person*> output;
+    Foo foo;
+    auto mapPersonLambda = std::mem_fn(&Foo::mapPerson);
+
+    std::transform(
+            input.begin(),
+            input.end(),
+            std::back_inserter(output),
+            [&](std::shared_ptr<Person>& person) -> Person* { return mapPersonLambda(foo, person); }
+            );
 
     return output;
 }
