@@ -57,7 +57,8 @@ struct Foo {
 };
 
 std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& input) {
-    std::vector<Person*> output;
+    std::set<Person*> outputSet;
+    std::vector<Person*> outputVector;
     std::set<std::shared_ptr<Person>> alreadyProcessed;
     Foo foo;
     auto mapPersonLambda = std::mem_fn(&Foo::mapPerson);
@@ -65,7 +66,7 @@ std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& i
     std::transform(
             input.begin(),
             input.end(),
-            std::back_inserter(output),
+            std::inserter(outputSet, outputSet.begin()),
             [&](std::shared_ptr<Person>& person_ptr) -> Person* {
                 if (alreadyProcessed.find(person_ptr) == alreadyProcessed.end()) {
                     alreadyProcessed.insert(person_ptr);
@@ -75,9 +76,9 @@ std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& i
             );
 
     // Remove elements because there exists no remove_if()
+    outputVector.assign(outputSet.begin(), outputSet.end());
 
-
-    return output;
+    return outputVector;
 }
 
 // Can only take pointers!
