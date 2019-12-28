@@ -14,5 +14,5 @@ std::string to_string(const Person &person) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Person& person) {
-    return os << to_string(person) << std::endl;
+    return os << to_string(person);
 }
