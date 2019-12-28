@@ -10,6 +10,7 @@
 std::vector<std::shared_ptr<Person>> createAndFillVector();
 std::vector<Person*> mapPersonsWithFor(const std::vector<std::shared_ptr<Person>>& input);
 std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& input);
+std::vector<Person*> mapPersonsWithTransform(std::vector<std::shared_ptr<Person>>& input);
 template <class T> void printVector(const T& vectorToPrint);
 
 struct Foo {
@@ -30,6 +31,9 @@ int main() {
 
     std::vector<Person*> mappedVector2 = mapPersonsWithMemFn(vector);
     printVector(mappedVector2);
+
+    std::vector<Person*> mappedVector3 = mapPersonsWithTransform(vector);
+    printVector(mappedVector3);
 }
 
 std::vector<std::shared_ptr<Person>> createAndFillVector() {
@@ -70,6 +74,25 @@ std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& i
             std::inserter(outputSet, outputSet.begin()),
             [&](std::shared_ptr<Person>& person_ptr) -> Person* { return mapPersonLambda(foo, person_ptr); }
             );
+
+    // Remove elements because there exists no transform_if()
+    outputVector.assign(outputSet.begin(), outputSet.end());
+    return outputVector;
+}
+
+
+// Almost the same as before??
+std::vector<Person*> mapPersonsWithTransform(std::vector<std::shared_ptr<Person>>& input) {
+    std::set<Person*> outputSet;
+    std::vector<Person*> outputVector;
+    Foo foo;
+
+    std::transform(
+            input.begin(),
+            input.end(),
+            std::inserter(outputSet, outputSet.begin()),
+            [&](std::shared_ptr<Person>& person_ptr) -> Person* { return foo.mapPerson(person_ptr); }
+    );
 
     // Remove elements because there exists no transform_if()
     outputVector.assign(outputSet.begin(), outputSet.end());
