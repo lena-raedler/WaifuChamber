@@ -12,6 +12,11 @@ std::vector<Person*> mapPersonsWithFor(const std::vector<std::shared_ptr<Person>
 std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& input);
 template <class T> void printVector(const T& vectorToPrint);
 
+struct Foo {
+    Person* mapPerson(std::shared_ptr<Person>& personToMap) {
+        return &*personToMap;
+    }
+};
 
 int main() {
     std::cout << "Create vector..." << std::endl;
@@ -50,16 +55,12 @@ std::vector<Person*> mapPersonsWithFor(const std::vector<std::shared_ptr<Person>
     return output;
 }
 
-struct Foo {
-    Person* mapPerson(std::shared_ptr<Person>& personToMap) {
-        return &*personToMap;
-    }
-};
-
+// https://stackoverflow.com/questions/1041620/whats-the-most-efficient-way-to-erase-duplicates-and-sort-a-vector
+// https://stackoverflow.com/questions/908272/stdback-inserter-for-a-stdset
+// https://stackoverflow.com/questions/23579832/why-is-there-no-transform-if-in-the-c-standard-library
 std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& input) {
     std::set<Person*> outputSet;
     std::vector<Person*> outputVector;
-    std::set<std::shared_ptr<Person>> alreadyProcessed;
     Foo foo;
     auto mapPersonLambda = std::mem_fn(&Foo::mapPerson);
 
@@ -67,19 +68,14 @@ std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& i
             input.begin(),
             input.end(),
             std::inserter(outputSet, outputSet.begin()),
-            [&](std::shared_ptr<Person>& person_ptr) -> Person* {
-                if (alreadyProcessed.find(person_ptr) == alreadyProcessed.end()) {
-                    alreadyProcessed.insert(person_ptr);
-                }
-                return mapPersonLambda(foo, person_ptr);
-                }
+            [&](std::shared_ptr<Person>& person_ptr) -> Person* { return mapPersonLambda(foo, person_ptr); }
             );
 
-    // Remove elements because there exists no remove_if()
+    // Remove elements because there exists no transform_if()
     outputVector.assign(outputSet.begin(), outputSet.end());
-
     return outputVector;
 }
+
 
 // Can only take pointers!
 template <class T>
