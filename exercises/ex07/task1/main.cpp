@@ -7,8 +7,6 @@
 std::vector<std::shared_ptr<Person>> createAndFillVector();
 std::vector<Person*> mapPerson(const std::vector<std::shared_ptr<Person>>& input);
 template <class T> void printVector(const T& vectorToPrint);
-void printSharedVector(const std::vector<std::shared_ptr<Person>>& vectorToPrint);
-void printVectorOld(const std::vector<Person*>& vectorToPrint);
 
 
 int main() {
@@ -50,22 +48,6 @@ void printVector(const T& vectorToPrint) {
     std::cout << "Print vector..." << std::endl;
     for (const auto& toPrint : vectorToPrint) {
         std::cout << *toPrint << std::endl;
-    }
-    std::cout << std::endl;
-}
-
-void printSharedVector(const std::vector<std::shared_ptr<Person>>& vectorToPrint) {
-    std::cout << "Print shared vector: " << std::endl;
-    for (const auto& person_ptr : vectorToPrint) {
-        std::cout << *person_ptr << std::endl;
-    }
-    std::cout << std::endl;
-}
-
-void printVectorOld(const std::vector<Person*>& vectorToPrint) {
-    std::cout << "Print vector: " << std::endl;
-    for (const Person* person : vectorToPrint) {
-        std::cout << *person << std::endl;
     }
     std::cout << std::endl;
 }
