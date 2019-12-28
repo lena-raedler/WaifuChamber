@@ -16,11 +16,9 @@ int main() {
     auto vector = createAndFillVector();
     std::cout << "Done!\n" << std::endl;
 
-    //printSharedVector(vector);
     printVector(vector);
 
     std::vector<Person*> mappedVector = mapPerson(vector);
-   // printVector(mappedVector);
     printVector(mappedVector);
 }
 
