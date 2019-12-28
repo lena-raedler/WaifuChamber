@@ -1,13 +1,24 @@
 #include "Person.hpp"
+
+#include <algorithm>
+#include <functional>
 #include <iostream>
-#include <set>
 #include <memory>
+#include <set>
 #include <vector>
 
 std::vector<std::shared_ptr<Person>> createAndFillVector();
-std::vector<Person*> mapPerson(const std::vector<std::shared_ptr<Person>>& input);
+std::vector<Person*> mapPersonWithFor(const std::vector<std::shared_ptr<Person>>& input);
+std::vector<Person*> mapPersonsWithMemFn(const std::vector<std::shared_ptr<Person>>& input);
 template <class T> void printVector(const T& vectorToPrint);
 
+Person* mapPerson(const std::shared_ptr<Person>& personToMap);
+
+struct Foo {
+    Person* mapPerson(const std::shared_ptr<Person>& personToMap) {
+        return &*personToMap;
+    }
+};
 
 int main() {
     std::cout << "Create vector..." << std::endl;
@@ -16,7 +27,7 @@ int main() {
 
     printVector(vector);
 
-    std::vector<Person*> mappedVector = mapPerson(vector);
+    std::vector<Person*> mappedVector = mapPersonWithFor(vector);
     printVector(mappedVector);
 }
 
@@ -29,7 +40,7 @@ std::vector<std::shared_ptr<Person>> createAndFillVector() {
     return vector;
 }
 
-std::vector<Person*> mapPerson(const std::vector<std::shared_ptr<Person>>& input) {
+std::vector<Person*> mapPersonWithFor(const std::vector<std::shared_ptr<Person>>& input) {
     std::vector<Person*> output;
     std::set<std::shared_ptr<Person>> alreadyProcessed;
 
@@ -43,6 +54,16 @@ std::vector<Person*> mapPerson(const std::vector<std::shared_ptr<Person>>& input
     return output;
 }
 
+std::vector<Person*> mapPersonsWithMemFn(const std::vector<std::shared_ptr<Person>>& input) {
+    std::vector<Person*> output;
+
+    std::transform(input.begin(), input.end(), input.begin(),
+            [](const std::shared_ptr<Person>&) -> Person* { return std::mem_fn(&Foo::mapPerson) });
+
+    return output;
+}
+
+// Can only take pointers!
 template <class T>
 void printVector(const T& vectorToPrint) {
     std::cout << "Print vector..." << std::endl;
