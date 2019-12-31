@@ -60,10 +60,9 @@ Game::Game() {
     player.rec = std::make_unique<SDL_Rect>(rectangle);
     inputManager.init();
 
-    //healthBarBorderRect = {25, 25, 200, 20};
-    //healthBarRect = {healthBarBorderRect.x + 2, healthBarBorderRect.y + 2, healthBarBorderRect.w - 4, healthBarBorderRect.h - 4};
     healthBarBorderRect = {20, 20, 210, 30};
-    healthBarRect = {25, 25, 200, 20};
+    healthBarBackgroundRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 10, healthBarBorderRect.h - 10};
+    healthBarRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 50, healthBarBorderRect.h - 10};
 }
 
 Game::~Game() {
@@ -274,17 +273,19 @@ void Game::render() {
     renderer->render();
 }
 
+/*
+ * Render the health bar with simple colors (no textures) depending on how much life the player currently has.
+ */
 void Game::renderHealthBar() {
-    //SDL_Rect healthBarBorderRect = {20, 20, 210, 30};
+    // Light red
     SDL_SetRenderDrawColor(renderer->getRenderer(), 0xFF, 0x80, 0x80, 0xFF);
     SDL_RenderFillRect(renderer->getRenderer(), &healthBarBorderRect);
 
-    SDL_Rect healthBarBackgroundRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 10, healthBarBorderRect.h - 10};
+    // Black
     SDL_SetRenderDrawColor(renderer->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
     SDL_RenderFillRect(renderer->getRenderer(), &healthBarBackgroundRect);
 
-    //SDL_Rect healthBarRectangle = { 200, 200, 200, 50 };
-    healthBarRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 50, healthBarBorderRect.h - 10};
+    // Red
     SDL_SetRenderDrawColor(renderer->getRenderer(), 0xFF, 0x00, 0x00, 0xFF);
     SDL_RenderFillRect(renderer->getRenderer(), &healthBarRect);
 }
