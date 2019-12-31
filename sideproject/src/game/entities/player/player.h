@@ -40,7 +40,7 @@ public:
     void updatePlayerPosition(double x, double y);
     int jumps = 2;
     int jumpCooldown = 250; //ms
-    double jumpSpeed = -20;
+    double jumpSpeed = -30;
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
     attributes attr;
     vitals vit;
