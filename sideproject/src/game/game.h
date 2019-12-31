@@ -26,6 +26,7 @@ public:
 private:
     InputManager inputManager;
     void render();
+    void updateHealthBar();
     void renderHealthBar();
     void processInput(double delta);
     vec_t determineInput(double delta);

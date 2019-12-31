@@ -93,6 +93,11 @@ int Game::loop() {
         player.velocity += move;
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/100);
+
+        // Update player
+        // TODO Update player in a separate function
+        player.vit.healthPercentage = (double) player.vit.hp / player.vit.maxHp;
+        //player.updatePlayer(playerPosition.x, playerPosition.y);
         render();
     }
     return 0;
@@ -197,7 +202,7 @@ void Game::processInput(double delta){
 
         // update the player position
         playerPosition.x += x_velocity * delta /60;
-        player.updatePlayerPosition(playerPosition.x, playerPosition.y);
+        player.updatePlayer(playerPosition.x, playerPosition.y);
 
         // update rectangle from player position
         rectangle.x = playerPosition.x;
@@ -258,7 +263,10 @@ void Game::render() {
     SDL_RenderCopy(renderer->getRenderer(), healthBarTexture, &SrcR, &DestR);
      */
 
+    // Update the remaining health percentage
+    updateHealthBar();
 
+    // Render the health bar according to how much hp is left
     renderHealthBar();
 
     // Render the player after the background
@@ -271,6 +279,13 @@ void Game::render() {
 
 //    renderer->renderBar(50, 50, 100, 10, player.vit.hp/player.vit.maxHp, hpCol, barBGCol);
     renderer->render();
+}
+
+/*
+ * For now only the health bar gets updated according to the remaining hp left (percentage)
+ */
+void Game::updateHealthBar() {
+    healthBarRect.w = player.vit.healthPercentage * healthBarBackgroundRect.w;
 }
 
 /*
@@ -288,7 +303,7 @@ void Game::renderHealthBar() {
     SDL_SetRenderDrawColor(renderer->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
     SDL_RenderFillRect(renderer->getRenderer(), &healthBarBackgroundRect);
 
-    // Red
+    // Red; Draw as much as the player has hp left.
     SDL_SetRenderDrawColor(renderer->getRenderer(), 0xFF, 0x00, 0x00, 0xFF);
     SDL_RenderFillRect(renderer->getRenderer(), &healthBarRect);
 }

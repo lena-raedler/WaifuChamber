@@ -27,6 +27,7 @@ struct attributes{
 struct vitals{
     int maxHp = 100;
     int hp = 50;
+    double healthPercentage = (double) hp / maxHp;
     int maxStam = 100;
     int stam = 50;
     int maxMp = 100;
@@ -37,7 +38,7 @@ public:
     Player();
     ~Player();
 
-    void updatePlayerPosition(double x, double y);
+    void updatePlayer(double x, double y);
     int jumps = 2;
     int jumpCooldown = 250; //ms
     double jumpSpeed = -30;

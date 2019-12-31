@@ -17,9 +17,11 @@ Player::~Player() {
 
 
 
-void Player::updatePlayerPosition(double x, double y) {
+void Player::updatePlayer(double x, double y) {
     position.x = x;
     position.y = y;
+
+    vit.healthPercentage = (double) vit.maxHp / vit.hp;
 }
 
 void Player::upkeep(double delta){
