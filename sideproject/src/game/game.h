@@ -43,16 +43,13 @@ private:
     bool isFalling;
     const int speed = 10;
     vec_t playerPosition;
-    //int screenHeight = 480;
-    int screenHeight = 900;
-    //int screenWidth = 640;
-    int screenWidth = 1700;
+    int screenHeight = 900;     // Original: 480
+    int screenWidth = 1700; // Original: 640
     const int jumpHeight = 10;
     int jump = 0;
     void debugshit();//1st statement that is executed, do all kinds of testing in this
+    SDL_Rect healthBarBorderRect;   // If this is defined after background then a SEGFAULT occurs(??)
     SDL_Texture* background;
-    //SDL_Texture* healthBarTexture;
-    //SDL_Rect healthBarBorderRect = {0, 0, 0, 0};
     SDL_Rect healthBarRect;
 };
 

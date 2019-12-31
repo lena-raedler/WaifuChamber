@@ -62,6 +62,7 @@ Game::Game() {
 
     //healthBarBorderRect = {25, 25, 200, 20};
     //healthBarRect = {healthBarBorderRect.x + 2, healthBarBorderRect.y + 2, healthBarBorderRect.w - 4, healthBarBorderRect.h - 4};
+    healthBarBorderRect = {20, 20, 210, 30};
     healthBarRect = {25, 25, 200, 20};
 }
 
@@ -274,7 +275,7 @@ void Game::render() {
 }
 
 void Game::renderHealthBar() {
-    SDL_Rect healthBarBorderRect = {20, 20, 210, 30};
+    //SDL_Rect healthBarBorderRect = {20, 20, 210, 30};
     SDL_SetRenderDrawColor(renderer->getRenderer(), 0xFF, 0x80, 0x80, 0xFF);
     SDL_RenderFillRect(renderer->getRenderer(), &healthBarBorderRect);
 
