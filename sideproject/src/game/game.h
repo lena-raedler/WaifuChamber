@@ -51,7 +51,7 @@ private:
     void debugshit();//1st statement that is executed, do all kinds of testing in this
     SDL_Rect healthBarBorderRect;   // If this is defined after background then a SEGFAULT occurs(??)
     SDL_Rect healthBarBackgroundRect;
-    SDL_Texture* background;
+    //SDL_Texture* background;
     SDL_Rect healthBarRect;
 };
 
