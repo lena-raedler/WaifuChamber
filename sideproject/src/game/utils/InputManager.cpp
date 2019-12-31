@@ -51,8 +51,6 @@ bool InputManager::isPressed(KeyboardKey key)
 
     int sdl_key = static_cast<int>(key);
 
-    if (keyboard[sdl_key])
-        return true;
+    return keyboard[sdl_key] != 0;
 
-    return false;
 }
