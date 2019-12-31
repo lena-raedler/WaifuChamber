@@ -275,6 +275,9 @@ void Game::render() {
 
 /*
  * Render the health bar with simple colors (no textures) depending on how much life the player currently has.
+ * The health bar consists of 3 overlapping parts: The background border, the background color and the health bar itself.
+ * The background border is simply a lighter colored version of the health bar color, whereas the background is black
+ * to give a good contrast.
  */
 void Game::renderHealthBar() {
     // Light red
