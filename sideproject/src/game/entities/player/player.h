@@ -28,9 +28,9 @@ struct vitals{
     int maxHp = 100;
     int hp = 50;
     int maxStam = 100;
-    int stam;
+    int stam = 50;
     int maxMp = 100;
-    int mp;
+    int mp = 50;
 };
 class Player : public Movable {
 public:
