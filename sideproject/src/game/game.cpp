@@ -89,7 +89,6 @@ int Game::loop() {
             break;
         }
 
-
         player.velocity += move;
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/100);
