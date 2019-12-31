@@ -4,15 +4,17 @@
 //
 
 #include "renderer.h"
-#include <stdio.h>
 #include <iostream>
 
 Renderer::Renderer() {
-    window = SDL_CreateWindow("Waifu Quest", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Waifu Quest", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, SDL_WINDOW_SHOWN);     // TODO Width and height should be variables, not static numbers (see game.h)
     if(!window) {
         std::cerr << "failed to create window" << std::endl;
         throw  std::runtime_error("Could not open window");
     }
+
+    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if(!renderer) {
         std::cerr << "failed to create renderer" << std::endl;

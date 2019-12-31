@@ -27,7 +27,7 @@ Game::Game() {
         throw std::runtime_error("Could not initialize SDL_image");
     }
     renderer = std::make_unique<Renderer>();
-    renderer->renderColor(0, 0, 0, 0);
+    renderer->renderColor(255, 255, 255, 0);
     // load texture
     surface = IMG_Load(player.getTextureLocation().c_str());
     if(!surface) {
