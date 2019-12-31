@@ -7,13 +7,13 @@
 #include <iostream>
 
 Renderer::Renderer() {
-    window = SDL_CreateWindow("Waifu Quest", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, SDL_WINDOW_SHOWN);     // TODO Width and height should be variables, not static numbers (see game.h)
+    window = SDL_CreateWindow("Waifu Quest", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1800, 900, SDL_WINDOW_SHOWN);     // TODO Width and height should be variables, not static numbers (see game.h)
     if(!window) {
         std::cerr << "failed to create window" << std::endl;
         throw  std::runtime_error("Could not open window");
     }
 
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if(!renderer) {
@@ -50,6 +50,11 @@ void Renderer::renderColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
 void Renderer::renderTexture(SDL_Texture *texture, SDL_Rect *srcrect, SDL_Rect *dstrect) {
     SDL_RenderCopy(renderer, texture, srcrect, dstrect);
 }
+
+SDL_Renderer* Renderer::getRenderer() {
+    return renderer;
+}
+
 void Renderer::renderBar(int x, int y, int w, int h, float Percent, SDL_Color FGColor, SDL_Color BGColor) {
     Percent = Percent > 1.f ? 1.f : Percent < 0.f ? 0.f : Percent;
     SDL_Color old;

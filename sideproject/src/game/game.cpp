@@ -27,7 +27,10 @@ Game::Game() {
         throw std::runtime_error("Could not initialize SDL_image");
     }
     renderer = std::make_unique<Renderer>();
+
+    // White background
     renderer->renderColor(255, 255, 255, 0);
+
     // load texture
     surface = IMG_Load(player.getTextureLocation().c_str());
     if(!surface) {
@@ -210,11 +213,59 @@ void Game::processInput(double delta){
 }
 
 void Game::render() {
+    // Clear the renderer and print the background.
+    renderer->renderColor(255, 255, 255, 255);
     renderer->clear();
+
+    //renderer->renderColor(255, 255, 255, 255);
+    //renderer->renderTexture(texture, nullptr, player.rec.get());
+    //SDL_Color backgroundColor = Renderer::color(255, 255, 255, 0);
+
+    if (!SDL_SetTextureColorMod(background, 0, 0, 0))
+        std::cerr << "Could not set background color" << std::endl;
+
+    //SDL_Rect backgroundRectangle = {0, 0, 1800, 900};
+    //SDL_RenderCopy(renderer->getRenderer(), background, NULL, &backgroundRectangle);
+
+
+    /*
+    SDL_Rect SrcR;
+    SDL_Rect DestR;
+
+    SrcR.x = 0;
+    SrcR.y = 0;
+    SrcR.w = 200;
+    SrcR.h = 50;
+
+    DestR.x = 640 / 2 - 200 / 2;
+    DestR.y = 580 / 2 - 50 / 2;
+    DestR.w = 200;
+    DestR.h = 50;
+     */
+
+    //SDL_SetTextureColorMod(healthBarTexture, 0, 0, 0);
+    //SDL_Rect healthBarRectangle = {200, 200, 200, 50};
+
+    /*
+    SDL_Surface* healthBarSurface = SDL_CreateRGBSurface(0, 200, 50, 32, 0, 0, 0, 0);
+
+    SDL_FillRect(healthBarSurface, &DestR, SDL_MapRGB(healthBarSurface->format, 255, 0, 0));
+
+    SDL_RenderCopy(renderer->getRenderer(), healthBarTexture, &SrcR, &DestR);
+     */
+
+    SDL_Rect fillRect = { 200, 200, 200, 50 };
+    SDL_SetRenderDrawColor( renderer->getRenderer(), 0xFF, 0x00, 0x00, 0xFF );
+    SDL_RenderFillRect( renderer->getRenderer(), &fillRect );
+
+
+    // Render the player after the background
     renderer->renderTexture(texture, nullptr, player.rec.get());
-    SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
-    SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
-    renderer->renderBar(50, 50, 100, 10, 200, hpCol, barBGCol);
+
+
+    //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
+    //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
+    //renderer->renderBar(50, 50, 100, 10, 200, hpCol, barBGCol);
 
 //    renderer->renderBar(50, 50, 100, 10, player.vit.hp/player.vit.maxHp, hpCol, barBGCol);
     renderer->render();
