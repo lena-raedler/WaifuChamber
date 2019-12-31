@@ -59,6 +59,10 @@ Game::Game() {
     rectangle.h = surface->h;
     player.rec = std::make_unique<SDL_Rect>(rectangle);
     inputManager.init();
+
+    //healthBarBorderRect = {25, 25, 200, 20};
+    //healthBarRect = {healthBarBorderRect.x + 2, healthBarBorderRect.y + 2, healthBarBorderRect.w - 4, healthBarBorderRect.h - 4};
+    healthBarRect = {25, 25, 200, 20};
 }
 
 Game::~Game() {
@@ -254,10 +258,8 @@ void Game::render() {
     SDL_RenderCopy(renderer->getRenderer(), healthBarTexture, &SrcR, &DestR);
      */
 
-    SDL_Rect fillRect = { 200, 200, 200, 50 };
-    SDL_SetRenderDrawColor( renderer->getRenderer(), 0xFF, 0x00, 0x00, 0xFF );
-    SDL_RenderFillRect( renderer->getRenderer(), &fillRect );
 
+    renderHealthBar();
 
     // Render the player after the background
     renderer->renderTexture(texture, nullptr, player.rec.get());
@@ -270,6 +272,22 @@ void Game::render() {
 //    renderer->renderBar(50, 50, 100, 10, player.vit.hp/player.vit.maxHp, hpCol, barBGCol);
     renderer->render();
 }
+
+void Game::renderHealthBar() {
+    SDL_Rect healthBarBorderRect = {20, 20, 210, 30};
+    SDL_SetRenderDrawColor(renderer->getRenderer(), 0xFF, 0x80, 0x80, 0xFF);
+    SDL_RenderFillRect(renderer->getRenderer(), &healthBarBorderRect);
+
+    SDL_Rect healthBarBackgroundRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 10, healthBarBorderRect.h - 10};
+    SDL_SetRenderDrawColor(renderer->getRenderer(), 0x00, 0x00, 0x00, 0xFF);
+    SDL_RenderFillRect(renderer->getRenderer(), &healthBarBackgroundRect);
+
+    //SDL_Rect healthBarRectangle = { 200, 200, 200, 50 };
+    healthBarRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 50, healthBarBorderRect.h - 10};
+    SDL_SetRenderDrawColor(renderer->getRenderer(), 0xFF, 0x00, 0x00, 0xFF);
+    SDL_RenderFillRect(renderer->getRenderer(), &healthBarRect);
+}
+
 void Game::debugshit() {
     vec_t as{1,1};
     vec_t ae{-1, -1};
