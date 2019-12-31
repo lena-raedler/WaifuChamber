@@ -111,6 +111,10 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_Q)){//test
         std::cout<< player.position << std::endl;
     }
+    if(inputManager.isPressed(KEY_ESCAPE)){
+        std::cout << "Quitting..." << std::endl;
+        quit = true;
+    }
 
     return{out.x, out.y};
 }
