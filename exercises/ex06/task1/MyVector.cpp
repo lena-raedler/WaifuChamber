@@ -176,9 +176,9 @@ private:
         T* arr;
         int maxSize = 256;
         int offset;     // = number of elements currently stored
-public: 
+public:
     template <typename V>
-    auto operator+(MyVector<V>& rhs) const -> MyVector<decltype(arr[0] + rhs[0])>{
+    auto operator+(MyVector<V>& rhs) const {
         MyVector<decltype(arr[0] + rhs[0])> out;
         auto minSize = std::min(size(), rhs.size());
         for(auto i = 0; i < minSize; ++i){
