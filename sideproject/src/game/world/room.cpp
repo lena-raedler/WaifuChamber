@@ -13,11 +13,11 @@ Room::Room(std::string path)
 //Room::~Room() {}
 
 void Room::parseRoom() {
-    std::ifstream room;
-    std::string test;
-    room.open(path);
-    while(std::getline(room, test)) {
-        std::cout << test << std::endl;
+    std::ifstream room(path);
+    std::string line;
+    std::string id;
+    while(std::getline(room, line)) {
+
     }
 
 }
