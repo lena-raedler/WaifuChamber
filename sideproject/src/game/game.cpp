@@ -12,6 +12,7 @@
 #include "utils/renderer.h"
 #include "entities/player/player.h"
 #include <memory>
+#include "world/room.h"
 
 
 Game::Game() {
@@ -46,6 +47,8 @@ Game::Game() {
         std::cerr << "could not create texture" << std::endl;
         throw std::runtime_error("Could not create texture");
     }
+    currentRoom = "files/rooms/testroom.txt";
+    Room room(currentRoom);
     quit = false;
     left = false;
     right = false;

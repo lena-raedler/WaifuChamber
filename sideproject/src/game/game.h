@@ -15,6 +15,7 @@
 #include "utils/InputManager.h"
 #include <utility>
 #include "utils/utility.h"
+#include "world/room.h"
 
 
 class Game {
@@ -53,6 +54,7 @@ private:
     SDL_Rect healthBarBackgroundRect;
     //SDL_Texture* background;
     SDL_Rect healthBarRect;
+    std::string currentRoom; //filepath to the currently loaded room
 };
 
 
