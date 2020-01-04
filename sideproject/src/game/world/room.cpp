@@ -37,6 +37,14 @@ void Room::parseRoom() {
                 tileMap.insert(tilePathPair);
             }
         }
+        else if(line.find("LAYOUT") != std::string::npos) {
+            while(line.find("END") == std::string::npos) {
+                std::getline(room, line);
+                if(line.find("END") != std::string::npos) {
+                    break;
+                }
+            }
+        }
     }
     std::cout << tileMap.size() << std::endl;
 }

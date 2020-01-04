@@ -7,3 +7,12 @@ TILES
   f = files/textures/test_texture
   p = files/textures/test_texture
 END
+LAYOUT
+  wcccccccccccccccccw
+  w.................w
+  w.................w
+  w..........ppp....w
+  w.................w
+  w.................w
+  fffffffffffffffffff
+END

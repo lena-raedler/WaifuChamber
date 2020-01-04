@@ -28,5 +28,6 @@ private:
     std::string texturePath;
     std::string path;
     std::unordered_map<char, std::string> tileMap;
+    std::vector<std::vector<char>> layoutMatrix;
     void parseRoom();
 };
