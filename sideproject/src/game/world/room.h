@@ -9,18 +9,21 @@
 #include <fstream>
 #include <string>
 #include "../utils/renderer.h"
+#include <vector>
+#include <sstream>
+#include "../utils/image.h"
 
 class Room {
 public:
     Room(std::string path);
     //~Room();
-    //void render(std::unique_ptr<Renderer> &renderer);
+    void render(Renderer &renderer);
 
 private:
-    //SDL_Texture* backgroundTexture;
-    //SDL_Rect backgroundRectangle;
-    //SDL_Surface* backgroundSurface;
+    SDL_Rect backgroundRectangle;
+    SDL_Surface* surface;
+    SDL_Texture* texture;
+    std::string texturePath;
     std::string path;
     void parseRoom();
-
 };

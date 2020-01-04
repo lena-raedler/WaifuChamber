@@ -283,6 +283,33 @@ game/utils/InputManager.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/InputManager.cpp.s
 .PHONY : game/utils/InputManager.cpp.s
 
+game/utils/image.o: game/utils/image.cpp.o
+
+.PHONY : game/utils/image.o
+
+# target to build an object file
+game/utils/image.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/image.cpp.o
+.PHONY : game/utils/image.cpp.o
+
+game/utils/image.i: game/utils/image.cpp.i
+
+.PHONY : game/utils/image.i
+
+# target to preprocess a source file
+game/utils/image.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/image.cpp.i
+.PHONY : game/utils/image.cpp.i
+
+game/utils/image.s: game/utils/image.cpp.s
+
+.PHONY : game/utils/image.s
+
+# target to generate assembly for a file
+game/utils/image.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/image.cpp.s
+.PHONY : game/utils/image.cpp.s
+
 game/utils/renderer.o: game/utils/renderer.cpp.o
 
 .PHONY : game/utils/renderer.o
@@ -416,6 +443,9 @@ help:
 	@echo "... game/utils/InputManager.o"
 	@echo "... game/utils/InputManager.i"
 	@echo "... game/utils/InputManager.s"
+	@echo "... game/utils/image.o"
+	@echo "... game/utils/image.i"
+	@echo "... game/utils/image.s"
 	@echo "... game/utils/renderer.o"
 	@echo "... game/utils/renderer.i"
 	@echo "... game/utils/renderer.s"

@@ -1,1 +1,2 @@
-BACKGROUND files/backgrounds/ugly_background.png
+BACKGROUND
+files/backgrounds/ugly_background.png

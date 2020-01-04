@@ -74,3 +74,24 @@ SDL_Color Renderer::color(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
     SDL_Color col = {r,g,b,a};
     return col;
 }
+
+SDL_Surface* Renderer::createSurface(std::string path) {
+    SDL_Surface* surface = IMG_Load(path.c_str());
+    if(!surface) {
+        std::cerr << SDL_GetError() << std::endl;
+        throw std::runtime_error("could not create surface");
+    }
+    return surface;
+}
+
+Image Renderer::renderRoom(std::string path) {
+    SDL_Surface* surface = createSurface(path);
+    SDL_Texture* texture = createTextureFromSurface(surface);
+    if(!texture) {
+        throw std::runtime_error("could not create texture");
+    }
+    Image image{texture, surface->w, surface->h};
+    return image;
+
+}
+

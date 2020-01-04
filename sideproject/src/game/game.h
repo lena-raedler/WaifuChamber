@@ -55,6 +55,7 @@ private:
     //SDL_Texture* background;
     SDL_Rect healthBarRect;
     std::string currentRoom; //filepath to the currently loaded room
+    std::unique_ptr<Room> room;
 };
 
 
