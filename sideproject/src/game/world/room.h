@@ -12,6 +12,8 @@
 #include <vector>
 #include <sstream>
 #include "../utils/image.h"
+#include <unordered_map>
+#include <utility>
 
 class Room {
 public:
@@ -25,5 +27,6 @@ private:
     SDL_Texture* texture;
     std::string texturePath;
     std::string path;
+    std::unordered_map<char, std::string> tileMap;
     void parseRoom();
 };

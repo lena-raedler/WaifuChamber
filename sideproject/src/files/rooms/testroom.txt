@@ -1,2 +1,9 @@
 BACKGROUND
 files/backgrounds/ugly_background.png
+TILES
+  . = none
+  w = files/textures/test_texture
+  c = files/textures/test_texture
+  f = files/textures/test_texture
+  p = files/textures/test_texture
+END

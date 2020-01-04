@@ -17,14 +17,28 @@ void Room::parseRoom() {
     std::ifstream room(path);
     std::string line;
     std::string id;
+    std::pair<char, std::string> tilePathPair;
     while(std::getline(room, line)) {
         if(line.find("BACKGROUND") != std::string::npos) {
             std::getline(room, line);
             texturePath = line;
-            std::cout << texturePath << std::endl; // testing purposes
+        }
+        else if(line.find("TILES") != std::string::npos) {
+            while (line.find("END") == std::string::npos) {
+                std::getline(room, line);
+
+                if(line.find("END") != std::string::npos) {
+                    break;
+                }
+                char key = char(line[2]);
+                std::string value = line.substr(6);
+                tilePathPair.first = key;
+                tilePathPair.second = value;
+                tileMap.insert(tilePathPair);
+            }
         }
     }
-
+    std::cout << tileMap.size() << std::endl;
 }
 
 void Room::render(Renderer &renderer) {
