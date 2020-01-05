@@ -24,6 +24,7 @@ public:
 private:
     SDL_Rect backgroundRectangle;
     SDL_Surface* surface;
+    SDL_Surface* tileSurface;
     SDL_Texture* texture;
     std::string texturePath;
     std::string path;
