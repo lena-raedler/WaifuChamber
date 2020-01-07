@@ -54,7 +54,6 @@ private:
 // specialization of 1
 template <>
 class Vector<1> {
-    using TT = Vector<1>;
 public:
     Vector<1>() : data{} {}; //c++ automatically initializes with 0
 
@@ -92,7 +91,6 @@ private:
 //specialization of 2
 template <>
 class Vector<2> {
-    using TT = Vector<2>;
 public:
     Vector<2>() : data{} {};
     template <typename ... T>
@@ -130,7 +128,6 @@ private:
 //specialization of 3
 template <>
 class Vector<3> {
-    using TT = Vector<3>;
 public:
     Vector<3>() : data{} {};
     template <typename ... T>
