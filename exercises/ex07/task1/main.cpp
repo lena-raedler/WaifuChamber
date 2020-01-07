@@ -84,22 +84,17 @@ std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& i
     return outputVector;
 }
 
-
-// Almost the same as before
 std::vector<Person*> mapPersonsWithTransform(std::vector<std::shared_ptr<Person>>& input) {
-    std::set<Person*> outputSet;
-    std::vector<Person*> outputVector;
-    Foo foo;
+    std::vector<Person*> outputVector(input.size());
 
     std::transform(
             input.begin(),
             input.end(),
-            std::inserter(outputSet, outputSet.begin()),
-            [&](std::shared_ptr<Person>& person_ptr) -> Person* { return foo.mapPerson(person_ptr); }
+            outputVector.begin(),
+            std::mem_fn(&std::shared_ptr<Person>::get)
+            //[](const auto& person_ptr) { return person_ptr.get(); }
     );
 
-    // Remove elements because there exists no transform_if()
-    outputVector.assign(outputSet.begin(), outputSet.end());
     return outputVector;
 }
 
