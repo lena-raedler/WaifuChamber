@@ -24,22 +24,26 @@ int main() {
     auto vector = createAndFillVector();
     std::cout << "Done!\n" << std::endl;
 
+    std::cout << "Initial vector" << std::endl;
     printVector(vector);
 
     std::vector<Person*> mappedVector = mapPersonsWithFor(vector);
+    std::cout << "Mapped with for loop" << std::endl;
     printVector(mappedVector);
 
     std::vector<Person*> mappedVector2 = mapPersonsWithMemFn(vector);
+    std::cout << "Mapped with MemFn" << std::endl;
     printVector(mappedVector2);
 
     std::vector<Person*> mappedVector3 = mapPersonsWithTransform(vector);
+    std::cout << "Mapped with Transform" << std::endl;
     printVector(mappedVector3);
 }
 
 std::vector<std::shared_ptr<Person>> createAndFillVector() {
-    auto person1 = std::make_shared<Person>(Person{"FirstName1", "LastName1", 1});
-    auto person2 = std::make_shared<Person>(Person{"FirstName2", "LastName2", 2});
-    auto person3 = std::make_shared<Person>(Person{"FirstName3", "LastName3", 3});
+    auto person1 = std::make_shared<Person>(Person{"Alice", "Miller", 30});
+    auto person2 = std::make_shared<Person>(Person{"Bob", "Smith", 27});
+    auto person3 = std::make_shared<Person>(Person{"Carla", "Rodriguez", 54});
 
     std::vector<std::shared_ptr<Person>> vector {person1, person1, person2, person3, person1, person3};
     return vector;
@@ -81,7 +85,7 @@ std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& i
 }
 
 
-// Almost the same as before??
+// Almost the same as before
 std::vector<Person*> mapPersonsWithTransform(std::vector<std::shared_ptr<Person>>& input) {
     std::set<Person*> outputSet;
     std::vector<Person*> outputVector;
@@ -103,7 +107,7 @@ std::vector<Person*> mapPersonsWithTransform(std::vector<std::shared_ptr<Person>
 // Can only take pointers!
 template <class T>
 void printVector(const T& vectorToPrint) {
-    std::cout << "Print vector..." << std::endl;
+    //std::cout << "Print vector..." << std::endl;
     for (const auto& toPrint : vectorToPrint) {
         std::cout << *toPrint << std::endl;
     }
