@@ -4,7 +4,6 @@
 #include <functional>
 #include <iostream>
 #include <memory>
-#include <set>
 #include <vector>
 
 std::vector<std::shared_ptr<Person>> createAndFillVector();
@@ -13,11 +12,6 @@ std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& i
 std::vector<Person*> mapPersonsWithTransform(std::vector<std::shared_ptr<Person>>& input);
 template <class T> void printVector(const T& vectorToPrint);
 
-struct Foo {
-    Person* mapPerson(std::shared_ptr<Person>& personToMap) {
-        return &*personToMap;
-    }
-};
 
 int main() {
     std::cout << "Create vector..." << std::endl;
@@ -51,13 +45,9 @@ std::vector<std::shared_ptr<Person>> createAndFillVector() {
 
 std::vector<Person*> mapPersonsWithFor(const std::vector<std::shared_ptr<Person>>& input) {
     std::vector<Person*> output;
-    std::set<std::shared_ptr<Person>> alreadyProcessed;
 
-    for (const auto& person_ptr : input) {
-        if (alreadyProcessed.find(person_ptr) == alreadyProcessed.end()) {
-            output.push_back(&*person_ptr);
-            alreadyProcessed.insert(person_ptr); 
-        }
+    for (auto& person_ptr : input) {
+        output.push_back(person_ptr.get());
     }
 
     return output;
@@ -67,20 +57,15 @@ std::vector<Person*> mapPersonsWithFor(const std::vector<std::shared_ptr<Person>
 // https://stackoverflow.com/questions/908272/stdback-inserter-for-a-stdset
 // https://stackoverflow.com/questions/23579832/why-is-there-no-transform-if-in-the-c-standard-library
 std::vector<Person*> mapPersonsWithMemFn(std::vector<std::shared_ptr<Person>>& input) {
-    std::set<Person*> outputSet;
     std::vector<Person*> outputVector;
-    Foo foo;
-    auto mapPersonLambda = std::mem_fn(&Foo::mapPerson);
 
     std::transform(
             input.begin(),
             input.end(),
-            std::inserter(outputSet, outputSet.begin()),
-            [&](std::shared_ptr<Person>& person_ptr) -> Person* { return mapPersonLambda(foo, person_ptr); }
+            std::inserter(outputVector, outputVector.begin()),
+            [&](std::shared_ptr<Person>& person_ptr) -> Person* { return  person_ptr.get(); }
             );
 
-    // Remove elements because there exists no transform_if()
-    outputVector.assign(outputSet.begin(), outputSet.end());
     return outputVector;
 }
 
@@ -92,17 +77,14 @@ std::vector<Person*> mapPersonsWithTransform(std::vector<std::shared_ptr<Person>
             input.end(),
             outputVector.begin(),
             std::mem_fn(&std::shared_ptr<Person>::get)
-            //[](const auto& person_ptr) { return person_ptr.get(); }
     );
 
     return outputVector;
 }
 
-
 // Can only take pointers!
 template <class T>
 void printVector(const T& vectorToPrint) {
-    //std::cout << "Print vector..." << std::endl;
     for (const auto& toPrint : vectorToPrint) {
         std::cout << *toPrint << std::endl;
     }
