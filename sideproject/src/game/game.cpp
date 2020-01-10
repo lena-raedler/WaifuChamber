@@ -122,6 +122,11 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_R)){//test
         player.rest();
     }
+    if(inputManager.isPressed(KEY_F)){//test
+        if(!player.iframes) {
+            player.getHit(10);
+        }
+    }
     if(inputManager.isPressed(KEY_Q)){//test
         std::cout<< player.position << std::endl;
     }
@@ -229,7 +234,7 @@ void Game::render() {
     renderer->clear();
 
     //Render room
-    room->render(*renderer);
+    //room->render(*renderer);
 
     //renderer->renderColor(255, 255, 255, 255);
     //renderer->renderTexture(texture, nullptr, player.rec.get());
@@ -262,7 +267,7 @@ void Game::render() {
  * For now only the health bar gets updated according to the remaining hp left (percentage)
  */
 void Game::updateHealthBar() {
-    healthBarRect.w = player.vit.healthPercentage * healthBarBackgroundRect.w;
+    healthBarRect.w = std::clamp(static_cast<double>(player.vit.healthPercentage), 0.0, 1.0) * healthBarBackgroundRect.w;
 }
 
 /*
