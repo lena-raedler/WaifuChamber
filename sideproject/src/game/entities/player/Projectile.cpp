@@ -5,8 +5,7 @@
 #include "Projectile.hpp"
 
 Projectile::Projectile()
-    : position(Vec2<int> {0, 0}),
-      angle(0),
+    : angle(0),
       velocity(10),
       alive(true) {}
 
@@ -24,4 +23,22 @@ void Projectile::upkeep(int delta) {
      * }
      */
 
+}
+
+void Projectile::resolve(Player p){
+    p.health -= 10;
+
+
+}
+
+bool Projectile::collide(Movable m){
+    //dumbo iteration TODO: aabbs
+    for(auto& tri_proj : hitbox){
+        for(auto& tri_mov : m.hitbox){
+            if(!m.iframes && utility::triangleTriangleIntersection(tri_proj, position, tri_mov, m.position)){
+                return true;
+            }
+        }
+    }
+    return false;
 }

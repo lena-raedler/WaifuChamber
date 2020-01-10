@@ -16,6 +16,7 @@
 #include <chrono>
 #include <string>
 #include <utility>
+#include "statuseffect.h"
 
 struct attributes{
     int str;
@@ -43,12 +44,15 @@ public:
     int jumpCooldown = 250; //ms
     double jumpSpeed = -30;
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point lastHit;
     attributes attr;
     vitals vit;
 
     void jump();
     bool canJump();
     void upkeep(double delta);//call this every frame
+    void getHit(double damage)
+    void getHit(double damage);
 
     void rest();
 

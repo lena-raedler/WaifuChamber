@@ -46,6 +46,7 @@ struct Vec2 {
         return *this;
     }
     Vec2 operator-(const Vec2& rhs) const { return {x - rhs.x, y - rhs.y}; }
+    Vec2 operator+(const Vec2& rhs) const { return {x + rhs.x, y + rhs.y}; }
     Vec2 operator*(const T& scalar) const { return {x * scalar, y * scalar}; }
     Vec2 operator/(const T& scalar) const { return {x / scalar, y / scalar}; }
     bool operator==(const Vec2& rhs) const { return (x == rhs.x && y == rhs.y); }

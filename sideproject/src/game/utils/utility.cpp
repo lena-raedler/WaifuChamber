@@ -46,6 +46,12 @@ namespace utility {
         std::cout << "t:" << t << " u:" << u << std::endl;
         return(t <= 1 && t >= 0 && u <= 1 && u >= 0);
     }
+    bool triangleTriangleIntersection(const triangle a, const vec_t offseta, const triangle b, const vec_t offsetb){
+        triangle a2 {a[0]+offseta, a[1] + offseta, a[2] + offseta};
+        triangle b2 {b[0]+offsetb, b[1] + offsetb, b[2] + offsetb};
+        return triangleTriangleIntersection(a2, b2);
+    }
+
     bool triangleTriangleIntersection(const triangle a, const triangle b) {
         for (int i = 0; i < 3; ++i) {
             if (pointTriangleIntersection(a, b[i]) || pointTriangleIntersection(b, a[i])) {

@@ -4,7 +4,7 @@ PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 
-add_library(libGame game.cpp)
+add_library(libGame game.cpp entities/player/statuseffect.cpp entities/player/statuseffect.h)
 add_subdirectory(entities/player)
 add_subdirectory(utils)
 add_subdirectory(world)

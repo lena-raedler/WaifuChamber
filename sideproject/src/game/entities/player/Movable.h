@@ -6,6 +6,7 @@
 #define WAIFU_MOVABLE_H
 #include "../../utils/Vec2.h"
 #include "../../utils/renderer.h"
+#include "../../utils/utility.h"
 #include <algorithm>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
@@ -13,6 +14,7 @@
 #include <string>
 #include <utility>
 #include <memory>
+#include <vector>
 
 
 enum GravityType{
@@ -35,6 +37,7 @@ public:
     GravityType gravityType;
     void move(double delta);
     std::string textureLocation;
+    std::vector<triangle> hitbox; //RELATIVE!!!!!!
     vec_t gravity();
 
 };
