@@ -32,6 +32,8 @@ private:
     // How many pixels the projectile moves per loop
     int velocity;
 
+    double damage= 20;//TODO remove this default val
+
     statuseffect status;
 
     //who is owning the projectile? default to enemy for testing
@@ -41,7 +43,7 @@ private:
     bool alive = true;
 
     void upkeep(int delta);
-    void resolve(Player p);
+    void resolve(Player p); //this will be called on the object the projectile collides with
     bool collide(Movable m);
 };
 

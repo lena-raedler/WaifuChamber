@@ -38,6 +38,13 @@ void Player::upkeep(double delta){
     } else{
         isFalling = true;
     }
+    if(iframes){//mercy frames
+        auto time = std::chrono::high_resolution_clock::now();
+        auto timeSinceLastHit = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastHit);
+        if(timeSinceLastHit >  std::chrono::milliseconds(iframeduration)){
+            iframes = false;
+        }
+    }
 }
 void Player::jump(){
     jumps--;
@@ -63,6 +70,15 @@ bool Player::canJump(){
         return true;
     }
     return false;
+}
+void Player::getHit(double damage) {
+    iframes = true;
+    lastHit = std::chrono::high_resolution_clock::now();
+    vit.hp -= damage;
+}
+void Player::getHit(double damage, statuseffect status){
+    getHit(damage);
+    //processStatuseffect(status);
 }
 
 void Player::rest(){

@@ -39,10 +39,11 @@ public:
     Player();
     ~Player();
 
+    const int iframeduration = 500;
     void updatePlayer(double x, double y);
     int jumps = 2;
-    int jumpCooldown = 250; //ms
-    double jumpSpeed = -30;
+    const int jumpCooldown = 250; //ms
+    const double jumpSpeed = -30;
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point lastHit;
     attributes attr;
@@ -51,7 +52,10 @@ public:
     void jump();
     bool canJump();
     void upkeep(double delta);//call this every frame
-    void getHit();
+    void getHit(double damage);
+    void getHit(double damage, statuseffect status);
+
+    void processStatuseffects(statuseffect status);
 
     void rest();
 

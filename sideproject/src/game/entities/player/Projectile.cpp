@@ -26,12 +26,12 @@ void Projectile::upkeep(int delta) {
 }
 
 void Projectile::resolve(Player p){
-    p.health -= 10;
+    p.getHit(damage);
 
 
 }
 
-bool Projectile::collide(Movable m){
+bool Projectile::collide(Movable m){//this could be in movable...
     //dumbo iteration TODO: aabbs
     for(auto& tri_proj : hitbox){
         for(auto& tri_mov : m.hitbox){
