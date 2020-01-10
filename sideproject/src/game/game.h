@@ -12,6 +12,7 @@
 #include "utils/Vec2.h"
 #include "utils/renderer.h"
 #include "entities/player/player.h"
+#include "entities/player/Projectile.hpp"
 #include "utils/InputManager.h"
 #include <utility>
 #include "utils/utility.h"
@@ -56,6 +57,10 @@ private:
     SDL_Rect healthBarRect;
     std::string currentRoom; //filepath to the currently loaded room
     std::unique_ptr<Room> room;
+
+    /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
+    //this is just to quickly test things, everything below this will be removed
+    std::vector<Projectile> projs;
 };
 
 

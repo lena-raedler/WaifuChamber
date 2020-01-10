@@ -4,13 +4,6 @@
 
 #include "Projectile.hpp"
 
-Projectile::Projectile()
-    : angle(0),
-      velocity(10),
-      alive(true) {}
-
-Projectile::~Projectile() {}
-
 void Projectile::upkeep(int delta) {
     angle %= 360;
     move(delta);
@@ -26,9 +19,10 @@ void Projectile::upkeep(int delta) {
 }
 
 void Projectile::resolve(Player p){
-    p.getHit(damage);
-
-
+    if(alive) {
+        p.getHit(damage);
+        alive = false; //piercing prjectiles?
+    }
 }
 
 bool Projectile::collide(Movable m){//this could be in movable...
@@ -36,6 +30,7 @@ bool Projectile::collide(Movable m){//this could be in movable...
     for(auto& tri_proj : hitbox){
         for(auto& tri_mov : m.hitbox){
             if(!m.iframes && utility::triangleTriangleIntersection(tri_proj, position, tri_mov, m.position)){
+                std::cout << "BAM OIDA" << std::endl;
                 return true;
             }
         }

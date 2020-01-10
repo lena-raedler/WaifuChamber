@@ -25,11 +25,16 @@ enum GravityType{
 };
 class Movable {
 public:
+    Movable() = default;
+    Movable(const Movable&) = default;
+    Movable(Movable&&) = default;
+
+
     int health = 1;
     bool iframes;//switch this on for iframes/static objects like bullets
     const void render(Renderer& renderer);
     const std::string getTextureLocation();
-    std::unique_ptr<SDL_Rect> rec;
+    std::shared_ptr<SDL_Rect> rec;
     double gravityConstant = 5;
     vec_t position;
     vec_t velocity {0, 0};

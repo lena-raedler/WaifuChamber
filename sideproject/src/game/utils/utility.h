@@ -5,8 +5,9 @@
 #ifndef WAIFU_UTILITY_H
 #define WAIFU_UTILITY_H
 #include "Vec2.h"
+#include "triangle.h"
 #include <vector>
-using triangle = vec_t[3];
+
 namespace utility {
     std::vector<value_t> getBarycentricCoordinates(const triangle a,const vec_t b);
     bool pointTriangleIntersection(const triangle a,const vec_t b);

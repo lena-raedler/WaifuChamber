@@ -17,10 +17,7 @@ enum projectile_owner{PLAYER, ENEMY};
 //template <typename HOSTILE = true> maybe later
 class Projectile : public Movable {
 public:
-    Projectile();
-    ~Projectile();
-
-private:
+    //FUCK PRIVACY
     // Current position of the projectile as a 2d point
     //Vec2<int> position; not needed, inherit from movable, also do you want stuttering projectiles? because that is how you get stuttering projectiles!
 

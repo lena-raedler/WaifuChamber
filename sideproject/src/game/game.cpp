@@ -54,6 +54,18 @@ Game::Game() {
     right = false;
     isFalling = false;
     playerPosition = player.position;
+    {
+        triangle t{{0,  0},
+                   {30, 0},
+                   {0,  30}};
+        player.hitbox.push_back(t);
+    }
+    {
+        triangle t{{30,  30},
+                   {30, 0},
+                   {0,  30}};
+        player.hitbox.push_back(t);
+    }
     //create rectangle to load the texture onto
 
     rectangle.x = playerPosition.x;
@@ -96,6 +108,12 @@ int Game::loop() {
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/100);
 
+        if(projs.size()>0){
+            if(projs[0].collide(player)) {
+                player.getHit(projs[0].damage);
+            }
+        }
+
         // Update player
         // TODO Update player in a separate function
         player.vit.healthPercentage = (double) player.vit.hp / player.vit.maxHp;
@@ -129,6 +147,18 @@ vec_t Game::determineInput(double delta){
     }
     if(inputManager.isPressed(KEY_Q)){//test
         std::cout<< player.position << std::endl;
+    }
+    if(inputManager.isPressed(KEY_V)){
+        if(projs.size() < 1) {
+            projs.push_back(Projectile());
+            projs[0].position = {100, 200};
+            std::cout << "Projectile created at :" << projs[0].position.x << " " << projs[0].position.y << std::endl;
+            triangle t{{0,  0},
+                       {30, 0},
+                       {0,  30}};
+            projs[0].hitbox.push_back(t);
+
+        }
     }
     if(inputManager.isPressed(KEY_ESCAPE)){
         std::cout << "Quitting..." << std::endl;
@@ -252,6 +282,12 @@ void Game::render() {
 
     // Render the player after the background
     renderer->renderTexture(texture, nullptr, player.rec.get());
+
+    renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
+
+    if(projs.size() > 0) {
+        renderer->renderTriangles(projs[0].hitbox, 255, 0, 0, projs[0].position);
+    }
 
 
 

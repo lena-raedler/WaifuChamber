@@ -10,7 +10,9 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_timer.h>
 #include <string>
+#include <vector>
 #include "image.h"
+#include "triangle.h"
 
 
 class Renderer {
@@ -26,6 +28,7 @@ public:
     // render texture onto a rectangle
     void renderTexture(SDL_Texture* texture, SDL_Rect* srcrect, SDL_Rect* dstrect);
     void renderBar(int x, int y, int w, int h, float Percent, SDL_Color FGColor, SDL_Color BGColor);
+    void renderTriangles(std::vector<triangle>& tris, int r, int g, int b, vec_t offset);
     static SDL_Color color(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     SDL_Renderer* getRenderer();
     SDL_Surface* createSurface(std::string path);

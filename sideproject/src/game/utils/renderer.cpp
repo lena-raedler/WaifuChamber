@@ -69,6 +69,15 @@ void Renderer::renderBar(int x, int y, int w, int h, float Percent, SDL_Color FG
     SDL_RenderFillRect(renderer, &fgrect);
     SDL_SetRenderDrawColor(renderer, old.r, old.g, old.b, old.a);
 }
+void Renderer::renderTriangles(std::vector<triangle>& tris, int r, int g, int b, vec_t offset){
+    SDL_SetRenderDrawColor(renderer, r, g, b, SDL_ALPHA_OPAQUE);
+    for(auto t : tris){
+        SDL_RenderDrawLine(renderer, t.a.x + offset.x, t.a.y + offset.y, t.b.x + offset.x, t.b.y + offset.y);
+        SDL_RenderDrawLine(renderer, t.b.x + offset.x, t.b.y + offset.y, t.c.x + offset.x, t.c.y + offset.y);
+        SDL_RenderDrawLine(renderer, t.a.x + offset.x, t.a.y + offset.y, t.c.x + offset.x, t.c.y + + offset.y);
+    }
+
+}
 
 SDL_Color Renderer::color(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
     SDL_Color col = {r,g,b,a};
