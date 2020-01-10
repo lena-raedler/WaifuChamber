@@ -51,8 +51,7 @@ public:
     void jump();
     bool canJump();
     void upkeep(double delta);//call this every frame
-    void getHit(double damage)
-    void getHit(double damage);
+    void getHit();
 
     void rest();
 
