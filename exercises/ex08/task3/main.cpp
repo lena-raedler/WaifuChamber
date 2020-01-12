@@ -39,10 +39,10 @@ bool parse(const std::vector<std::string>& inputVector) {
         toParse += s + " ";
     }
     std::cout << toParse << std::endl;
-    //parseLine(toParse.begin(), toParse.end());
+    bool flag = parseLine(toParse.begin(), toParse.end());
 
-    std::string s = "1, 2, 0";
-    bool flag = parseLine(s.begin(), s.end());
+    //std::string s = "1, 2, 0";
+    //bool flag = parseLine(s.begin(), s.end());
 
     return flag;
 }
@@ -54,19 +54,19 @@ bool parseLine(Iterator first, Iterator last) {
 
     using qi::int_;
     using qi::char_;
+    using qi::_3;
     using qi::phrase_parse;
     using ascii::space;
 
     bool r = phrase_parse(
             first,                          /*< start iterator >*/
             last,                           /*< end iterator >*/
-            int_ >> *(',' >> int_),   /*< the parser >*/
+            (char_('P') >> int_),   /*< the parser >*/
             space                           /*< the skip-parser >*/
     );
 
     if (first != last) // fail if we did not get a full match
         return false;
-
     return r;
 }
 
