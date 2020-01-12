@@ -154,8 +154,8 @@ vec_t Game::determineInput(double delta){
             projs[0].position = {100, 200};
             std::cout << "Projectile created at :" << projs[0].position.x << " " << projs[0].position.y << std::endl;
             triangle t{{0,  0},
-                       {30, 0},
-                       {0,  30}};
+                       {40, 0},
+                       {0,  40}};
             projs[0].hitbox.push_back(t);
 
         }

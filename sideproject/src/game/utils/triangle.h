@@ -12,10 +12,28 @@
 class triangle {
 public:
     triangle() = default;
-    triangle(const triangle&) = default;
-    triangle(triangle&&) = default;
-    triangle& operator=(const triangle&) & = default;
-    triangle& operator=(triangle&&) & = default;
+    triangle(const triangle& t) {
+        points[0] = t.points[0];
+        points[1] = t.points[1];
+        points[2] = t.points[2];
+    }
+    triangle(triangle&& t){
+        points[0] = t.points[0];
+        points[1] = t.points[1];
+        points[2] = t.points[2];
+    }
+    triangle& operator=(const triangle& t) &{
+        points[0] = t.points[0];
+        points[1] = t.points[1];
+        points[2] = t.points[2];
+        return *this;
+    }
+    triangle& operator=(triangle&& t) &{
+        points[0] = t.points[0];
+        points[1] = t.points[1];
+        points[2] = t.points[2];
+        return *this;
+    }
 
     triangle(vec_t a, vec_t b, vec_t c){
         points[0] = a;
@@ -24,9 +42,9 @@ public:
     }
 
     vec_t points[3];
-    vec_t a = points[0];
-    vec_t b = points[1];
-    vec_t c = points[2];
+    vec_t& a = points[0];
+    vec_t& b = points[1];
+    vec_t& c = points[2];
 
     vec_t operator[] (int id) const{
         std::clamp(id, 0, 2);
