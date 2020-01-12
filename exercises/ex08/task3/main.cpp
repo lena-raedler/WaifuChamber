@@ -6,31 +6,66 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
 
+#include <ImageMagick-7/Magick++.h>
+
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
 bool parse(const std::vector<std::string>& inputVector);
+bool transform(std::string filePath);
 template <typename Iterator> bool parseLine(Iterator first, Iterator last);
 bool readFile(const std::string &filePath, std::vector<std::string> &inputVector);
 bool writeFile(const std::string &filePath, const std::vector<std::string> &outputVector);
 
-int main() {
+int main(int argc,char **argv) {
+    Magick::InitializeMagick(*argv);
+    std::string filePath = "picture.ppm";
+
     std::vector<std::string> inputVector;
-    readFile("../picture.ppm", inputVector);
+    //readFile("../picture.ppm", inputVector);
+    readFile(filePath, inputVector);
 
     if (parse(inputVector)) {
         std::cout << "Parse successful!" << std::endl;
+        transform(filePath);
     }
     else {
         std::cerr << "Parse failed :(" << std::endl;
     }
 
-    writeFile("../picture2.ppm", inputVector);
+    //writeFile("../picture2.ppm", inputVector);
+    //writeFile("picture2.ppm", inputVector);
 }
 
 
+bool transform(std::string filePath) {
+    // Construct the image object. Seperating image construction from the
+    // the read operation ensures that a failure to read the image file
+    // doesn't render the image object useless.
+    Magick::Image image;
+    try {
+        // Read a file into image object
+        //image.read( "logo:" );
+        image.read(filePath);
+
+        // Crop the image to specified size (width, height, xOffset, yOffset)
+        //image.crop( Magick::Geometry(100,100, 100, 100) );
+        image.rotate(90);
+
+        // Write the image to a file
+        image.write( "picture3.ppm" );
+    }
+    catch( std::exception &error_ ) {
+        std::cerr << "Something went wrong while transforming the image: " << error_.what() << std::endl;
+        return false;
+    }
+    return true;
+}
+
+
+// https://stackoverflow.com/questions/40866528/how-to-write-a-boostspiritqi-parser-to-parse-an-integer-range-from-0-to-std
 bool parse(const std::vector<std::string>& inputVector) {
     /*
     for (const auto& s : inputVector) {
@@ -44,9 +79,6 @@ bool parse(const std::vector<std::string>& inputVector) {
     }
     std::cout << toParse << std::endl;
     bool flag = parseLine(toParse.begin(), toParse.end());
-
-    //std::string s = "1, 2, 0";
-    //bool flag = parseLine(s.begin(), s.end());
 
     return flag;
 }
