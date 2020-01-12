@@ -62,7 +62,9 @@ bool parseLine(Iterator first, Iterator last) {
             first,                          /*< start iterator >*/
             last,                           /*< end iterator >*/
             (char_('P') >> int_)
-                    >> (int_ >> int_),   /*< the parser >*/
+                    >> (int_ >> int_)
+                    >> (int_)
+                    >> *(int_ >> int_ >> int_),   /*< the parser >*/
             space                           /*< the skip-parser >*/
     );
 
