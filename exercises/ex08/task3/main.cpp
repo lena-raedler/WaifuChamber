@@ -4,6 +4,7 @@
 
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/phoenix.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -21,6 +22,9 @@ int main() {
 
     if (parse(inputVector)) {
         std::cout << "Parse successful!" << std::endl;
+    }
+    else {
+        std::cerr << "Parse failed :(" << std::endl;
     }
 
     writeFile("../picture2.ppm", inputVector);
@@ -54,23 +58,24 @@ bool parseLine(Iterator first, Iterator last) {
 
     using qi::int_;
     using qi::char_;
-    using qi::_3;
+    using qi::_1;
+    using qi::_pass;
     using qi::phrase_parse;
     using ascii::space;
 
-    bool r = phrase_parse(
+    bool parseSuccess = phrase_parse(
             first,                          /*< start iterator >*/
             last,                           /*< end iterator >*/
             ( char_('P') >> (char_('3') | char_('6')) )
                     >> (int_ >> int_)
-                    >> (int_)
+                    >> int_ [ _pass = (_1>=0 && _1<=255) ]
                     >> *(int_ >> int_ >> int_),   /*< the parser >*/
             space                           /*< the skip-parser >*/
     );
 
     if (first != last) // fail if we did not get a full match
-        return false;
-    return r;
+        parseSuccess = false;
+    return parseSuccess;
 }
 
 
