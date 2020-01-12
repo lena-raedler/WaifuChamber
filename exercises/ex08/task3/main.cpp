@@ -61,7 +61,7 @@ bool parseLine(Iterator first, Iterator last) {
     bool r = phrase_parse(
             first,                          /*< start iterator >*/
             last,                           /*< end iterator >*/
-            (char_('P') >> int_)
+            ( char_('P') >> (char_('3') | char_('6')) )
                     >> (int_ >> int_)
                     >> (int_)
                     >> *(int_ >> int_ >> int_),   /*< the parser >*/
