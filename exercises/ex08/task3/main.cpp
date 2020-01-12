@@ -19,18 +19,32 @@ int main() {
     std::vector<std::string> inputVector;
     readFile("../picture.ppm", inputVector);
 
-    parse(inputVector);
+    if (parse(inputVector)) {
+        std::cout << "Parse successful!" << std::endl;
+    }
 
     writeFile("../picture2.ppm", inputVector);
 }
 
 
 bool parse(const std::vector<std::string>& inputVector) {
+    /*
     for (const auto& s : inputVector) {
         if (!parseLine(s.begin(), s.end()))
             return false;
+    }*/
+
+    std::string toParse;
+    for (const auto& s : inputVector) {
+        toParse += s + " ";
     }
-    return true;
+    std::cout << toParse << std::endl;
+    //parseLine(toParse.begin(), toParse.end());
+
+    std::string s = "1, 2, 0";
+    bool flag = parseLine(s.begin(), s.end());
+
+    return flag;
 }
 
 template <typename Iterator>
@@ -43,7 +57,17 @@ bool parseLine(Iterator first, Iterator last) {
     using qi::phrase_parse;
     using ascii::space;
 
-    return true;
+    bool r = phrase_parse(
+            first,                          /*< start iterator >*/
+            last,                           /*< end iterator >*/
+            int_ >> *(',' >> int_),   /*< the parser >*/
+            space                           /*< the skip-parser >*/
+    );
+
+    if (first != last) // fail if we did not get a full match
+        return false;
+
+    return r;
 }
 
 
