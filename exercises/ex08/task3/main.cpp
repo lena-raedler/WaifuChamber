@@ -2,34 +2,67 @@
 // Created by bnorb on 12.01.20.
 //
 
-#include <ImageMagick-7/Magick++.h>
+#include <fstream>
 #include <iostream>
+#include <string>
+#include <vector>
 
-using namespace std;
-using namespace Magick;
+bool parse(const std::vector<std::string>& inputVector);
+bool parseLine(const std::string& line);
+bool readFile(const std::string &filePath, std::vector<std::string> &inputVector);
+bool writeFile(const std::string &filePath, const std::vector<std::string> &outputVector);
 
-int main(int argc,char **argv)
-{
-    InitializeMagick(*argv);
+int main() {
+    std::vector<std::string> inputVector;
+    readFile("../picture.ppm", inputVector);
 
-    // Construct the image object. Seperating image construction from the
-    // the read operation ensures that a failure to read the image file
-    // doesn't render the image object useless.
-    Image image;
-    try {
-        // Read a file into image object
-        image.read( "logo:" );
+    parse(inputVector);
 
-        // Crop the image to specified size (width, height, xOffset, yOffset)
-        image.crop( Geometry(100,100, 100, 100) );
+    writeFile("../picture2.ppm", inputVector);
+}
 
-        // Write the image to a file
-        image.write( "logo.png" );
+bool parse(const std::vector<std::string>& inputVector) {
+    for (const auto& s : inputVector) {
+        if (!parseLine(s))
+            return false;
     }
-    catch( Exception &error_ )
-    {
-        cout << "Caught exception: " << error_.what() << endl;
-        return 1;
+    return true;
+}
+
+bool parseLine(const std::string &line) {
+
+    return true;
+}
+
+
+bool readFile(const std::string &filePath, std::vector<std::string> &inputVector) {
+    std::ifstream infile(filePath);
+
+    if(!infile) {
+        std::cerr << "Cannot open input file." << std::endl;
+        return false;
     }
-    return 0;
+
+    std::string line;
+    while (std::getline(infile, line)) {
+        std::cout << line << std::endl;
+        inputVector.push_back(line);
+    }
+    return true;
+}
+
+
+bool writeFile(const std::string &filePath, const std::vector<std::string> &outputVector) {
+    std::ofstream outFile(filePath);
+
+    if(!outFile) {
+        std::cerr << "Cannot open output file." << std::endl;
+        return false;
+    }
+
+    for (const std::string& s : outputVector) {
+        outFile << s << std::endl;
+    }
+
+    return true;
 }
