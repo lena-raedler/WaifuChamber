@@ -8,5 +8,5 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 #add_library(MyVector SHARED MyVector.cpp)
 #target_include_directories(MyVector PUBLIC libMyVector)
 
-add_executable(main main.cpp)
+add_executable(main demo.cpp)
 #target_link_libraries(main MyVector)
