@@ -20,7 +20,8 @@ int main(int argc,char **argv)
     Image image;
     try {
         // Read a file into image object
-        image.read( "logo:" );
+        //image.read( "logo:" );
+        image.read("test.png");
 
         // Crop the image to specified size (width, height, xOffset, yOffset)
         image.crop( Geometry(100,100, 100, 100) );
