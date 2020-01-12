@@ -2,13 +2,16 @@
 // Created by bnorb on 12.01.20.
 //
 
+#include <boost/config/warning_disable.hpp>
+#include <boost/spirit/include/qi.hpp>
+
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
 bool parse(const std::vector<std::string>& inputVector);
-bool parseLine(const std::string& line);
+template <typename Iterator> bool parseLine(Iterator first, Iterator last);
 bool readFile(const std::string &filePath, std::vector<std::string> &inputVector);
 bool writeFile(const std::string &filePath, const std::vector<std::string> &outputVector);
 
@@ -21,15 +24,24 @@ int main() {
     writeFile("../picture2.ppm", inputVector);
 }
 
+
 bool parse(const std::vector<std::string>& inputVector) {
     for (const auto& s : inputVector) {
-        if (!parseLine(s))
+        if (!parseLine(s.begin(), s.end()))
             return false;
     }
     return true;
 }
 
-bool parseLine(const std::string &line) {
+template <typename Iterator>
+bool parseLine(Iterator first, Iterator last) {
+    namespace qi = boost::spirit::qi;
+    namespace ascii = boost::spirit::ascii;
+
+    using qi::int_;
+    using qi::char_;
+    using qi::phrase_parse;
+    using ascii::space;
 
     return true;
 }
