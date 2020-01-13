@@ -18,7 +18,7 @@
 class Room {
 public:
     Room();
-    Room(SDL_Texture* texture, SDL_Rect rectangle);
+    Room(SDL_Texture* texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap);
     //~Room();
     void render(Renderer &renderer);
 
@@ -29,7 +29,7 @@ private:
     SDL_Texture* backgroundtexture;
     //std::string texturePath;
     //std::string path;
-    //std::unordered_map<char, std::string> tileMap;
+    std::unordered_map<SDL_Texture*, SDL_Rect> tileMap;
     //std::vector<std::vector<char>> layoutMatrix;
     //void parseRoom();
 

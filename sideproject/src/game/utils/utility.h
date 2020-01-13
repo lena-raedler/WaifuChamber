@@ -13,6 +13,7 @@
 #include <iostream>
 #include <utility>
 #include <unordered_map>
+#include "renderer.h"
 
 namespace utility {
     std::vector<value_t> getBarycentricCoordinates(const triangle a,const vec_t b);
