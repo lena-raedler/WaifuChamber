@@ -2,7 +2,6 @@
 // Created by bnorb on 12.01.20.
 //
 
-#include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
 
@@ -14,10 +13,10 @@
 #include <vector>
 
 bool parse(const std::vector<std::string>& inputVector);
-bool transform(std::string filePath);
+bool transform(const std::string& filePath);
 template <typename Iterator> bool parseLine(Iterator first, Iterator last);
 bool readFile(const std::string &filePath, std::vector<std::string> &inputVector);
-bool writeFile(const std::string &filePath, const std::vector<std::string> &outputVector);
+
 
 int main(int argc,char **argv) {
     Magick::InitializeMagick(*argv);
@@ -34,20 +33,15 @@ int main(int argc,char **argv) {
     else {
         std::cerr << "Parse failed :(" << std::endl;
     }
-
-    //writeFile("../picture2.ppm", inputVector);
-    //writeFile("picture2.ppm", inputVector);
 }
 
-
-bool transform(std::string filePath) {
+bool transform(const std::string& filePath) {
     // Construct the image object. Seperating image construction from the
     // the read operation ensures that a failure to read the image file
     // doesn't render the image object useless.
     Magick::Image image;
     try {
         // Read a file into image object
-        //image.read( "logo:" );
         image.read(filePath);
 
         // Crop the image to specified size (width, height, xOffset, yOffset)
