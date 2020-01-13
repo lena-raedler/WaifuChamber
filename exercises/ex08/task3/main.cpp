@@ -13,13 +13,6 @@
 #include <vector>
 
 bool parse(const std::vector<std::string>& inputVector);
-
-template <typename Expr>
-bool parse2(const std::vector<std::string>& inputVector);
-
-template <typename Iterator, typename Expr>
-bool parseExpression(Iterator first, Iterator last, const Expr expr);
-
 bool transform(const std::string& filePath);
 template <typename Iterator> bool parseLine(Iterator first, Iterator last);
 bool readFile(const std::string &filePath, std::vector<std::string> &inputVector);
@@ -34,49 +27,12 @@ int main(int argc,char **argv) {
     readFile(filePath, inputVector);
 
     if (parse(inputVector)) {
-    //if (parse2(inputVector)) {
         std::cout   << "Parse successful!" << std::endl;
         transform(filePath);
     }
     else {
         std::cerr << "Parse failed :(" << std::endl;
     }
-}
-
-
-template <typename Expr>
-bool parse2(const std::vector<std::string>& inputVector) {
-    namespace qi = boost::spirit::qi;
-    namespace ascii = boost::spirit::ascii;
-    using qi::int_;
-    using qi::char_;
-    using qi::_1;
-    using qi::_pass;
-    using qi::phrase_parse;
-
-    std::string header = inputVector[0] + ' ' + inputVector[1] + ' ' + inputVector[2];
-    Expr exprHeader = ( char_('P') >> (char_('3') | char_('6')) )
-                      >> (int_ >> int_)
-                      >> int_ [ _pass = (_1>=0 && _1<=255) ];
-
-    bool flag = parseExpression(header.begin(), header.end(), exprHeader);
-    return flag;
-}
-
-template <typename Iterator, typename Expr>
-bool parseExpression(Iterator first, Iterator last, const Expr expr) {
-
-    // Parse the header
-    bool parseSuccess = phrase_parse(
-            first,                          /*< start iterator >*/
-            last,                           /*< end iterator >*/
-            expr,
-            boost::spirit::ascii::space     /*< the skip-parser >*/
-    );
-
-    if (first != last) // fail if we did not get a full match
-        parseSuccess = false;
-    return parseSuccess;
 }
 
 
