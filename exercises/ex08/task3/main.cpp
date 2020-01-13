@@ -2,7 +2,6 @@
 // Created by bnorb on 12.01.20.
 //
 
-#include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
 
@@ -14,10 +13,10 @@
 #include <vector>
 
 bool parse(const std::vector<std::string>& inputVector);
-bool transform(std::string filePath);
+bool transform(const std::string& filePath);
 template <typename Iterator> bool parseLine(Iterator first, Iterator last);
 bool readFile(const std::string &filePath, std::vector<std::string> &inputVector);
-bool writeFile(const std::string &filePath, const std::vector<std::string> &outputVector);
+
 
 int main(int argc,char **argv) {
     Magick::InitializeMagick(*argv);
@@ -28,26 +27,22 @@ int main(int argc,char **argv) {
     readFile(filePath, inputVector);
 
     if (parse(inputVector)) {
-        std::cout << "Parse successful!" << std::endl;
+        std::cout   << "Parse successful!" << std::endl;
         transform(filePath);
     }
     else {
         std::cerr << "Parse failed :(" << std::endl;
     }
-
-    //writeFile("../picture2.ppm", inputVector);
-    //writeFile("picture2.ppm", inputVector);
 }
 
 
-bool transform(std::string filePath) {
+bool transform(const std::string& filePath) {
     // Construct the image object. Seperating image construction from the
     // the read operation ensures that a failure to read the image file
     // doesn't render the image object useless.
     Magick::Image image;
     try {
         // Read a file into image object
-        //image.read( "logo:" );
         image.read(filePath);
 
         // Crop the image to specified size (width, height, xOffset, yOffset)
@@ -67,19 +62,13 @@ bool transform(std::string filePath) {
 
 // https://stackoverflow.com/questions/40866528/how-to-write-a-boostspiritqi-parser-to-parse-an-integer-range-from-0-to-std
 bool parse(const std::vector<std::string>& inputVector) {
-    /*
-    for (const auto& s : inputVector) {
-        if (!parseLine(s.begin(), s.end()))
-            return false;
-    }*/
-
     std::string toParse;
     for (const auto& s : inputVector) {
         toParse += s + " ";
     }
     std::cout << toParse << std::endl;
-    bool flag = parseLine(toParse.begin(), toParse.end());
 
+    bool flag = parseLine(toParse.begin(), toParse.end());
     return flag;
 }
 
