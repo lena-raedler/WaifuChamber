@@ -69,4 +69,23 @@ namespace utility {
                lineLineIntersection(a[0], a[2], b[0], b[2]);
 
     }
+
+    Room parseRoom(std::string path, Renderer &renderer) {
+        std::ifstream roomFile(path);
+        std::string line;
+        SDL_Texture* backgroundTexture;
+        SDL_Rect backgroundRectangle;
+        while(std::getline(roomFile, line)) {
+            if(line.find("BACKGROUND") != std::string::npos) {
+                std::getline(roomFile, line);
+                SDL_Surface* surface = IMG_Load(line.c_str());
+                backgroundTexture = renderer.createTextureFromSurface(surface);
+                backgroundRectangle = {0, 0, surface->w, surface->h};
+
+            }
+        }
+        Room room(backgroundTexture, backgroundRectangle);
+        return room;
+
+    }
 }

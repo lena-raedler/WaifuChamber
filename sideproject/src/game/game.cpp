@@ -48,7 +48,8 @@ Game::Game() {
         throw std::runtime_error("Could not create texture");
     }
     currentRoom = "files/rooms/testroom.txt";
-    room = std::make_unique<Room>(currentRoom);
+    //room = std::make_unique<Room>(currentRoom);
+    room = utility::parseRoom(currentRoom, *renderer);
     quit = false;
     left = false;
     right = false;
@@ -264,7 +265,7 @@ void Game::render() {
     renderer->clear();
 
     //Render room
-    //room->render(*renderer);
+    room.render(*renderer);
 
     //renderer->renderColor(255, 255, 255, 255);
     //renderer->renderTexture(texture, nullptr, player.rec.get());

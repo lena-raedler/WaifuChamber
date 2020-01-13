@@ -17,18 +17,20 @@
 
 class Room {
 public:
-    Room(std::string path);
+    Room();
+    Room(SDL_Texture* texture, SDL_Rect rectangle);
     //~Room();
     void render(Renderer &renderer);
 
 private:
     SDL_Rect backgroundRectangle;
-    SDL_Surface* surface;
-    SDL_Surface* tileSurface;
-    SDL_Texture* texture;
-    std::string texturePath;
-    std::string path;
-    std::unordered_map<char, std::string> tileMap;
-    std::vector<std::vector<char>> layoutMatrix;
-    void parseRoom();
+    //SDL_Surface* surface;
+    //SDL_Surface* tileSurface;
+    SDL_Texture* backgroundtexture;
+    //std::string texturePath;
+    //std::string path;
+    //std::unordered_map<char, std::string> tileMap;
+    //std::vector<std::vector<char>> layoutMatrix;
+    //void parseRoom();
+
 };

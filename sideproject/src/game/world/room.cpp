@@ -4,16 +4,17 @@
 
 #include "room.h"
 
-Room::Room(std::string path)
-    : path(path)
-{
-    parseRoom();
+Room::Room() {}
+
+Room::Room(SDL_Texture *texture, SDL_Rect rectangle) {
+    backgroundtexture = texture;
+    backgroundRectangle = rectangle;
 }
 
 //Room::~Room() {}
 
 
-void Room::parseRoom() {
+/*void Room::parseRoom() {
     std::ifstream room(path);
     std::string line;
     std::string id;
@@ -56,17 +57,18 @@ void Room::parseRoom() {
     }
     std::cout << layoutMatrix.size() << std::endl;
     std::cout << tileMap.size() << std::endl;
-}
+}*/
 
 void Room::render(Renderer &renderer) {
-    surface = IMG_Load(texturePath.c_str());
+    renderer.renderTexture(backgroundtexture, nullptr, &backgroundRectangle);
+    /*surface = IMG_Load(texturePath.c_str());
     texture = renderer.createTextureFromSurface(surface);
 
     backgroundRectangle = {0,0, surface->w, surface->h};
-    renderer.renderTexture(texture, nullptr, &backgroundRectangle);
+    renderer.renderTexture(texture, nullptr, &backgroundRectangle);*/
 
     // loop through the matrix and check which path is needed
-    int x = 0;
+    /*int x = 0;
     int y = 0;
     for(unsigned int r = 0; r < layoutMatrix.size(); r++) {
         for(unsigned int c = 0; c < layoutMatrix[r].size(); c++) {
@@ -84,6 +86,6 @@ void Room::render(Renderer &renderer) {
         }
         y = 0;
         x += tileSurface->w;
-    }
+    }*/
 
 }

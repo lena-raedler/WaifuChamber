@@ -56,7 +56,8 @@ private:
     //SDL_Texture* background;
     SDL_Rect healthBarRect;
     std::string currentRoom; //filepath to the currently loaded room
-    std::unique_ptr<Room> room;
+    //std::unique_ptr<Room> room;
+    Room room;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed
