@@ -24,13 +24,7 @@ public:
 
 private:
     SDL_Rect backgroundRectangle;
-    //SDL_Surface* surface;
-    //SDL_Surface* tileSurface;
     SDL_Texture* backgroundtexture;
-    //std::string texturePath;
-    //std::string path;
     std::unordered_map<SDL_Texture*, SDL_Rect> tileMap;
-    //std::vector<std::vector<char>> layoutMatrix;
-    //void parseRoom();
 
 };
