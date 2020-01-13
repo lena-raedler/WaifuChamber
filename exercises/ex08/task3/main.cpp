@@ -126,19 +126,3 @@ bool readFile(const std::string &filePath, std::vector<std::string> &inputVector
     }
     return true;
 }
-
-
-bool writeFile(const std::string &filePath, const std::vector<std::string> &outputVector) {
-    std::ofstream outFile(filePath);
-
-    if(!outFile) {
-        std::cerr << "Cannot open output file." << std::endl;
-        return false;
-    }
-
-    for (const std::string& s : outputVector) {
-        outFile << s << std::endl;
-    }
-
-    return true;
-}
