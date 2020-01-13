@@ -2,7 +2,7 @@
 
 ## Overall Overview
 
-The chat server example contains 3 files, one of which is a header file (_chat_message_) containing all information about the message, its contents and the length. One containing a class _chat_client_ which creates a client, allows to connect to a server, and enables reading and writing of the messages. And the last file _chat_server_ contains multiple classes for the creation of the server and the general process of chatting using this server.
+The chat server example contains 3 files, one of which is a header file (_chat_message_) containing all information about the message, its contents and the length. One containing a class _chat_client_ which creates a client, allows to connect to a server, and enables reading and writing of the messages. [And the last file](https://www.boost.org/doc/libs/1_72_0/doc/html/boost_asio/example/cpp11/chat/chat_server.cpp) _chat_server_ contains multiple classes for the creation of the server and the general process of chatting using this server.
 
 - _chat_participant_
 - _chat_room_ where participants can be added or removed and messages can be delivered
