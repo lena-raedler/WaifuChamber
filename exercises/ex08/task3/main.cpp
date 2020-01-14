@@ -27,6 +27,7 @@ int main(int argc, char **argv) {
         std::cout << "File read successfully!" << std::endl;
     } else {
         std::cerr << "Could not read in file :x" << std::endl;
+        //return -1;
     }
 
     if (parse(inputVector)) {
@@ -62,7 +63,6 @@ bool transform(const std::string& filePath) {
 }
 
 
-// https://stackoverflow.com/questions/40866528/how-to-write-a-boostspiritqi-parser-to-parse-an-integer-range-from-0-to-std
 bool parse(const std::vector<std::string>& inputVector) {
     std::string toParse;
     for (const auto& s : inputVector) {
@@ -74,6 +74,8 @@ bool parse(const std::vector<std::string>& inputVector) {
     return flag;
 }
 
+
+// https://stackoverflow.com/questions/40866528/how-to-write-a-boostspiritqi-parser-to-parse-an-integer-range-from-0-to-std
 template <typename Iterator>
 bool parseLine(Iterator first, Iterator last) {
     namespace qi = boost::spirit::qi;
@@ -89,7 +91,7 @@ bool parseLine(Iterator first, Iterator last) {
     bool parseSuccess = phrase_parse(
             first,                          /*< start iterator >*/
             last,                           /*< end iterator >*/
-            ( char_('P') >> (char_('3') | char_('6')) )
+            ( char_('P') >> (char_('6') | char_('3')) )
                     >> (int_ >> int_)
                     >> int_ [ _pass = (_1>=0 && _1<=255) ]
                     >> *(int_ [ _pass = (_1>=0 && _1<=255) ] >> int_ [ _pass = (_1>=0 && _1<=255) ] >> int_ [ _pass = (_1>=0 && _1<=255) ]),   /*< the parser >*/
