@@ -3,10 +3,12 @@ First we need to install ImageMagick and its C++ API Magick++. Additionally we n
 
 We are working with CLion, but we haven't managed to get Magick++ to compile within it. Therefore we compile the program using the terminal with the following command: 
 
-- c++ `Magick++-config --cxxflags --cppflags` -O2 -o main main.cpp \
+- c++ `Magick++-config --cxxflags --cppflags -depth 8 -compress None` -O2 -o main main.cpp \
   `Magick++-config --ldflags --libs`
   
 This command was taken from one of the ImageMagic URLs provided below in the Resource chapter. 
+
+The only relevant files for this exercise are "main.cpp", "picture.ppm" (original image) and "picture3.ppm" (transformed image). All other files were just used to test the functionality of ImageMagick (Magick++) and boost spirit. 
 
 
 #### Resources
