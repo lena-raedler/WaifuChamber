@@ -18,31 +18,33 @@ template <typename Iterator> bool parseLine(Iterator first, Iterator last);
 bool readFile(const std::string &filePath, std::vector<std::string> &inputVector);
 
 
-int main(int argc,char **argv) {
+int main(int argc, char **argv) {
     Magick::InitializeMagick(*argv);
     std::string filePath = "picture.ppm";
-
     std::vector<std::string> inputVector;
-    //readFile("../picture.ppm", inputVector);
-    readFile(filePath, inputVector);
+
+    if (readFile(filePath, inputVector)) {
+        std::cout << "File read successfully!" << std::endl;
+    } else {
+        std::cerr << "Could not read in file :x" << std::endl;
+    }
 
     if (parse(inputVector)) {
         std::cout   << "Parse successful!" << std::endl;
         transform(filePath);
-    }
-    else {
+    } else {
         std::cerr << "Parse failed :(" << std::endl;
     }
 }
 
 
 bool transform(const std::string& filePath) {
-    // Construct the image object. Seperating image construction from the
+    // Construct the image object. Separating image construction from the
     // the read operation ensures that a failure to read the image file
     // doesn't render the image object useless.
     Magick::Image image;
     try {
-        // Read a file into image object
+        // Read a file into image object if the parser yielded a successful result
         image.read(filePath);
 
         // Crop the image to specified size (width, height, xOffset, yOffset)
@@ -94,7 +96,7 @@ bool parseLine(Iterator first, Iterator last) {
             space                           /*< the skip-parser >*/
     );
 
-    if (first != last) // fail if we did not get a full match
+    if (first != last) // Tests for a full match. Partial matches are considered false.
         parseSuccess = false;
     return parseSuccess;
 }

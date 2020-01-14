@@ -8,6 +8,8 @@ We are working with CLion, but we haven't managed to get Magick++ to compile wit
   
 This command was taken from one of the ImageMagic URLs provided below in the Resource chapter. 
 
+The only relevant files for this exercise are "main.cpp", "picture.ppm" (original image) and "picture3.ppm" (transformed image). All other files were just used to test the functionality of ImageMagick (Magick++) and boost spirit. 
+
 
 #### Resources
 We used the example code provided in the boost spirit documentation as the basis for our code: 
