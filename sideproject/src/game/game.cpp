@@ -8,17 +8,19 @@
 #include <cstdlib>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include "SDL2/SDL_mixer.h"
 #include <string>
 #include "utils/renderer.h"
 #include "entities/player/player.h"
 #include <memory>
 #include "world/room.h"
 
-
+Mix_Music *gMusic = NULL;
+////////////////////////////////////////////////////////////////
 Game::Game() {
     debugshit();
     //initialize SDL components here
-    if(SDL_Init(SDL_INIT_VIDEO) != 0) {
+    if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         std::cout << "Couldn't inititalize SDL" << std::endl;
         throw std::runtime_error("Couldn't initialize SDL");
     }
@@ -29,6 +31,13 @@ Game::Game() {
     }
     renderer = std::make_unique<Renderer>();
 
+    //init sound
+
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
+    {
+        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+    }
+    gMusic=Mix_LoadMUS("files/music/Certain Plan.mp3");
     // White background
     renderer->renderColor(255, 255, 255, 0);
 
@@ -85,6 +94,9 @@ Game::~Game() {
     SDL_DestroyTexture(texture);
     SDL_FreeSurface(surface);
     SDL_DestroyWindow(window); //TODO: fix segfault here
+    Mix_FreeMusic( gMusic );
+    gMusic = NULL;
+    Mix_Quit();
     IMG_Quit();
     SDL_Quit();
 }
@@ -159,6 +171,15 @@ vec_t Game::determineInput(double delta){
             projs[0].hitbox.push_back(t);
 
         }
+    }
+    if(inputManager.isPressed(KEY_M)){
+        if(Mix_PausedMusic() == 1)
+            Mix_ResumeMusic();
+        else
+            Mix_PlayMusic( gMusic, -1 );
+    }
+    if(inputManager.isPressed(KEY_N)){
+        Mix_PauseMusic();
     }
     if(inputManager.isPressed(KEY_ESCAPE)){
         std::cout << "Quitting..." << std::endl;
