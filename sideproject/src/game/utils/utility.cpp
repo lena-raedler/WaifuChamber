@@ -83,6 +83,7 @@ namespace utility {
                 SDL_Surface* surface = IMG_Load(line.c_str());
                 backgroundTexture = renderer.createTextureFromSurface(surface);
                 backgroundRectangle = {0, 0, surface->w, surface->h};
+                SDL_FreeSurface(surface);
 
             }
             else if(line.find("TILES") != std::string::npos) {
@@ -124,6 +125,7 @@ namespace utility {
                         textureRectanglePair.second = rect;
                         tileRenderMap.insert(textureRectanglePair);
                         y += surface->h;
+                        SDL_FreeSurface(surface);
                     }
                     y = 0;
                     x += surface->w;
