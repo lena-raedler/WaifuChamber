@@ -130,7 +130,6 @@ int Game::loop() {
 
         // Update player
         // TODO Update player in a separate function
-        player.vit.healthPercentage = (double) player.vit.hp / player.vit.maxHp;
         //player.updatePlayer(playerPosition.x, playerPosition.y);
         render();
     }
@@ -328,7 +327,7 @@ void Game::render() {
  * For now only the health bar gets updated according to the remaining hp left (percentage)
  */
 void Game::updateHealthBar() {
-    healthBarRect.w = std::clamp(static_cast<double>(player.vit.healthPercentage), 0.0, 1.0) * healthBarBackgroundRect.w;
+    healthBarRect.w = std::clamp(static_cast<double>(player.vit.healthPercentage()), 0.0, 1.0) * healthBarBackgroundRect.w;
 }
 
 /*

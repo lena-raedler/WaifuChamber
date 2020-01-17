@@ -20,8 +20,7 @@ Player::~Player() {
 void Player::updatePlayer(double x, double y) {
     position.x = x;
     position.y = y;
-
-    vit.healthPercentage = (double) vit.maxHp / vit.hp;
+    
 }
 
 void Player::upkeep(double delta){
@@ -41,7 +40,7 @@ void Player::upkeep(double delta){
     if(iframes){//mercy frames
         auto time = std::chrono::high_resolution_clock::now();
         auto timeSinceLastHit = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastHit);
-        if(timeSinceLastHit >  std::chrono::milliseconds(iframeduration)){
+        if(timeSinceLastHit >  std::chrono::milliseconds(iFrameDuration)){
             iframes = false;
         }
     }

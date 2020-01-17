@@ -18,6 +18,18 @@
 #include <utility>
 #include "statuseffect.h"
 
+enum lastCheckPoint{
+    A1C1,
+    A1C2,
+    A1C3,
+    A2C1,
+    A2C2,
+    A2C3,
+    A3C1,
+    A3C2,
+    A3C3 //TODO: give cool names
+};
+
 struct attributes{
     int str;
     int dex;
@@ -28,19 +40,22 @@ struct attributes{
 struct vitals{
     int maxHp = 100;
     int hp = 50;
-    double healthPercentage = (double) hp / maxHp;
+
     int maxStam = 100;
     int stam = 50;
     int maxMp = 100;
     int mp = 50;
+
+    double healthPercentage(){return (double) hp / maxHp;}
 };
 class Player : public Movable {
 public:
+    /////////////////// Constructors //////////////////////////
     Player();
     ~Player();
 
-    const int iframeduration = 500;
-    void updatePlayer(double x, double y);
+    /////////////////// Fields ////////////////////////////////
+    const int iFrameDuration = 500; //iframe duration on getting hit
     int jumps = 2;
     const int jumpCooldown = 250; //ms
     const double jumpSpeed = -30;
@@ -49,6 +64,8 @@ public:
     attributes attr;
     vitals vit;
 
+    /////////////////// Functions /////////////////////////////
+    void updatePlayer(double x, double y);
     void jump();
     bool canJump();
     void upkeep(double delta);//call this every frame
