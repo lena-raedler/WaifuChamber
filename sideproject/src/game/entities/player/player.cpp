@@ -20,7 +20,7 @@ Player::~Player() {
 void Player::updatePlayer(double x, double y) {
     position.x = x;
     position.y = y;
-    
+
 }
 
 void Player::upkeep(double delta){
@@ -84,4 +84,8 @@ void Player::rest(){
     //respawn enemies
     vit.hp = vit.maxHp;
     vit.mp = vit.maxMp;
+}
+void Player::kill(){
+    position = lastCP->position;
+    rest();
 }

@@ -12,7 +12,7 @@
 #include <vector>
 
 
-enum projectile_owner{PLAYER, ENEMY};
+enum projectile_owner{PLAYER, HOSTILE};
 
 //template <typename HOSTILE = true> maybe later
 class Projectile : public Movable {
@@ -34,7 +34,7 @@ public:
     statuseffect status;
 
     //who is owning the projectile? default to enemy for testing
-    projectile_owner owner = ENEMY;
+    projectile_owner owner = HOSTILE;
 
     // Check in game.cpp if the projectile should be deleted
     bool alive = true;

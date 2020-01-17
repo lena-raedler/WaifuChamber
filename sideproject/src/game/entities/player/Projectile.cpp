@@ -30,7 +30,6 @@ bool Projectile::collide(Movable m){//this could be in movable...
     for(auto& tri_proj : hitbox){
         for(auto& tri_mov : m.hitbox){
             if(!m.iframes && utility::triangleTriangleIntersection(tri_proj, position, tri_mov, m.position)){
-                std::cout << "BAM OIDA" << std::endl;
                 return true;
             }
         }

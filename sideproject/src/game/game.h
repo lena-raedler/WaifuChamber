@@ -56,6 +56,7 @@ private:
     SDL_Rect healthBarRect;
     std::string currentRoom; //filepath to the currently loaded room
     Room room;
+    std::vector<Checkpoint> checkpoints;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed

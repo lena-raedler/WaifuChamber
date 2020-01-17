@@ -16,9 +16,10 @@
 #include <chrono>
 #include <string>
 #include <utility>
+#include "Checkpoint.h"
 #include "statuseffect.h"
 
-enum lastCheckPoint{
+enum lastCheckPoint{//maybe we dont need this
     A1C1,
     A1C2,
     A1C3,
@@ -63,6 +64,7 @@ public:
     std::chrono::high_resolution_clock::time_point lastHit;
     attributes attr;
     vitals vit;
+    Checkpoint* lastCP;
 
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);
@@ -71,6 +73,7 @@ public:
     void upkeep(double delta);//call this every frame
     void getHit(double damage);
     void getHit(double damage, statuseffect status);
+    void kill();
 
     void processStatuseffects(statuseffect status);
 

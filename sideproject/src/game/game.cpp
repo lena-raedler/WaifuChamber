@@ -64,6 +64,8 @@ Game::Game() {
     left = false;
     right = false;
     isFalling = false;
+    checkpoints.push_back(Checkpoint({50,50}, player));
+    player.lastCP = &checkpoints[0];
     playerPosition = player.position;
     {
         triangle t{{0,  0},
@@ -128,6 +130,10 @@ int Game::loop() {
             }
         }
 
+        if(player.vit.hp <= 0){
+            std::cout << "GIT GUD" << std::endl;
+            player.kill();
+        }
         // Update player
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
