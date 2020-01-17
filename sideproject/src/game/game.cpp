@@ -33,11 +33,13 @@ Game::Game() {
 
     //init sound
 
+    Mix_Init(MIX_INIT_MP3);
     if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
     {
         printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
     }
     gMusic=Mix_LoadMUS("files/music/Certain Plan.mp3");
+    Mix_VolumeMusic(32);
     // White background
     renderer->renderColor(255, 255, 255, 0);
 
@@ -175,8 +177,10 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_M)){
         if(Mix_PausedMusic() == 1)
             Mix_ResumeMusic();
-        else
-            Mix_PlayMusic( gMusic, -1 );
+        else if(!Mix_PlayingMusic()) {
+            Mix_FadeInMusicPos(gMusic, -1,1000, 63);
+            //Mix_PlayMusic(gMusic, -1);
+        }
     }
     if(inputManager.isPressed(KEY_N)){
         Mix_PauseMusic();
