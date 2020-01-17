@@ -13,6 +13,7 @@
 #include "utils/renderer.h"
 #include "entities/player/player.h"
 #include <memory>
+#include "utils/blackmagic.h"
 #include "world/room.h"
 
 Mix_Music *gMusic = NULL;
@@ -125,7 +126,12 @@ int Game::loop() {
         player.upkeep(deltaTime/100);
 
         if(projs.size()>0){
+            /*
             if(projs[0].collide(player)) {
+                player.getHit(projs[0].damage);
+            }
+             */
+            if(blackmagic::collide(projs[0], player)){
                 player.getHit(projs[0].damage);
             }
         }

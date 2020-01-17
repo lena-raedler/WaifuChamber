@@ -19,6 +19,7 @@ public:
     }
     Player& player;
 
+
     //todo make 2 different sprites depending on cp active / inactive
 
     //Override
