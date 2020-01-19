@@ -2,7 +2,6 @@
 #define CALCULATOR_H
 
 #include <QMainWindow>
-#include <string>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Calculator; }
@@ -18,9 +17,12 @@ public:
 
 private slots:
     void on_pushButton_clicked();
+    void on_pushButton_2_clicked();
+    void on_pushButton_3_clicked();
 
 private:
     Ui::Calculator *ui;
-    std::string input;
+    QString input;
+    void updateInput();
 };
 #endif // CALCULATOR_H
