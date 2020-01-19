@@ -2,6 +2,7 @@
 #define CALCULATOR_H
 
 #include <QMainWindow>
+#include <string>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Calculator; }
@@ -15,7 +16,11 @@ public:
     Calculator(QWidget *parent = nullptr);
     ~Calculator();
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::Calculator *ui;
+    std::string input;
 };
 #endif // CALCULATOR_H

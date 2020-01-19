@@ -13,3 +13,9 @@ Calculator::~Calculator()
     delete ui;
 }
 
+
+void Calculator::on_pushButton_clicked()
+{
+    ui->label->setText("0");
+
+}
