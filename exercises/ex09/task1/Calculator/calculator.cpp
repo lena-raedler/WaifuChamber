@@ -8,9 +8,9 @@ Calculator::Calculator(QWidget *parent)
     , input("")
     , inputNumbersCount(0)
     , inputOperationsCount(1)   // The first operation is always a '+' to make processing easier (add first number)
-    , inputNumbers(16)
-    , inputOperations(16)
-
+    , inputNumbers(256)
+    , inputNumbersDouble(256)
+    , inputOperations(256)
 {
     ui->setupUi(this);
 }
@@ -24,14 +24,12 @@ Calculator::~Calculator()
 void Calculator::on_pushButton_0_clicked()
 {
     input += "0";
-    //inputNumbers[inputNumbersCount].push_back('0');
     updateInput();
 }
 
 void Calculator::on_pushButton_1_clicked()
 {
     input += "1";
-    //inputNumbers[inputNumbersCount].push_back('1');
     updateInput();
 }
 
@@ -83,12 +81,15 @@ void Calculator::on_pushButton_9_clicked()
     updateInput();
 }
 
+void Calculator::on_pushButton_minus_clicked()
+{
+    input += "-";
+    updateInput();
+}
+
 void Calculator::on_pushButton_plus_clicked()
 {
     input += "+";
-    //inputNumbers.push_back("+");
-    //inputOperations.push_back("+");
-    //inputOperationsCount++;
     updateInput();
 }
 
@@ -103,15 +104,6 @@ void Calculator::on_pushButton_clear_clicked()
 
 void Calculator::updateInput()
 {
-     //ui->label_input->setText(input);
-     /*QString inputS = "";
-     //int max = (inputNumbersCount >= inputOperationsCount) ? inputNumbersCount : inputOperationsCount;
-     for (int i = 0; i <= inputNumbersCount; i++) {
-         inputS += inputNumbers[i];
-         inputS += inputOperations[i];
-     }
-     */
-     //ui->label_input->setText(inputS);
      ui->label_input->setText(input);
 }
 
@@ -124,25 +116,27 @@ void Calculator::on_pushButton_equals_clicked()
         return;
 
     std::cout << "Input Numbers: ";
-    for (QString s : inputNumbers) {
-        std::cout << s.toStdString() << ", ";
+    for (int i = 0; i <= inputNumbersCount; i++) {
+        std::cout << inputNumbers[i].toStdString() << ", ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Input doubles: ";
+    for (int i = 0; i <= inputNumbersCount; i++) {
+        std::cout << inputNumbersDouble[i] << ", ";
     }
     std::cout << std::endl;
 
     std::cout << "Input Operations: ";
-    for (QString s : inputOperations) {
-        std::cout << s.toStdString() << ", ";
+    for (int i = 0; i < inputOperationsCount; i++) {
+        std::cout << inputOperations[i].toStdString() << ", ";
     }
     std::cout << std::endl;
 
-    double result = 0;
-    for (int i = 0; i <= inputNumbersCount; i++)
-    {
-        double converted = std::stoi(inputNumbers[i].toStdString());
-        std::cout << "converted: " << converted << ", ";
-        result = calculateResult(result, converted, inputOperations[i]);
-    }
-    std::cout << std::endl;
+
+
+    double result = plusAndMinus();
+
     ui->label_result->setText(std::to_string(result).c_str());
 }
 
@@ -160,6 +154,10 @@ void Calculator::preprocessInput()
             inputNumbersCount++;
         }
     }
+
+    for (int i = 0; i <= inputNumbersCount; i++)
+        inputNumbersDouble[i] = stoi(inputNumbers[i].toStdString());
+
 }
 
 bool Calculator::isOperation(QChar c)
@@ -187,22 +185,28 @@ double Calculator::calculateResult(double a, double b, QString operation)
 
 // Resolve point operations
 
-void Calculator::plusAndMinus()
+double Calculator::plusAndMinus()
 {
-
+    double result = 0;
+    for (int i = 0; i <= inputNumbersCount; i++)
+    {
+        //double converted = std::stoi(inputNumbers[i].toStdString());
+        //std::cout << "converted: " << converted << ", ";
+        //result = calculateResult(result, converted, inputOperations[i]);
+        result = calculateResult(result, inputNumbersDouble[i], inputOperations[i]);
+    }
+    std::cout << std::endl;
+    return result;
 }
 
 
 void Calculator::clearCalculator()
 {
-    //input.clear();
     inputNumbersCount = 0;
-    //inputNumbers.clear();
     for (int i = 0; i < inputNumbers.size(); i++)
         inputNumbers[i] = "";
 
     inputOperationsCount = 1;
-    //inputOperations.clear();
     for (int i = 0; i < inputOperations.size(); i++)
         inputOperations[i] = "";
 }

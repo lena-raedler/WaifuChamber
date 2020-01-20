@@ -28,6 +28,7 @@ private slots:
     void on_pushButton_8_clicked();
     void on_pushButton_9_clicked();
 
+    void on_pushButton_minus_clicked();
     void on_pushButton_plus_clicked();
 
     void on_pushButton_equals_clicked();
@@ -40,11 +41,12 @@ private:
     int inputNumbersCount;
     int inputOperationsCount;
     QVector<QString> inputNumbers;
+    QVector<double> inputNumbersDouble;
     QVector<QString> inputOperations;
     void updateInput();
     void preprocessInput();
     bool isOperation(QChar c);
-    void plusAndMinus();
+    double plusAndMinus();
     double calculateResult(double a, double b, QString operation);
     void clearCalculator();
 };
