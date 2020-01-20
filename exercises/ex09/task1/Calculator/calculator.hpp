@@ -33,8 +33,8 @@ private slots:
     void on_pushButton_minus_clicked();
     void on_pushButton_plus_clicked();
 
+    void on_pushButton_dot_clicked();
     void on_pushButton_equals_clicked();
-
     void on_pushButton_clear_clicked();
 
 private:

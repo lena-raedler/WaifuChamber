@@ -105,6 +105,12 @@ void Calculator::on_pushButton_plus_clicked()
     updateInput();
 }
 
+void Calculator::on_pushButton_dot_clicked()
+{
+    input += ".";
+    updateInput();
+}
+
 void Calculator::on_pushButton_clear_clicked()
 {
     input = "";
@@ -157,7 +163,7 @@ void Calculator::preprocessInput()
     inputOperations[0] = "+";
     for (QChar c : input)
     {
-        if (c.isDigit())
+        if (c.isDigit() || c == '.')
             inputNumbers[inputNumbersCount] += c;
         else if (isOperation(c))
         {
@@ -167,7 +173,10 @@ void Calculator::preprocessInput()
     }
 
     for (int i = 0; i <= inputNumbersCount; i++)
-        inputNumbersDouble[i] = stoi(inputNumbers[i].toStdString());
+    {
+        inputNumbersDouble[i] = stof(inputNumbers[i].toStdString());
+        std::cout << inputNumbers[i].toStdString() << std::endl;
+    }
 }
 
 bool Calculator::isOperation(QChar c)
@@ -204,7 +213,7 @@ double Calculator::calculateResult(double a, double b, QString operation)
 // Resolve negatives
 void Calculator::resolveNegatives()
 {
-
+    // TODO
 }
 
 // Resolve point operations
@@ -240,12 +249,8 @@ double Calculator::plusAndMinus()
 {
     double result = 0;
     for (int i = 0; i <= inputNumbersCount; i++)
-    {
-        //double converted = std::stoi(inputNumbers[i].toStdString());
-        //std::cout << "converted: " << converted << ", ";
-        //result = calculateResult(result, converted, inputOperations[i]);
         result = calculateResult(result, inputNumbersDouble[i], inputOperations[i]);
-    }
+
     std::cout << std::endl;
     return result;
 }
