@@ -1,4 +1,4 @@
-#include "calculator.h"
+#include "calculator.hpp"
 #include "ui_calculator.h"
 
 Calculator::Calculator(QWidget *parent)
@@ -6,7 +6,7 @@ Calculator::Calculator(QWidget *parent)
     , ui(new Ui::Calculator)
     , input("")
     , inputNumbersCount(0)
-    , inputOperationsCount(0)
+    , inputOperationsCount(1)   // The first operation is always a '+' to make processing easier (add first number)
     , inputNumbers(16)
     , inputOperations(16)
 
@@ -22,15 +22,15 @@ Calculator::~Calculator()
 
 void Calculator::on_pushButton_0_clicked()
 {
-    //input += "0";
-    inputNumbers[inputNumbersCount].push_back('0');
+    input += "0";
+    //inputNumbers[inputNumbersCount].push_back('0');
     updateInput();
 }
 
 void Calculator::on_pushButton_1_clicked()
 {
-    //input += "1";
-    inputNumbers[inputNumbersCount].push_back('1');
+    input += "1";
+    //inputNumbers[inputNumbersCount].push_back('1');
     updateInput();
 }
 
@@ -84,29 +84,77 @@ void Calculator::on_pushButton_9_clicked()
 
 void Calculator::on_pushButton_plus_clicked()
 {
-    //input += "+";
+    input += "+";
     //inputNumbers.push_back("+");
-    inputOperations.push_back("+");
-    inputOperationsCount++;
+    //inputOperations.push_back("+");
+    //inputOperationsCount++;
     updateInput();
 }
 
 void Calculator::updateInput()
 {
      //ui->label_input->setText(input);
-     QString inputS = "";
+     /*QString inputS = "";
      //int max = (inputNumbersCount >= inputOperationsCount) ? inputNumbersCount : inputOperationsCount;
      for (int i = 0; i <= inputNumbersCount; i++) {
          inputS += inputNumbers[i];
          inputS += inputOperations[i];
      }
-     ui->label_input->setText(inputS);
+     */
+     //ui->label_input->setText(inputS);
+     ui->label_input->setText(input);
 }
 
 
 void Calculator::on_pushButton_equals_clicked()
 {
-    //int max = if (inputArr)
+    preprocessInput();
+    double result = 0;
+    for (int i = 0; i < inputNumbers.size(); i++)
+    {
+        result = calculateResult(result, std::stoi(inputNumbers[0].toStdString()), inputOperations[0]);
+    }
+    ui->label_result->setText(std::to_string(result).c_str());
+}
 
+// Preprocess input
+void Calculator::preprocessInput()
+{
+    for (QChar c : input)
+    {
+        if (c.isDigit())
+            inputNumbers[inputNumbersCount] += c;
+        else if (isOperation(c))
+        {
+            inputOperations[inputOperationsCount++] = c;
+            inputNumbersCount++;
+        }
+    }
+}
+
+bool Calculator::isOperation(QChar c)
+{
+    if (c == '+' || c == '-' || c == '*' || c == '/')
+        return true;
+    return false;
+}
+
+double Calculator::calculateResult(double a, double b, QChar operation)
+{
+    if (operation == '-')
+        return a-b;
+    else if (operation == '+')
+        return a+b;
+    else
+        return -1;
+}
+
+// Resolve negatives
+
+
+// Resolve point operations
+
+void Calculator::plusAndMinus()
+{
 
 }

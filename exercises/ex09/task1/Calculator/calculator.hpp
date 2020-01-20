@@ -2,6 +2,7 @@
 #define CALCULATOR_H
 
 #include <QMainWindow>
+#include <string>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Calculator; }
@@ -37,7 +38,11 @@ private:
     int inputNumbersCount;
     int inputOperationsCount;
     QVector<QString> inputNumbers;
-    QVector<QString> inputOperations;
+    QVector<QChar> inputOperations;
     void updateInput();
+    void preprocessInput();
+    bool isOperation(QChar c);
+    void plusAndMinus();
+    double calculateResult(double a, double b, QChar operation);
 };
 #endif // CALCULATOR_H
