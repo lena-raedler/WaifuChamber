@@ -32,17 +32,20 @@ private slots:
 
     void on_pushButton_equals_clicked();
 
+    void on_pushButton_clear_clicked();
+
 private:
     Ui::Calculator *ui;
     QString input;
     int inputNumbersCount;
     int inputOperationsCount;
     QVector<QString> inputNumbers;
-    QVector<QChar> inputOperations;
+    QVector<QString> inputOperations;
     void updateInput();
     void preprocessInput();
     bool isOperation(QChar c);
     void plusAndMinus();
-    double calculateResult(double a, double b, QChar operation);
+    double calculateResult(double a, double b, QString operation);
+    void clearCalculator();
 };
 #endif // CALCULATOR_H

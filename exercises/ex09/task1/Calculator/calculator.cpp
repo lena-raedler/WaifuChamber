@@ -1,5 +1,6 @@
 #include "calculator.hpp"
 #include "ui_calculator.h"
+#include <iostream>
 
 Calculator::Calculator(QWidget *parent)
     : QMainWindow(parent)
@@ -91,6 +92,15 @@ void Calculator::on_pushButton_plus_clicked()
     updateInput();
 }
 
+void Calculator::on_pushButton_clear_clicked()
+{
+    input = "";
+    clearCalculator();
+    updateInput();
+    ui->label_result->setText("");
+}
+
+
 void Calculator::updateInput()
 {
      //ui->label_input->setText(input);
@@ -108,9 +118,22 @@ void Calculator::updateInput()
 
 void Calculator::on_pushButton_equals_clicked()
 {
+    clearCalculator();
     preprocessInput();
+    std::cout << "Input Numbers: ";
+    for (QString s : inputNumbers) {
+        std::cout << s.toStdString() << ", ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Input Operations: ";
+    for (QString s : inputOperations) {
+        std::cout << s.toStdString() << ", ";
+    }
+    std::cout << std::endl;
+
     double result = 0;
-    for (int i = 0; i < inputNumbers.size(); i++)
+    for (int i = 0; i < inputNumbersCount; i++)
     {
         result = calculateResult(result, std::stoi(inputNumbers[0].toStdString()), inputOperations[0]);
     }
@@ -120,13 +143,18 @@ void Calculator::on_pushButton_equals_clicked()
 // Preprocess input
 void Calculator::preprocessInput()
 {
+
+    std::cout << "hi" << std::endl;
+    inputOperations[0] = "+";
+    std::cout << "hi2" << std::endl;
     for (QChar c : input)
     {
         if (c.isDigit())
             inputNumbers[inputNumbersCount] += c;
         else if (isOperation(c))
         {
-            inputOperations[inputOperationsCount++] = c;
+            std::cout << "is Operation" << std::endl;
+            inputOperations[inputOperationsCount++] += c;
             inputNumbersCount++;
         }
     }
@@ -139,11 +167,11 @@ bool Calculator::isOperation(QChar c)
     return false;
 }
 
-double Calculator::calculateResult(double a, double b, QChar operation)
+double Calculator::calculateResult(double a, double b, QString operation)
 {
-    if (operation == '-')
+    if (operation.compare("-") == 0)
         return a-b;
-    else if (operation == '+')
+    else if (operation.compare("+") == 0)
         return a+b;
     else
         return -1;
@@ -157,4 +185,19 @@ double Calculator::calculateResult(double a, double b, QChar operation)
 void Calculator::plusAndMinus()
 {
 
+}
+
+
+void Calculator::clearCalculator()
+{
+    //input.clear();
+    inputNumbersCount = 0;
+    //inputNumbers.clear();
+    for (int i = 0; i < inputNumbers.size(); i++)
+        inputNumbers[i] = "";
+
+    inputOperationsCount = 1;
+    //inputOperations.clear();
+    for (int i = 0; i < inputOperations.size(); i++)
+        inputOperations[i] = "";
 }
