@@ -133,27 +133,26 @@ void Calculator::on_pushButton_equals_clicked()
     std::cout << std::endl;
 
     double result = 0;
-    for (int i = 0; i < inputNumbersCount; i++)
+    for (int i = 0; i <= inputNumbersCount; i++)
     {
-        result = calculateResult(result, std::stoi(inputNumbers[0].toStdString()), inputOperations[0]);
+        double converted = std::stoi(inputNumbers[i].toStdString());
+        std::cout << "converted: " << converted << ", ";
+        result = calculateResult(result, converted, inputOperations[i]);
     }
+    std::cout << std::endl;
     ui->label_result->setText(std::to_string(result).c_str());
 }
 
 // Preprocess input
 void Calculator::preprocessInput()
 {
-
-    std::cout << "hi" << std::endl;
     inputOperations[0] = "+";
-    std::cout << "hi2" << std::endl;
     for (QChar c : input)
     {
         if (c.isDigit())
             inputNumbers[inputNumbersCount] += c;
         else if (isOperation(c))
         {
-            std::cout << "is Operation" << std::endl;
             inputOperations[inputOperationsCount++] += c;
             inputNumbersCount++;
         }
@@ -169,10 +168,13 @@ bool Calculator::isOperation(QChar c)
 
 double Calculator::calculateResult(double a, double b, QString operation)
 {
-    if (operation.compare("-") == 0)
+    if (operation.compare("-") == 0){
         return a-b;
-    else if (operation.compare("+") == 0)
+    }
+    else if (operation.compare("+") == 0) {
+        std::cout << "+ operation called" << std::endl;
         return a+b;
+    }
     else
         return -1;
 }
