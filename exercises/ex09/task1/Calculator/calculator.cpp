@@ -87,6 +87,12 @@ void Calculator::on_pushButton_times_clicked()
     updateInput();
 }
 
+void Calculator::on_pushButton_divide_clicked()
+{
+    input += "/";
+    updateInput();
+}
+
 void Calculator::on_pushButton_minus_clicked()
 {
     input += "-";
@@ -186,6 +192,11 @@ double Calculator::calculateResult(double a, double b, QString operation)
         std::cout << "* operation called" << std::endl;
         return a*b;
     }
+    else if (operation.compare("/") == 0)
+    {
+        std::cout << "/ operation called" << std::endl;
+        return a/b;
+    }
     else
         return -1;
 }
@@ -199,11 +210,14 @@ void Calculator::resolveNegatives()
 // Resolve point operations
 void Calculator::timesAndDivide()
 {
+    QString op;
+
     for (int i = 1; i <= inputOperationsCount; i++)    // Start at 1 directly because 0 is a +
     {
-        if (inputOperations[i].compare("*") == 0)
+        op = inputOperations[i];
+        if (op.compare("*") == 0 || op.compare("/") == 0)
         {
-            inputNumbersDouble[i-1] = inputNumbersDouble[i-1] * inputNumbersDouble[i];
+            inputNumbersDouble[i-1] = calculateResult(inputNumbersDouble[i-1], inputNumbersDouble[i], op);
             shiftNumbers(i);
         }
     }

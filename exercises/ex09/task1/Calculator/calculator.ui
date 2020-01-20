@@ -278,7 +278,7 @@
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_11">
+   <widget class="QPushButton" name="pushButton_divide">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -293,7 +293,7 @@
      </font>
     </property>
     <property name="text">
-     <string>%</string>
+     <string>/</string>
     </property>
     <property name="iconSize">
      <size>

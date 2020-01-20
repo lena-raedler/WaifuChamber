@@ -29,6 +29,7 @@ private slots:
     void on_pushButton_9_clicked();
 
     void on_pushButton_times_clicked();
+    void on_pushButton_divide_clicked();
     void on_pushButton_minus_clicked();
     void on_pushButton_plus_clicked();
 
