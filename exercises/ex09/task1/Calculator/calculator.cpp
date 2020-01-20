@@ -120,6 +120,9 @@ void Calculator::on_pushButton_equals_clicked()
 {
     clearCalculator();
     preprocessInput();
+    if (inputNumbersCount <= 0)
+        return;
+
     std::cout << "Input Numbers: ";
     for (QString s : inputNumbers) {
         std::cout << s.toStdString() << ", ";
