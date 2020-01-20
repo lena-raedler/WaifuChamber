@@ -81,6 +81,12 @@ void Calculator::on_pushButton_9_clicked()
     updateInput();
 }
 
+void Calculator::on_pushButton_times_clicked()
+{
+    input += "*";
+    updateInput();
+}
+
 void Calculator::on_pushButton_minus_clicked()
 {
     input += "-";
@@ -133,8 +139,7 @@ void Calculator::on_pushButton_equals_clicked()
     }
     std::cout << std::endl;
 
-
-
+    timesAndDivide();
     double result = plusAndMinus();
 
     ui->label_result->setText(std::to_string(result).c_str());
@@ -157,7 +162,6 @@ void Calculator::preprocessInput()
 
     for (int i = 0; i <= inputNumbersCount; i++)
         inputNumbersDouble[i] = stoi(inputNumbers[i].toStdString());
-
 }
 
 bool Calculator::isOperation(QChar c)
@@ -172,18 +176,51 @@ double Calculator::calculateResult(double a, double b, QString operation)
     if (operation.compare("-") == 0){
         return a-b;
     }
-    else if (operation.compare("+") == 0) {
+    else if (operation.compare("+") == 0)
+    {
         std::cout << "+ operation called" << std::endl;
         return a+b;
+    }
+    else if (operation.compare("*") == 0)
+    {
+        std::cout << "* operation called" << std::endl;
+        return a*b;
     }
     else
         return -1;
 }
 
 // Resolve negatives
+void Calculator::resolveNegatives()
+{
 
+}
 
 // Resolve point operations
+void Calculator::timesAndDivide()
+{
+    for (int i = 1; i <= inputOperationsCount; i++)    // Start at 1 directly because 0 is a +
+    {
+        if (inputOperations[i].compare("*") == 0)
+        {
+            inputNumbersDouble[i-1] = inputNumbersDouble[i-1] * inputNumbersDouble[i];
+            shiftNumbers(i);
+        }
+    }
+}
+
+void Calculator::shiftNumbers(int i)
+{
+    for (int j = i; j < inputNumbersCount; j++)
+    {
+        inputNumbersDouble[j] = inputNumbersDouble[j+1];
+    }
+    inputNumbersCount--;    // There is no need to delete inputNumbersDouble[i] because we iterate with inputNumbersCount
+
+    for (int j = i; j < inputOperationsCount; j++)
+        inputOperations[j] = inputOperations[j+1];
+    inputOperationsCount--;
+}
 
 double Calculator::plusAndMinus()
 {

@@ -28,6 +28,7 @@ private slots:
     void on_pushButton_8_clicked();
     void on_pushButton_9_clicked();
 
+    void on_pushButton_times_clicked();
     void on_pushButton_minus_clicked();
     void on_pushButton_plus_clicked();
 
@@ -46,6 +47,9 @@ private:
     void updateInput();
     void preprocessInput();
     bool isOperation(QChar c);
+    void resolveNegatives();
+    void timesAndDivide();
+    void shiftNumbers(int i);
     double plusAndMinus();
     double calculateResult(double a, double b, QString operation);
     void clearCalculator();
