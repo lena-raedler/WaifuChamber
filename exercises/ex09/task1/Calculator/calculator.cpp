@@ -134,7 +134,6 @@ void Calculator::on_pushButton_equals_clicked()
         return;
 
     printCalculator();
-
     timesAndDivide();
     double result = plusAndMinus();
 
@@ -146,7 +145,7 @@ void Calculator::preprocessInput()
     inputOperations[0] = "+";
     for (QChar c : input)
     {
-        if (c.isDigit() || c == ',')    // Former: if (c.isDigit() || c == ',')
+        if (c.isDigit() || c == ',')    // Former: if (c.isDigit() || c == '.')
             inputNumbers[inputNumbersCount] += c;
         else if (isOperation(c))
         {
