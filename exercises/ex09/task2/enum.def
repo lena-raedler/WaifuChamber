@@ -1,0 +1,4 @@
+EN(Fullscreen, 1)
+EN(FakeFullscreen, 2)
+EN(Window, 0)
+#undef EN

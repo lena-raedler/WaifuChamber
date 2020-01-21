@@ -5,6 +5,10 @@
 #include <iostream>
 #include <string>
 
+enum class Fullscreen {
+#define EN(_name, _val) _name = _val,
+#include "enum.def"
+};
 struct Config{
 #define CONFIG(_type, _identifier, _default) _type _identifier = _default;
 #include "config.def"
