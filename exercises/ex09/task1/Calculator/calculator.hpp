@@ -50,9 +50,10 @@ private:
     bool isOperation(QChar c);
     void resolveNegatives();
     void timesAndDivide();
-    void shiftNumbers(int i);
+    void shiftNumbers(int offset);
     double plusAndMinus();
     double calculateResult(double a, double b, QString operation);
     void clearCalculator();
+    void printCalculator();
 };
 #endif // CALCULATOR_H

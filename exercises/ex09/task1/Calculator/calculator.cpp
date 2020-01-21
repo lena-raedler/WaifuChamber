@@ -107,7 +107,7 @@ void Calculator::on_pushButton_plus_clicked()
 
 void Calculator::on_pushButton_dot_clicked()
 {
-    input += ".";
+    input += ",";
     updateInput();
 }
 
@@ -133,23 +133,7 @@ void Calculator::on_pushButton_equals_clicked()
     if (inputNumbersCount <= 0)
         return;
 
-    std::cout << "Input Numbers: ";
-    for (int i = 0; i <= inputNumbersCount; i++) {
-        std::cout << inputNumbers[i].toStdString() << ", ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "Input doubles: ";
-    for (int i = 0; i <= inputNumbersCount; i++) {
-        std::cout << inputNumbersDouble[i] << ", ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "Input Operations: ";
-    for (int i = 0; i < inputOperationsCount; i++) {
-        std::cout << inputOperations[i].toStdString() << ", ";
-    }
-    std::cout << std::endl;
+    printCalculator();
 
     timesAndDivide();
     double result = plusAndMinus();
@@ -157,13 +141,12 @@ void Calculator::on_pushButton_equals_clicked()
     ui->label_result->setText(std::to_string(result).c_str());
 }
 
-// Preprocess input
 void Calculator::preprocessInput()
 {
     inputOperations[0] = "+";
     for (QChar c : input)
     {
-        if (c.isDigit() || c == '.')
+        if (c.isDigit() || c == ',')    // Former: if (c.isDigit() || c == ',')
             inputNumbers[inputNumbersCount] += c;
         else if (isOperation(c))
         {
@@ -173,10 +156,7 @@ void Calculator::preprocessInput()
     }
 
     for (int i = 0; i <= inputNumbersCount; i++)
-    {
         inputNumbersDouble[i] = stof(inputNumbers[i].toStdString());
-        std::cout << inputNumbers[i].toStdString() << std::endl;
-    }
 }
 
 bool Calculator::isOperation(QChar c)
@@ -189,6 +169,7 @@ bool Calculator::isOperation(QChar c)
 double Calculator::calculateResult(double a, double b, QString operation)
 {
     if (operation.compare("-") == 0){
+        std::cout << "- operation called" << std::endl;
         return a-b;
     }
     else if (operation.compare("+") == 0)
@@ -207,7 +188,10 @@ double Calculator::calculateResult(double a, double b, QString operation)
         return a/b;
     }
     else
+    {
+        std::cout << "Unable to resolve operation" << std::endl;
         return -1;
+    }
 }
 
 // Resolve negatives
@@ -232,16 +216,14 @@ void Calculator::timesAndDivide()
     }
 }
 
-void Calculator::shiftNumbers(int i)
+void Calculator::shiftNumbers(int offset)
 {
-    for (int j = i; j < inputNumbersCount; j++)
-    {
-        inputNumbersDouble[j] = inputNumbersDouble[j+1];
-    }
+    for (int i = offset; i < inputNumbersCount; i++)
+        inputNumbersDouble[i] = inputNumbersDouble[i+1];
     inputNumbersCount--;    // There is no need to delete inputNumbersDouble[i] because we iterate with inputNumbersCount
 
-    for (int j = i; j < inputOperationsCount; j++)
-        inputOperations[j] = inputOperations[j+1];
+    for (int i = offset; i < inputOperationsCount; i++)
+        inputOperations[i] = inputOperations[i+1];
     inputOperationsCount--;
 }
 
@@ -265,4 +247,25 @@ void Calculator::clearCalculator()
     inputOperationsCount = 1;
     for (int i = 0; i < inputOperations.size(); i++)
         inputOperations[i] = "";
+}
+
+void Calculator::printCalculator()
+{
+    std::cout << "Input Numbers: ";
+    for (int i = 0; i <= inputNumbersCount; i++) {
+        std::cout << inputNumbers[i].toStdString() << ", ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Input doubles: ";
+    for (int i = 0; i <= inputNumbersCount; i++) {
+        std::cout << inputNumbersDouble[i] << ", ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Input Operations: ";
+    for (int i = 0; i < inputOperationsCount; i++) {
+        std::cout << inputOperations[i].toStdString() << ", ";
+    }
+    std::cout << std::endl;
 }
