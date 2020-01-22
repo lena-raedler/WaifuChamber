@@ -158,14 +158,14 @@ void Calculator::preprocessInput()
         inputNumbersDouble[i] = stof(inputNumbers[i].toStdString());
 }
 
-bool Calculator::isOperation(QChar c)
+bool Calculator::isOperation(const QChar c)
 {
     if (c == '+' || c == '-' || c == '*' || c == '/')
         return true;
     return false;
 }
 
-double Calculator::calculateResult(double a, double b, QString operation)
+double Calculator::calculateResult(const double a, const double b, const QString& operation)
 {
     if (operation.compare("-") == 0){
         std::cout << "- operation called" << std::endl;
@@ -215,7 +215,7 @@ void Calculator::timesAndDivide()
     }
 }
 
-void Calculator::shiftNumbers(int offset)
+void Calculator::shiftNumbers(const int offset)
 {
     for (int i = offset; i < inputNumbersCount; i++)
         inputNumbersDouble[i] = inputNumbersDouble[i+1];

@@ -47,12 +47,12 @@ private:
     QVector<QString> inputOperations;
     void updateInput();
     void preprocessInput();
-    bool isOperation(QChar c);
+    bool isOperation(const QChar c);
     void resolveNegatives();
     void timesAndDivide();
-    void shiftNumbers(int offset);
+    void shiftNumbers(const int offset);
     double plusAndMinus();
-    double calculateResult(double a, double b, QString operation);
+    double calculateResult(const double a, const double b, const QString& operation);
     void clearCalculator();
     void printCalculator();
 };
