@@ -73,6 +73,7 @@ namespace utility {
         std::string line;
         SDL_Texture* backgroundTexture;
         SDL_Rect backgroundRectangle;
+        std::vector<std::pair<int, int>> platformPositionVector;
         std::unordered_map<char, std::string> tileMap;
         std::unordered_map<SDL_Texture*, SDL_Rect> tileRenderMap;
         while(std::getline(roomFile, line)) {
@@ -119,6 +120,12 @@ namespace utility {
                         surface = IMG_Load(tilePath.c_str());
                         SDL_Texture* texture = renderer.createTextureFromSurface(surface);
                         SDL_Rect rect = {y, x, surface->w, surface->h};
+                        if(c == 'p') {
+                            std::pair<int, int> platformPosition;
+                            platformPosition.first = y;
+                            platformPosition.second = x;
+                            platformPositionVector.push_back(platformPosition);
+                        }
                         textureRectanglePair.first = texture;
                         textureRectanglePair.second = rect;
                         tileRenderMap.insert(textureRectanglePair);
@@ -130,7 +137,7 @@ namespace utility {
                 }
             }
         }
-        Room room(backgroundTexture, backgroundRectangle, tileRenderMap);
+        Room room(backgroundTexture, backgroundRectangle, tileRenderMap, platformPositionVector);
         return room;
 
     }

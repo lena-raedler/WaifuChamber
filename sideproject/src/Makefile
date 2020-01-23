@@ -283,6 +283,33 @@ game/game.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/game.cpp.s
 .PHONY : game/game.cpp.s
 
+game/utils/ImageNew.o: game/utils/ImageNew.cpp.o
+
+.PHONY : game/utils/ImageNew.o
+
+# target to build an object file
+game/utils/ImageNew.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/ImageNew.cpp.o
+.PHONY : game/utils/ImageNew.cpp.o
+
+game/utils/ImageNew.i: game/utils/ImageNew.cpp.i
+
+.PHONY : game/utils/ImageNew.i
+
+# target to preprocess a source file
+game/utils/ImageNew.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/ImageNew.cpp.i
+.PHONY : game/utils/ImageNew.cpp.i
+
+game/utils/ImageNew.s: game/utils/ImageNew.cpp.s
+
+.PHONY : game/utils/ImageNew.s
+
+# target to generate assembly for a file
+game/utils/ImageNew.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/ImageNew.cpp.s
+.PHONY : game/utils/ImageNew.cpp.s
+
 game/utils/InputManager.o: game/utils/InputManager.cpp.o
 
 .PHONY : game/utils/InputManager.o
@@ -470,6 +497,9 @@ help:
 	@echo "... game/game.o"
 	@echo "... game/game.i"
 	@echo "... game/game.s"
+	@echo "... game/utils/ImageNew.o"
+	@echo "... game/utils/ImageNew.i"
+	@echo "... game/utils/ImageNew.s"
 	@echo "... game/utils/InputManager.o"
 	@echo "... game/utils/InputManager.i"
 	@echo "... game/utils/InputManager.s"
