@@ -142,23 +142,9 @@ int Game::loop() {
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/100);
 
-        //if(projs.size()>0){
         if(!projs.empty()){
             for (Projectile& projectile : projs) {
-                //vec_t moveProjectile {10, 0};
-                //projectile.velocity.x *= 0.8;
-                //projectile.velocity += moveProjectile;
-                //projectile.velocity.x = std::clamp(projectile.velocity.x, -30.0, 30.0); //terminal velocities
-                //projectile.upkeep(deltaTime/100);
-                //projectile.position.x += 10;
-                //projectile.rec->x = projectile.position.x;
-
                 projectile.upkeep(deltaTime/100);
-
-                //projectile.position.x += 10;
-                //projectile.velocity += {1, 1};
-                //projectile.velocity.x *= 0.8;
-                //projectile.upkeep(deltaTime/100);
 
                 if(blackmagic::collide(projectile, player)){
                     player.getHit(projectile.damage);
@@ -253,8 +239,6 @@ vec_t Game::determineInput(double delta){
             projectile.velocity.x = 10;
             //projectile.velocity.x *= 0.8;
             //projectile.velocity.x = std::clamp(projectile.velocity.x, -30.0, 30.0); //terminal velocities
-
-
             projs.push_back(projectile);
 
             //projs.push_back(Projectile());
