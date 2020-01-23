@@ -6,6 +6,7 @@
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include "renderer.h"
 
 class ImageNew {
 public:
@@ -14,9 +15,9 @@ public:
     ~ImageNew();
     SDL_Texture* getTexture();
     SDL_Rect* getRect();
+    void render(Renderer& renderer);
 
 private:
     SDL_Texture* texture;
     SDL_Rect rect;
 };
-

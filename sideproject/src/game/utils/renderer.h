@@ -13,7 +13,7 @@
 #include <vector>
 #include "image.h"
 #include "triangle.h"
-#include "ImageNew.hpp"
+//#include "ImageNew.hpp"
 
 
 class Renderer {

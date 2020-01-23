@@ -22,3 +22,7 @@ SDL_Texture* ImageNew::getTexture() {
 SDL_Rect* ImageNew::getRect() {
     return &rect;
 }
+
+void ImageNew::render(Renderer& renderer) {
+    renderer.renderTexture(texture, nullptr, &rect);
+}

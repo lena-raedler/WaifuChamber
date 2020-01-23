@@ -258,12 +258,13 @@ void Game::render() {
     renderer->clear();
 
     // Render pause screen
-    if (pause) {
-        renderer->renderTexture(pauseImage.getTexture(), nullptr, pauseImage.getRect());
-    }
+    //if (pause) {
+        //renderer->renderTexture(pauseImage.getTexture(), nullptr, pauseImage.getRect());
+        pauseImage.render(*renderer); 
+    //}
 
     //Render room
-    room.render(*renderer);
+    //room.render(*renderer);
 
     //renderer->renderColor(255, 255, 255, 255);
     //renderer->renderTexture(texture, nullptr, player.rec.get());
