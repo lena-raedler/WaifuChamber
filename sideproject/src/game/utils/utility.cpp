@@ -136,6 +136,15 @@ namespace utility {
                     x += surface->w;
                 }
             }
+            else if(line.find("ENTITIES") != std::string::npos) {
+                while(line.find("END") == std::string::npos) {
+                    std::getline(roomFile, line);
+                    if (line.find("END") != std::string::npos) {
+                        break;
+                    }
+                    line = line.substr(2);
+                }
+            }
         }
         Room room(backgroundTexture, backgroundRectangle, tileRenderMap, platformPositionVector);
         return room;
