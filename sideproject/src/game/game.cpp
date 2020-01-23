@@ -22,6 +22,9 @@ Game::Game()
     : pause(false)
 {
     debugshit();
+    std::pair<int, int> resolution;
+    resolution.first = screenWidth;
+    resolution.second = screenHeight;
     //initialize SDL components here
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         std::cout << "Couldn't inititalize SDL" << std::endl;
@@ -32,7 +35,7 @@ Game::Game()
     if(!(IMG_Init(imageFlags) & imageFlags)) {
         throw std::runtime_error("Could not initialize SDL_image");
     }
-    renderer = std::make_unique<Renderer>();
+    renderer = std::make_unique<Renderer>(resolution);
 
     //init sound
 
@@ -62,7 +65,7 @@ Game::Game()
         throw std::runtime_error("Could not create texture");
     }
     currentRoom = "files/rooms/testroom.txt";
-    room = utility::parseRoom(currentRoom, *renderer);
+    room = utility::parseRoom(currentRoom, *renderer, resolution);
     quit = false;
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);

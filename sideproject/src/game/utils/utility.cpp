@@ -68,7 +68,7 @@ namespace utility {
 
     }
 
-    Room parseRoom(std::string path, Renderer &renderer) {
+    Room parseRoom(std::string path, Renderer &renderer, std::pair<int, int> resolution) {
         std::ifstream roomFile(path);
         std::string line;
         SDL_Texture* backgroundTexture;
@@ -81,7 +81,7 @@ namespace utility {
                 std::getline(roomFile, line);
                 SDL_Surface* surface = IMG_Load(line.c_str());
                 backgroundTexture = renderer.createTextureFromSurface(surface);
-                backgroundRectangle = {0, 0, surface->w, surface->h};
+                backgroundRectangle = {0, 0, resolution.first, resolution.second};
                 SDL_FreeSurface(surface);
 
             }

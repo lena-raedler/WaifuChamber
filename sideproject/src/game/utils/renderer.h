@@ -12,13 +12,14 @@
 #include <string>
 #include <vector>
 #include "image.h"
+#include <utility>
 #include "triangle.h"
 //#include "ImageNew.hpp"
 
 
 class Renderer {
 public:
-    Renderer();
+    Renderer(std::pair<int, int> resolution);
     ~Renderer();
     // render present window
     void render();

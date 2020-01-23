@@ -49,8 +49,8 @@ private:
     bool isFalling;
     const int speed = 10;
     vec_t playerPosition;
-    int screenHeight = 900;     // Original: 480
-    int screenWidth = 1700; // Original: 640
+    int screenHeight = 1056;     // Original: 480
+    int screenWidth = 1888; // Original: 640
     const int jumpHeight = 10;
     int jump = 0;
     void debugshit();//1st statement that is executed, do all kinds of testing in this
