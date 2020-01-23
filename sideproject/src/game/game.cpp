@@ -118,14 +118,14 @@ int Game::loop() {
     unsigned long long now = SDL_GetPerformanceCounter();
     unsigned long long last = 0;
     double deltaTime = 0;
+
     while(!quit) {
-        // If the game is paused, no input shall be accepted, except for quit and unpause
         last = now;
         now = SDL_GetPerformanceCounter();
         deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
 
+        // If the game is paused, no input shall be accepted, except for quit (escape) and unpause (p)
         if (pause) {
-            //determineInputPause();
             determineInput(1);
             render();
             continue;
@@ -144,6 +144,21 @@ int Game::loop() {
 
         //if(projs.size()>0){
         if(!projs.empty()){
+            for (Projectile projectile : projs) {
+                //vec_t moveProjectile {10, 0};
+                //projectile.velocity.x *= 0.8;
+                //projectile.velocity += moveProjectile;
+                //projectile.velocity.x = std::clamp(projectile.velocity.x, -30.0, 30.0); //terminal velocities
+                //projectile.upkeep(deltaTime/100);
+                projs[0].position += move;
+                projs[0].rec->x = projectile.position.x;
+
+                //projectile.position.x += 10;
+                //projectile.velocity += {1, 1};
+                //projectile.velocity.x *= 0.8;
+                //projectile.upkeep(deltaTime/100);
+            }
+
             /*
             if(projs[0].collide(player)) {
                 player.getHit(projs[0].damage);
@@ -158,6 +173,7 @@ int Game::loop() {
             std::cout << "GIT GUD" << std::endl;
             player.kill();
         }
+
         // Update player
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
@@ -220,8 +236,21 @@ vec_t Game::determineInput(double delta){
     }
     if(inputManager.isPressed(KEY_V)){
         if(projs.size() < 1) {
-            projs.push_back(Projectile());
-            projs[0].position = {100, 200};
+            Projectile projectile({100,200}, 0);
+            projectile.imageNew = utility::loadImage("files/textures/weapons/Arrow.png", *renderer);
+            projectile.rec = std::make_unique<SDL_Rect>();
+            projectile.rec->x = 100;
+            projectile.rec->y = 200;
+            projectile.rec->w = 32;
+            projectile.rec->h = 32;
+            projectile.velocity.x = 10;
+            //projectile.velocity.x *= 0.8;
+            //projectile.velocity.x = std::clamp(projectile.velocity.x, -30.0, 30.0); //terminal velocities
+            projs.push_back(projectile);
+
+            //projs.push_back(Projectile());
+            //projs[0].position = {100, 200};
+            //projs.push_back(Projectile({100,200}, 0, 1));
             std::cout << "Projectile created at :" << projs[0].position.x << " " << projs[0].position.y << std::endl;
             triangle t{{0,  0},
                        {40, 0},
@@ -272,10 +301,10 @@ void Game::render() {
 
     // Render the player after the background
     renderer->renderTexture(texture, nullptr, player.rec.get());
-
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
 
-    if(projs.size() > 0) {
+    if (!projs.empty()) {
+        renderer->renderTexture(projs[0].imageNew.getTexture(), nullptr, projs[0].rec.get());
         renderer->renderTriangles(projs[0].hitbox, 255, 0, 0, projs[0].position);
     }
 

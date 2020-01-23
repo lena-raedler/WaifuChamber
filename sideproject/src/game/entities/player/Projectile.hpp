@@ -10,6 +10,7 @@
 #include "player.h"
 #include "statuseffect.h"
 #include <vector>
+#include "../../utils/ImageNew.hpp"
 
 
 enum projectile_owner{PLAYER, HOSTILE};
@@ -17,6 +18,8 @@ enum projectile_owner{PLAYER, HOSTILE};
 //template <typename HOSTILE = true> maybe later
 class Projectile : public Movable {
 public:
+    Projectile() = default;
+    Projectile(vec_t position, int angle);
     //FUCK PRIVACY
     // Current position of the projectile as a 2d point
     //Vec2<int> position; not needed, inherit from movable, also do you want stuttering projectiles? because that is how you get stuttering projectiles!
@@ -27,7 +30,7 @@ public:
     int angle;
 
     // How many pixels the projectile moves per loop
-    int velocity;
+    //int velocity;
 
     double damage= 20;//TODO remove this default val
 
@@ -39,8 +42,9 @@ public:
     // Check in game.cpp if the projectile should be deleted
     bool alive = true;
 
-    void upkeep(int delta);
+    void upkeep(double delta);
     void resolve(Player p); //this will be called on the object the projectile collides with
     bool collide(Movable m);
+    ImageNew imageNew;
 };
 
