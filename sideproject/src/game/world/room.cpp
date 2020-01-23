@@ -6,10 +6,12 @@
 
 Room::Room() {}
 
-Room::Room(SDL_Texture *texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap) {
+Room::Room(SDL_Texture *texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap,
+        std::vector<std::pair<int, int>> platformPositions) {
     backgroundtexture = texture;
     backgroundRectangle = rectangle;
     tileMap = tileRectMap;
+    platformPositions = platformPositions;
 }
 
 //Room::~Room() {}

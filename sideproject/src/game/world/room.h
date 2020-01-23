@@ -36,7 +36,8 @@ class RoomRep{//fancy vector containing the data for the room
 class Room {
 public:
     Room();
-    Room(SDL_Texture* texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap);
+    Room(SDL_Texture* texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap,
+            std::vector<std::pair<int, int >> platformPositions);
     //~Room();
     void render(Renderer &renderer);
 
@@ -47,5 +48,5 @@ private:
     SDL_Rect backgroundRectangle;
     SDL_Texture* backgroundtexture;
     std::unordered_map<SDL_Texture*, SDL_Rect> tileMap;
-
+    std::vector<std::pair<int, int >> platformPositions;
 };
