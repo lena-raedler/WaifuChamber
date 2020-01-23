@@ -12,6 +12,7 @@ ImageNew::ImageNew(SDL_Texture* textureTmp, SDL_Rect rectTmp)
         {}
 
 ImageNew::~ImageNew() {
+    // Gets called too early and destroys the texture while still in use(?)
     //SDL_DestroyTexture(texture);
 }
 

@@ -122,7 +122,8 @@ int Game::loop() {
         deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
 
         if (pause) {
-            determineInputPause();
+            //determineInputPause();
+            determineInput(1);
             render();
             continue;
         }
@@ -163,8 +164,35 @@ int Game::loop() {
 }
 
 vec_t Game::determineInput(double delta){
-    vec_t out{0, 0};
+
+    // First check escape and 'p' in case the game is paused
     quit = !inputManager.update();
+
+    if(inputManager.isPressed(KEY_ESCAPE)){
+        std::cout << "Quitting..." << std::endl;
+        quit = true;
+    }
+
+    if (inputManager.isPressed(KEY_P)) {
+        if (player.canPause()) {
+            player.pause();
+            pause = !pause;
+            if (pause) {
+                std::cout << "Game paused!" << std::endl;
+            }
+            else {
+                std::cout << "Game unpaused :)" << std::endl;
+                // TODO Unsure if needed
+                inputManager.flush();   // Delete all input during pause
+            }
+        }
+    }
+
+    vec_t out{0, 0};
+
+    // If the game is paused ignore all other input
+    if (pause)
+        return out;
 
     // check which buttons were pressed
     if(inputManager.isPressed(KEY_A)) {
@@ -210,46 +238,8 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_N)){
         Mix_PauseMusic();
     }
-    if(inputManager.isPressed(KEY_ESCAPE)){
-        std::cout << "Quitting..." << std::endl;
-        quit = true;
-    }
-    if (inputManager.isPressed(KEY_P)) {
-        if (player.canPause()) {
-            player.pause();
-            pause = !pause;
-            if (pause)
-                std::cout << "Game paused!" << std::endl;
-            else {
-                //std::cout << "Game unpaused :)" << std::endl;
-            }
-        }
-    }
 
     return{out.x, out.y};
-}
-
-void Game::determineInputPause() {
-    quit = !inputManager.update();
-
-    if(inputManager.isPressed(KEY_ESCAPE)){
-        std::cout << "Quitting..." << std::endl;
-        quit = true;
-    }
-
-    if (inputManager.isPressed(KEY_P)) {
-        if (player.canPause()) {
-            player.pause();
-            pause = !pause;
-            if (pause)
-                std::cout << "Game paused!" << std::endl;
-            else {
-                std::cout << "Game unpaused :)" << std::endl;
-                inputManager.flush();   // Delete all input during pause
-            }
-        }
-    }
-    //inputManager.flush();
 }
 
 void Game::render() {
