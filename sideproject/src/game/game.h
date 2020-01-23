@@ -33,6 +33,7 @@ private:
     void renderHealthBar();
     void processInput(double delta);
     vec_t determineInput(double delta);
+    void determineInputPause();     // Gets called instead of determineInput() during pause
     SDL_Window* window;
     SDL_Texture* texture;
     SDL_Event e;

@@ -54,3 +54,10 @@ bool InputManager::isPressed(KeyboardKey key)
     return keyboard[sdl_key] != 0;
 
 }
+
+void InputManager::flush() {
+    for (int i = 0; i < KEYBOARD_SIZE; i++) {
+        keyDown[i] = false;
+        keyUp[i] = false;
+    }
+}

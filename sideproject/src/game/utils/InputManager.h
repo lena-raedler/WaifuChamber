@@ -17,9 +17,7 @@ public:
     bool keyUp[KEYBOARD_SIZE];
     bool update(); //returns false if user quits
     void init();
-
-    // TODO Do we need a empty / flush function?
-
+    void flush();
 };
 
 
