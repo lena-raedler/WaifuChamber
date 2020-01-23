@@ -65,7 +65,7 @@ Game::Game()
     room = utility::parseRoom(currentRoom, *renderer);
     quit = false;
 
-    pauseImage = utility::loadImage("files/backgrounds/pause.png", *renderer);
+    pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
 
     left = false;
     right = false;
@@ -257,14 +257,11 @@ void Game::render() {
     renderer->renderColor(255, 255, 255, 0);
     renderer->clear();
 
+    room.render(*renderer);
+
     // Render pause screen
-    if (pause) {
-        //renderer->renderTexture(pauseImage.getTexture(), nullptr, pauseImage.getRect());
+    if (pause)
         pauseImage.render(*renderer);
-    }
-    else {  //Render room
-        room.render(*renderer);
-    }
 
     //renderer->renderColor(255, 255, 255, 255);
     //renderer->renderTexture(texture, nullptr, player.rec.get());
