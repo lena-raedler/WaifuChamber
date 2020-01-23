@@ -59,9 +59,11 @@ public:
     const int iFrameDuration = 500; //iframe duration on getting hit
     int jumps = 2;
     const int jumpCooldown = 250; //ms
+    const int pauseCooldown = 250;  //ms
     const double jumpSpeed = -30;
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point lastHit;
+    std::chrono::high_resolution_clock::time_point lastPause = std::chrono::high_resolution_clock::now();
     attributes attr;
     vitals vit;
     Checkpoint* lastCP;
@@ -70,6 +72,8 @@ public:
     void updatePlayer(double x, double y);
     void jump();
     bool canJump();
+    void pause();
+    bool canPause();
     void upkeep(double delta);//call this every frame
     void getHit(double damage);
     void getHit(double damage, statuseffect status);

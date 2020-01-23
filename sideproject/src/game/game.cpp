@@ -118,9 +118,9 @@ int Game::loop() {
     while(!quit) {
         // If the game is paused, no input shall be accepted, except for quit and unpause
         if (pause) {
-            //determineInput(1);
-            //render();
-            //continue;
+            determineInput(1);
+            render();
+            continue;
         }
 
         last = now;
@@ -214,11 +214,14 @@ vec_t Game::determineInput(double delta){
         quit = true;
     }
     if (inputManager.isPressed(KEY_P)) {
-        pause = !pause;
-        if (pause)
-            std::cout << "Game paused!" << std::endl;
-        else
-            std::cout << "Game unpaused :)" << std::endl;
+        if (player.canPause()) {
+            player.pause();
+            pause = !pause;
+            if (pause)
+                std::cout << "Game paused!" << std::endl;
+            else
+                std::cout << "Game unpaused :)" << std::endl;
+        }
     }
 
     return{out.x, out.y};
@@ -228,6 +231,11 @@ void Game::render() {
     // Clear the renderer and print the background.
     renderer->renderColor(255, 255, 255, 0);
     renderer->clear();
+
+    // Render pause screen
+    if (pause) {
+        renderer->renderTexture(pauseImage.getTexture(), nullptr, pauseImage.getRect());
+    }
 
     //Render room
     room.render(*renderer);
@@ -254,13 +262,6 @@ void Game::render() {
     if(projs.size() > 0) {
         renderer->renderTriangles(projs[0].hitbox, 255, 0, 0, projs[0].position);
     }
-
-    // Render pause screen
-    if (pause) {
-        //renderer->renderTexture(pauseImage.getTexture(), nullptr, pauseImage.getRect());
-    }
-
-
 
 
     //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);

@@ -70,6 +70,14 @@ bool Player::canJump(){
     }
     return false;
 }
+void Player::pause() {
+    lastPause = std::chrono::high_resolution_clock::now();
+}
+bool Player::canPause() {
+    auto time = std::chrono::high_resolution_clock::now();
+    auto timeSinceLastPause = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastPause);
+    return timeSinceLastPause > std::chrono::milliseconds(jumpCooldown);
+}
 void Player::getHit(double damage) {
     iframes = true;
     lastHit = std::chrono::high_resolution_clock::now();
