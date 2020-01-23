@@ -76,7 +76,7 @@ void Player::pause() {
 bool Player::canPause() {
     auto time = std::chrono::high_resolution_clock::now();
     auto timeSinceLastPause = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastPause);
-    return timeSinceLastPause > std::chrono::milliseconds(jumpCooldown);
+    return timeSinceLastPause > std::chrono::milliseconds(pauseCooldown);
 }
 void Player::getHit(double damage) {
     iframes = true;

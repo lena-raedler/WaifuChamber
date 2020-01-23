@@ -118,7 +118,10 @@ int Game::loop() {
     while(!quit) {
         // If the game is paused, no input shall be accepted, except for quit and unpause
         if (pause) {
-            determineInput(1);
+            determineInputPause();
+            last = now;
+            now = SDL_GetPerformanceCounter();
+            deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
             render();
             continue;
         }
@@ -219,12 +222,36 @@ vec_t Game::determineInput(double delta){
             pause = !pause;
             if (pause)
                 std::cout << "Game paused!" << std::endl;
-            else
-                std::cout << "Game unpaused :)" << std::endl;
+            else {
+                //std::cout << "Game unpaused :)" << std::endl;
+            }
         }
     }
 
     return{out.x, out.y};
+}
+
+void Game::determineInputPause() {
+    quit = !inputManager.update();
+
+    if(inputManager.isPressed(KEY_ESCAPE)){
+        std::cout << "Quitting..." << std::endl;
+        quit = true;
+    }
+
+    if (inputManager.isPressed(KEY_P)) {
+        if (player.canPause()) {
+            player.pause();
+            pause = !pause;
+            if (pause)
+                std::cout << "Game paused!" << std::endl;
+            else {
+                std::cout << "Game unpaused :)" << std::endl;
+                inputManager.flush();   // Delete all input during pause
+            }
+        }
+    }
+    //inputManager.flush();
 }
 
 void Game::render() {
