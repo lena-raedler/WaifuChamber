@@ -36,8 +36,8 @@ public:
     const std::string getTextureLocation();
     std::shared_ptr<SDL_Rect> rec;
     double gravityConstant = 5;
-    vec_t position;
-    vec_t velocity {0, 0};
+    vec_t position; // {0, 0};
+    vec_t velocity; // {0, 0};
     bool isFalling;
     GravityType gravityType;
     void move(double delta);

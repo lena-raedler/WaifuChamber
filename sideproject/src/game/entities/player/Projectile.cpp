@@ -4,7 +4,14 @@
 
 #include "Projectile.hpp"
 
-void Projectile::upkeep(int delta) {
+Projectile::Projectile(vec_t positionTmp, int angle)
+    : angle(angle)
+    , status()
+{
+    position = positionTmp;
+}
+
+void Projectile::upkeep(double delta) {
     angle %= 360;
     move(delta);
 
