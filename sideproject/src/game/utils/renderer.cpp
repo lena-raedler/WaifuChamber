@@ -93,6 +93,8 @@ SDL_Surface* Renderer::createSurface(std::string path) {
     return surface;
 }
 
+
+/*
 Image Renderer::renderRoom(std::string path) {
     SDL_Surface* surface = createSurface(path);
     SDL_Texture* texture = createTextureFromSurface(surface);
@@ -103,4 +105,4 @@ Image Renderer::renderRoom(std::string path) {
     return image;
 
 }
-
+*/

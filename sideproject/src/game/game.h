@@ -17,6 +17,7 @@
 #include <utility>
 #include "utils/utility.h"
 #include "world/room.h"
+#include "utils/ImageNew.hpp"
 
 
 class Game {
@@ -38,6 +39,8 @@ private:
     SDL_Rect rectangle;
     std::unique_ptr<Renderer> renderer;
     bool quit;
+    bool pause;
+    ImageNew pauseImage;
     SDL_Surface* surface;
     Player player;
     bool left;
@@ -54,6 +57,7 @@ private:
     SDL_Rect healthBarBorderRect;   // If this is defined after background then a SEGFAULT occurs(??)
     SDL_Rect healthBarBackgroundRect;
     SDL_Rect healthBarRect;
+
     std::string currentRoom; //filepath to the currently loaded room
     Room room;
     std::vector<Checkpoint> checkpoints;

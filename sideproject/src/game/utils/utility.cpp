@@ -134,4 +134,13 @@ namespace utility {
         return room;
 
     }
+
+    ImageNew loadImage(std::string path, Renderer& renderer) {
+        SDL_Surface* surface = IMG_Load(path.c_str());
+        SDL_Texture* texture = renderer.createTextureFromSurface(surface);;
+        SDL_Rect rect = {0, 0, surface->w, surface->h};
+        SDL_FreeSurface(surface);
+        return ImageNew(texture, rect);
+    }
+
 }

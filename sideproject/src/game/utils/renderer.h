@@ -13,6 +13,7 @@
 #include <vector>
 #include "image.h"
 #include "triangle.h"
+#include "ImageNew.hpp"
 
 
 class Renderer {
@@ -32,7 +33,7 @@ public:
     static SDL_Color color(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     SDL_Renderer* getRenderer();
     SDL_Surface* createSurface(std::string path);
-    Image renderRoom(std::string path);
+    //Image renderRoom(std::string path);
 
 private:
     SDL_Window* window;

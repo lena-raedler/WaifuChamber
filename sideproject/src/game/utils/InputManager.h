@@ -18,6 +18,7 @@ public:
     bool update(); //returns false if user quits
     void init();
 
+    // TODO Do we need a empty / flush function?
 
 };
 

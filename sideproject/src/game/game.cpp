@@ -18,7 +18,9 @@
 
 Mix_Music *gMusic = NULL;
 ////////////////////////////////////////////////////////////////
-Game::Game() {
+Game::Game()
+    : pause(false)
+{
     debugshit();
     //initialize SDL components here
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
@@ -62,6 +64,9 @@ Game::Game() {
     currentRoom = "files/rooms/testroom.txt";
     room = utility::parseRoom(currentRoom, *renderer);
     quit = false;
+
+    pauseImage = utility::loadImage("files/backgrounds/pause.png", *renderer);
+
     left = false;
     right = false;
     isFalling = false;
@@ -111,6 +116,13 @@ int Game::loop() {
     unsigned long long last = 0;
     double deltaTime = 0;
     while(!quit) {
+        // If the game is paused, no input shall be accepted, except for quit and unpause
+        if (pause) {
+            //determineInput(1);
+            //render();
+            //continue;
+        }
+
         last = now;
         now = SDL_GetPerformanceCounter();
         deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
@@ -125,7 +137,8 @@ int Game::loop() {
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/100);
 
-        if(projs.size()>0){
+        //if(projs.size()>0){
+        if(!projs.empty()){
             /*
             if(projs[0].collide(player)) {
                 player.getHit(projs[0].damage);
@@ -200,6 +213,13 @@ vec_t Game::determineInput(double delta){
         std::cout << "Quitting..." << std::endl;
         quit = true;
     }
+    if (inputManager.isPressed(KEY_P)) {
+        pause = !pause;
+        if (pause)
+            std::cout << "Game paused!" << std::endl;
+        else
+            std::cout << "Game unpaused :)" << std::endl;
+    }
 
     return{out.x, out.y};
 }
@@ -234,6 +254,12 @@ void Game::render() {
     if(projs.size() > 0) {
         renderer->renderTriangles(projs[0].hitbox, 255, 0, 0, projs[0].position);
     }
+
+    // Render pause screen
+    if (pause) {
+        //renderer->renderTexture(pauseImage.getTexture(), nullptr, pauseImage.getRect());
+    }
+
 
 
 

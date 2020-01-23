@@ -18,8 +18,9 @@ Room::Room(SDL_Texture *texture, SDL_Rect rectangle, std::unordered_map<SDL_Text
 void Room::render(Renderer &renderer) {
     renderer.renderTexture(backgroundtexture, nullptr, &backgroundRectangle);
 
-    for(auto it = tileMap.begin(); it != tileMap.end(); it++) {
-        renderer.renderTexture(it->first, nullptr, &(it->second));
+    //for(auto it = tileMap.begin(); it != tileMap.end(); it++) {
+    for(auto & it : tileMap) {
+        renderer.renderTexture(it.first, nullptr, &(it.second));
     }
 
 }

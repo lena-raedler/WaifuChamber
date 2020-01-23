@@ -4,6 +4,8 @@
 
 #ifndef WAIFU_UTILITY_H
 #define WAIFU_UTILITY_H
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
 #include "Vec2.h"
 #include "triangle.h"
 #include <vector>
@@ -14,6 +16,7 @@
 #include <utility>
 #include <unordered_map>
 #include "renderer.h"
+#include "ImageNew.hpp"
 
 namespace utility {
     std::vector<value_t> getBarycentricCoordinates(const triangle a,const vec_t b);
@@ -23,7 +26,7 @@ namespace utility {
     bool lineLineIntersection(const vec_t a1, const vec_t a2,const vec_t b1, const vec_t b2);
     int bongo();
     Room parseRoom(std::string path, Renderer &renderer);
-
+    ImageNew loadImage(std::string path, Renderer& renderer);
 }
 
 
