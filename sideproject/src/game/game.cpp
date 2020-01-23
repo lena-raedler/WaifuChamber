@@ -117,18 +117,16 @@ int Game::loop() {
     double deltaTime = 0;
     while(!quit) {
         // If the game is paused, no input shall be accepted, except for quit and unpause
+        last = now;
+        now = SDL_GetPerformanceCounter();
+        deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
+
         if (pause) {
             determineInputPause();
-            last = now;
-            now = SDL_GetPerformanceCounter();
-            deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
             render();
             continue;
         }
 
-        last = now;
-        now = SDL_GetPerformanceCounter();
-        deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
         //processInput(deltaTime);
         player.velocity.x *= 0.8;
         auto move = determineInput(1);
