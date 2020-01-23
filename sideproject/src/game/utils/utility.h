@@ -9,7 +9,6 @@
 #include "Vec2.h"
 #include "triangle.h"
 #include <vector>
-#include "../world/room.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -17,6 +16,9 @@
 #include <unordered_map>
 #include "renderer.h"
 #include "ImageNew.hpp"
+#include "../world/Gate.h"
+
+class Room;
 
 namespace utility {
     std::vector<value_t> getBarycentricCoordinates(const triangle a,const vec_t b);

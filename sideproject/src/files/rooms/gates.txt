@@ -1,1 +1,1 @@
-gate_01 60 33
+gate_01 files/rooms/library.txt

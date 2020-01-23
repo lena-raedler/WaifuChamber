@@ -418,6 +418,33 @@ game/utils/utility.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/utility.cpp.s
 .PHONY : game/utils/utility.cpp.s
 
+game/world/Gate.o: game/world/Gate.cpp.o
+
+.PHONY : game/world/Gate.o
+
+# target to build an object file
+game/world/Gate.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/Gate.cpp.o
+.PHONY : game/world/Gate.cpp.o
+
+game/world/Gate.i: game/world/Gate.cpp.i
+
+.PHONY : game/world/Gate.i
+
+# target to preprocess a source file
+game/world/Gate.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/Gate.cpp.i
+.PHONY : game/world/Gate.cpp.i
+
+game/world/Gate.s: game/world/Gate.cpp.s
+
+.PHONY : game/world/Gate.s
+
+# target to generate assembly for a file
+game/world/Gate.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/Gate.cpp.s
+.PHONY : game/world/Gate.cpp.s
+
 game/world/room.o: game/world/room.cpp.o
 
 .PHONY : game/world/room.o
@@ -512,6 +539,9 @@ help:
 	@echo "... game/utils/utility.o"
 	@echo "... game/utils/utility.i"
 	@echo "... game/utils/utility.s"
+	@echo "... game/world/Gate.o"
+	@echo "... game/world/Gate.i"
+	@echo "... game/world/Gate.s"
 	@echo "... game/world/room.o"
 	@echo "... game/world/room.i"
 	@echo "... game/world/room.s"

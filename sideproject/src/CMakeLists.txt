@@ -18,6 +18,6 @@ find_library(SDL_MIXER_LIBRARY
 
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS})
 
-add_executable(waifu main.cpp game/game.cpp game/entities/player/player.cpp game/utils/renderer.cpp game/entities/player/Movable.cpp game/utils/InputManager.cpp game/utils/InputManager.h game/utils/KeyboardMapping.h game/utils/utility.h game/utils/utility.cpp game/world/room.h game/world/room.cpp game/utils/image.h game/utils/image.cpp game/entities/player/Projectile.cpp game/utils/ImageNew.cpp game/utils/ImageNew.hpp)
+add_executable(waifu main.cpp game/game.cpp game/entities/player/player.cpp game/utils/renderer.cpp game/entities/player/Movable.cpp game/utils/InputManager.cpp game/utils/InputManager.h game/utils/KeyboardMapping.h game/utils/utility.h game/utils/utility.cpp game/world/room.h game/world/room.cpp game/utils/image.h game/utils/image.cpp game/entities/player/Projectile.cpp game/utils/ImageNew.cpp game/utils/ImageNew.hpp game/world/Gate.cpp game/world/Gate.h)
 
 target_link_libraries(waifu ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL_MIXER_LIBRARY})

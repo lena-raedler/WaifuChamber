@@ -14,6 +14,7 @@
 #include "../utils/image.h"
 #include <unordered_map>
 #include <utility>
+#include "Gate.h"
 
 enum TileType{
     BLANK,
@@ -37,7 +38,7 @@ class Room {
 public:
     Room();
     Room(SDL_Texture* texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap,
-            std::vector<std::pair<int, int >> platformPositions);
+            std::vector<std::pair<int, int >> platformPositions, Gate gate);
     //~Room();
     void render(Renderer &renderer);
 
@@ -49,4 +50,5 @@ private:
     SDL_Texture* backgroundtexture;
     std::unordered_map<SDL_Texture*, SDL_Rect> tileMap;
     std::vector<std::pair<int, int >> platformPositions;
+    Gate gate;
 };

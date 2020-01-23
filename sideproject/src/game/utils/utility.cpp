@@ -3,6 +3,8 @@
 //
 #include "utility.h"
 
+#include "../world/room.h"
+
 namespace utility {
     std::vector <value_t> getBarycentricCoordinates(const triangle a,const vec_t b) {
         vec_t v0 = a[1] - a[0];
@@ -73,7 +75,9 @@ namespace utility {
         std::string line;
         SDL_Texture* backgroundTexture;
         SDL_Rect backgroundRectangle;
+        std::string gatePath;
         std::vector<std::pair<int, int>> platformPositionVector;
+        std::vector<std::pair<int, int>> gatePositions;
         std::unordered_map<char, std::string> tileMap;
         std::unordered_map<SDL_Texture*, SDL_Rect> tileRenderMap;
         while(std::getline(roomFile, line)) {
@@ -126,6 +130,12 @@ namespace utility {
                             platformPosition.second = x;
                             platformPositionVector.push_back(platformPosition);
                         }
+                        if(c == 'd') {
+                            std::pair<int, int> gatePosition;
+                            gatePosition.first = y;
+                            gatePosition.second = x;
+                            gatePositions.push_back(gatePosition);
+                        }
                         textureRectanglePair.first = texture;
                         textureRectanglePair.second = rect;
                         tileRenderMap.insert(textureRectanglePair);
@@ -136,17 +146,27 @@ namespace utility {
                     x += surface->w;
                 }
             }
-            else if(line.find("ENTITIES") != std::string::npos) {
-                while(line.find("END") == std::string::npos) {
+            else if(line.find("GATES") != std::string::npos) {
+                int x = 0, y = 0;
+                while (line.find("END") == std::string::npos) {
                     std::getline(roomFile, line);
                     if (line.find("END") != std::string::npos) {
                         break;
                     }
-                    line = line.substr(2);
+                    std::string gateLine;
+                    std::ifstream gates("files/rooms/gates.txt");
+                    while (std::getline(gates, gateLine)) {
+                        std::string gateNumber = gateLine.substr(0, 7);
+                        if (line.compare(gateNumber)) {
+                            gatePath = gateLine.substr(8);
+                        }
+
+                    }
                 }
             }
         }
-        Room room(backgroundTexture, backgroundRectangle, tileRenderMap, platformPositionVector);
+        Gate gate(gatePositions, gatePath);
+        Room room(backgroundTexture, backgroundRectangle, tileRenderMap, platformPositionVector, gate);
         return room;
 
     }
@@ -165,5 +185,6 @@ namespace utility {
         SDL_FreeSurface(surface);
         return ImageNew(texture, rect);
     }
+
 
 }

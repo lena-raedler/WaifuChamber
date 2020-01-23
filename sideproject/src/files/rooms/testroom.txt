@@ -6,6 +6,7 @@ TILES
   c = files/textures/test_texture
   f = files/textures/test_texture
   p = files/textures/test_texture
+  d = files/textures/test_texture
 END
 LAYOUT
   wccccccccccccccccccccccccccccccccccccccccccccccccccccccccccw
@@ -38,12 +39,11 @@ LAYOUT
   w..........................................................w
   w..........................................................w
   w..........................................................w
-  w..........................................................w
-  w..........................................................w
-  w..........................................................w
+  w..........................................................d
+  w..........................................................d
+  w..........................................................d
   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 END
-
-ENTITIES
-  gate_01(testroom, library)
+GATES
+  gate_01
 END
