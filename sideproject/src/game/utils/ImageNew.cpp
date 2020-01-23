@@ -12,7 +12,7 @@ ImageNew::ImageNew(SDL_Texture* textureTmp, SDL_Rect rectTmp)
         {}
 
 ImageNew::~ImageNew() {
-    SDL_DestroyTexture(texture);
+    //SDL_DestroyTexture(texture);
 }
 
 SDL_Texture* ImageNew::getTexture() {
