@@ -53,7 +53,7 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
                     }
                     else {
                         if(position.y <= p.top.min().y) {
-                            projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
+                            projPosition.y = p.top.min().y - GlobalConstants::tileSize + GlobalConstants::epsilon * 100; //maybe add epsilon idk
                         }
                         else{
                             projPosition.y = p.top.max().y + GlobalConstants::epsilon;
