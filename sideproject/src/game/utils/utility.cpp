@@ -70,7 +70,7 @@ namespace utility {
 
     }
 
-    Room parseRoom(std::string path, Renderer &renderer, std::pair<int, int> resolution) {
+    Room parseRoom(Room room, std::string path, Renderer &renderer, std::pair<int, int> resolution) {
         std::ifstream roomFile(path);
         std::string line;
         SDL_Texture* backgroundTexture;
@@ -166,7 +166,13 @@ namespace utility {
             }
         }
         Gate gate(gatePositions, gatePath);
-        Room room(backgroundTexture, backgroundRectangle, tileRenderMap, platformPositionVector, gate);
+        room.platformPositions = platformPositionVector;
+        room.backgroundRectangle = backgroundRectangle;
+        room.backgroundtexture = backgroundTexture;
+        room.tileMap = tileRenderMap;
+        room.gate = gate;
+
+        //Room room(backgroundTexture, backgroundRectangle, tileRenderMap, *&platformPositionVector, gate);
         return room;
 
     }

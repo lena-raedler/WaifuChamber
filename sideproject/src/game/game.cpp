@@ -65,7 +65,8 @@ Game::Game()
         throw std::runtime_error("Could not create texture");
     }
     currentRoom = "files/rooms/testroom.txt";
-    room = utility::parseRoom(currentRoom, *renderer, resolution);
+    room = utility::parseRoom(room, currentRoom, *renderer, resolution);
+    room.printP();
     quit = false;
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
