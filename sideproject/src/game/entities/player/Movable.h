@@ -31,6 +31,7 @@ public:
     Movable(Movable&&) = default;
 
 
+    virtual void grounded();
     int health = 1;
     bool iframes;//switch this on for iframes/static objects like bullets
     const void render(Renderer& renderer);

@@ -29,10 +29,6 @@ void Player::upkeep(double delta, std::vector<Platform>* ps){
 
     move(delta, ps);
     if (velocity.y <= 0 + GlobalConstants::epsilon){
-        if (jumps != 2) {
-            std::cout << "Jumps reset!" << std::endl;
-        }
-        jumps = 2;
 
         isFalling = true;//todo fix
     } else{
@@ -105,4 +101,7 @@ void Player::rest(){
 void Player::kill(){
     position = lastCP->position;
     rest();
+}
+void Player::grounded(){
+    jumps = 2;
 }

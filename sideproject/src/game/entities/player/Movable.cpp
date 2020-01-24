@@ -49,11 +49,12 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
                 t.c += position;
                 insidePlatform = insidePlatform || p.collide(t);
                 if(insidePlatform){
+                    grounded();
                     projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
                     std::cout << projPosition.y << " " << p.top.min().y << std::endl;
                     insidePlatform = false;
                     velocity.y = 0;
-                    continue;
+                    break;
                 }
 
             }
@@ -70,9 +71,11 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
     rec->x = position.x;
 
     rec->y = position.y;
-    //TODO handle collisions
 
 }
 bool Movable::onPlatform(Platform& p){
+
+}
+void Movable::grounded(){
 
 }

@@ -82,6 +82,7 @@ public:
     void getHit(double damage);
     void getHit(double damage, statuseffect status);
     void kill();
+    void grounded();
 
     void processStatuseffects(statuseffect status);
 
