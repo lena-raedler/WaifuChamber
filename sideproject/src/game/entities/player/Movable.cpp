@@ -40,20 +40,28 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
     projPosition += (velocity*delta);
 
     if(usesPlatforms && platforms != NULL){
-        bool insidePlatform = false;
         for(Platform p : *platforms){
             auto direction = p.direction(*this);
             for(triangle t : hitbox) {
                 t.a += position;
                 t.b += position;
                 t.c += position;
-                insidePlatform = insidePlatform || p.collide(t);
-                if(insidePlatform){
+                if(p.collide(t)){
                     grounded();
-                    projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
-                    std::cout << projPosition.y << " " << p.top.min().y << std::endl;
-                    insidePlatform = false;
-                    velocity.y = 0;
+                    if (p.semisolid){
+
+                    }
+                    else {
+                        if(position.y <= p.top.min().y) {
+                            projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
+                        }
+                        else{
+                            projPosition.y = p.top.max().y + GlobalConstants::epsilon;
+                            std::cout << "bongo" << std::endl;
+                        }
+
+                        velocity.y = 0;
+                    }
                     break;
                 }
 

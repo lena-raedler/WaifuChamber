@@ -61,7 +61,7 @@ public:
     const int jumpCooldown = 250; //ms
     const int pauseCooldown = 250;  //ms
     int spawnProjectileCooldown = 250;  //ms no const because different weapons will have different cds
-    const double jumpSpeed = -30;
+    const double jumpSpeed = -40;
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point lastHit;
     std::chrono::high_resolution_clock::time_point lastPause = std::chrono::high_resolution_clock::now();
