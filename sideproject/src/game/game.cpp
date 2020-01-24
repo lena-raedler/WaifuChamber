@@ -81,14 +81,14 @@ Game::Game()
     playerPosition = player.position;
     {
         triangle t{{0,  0},
-                   {30, 0},
-                   {0,  30}};
+                   {GlobalConstants::tileSize, 0},
+                   {0,  GlobalConstants::tileSize}};
         player.hitbox.push_back(t);
     }
     {
-        triangle t{{30,  30},
-                   {30, 0},
-                   {0,  30}};
+        triangle t{{GlobalConstants::tileSize,  GlobalConstants::tileSize},
+                   {GlobalConstants::tileSize, 0},
+                   {0,  GlobalConstants::tileSize}};
         player.hitbox.push_back(t);
     }
     //create rectangle to load the texture onto
