@@ -55,6 +55,19 @@ public:
         return points[id];
     }
 
+    vec_t max(){
+        double x = std::max(points[0].x, points[1].x);
+        x = std::max(x, points[2].x);
+        double y = std::max(points[0].y, points[1].y);
+        y = std::max(y, points[2].y);
+    }
+    vec_t min(){
+        double x = std::min(points[0].x, points[1].x);
+        x = std::min(x, points[2].x);
+        double y = std::min(points[0].y, points[1].y);
+        y = std::min(y, points[2].y);
+    }
+
 };
 
 

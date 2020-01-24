@@ -15,6 +15,7 @@
 #include <utility>
 #include <memory>
 #include <vector>
+#include "../../world/Platform.h"
 
 
 enum GravityType{
@@ -38,9 +39,13 @@ public:
     double gravityConstant = 5;
     vec_t position; // {0, 0};
     vec_t velocity; // {0, 0};
+    vec_t minPos;
+    vec_t maxPos;
+    bool usesPlatforms;
     bool isFalling;
     GravityType gravityType;
-    void move(double delta);
+    void move(double delta, std::vector<Platform>* platforms);
+    bool onPlatform(Platform& p);
     std::string textureLocation;
     std::vector<triangle> hitbox; //RELATIVE!!!!!!
     vec_t gravity();

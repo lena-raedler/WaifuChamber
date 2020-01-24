@@ -67,6 +67,23 @@ struct Vec2 {
     value_t dot(const Vec2& other) const{
         return x*other.x + y*other.y;
     }
+    
+    void max(const Vec2& other){
+        if(x < other.x){
+            x = other.x;
+        }
+        if(y < other.y){
+            y = other.y;
+        }
+    }
+    void min(const Vec2& other){
+        if(x > other.x){
+            x = other.x;
+        }
+        if(y > other.y){
+            y = other.y;
+        }
+    }
 };
 using vec_t = Vec2<value_t>;
 

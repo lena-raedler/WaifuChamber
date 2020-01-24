@@ -7,8 +7,8 @@
 
 
 namespace GlobalConstants {
-    int deltaDenom = 100;
-    int tileSize = 32;
+    constexpr int deltaDenom = 100;
+    constexpr int tileSize = 32;
 
 };
 

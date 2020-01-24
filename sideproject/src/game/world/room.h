@@ -15,6 +15,7 @@
 #include <unordered_map>
 #include <utility>
 #include "Gate.h"
+#include "Platform.h"
 
 enum TileType{
     BLANK,
@@ -44,6 +45,8 @@ public:
 
     vec_t anchor; //where the base (bottom left) of the room is located in global space
     RoomRep rep;
+    void fillPlatformVector(std::vector<Platform>& p);
+
     void printP();
     SDL_Rect backgroundRectangle;
     SDL_Texture* backgroundtexture;

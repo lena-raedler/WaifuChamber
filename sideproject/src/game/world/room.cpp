@@ -7,7 +7,7 @@
 Room::Room() {}
 
 Room::Room(SDL_Texture *texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap,
-        std::vector<std::pair<int, int>> &platformPositions, Gate gate)
+        std::vector<std::pair<int, int>> platformPositions, Gate gate)
         : gate(gate) {
     backgroundtexture = texture;
     backgroundRectangle = rectangle;
@@ -26,6 +26,12 @@ void Room::render(Renderer &renderer) {
         renderer.renderTexture(it.first, nullptr, &(it.second));
     }
 
+}
+void Room::fillPlatformVector(std::vector<Platform>& p){
+    p.clear();
+    for(auto pair : platformPositions){
+        p.push_back(Platform(pair, false));
+    }
 }
 
 void Room::printP() {

@@ -4,17 +4,20 @@
 
 #include "Platform.h"
 Platform::Platform(std::pair<int,int> p, bool semi){
-    pos[0].x = p.first * GlobalConstants::tileSize;
-    pos[0].y = p.second * GlobalConstants::tileSize;
+    value_t x = p.first * GlobalConstants::tileSize;
+    value_t y = p.second * GlobalConstants::tileSize;
 
-    pos[1].x = pos[0].x + GlobalConstants::tileSize;
-    pos[1].y = pos[0].y;
-
-    pos[2].x = pos[0].x;
-    pos[2].y = pos[0].y + GlobalConstants::tileSize;
-
-    pos[3].x = pos[1].x;
-    pos[3].y = pos[2].y;
-
+    top = {{x, y},{x + GlobalConstants::tileSize, y}, {x, y+GlobalConstants::tileSize}};
+    bot = {{x + GlobalConstants::tileSize, y + GlobalConstants::tileSize},{x + GlobalConstants::tileSize, y}, {x, y+GlobalConstants::tileSize}};
     semisolid = semi;
 }
+std::pair<bool, bool> Platform::direction(Movable& m){//false = left / up
+    bool vertical = false;//TODO implement
+    bool horizontal = false;
+    return std::make_pair(vertical, horizontal);
+}
+bool Platform::collide(triangle& t){
+        return utility::triangleTriangleIntersection(top, t) || utility::triangleTriangleIntersection(bot, t);
+
+}
+

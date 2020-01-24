@@ -61,6 +61,7 @@ private:
     std::string currentRoom; //filepath to the currently loaded room
     Room room;
     std::vector<Checkpoint> checkpoints;
+    std::vector<Platform> platforms;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed

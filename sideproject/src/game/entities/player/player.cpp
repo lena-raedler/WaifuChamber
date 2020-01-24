@@ -9,6 +9,7 @@ Player::Player() {
     position.x = 50;
     position.y = 50;
     textureLocation = "files/textures/test_player.png";
+    usesPlatforms = true;
 }
 
 Player::~Player() {
@@ -23,10 +24,10 @@ void Player::updatePlayer(double x, double y) {
 
 }
 
-void Player::upkeep(double delta){
+void Player::upkeep(double delta, std::vector<Platform>* ps){
 
 
-    move(delta);
+    move(delta, ps);
     if (position.y > 199 && velocity.y >= 0){
         if (jumps != 2) {
             std::cout << "Jumps reset!" << std::endl;

@@ -65,8 +65,10 @@ Game::Game()
         throw std::runtime_error("Could not create texture");
     }
     currentRoom = "files/rooms/testroom.txt";
+    std::cout << "Sizeofmyanus: " << room.platformPositions.size() << std::endl;
     room = utility::parseRoom(room, currentRoom, *renderer, resolution);
     room.printP();
+    room.fillPlatformVector(platforms);
     quit = false;
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);

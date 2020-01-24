@@ -78,7 +78,7 @@ public:
     bool canPause();
     void spawnProjectile();
     bool canSpawnProjectile();
-    void upkeep(double delta);//call this every frame
+    void upkeep(double delta, std::vector<Platform>* ps);//call this every frame
     void getHit(double damage);
     void getHit(double damage, statuseffect status);
     void kill();
