@@ -78,6 +78,14 @@ bool Player::canPause() {
     auto timeSinceLastPause = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastPause);
     return timeSinceLastPause > std::chrono::milliseconds(pauseCooldown);
 }
+void Player::spawnProjectile() {    // Not good, currently used so that there is a slight delay until a new projectile can be spawned.
+    lastSpawnProjectile = std::chrono::high_resolution_clock::now();
+}
+bool Player::canSpawnProjectile() {
+    auto time = std::chrono::high_resolution_clock::now();
+    auto timeSinceLastSpawnProjectile = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastSpawnProjectile);
+    return timeSinceLastSpawnProjectile > std::chrono::milliseconds(spawnProjectileCooldown);
+}
 void Player::getHit(double damage) {
     iframes = true;
     lastHit = std::chrono::high_resolution_clock::now();

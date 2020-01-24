@@ -143,21 +143,13 @@ int Game::loop() {
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/100);
 
-        //if(projs.size()>0){
         if(!projs.empty()){
-            for (Projectile projectile : projs) {
-                //vec_t moveProjectile {10, 0};
-                //projectile.velocity.x *= 0.8;
-                //projectile.velocity += moveProjectile;
-                //projectile.velocity.x = std::clamp(projectile.velocity.x, -30.0, 30.0); //terminal velocities
-                //projectile.upkeep(deltaTime/100);
-                projs[0].position += move;
-                projs[0].rec->x = projectile.position.x;
+            for (Projectile& projectile : projs) {
+                projectile.upkeep(deltaTime/100);
 
-                //projectile.position.x += 10;
-                //projectile.velocity += {1, 1};
-                //projectile.velocity.x *= 0.8;
-                //projectile.upkeep(deltaTime/100);
+                if(blackmagic::collide(projectile, player)){
+                    player.getHit(projectile.damage);
+                }
             }
 
             /*
@@ -165,9 +157,7 @@ int Game::loop() {
                 player.getHit(projs[0].damage);
             }
              */
-            if(blackmagic::collide(projs[0], player)){
-                player.getHit(projs[0].damage);
-            }
+
         }
 
         if(player.vit.hp <= 0){
@@ -236,7 +226,10 @@ vec_t Game::determineInput(double delta){
         std::cout<< player.position << std::endl;
     }
     if(inputManager.isPressed(KEY_V)){
-        if(projs.size() < 1) {
+        if (player.canSpawnProjectile() && projs.size() < 5) {
+            player.spawnProjectile();   // Set the cooldown timer
+
+            // TODO Bad, was just to test
             Projectile projectile({100,200}, 0);
             projectile.imageNew = utility::loadImage("files/textures/weapons/Arrow.png", *renderer);
             projectile.rec = std::make_unique<SDL_Rect>();
@@ -256,7 +249,8 @@ vec_t Game::determineInput(double delta){
             triangle t{{0,  0},
                        {40, 0},
                        {0,  40}};
-            projs[0].hitbox.push_back(t);
+            //projs[0].hitbox.push_back(t);
+            projs.back().hitbox.push_back(t);
 
         }
     }
@@ -304,9 +298,9 @@ void Game::render() {
     renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
 
-    if (!projs.empty()) {
-        renderer->renderTexture(projs[0].imageNew.getTexture(), nullptr, projs[0].rec.get());
-        renderer->renderTriangles(projs[0].hitbox, 255, 0, 0, projs[0].position);
+    for (Projectile& projectile : projs) {
+        renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
+        renderer->renderTriangles(projectile.hitbox, 255, 0, 0, projectile.position);
     }
 
 

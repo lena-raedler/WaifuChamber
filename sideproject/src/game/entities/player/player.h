@@ -60,10 +60,12 @@ public:
     int jumps = 2;
     const int jumpCooldown = 250; //ms
     const int pauseCooldown = 250;  //ms
+    const int spawnProjectileCooldown = 250;  //ms
     const double jumpSpeed = -30;
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point lastHit;
     std::chrono::high_resolution_clock::time_point lastPause = std::chrono::high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point lastSpawnProjectile = std::chrono::high_resolution_clock::now();
     attributes attr;
     vitals vit;
     Checkpoint* lastCP;
@@ -74,6 +76,8 @@ public:
     bool canJump();
     void pause();
     bool canPause();
+    void spawnProjectile();
+    bool canSpawnProjectile();
     void upkeep(double delta);//call this every frame
     void getHit(double damage);
     void getHit(double damage, statuseffect status);
