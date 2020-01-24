@@ -44,11 +44,16 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
         for(Platform p : *platforms){
             auto direction = p.direction(*this);
             for(triangle t : hitbox) {
+                t.a += position;
+                t.b += position;
+                t.c += position;
                 insidePlatform = insidePlatform || p.collide(t);
                 if(insidePlatform){
-                    projPosition.y = p.top.min().y; //maybe add epsilon idk
+                    projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
+                    std::cout << projPosition.y << " " << p.top.min().y << std::endl;
                     insidePlatform = false;
                     velocity.y = 0;
+                    continue;
                 }
 
             }
@@ -64,7 +69,6 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
 
     rec->x = position.x;
 
-    std::cout << "6" << std::endl;
     rec->y = position.y;
     //TODO handle collisions
 

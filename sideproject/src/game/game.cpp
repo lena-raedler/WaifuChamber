@@ -65,10 +65,10 @@ Game::Game()
         throw std::runtime_error("Could not create texture");
     }
     currentRoom = "files/rooms/testroom.txt";
-    std::cout << "Sizeofmyanus: " << room.platformPositions.size() << std::endl;
+
     room = utility::parseRoom(room, currentRoom, *renderer, resolution);
-    room.printP();
     room.fillPlatformVector(platforms);
+    std::cout << "Sizeofmyanus: " << platforms.size() << std::endl;
     quit = false;
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
@@ -144,7 +144,7 @@ int Game::loop() {
 
         player.velocity += move;
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
-        player.upkeep(deltaTime/deltaDenom);
+        player.upkeep(deltaTime/deltaDenom, &platforms);
 
         if(!projs.empty()){
             for (Projectile& projectile : projs) {
@@ -304,6 +304,11 @@ void Game::render() {
     for (Projectile& projectile : projs) {
         renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
         renderer->renderTriangles(projectile.hitbox, 255, 0, 0, projectile.position);
+    }
+
+    for (Platform p : platforms){
+        std::vector<triangle> t = {p.top, p.bot};
+        renderer->renderTriangles(t, 256, 0, 0, {0,0});
     }
 
 
