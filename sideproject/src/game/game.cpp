@@ -116,6 +116,7 @@ Game::~Game() {
 }
 
 int Game::loop() {
+    int deltaDenom = 100;
     unsigned long long now = SDL_GetPerformanceCounter();
     unsigned long long last = 0;
     double deltaTime = 0;
@@ -141,11 +142,11 @@ int Game::loop() {
 
         player.velocity += move;
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
-        player.upkeep(deltaTime/100);
+        player.upkeep(deltaTime/deltaDenom);
 
         if(!projs.empty()){
             for (Projectile& projectile : projs) {
-                projectile.upkeep(deltaTime/100);
+                projectile.upkeep(deltaTime/deltaDenom);
 
                 if(blackmagic::collide(projectile, player)){
                     player.getHit(projectile.damage);
