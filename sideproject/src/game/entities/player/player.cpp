@@ -28,13 +28,13 @@ void Player::upkeep(double delta, std::vector<Platform>* ps){
 
 
     move(delta, ps);
-    if (position.y > 199 && velocity.y >= 0){
+    if (velocity.y <= 0 + GlobalConstants::epsilon){
         if (jumps != 2) {
             std::cout << "Jumps reset!" << std::endl;
         }
         jumps = 2;
 
-        isFalling = false;
+        isFalling = true;//todo fix
     } else{
         isFalling = true;
     }

@@ -9,6 +9,7 @@
 namespace GlobalConstants {
     constexpr int deltaDenom = 100;
     constexpr int tileSize = 32;
+    constexpr double epsilon = 0.01;
 
 };
 
