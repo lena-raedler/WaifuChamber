@@ -18,7 +18,8 @@
 #include "utils/utility.h"
 #include "world/room.h"
 #include "utils/ImageNew.hpp"
-
+#include "SavedVariables.h"
+#include <fstream>
 
 class Game {
 public:
@@ -28,6 +29,7 @@ public:
 
 private:
     InputManager inputManager;
+    SavedVariables savedVariables;
     void render();
     void updateHealthBar();
     void renderHealthBar();

@@ -42,7 +42,7 @@ void Movable::move(double delta){
     projPosition += (velocity*delta);
 
     if(usesPlatforms){
-        for(Platform p : GlobalObjects::platforms){//todo change to global shiet
+        for(Platform p : GlobalObjects::platforms){
 //            auto direction = p.direction(*this);
             for(triangle t : hitbox) {
                 t.a += position;
