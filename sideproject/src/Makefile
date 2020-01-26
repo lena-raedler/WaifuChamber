@@ -175,6 +175,33 @@ libWorld/fast:
 	$(MAKE) -f game/world/CMakeFiles/libWorld.dir/build.make game/world/CMakeFiles/libWorld.dir/build
 .PHONY : libWorld/fast
 
+game/GlobalConstants.o: game/GlobalConstants.cpp.o
+
+.PHONY : game/GlobalConstants.o
+
+# target to build an object file
+game/GlobalConstants.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/GlobalConstants.cpp.o
+.PHONY : game/GlobalConstants.cpp.o
+
+game/GlobalConstants.i: game/GlobalConstants.cpp.i
+
+.PHONY : game/GlobalConstants.i
+
+# target to preprocess a source file
+game/GlobalConstants.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/GlobalConstants.cpp.i
+.PHONY : game/GlobalConstants.cpp.i
+
+game/GlobalConstants.s: game/GlobalConstants.cpp.s
+
+.PHONY : game/GlobalConstants.s
+
+# target to generate assembly for a file
+game/GlobalConstants.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/GlobalConstants.cpp.s
+.PHONY : game/GlobalConstants.cpp.s
+
 game/entities/player/Movable.o: game/entities/player/Movable.cpp.o
 
 .PHONY : game/entities/player/Movable.o
@@ -445,6 +472,33 @@ game/world/Gate.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/Gate.cpp.s
 .PHONY : game/world/Gate.cpp.s
 
+game/world/Platform.o: game/world/Platform.cpp.o
+
+.PHONY : game/world/Platform.o
+
+# target to build an object file
+game/world/Platform.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/Platform.cpp.o
+.PHONY : game/world/Platform.cpp.o
+
+game/world/Platform.i: game/world/Platform.cpp.i
+
+.PHONY : game/world/Platform.i
+
+# target to preprocess a source file
+game/world/Platform.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/Platform.cpp.i
+.PHONY : game/world/Platform.cpp.i
+
+game/world/Platform.s: game/world/Platform.cpp.s
+
+.PHONY : game/world/Platform.s
+
+# target to generate assembly for a file
+game/world/Platform.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/Platform.cpp.s
+.PHONY : game/world/Platform.cpp.s
+
 game/world/room.o: game/world/room.cpp.o
 
 .PHONY : game/world/room.o
@@ -512,6 +566,9 @@ help:
 	@echo "... libPlayer"
 	@echo "... libUtils"
 	@echo "... libWorld"
+	@echo "... game/GlobalConstants.o"
+	@echo "... game/GlobalConstants.i"
+	@echo "... game/GlobalConstants.s"
 	@echo "... game/entities/player/Movable.o"
 	@echo "... game/entities/player/Movable.i"
 	@echo "... game/entities/player/Movable.s"
@@ -542,6 +599,9 @@ help:
 	@echo "... game/world/Gate.o"
 	@echo "... game/world/Gate.i"
 	@echo "... game/world/Gate.s"
+	@echo "... game/world/Platform.o"
+	@echo "... game/world/Platform.i"
+	@echo "... game/world/Platform.s"
 	@echo "... game/world/room.o"
 	@echo "... game/world/room.i"
 	@echo "... game/world/room.s"

@@ -72,7 +72,7 @@ Game::Game()
 
     room = utility::parseRoom(room, currentRoom, *renderer, resolution);
     room.fillPlatformVector(GlobalObjects::platforms);
-    std::cout << "Sizeofmyanus: " << platforms.size() << std::endl;
+    std::cout << "Sizeofmyanus: " << GlobalObjects::platforms.size() << std::endl;
     quit = false;
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
