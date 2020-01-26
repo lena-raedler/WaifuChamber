@@ -15,6 +15,7 @@
 #include <utility>
 #include <memory>
 #include <vector>
+#include "../../GlobalConstants.h"
 #include "../../world/Platform.h"
 
 

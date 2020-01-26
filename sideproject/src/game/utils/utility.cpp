@@ -147,7 +147,6 @@ namespace utility {
                 }
             }
             else if(line.find("GATES") != std::string::npos) {
-                int x = 0, y = 0;
                 while (line.find("END") == std::string::npos) {
                     std::getline(roomFile, line);
                     if (line.find("END") != std::string::npos) {

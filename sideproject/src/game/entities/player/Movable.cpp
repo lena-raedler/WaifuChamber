@@ -22,7 +22,7 @@ vec_t Movable::gravity(){
     }
     return {0, grav};
 }
-void Movable::move(double delta, std::vector<Platform>* platforms){//this is jank TODO fix
+void Movable::move(double delta, std::vector<Platform>* platforms){
     if(usesPlatforms) {
         maxPos = {std::numeric_limits<value_t>::min(), std::numeric_limits<value_t>::min()};
         minPos = {std::numeric_limits<value_t>::max(), std::numeric_limits<value_t>::max()};
@@ -41,7 +41,7 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
 
     if(usesPlatforms && platforms != NULL){
         for(Platform p : *platforms){
-            auto direction = p.direction(*this);
+//            auto direction = p.direction(*this);
             for(triangle t : hitbox) {
                 t.a += position;
                 t.b += position;
@@ -72,15 +72,11 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
                 }
 
             }
-            //TODO fix this jank
-
         }
-        position = projPosition;
+
 
     }
-    else{
-        position = projPosition;
-    }
+    position = projPosition;
 
     rec->x = position.x;
 
@@ -88,6 +84,7 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
 
 }
 bool Movable::onPlatform(Platform& p){
+    return true;
 
 }
 void Movable::grounded(){
