@@ -6,7 +6,7 @@ TILES
   c = files/textures/wood
   f = files/textures/gravel_01
   p = files/textures/gravel_01
-  d = files/textures/test_texture
+  d = files/textures/door_01
 END
 LAYOUT
   wccccccccccccccccccccccccccccccccccccccccccccccccccccccccccw

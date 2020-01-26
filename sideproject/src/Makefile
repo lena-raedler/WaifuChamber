@@ -202,6 +202,33 @@ game/GlobalConstants.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/GlobalConstants.cpp.s
 .PHONY : game/GlobalConstants.cpp.s
 
+game/SavedVariables.o: game/SavedVariables.cpp.o
+
+.PHONY : game/SavedVariables.o
+
+# target to build an object file
+game/SavedVariables.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/SavedVariables.cpp.o
+.PHONY : game/SavedVariables.cpp.o
+
+game/SavedVariables.i: game/SavedVariables.cpp.i
+
+.PHONY : game/SavedVariables.i
+
+# target to preprocess a source file
+game/SavedVariables.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/SavedVariables.cpp.i
+.PHONY : game/SavedVariables.cpp.i
+
+game/SavedVariables.s: game/SavedVariables.cpp.s
+
+.PHONY : game/SavedVariables.s
+
+# target to generate assembly for a file
+game/SavedVariables.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/SavedVariables.cpp.s
+.PHONY : game/SavedVariables.cpp.s
+
 game/entities/player/Movable.o: game/entities/player/Movable.cpp.o
 
 .PHONY : game/entities/player/Movable.o
@@ -569,6 +596,9 @@ help:
 	@echo "... game/GlobalConstants.o"
 	@echo "... game/GlobalConstants.i"
 	@echo "... game/GlobalConstants.s"
+	@echo "... game/SavedVariables.o"
+	@echo "... game/SavedVariables.i"
+	@echo "... game/SavedVariables.s"
 	@echo "... game/entities/player/Movable.o"
 	@echo "... game/entities/player/Movable.i"
 	@echo "... game/entities/player/Movable.s"
