@@ -13,7 +13,7 @@ Projectile::Projectile(vec_t positionTmp, int angle)
 
 void Projectile::upkeep(double delta) {
     angle %= 360;
-    move(delta, nullptr);
+    move(delta);
 
     // dummy
     /*

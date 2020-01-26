@@ -24,10 +24,10 @@ void Player::updatePlayer(double x, double y) {
 
 }
 
-void Player::upkeep(double delta, std::vector<Platform>* ps){
+void Player::upkeep(double delta){
 
 
-    move(delta, ps);
+    move(delta);
     if (velocity.y <= 0 + GlobalConstants::epsilon){
 
         isFalling = true;//todo fix

@@ -3,6 +3,8 @@
 //
 
 #include "Movable.h"
+#include "../../GlobalObjects.h"
+
 const void Movable::render(Renderer &renderer) {
     //do something
 }
@@ -22,7 +24,7 @@ vec_t Movable::gravity(){
     }
     return {0, grav};
 }
-void Movable::move(double delta, std::vector<Platform>* platforms){
+void Movable::move(double delta){
     if(usesPlatforms) {
         maxPos = {std::numeric_limits<value_t>::min(), std::numeric_limits<value_t>::min()};
         minPos = {std::numeric_limits<value_t>::max(), std::numeric_limits<value_t>::max()};
@@ -39,8 +41,8 @@ void Movable::move(double delta, std::vector<Platform>* platforms){
     vec_t projPosition = position;
     projPosition += (velocity*delta);
 
-    if(usesPlatforms && platforms != NULL){
-        for(Platform p : *platforms){//todo change to global shiet
+    if(usesPlatforms){
+        for(Platform p : GlobalObjects::platforms){//todo change to global shiet
 //            auto direction = p.direction(*this);
             for(triangle t : hitbox) {
                 t.a += position;
@@ -93,6 +95,8 @@ void Movable::move(double delta, std::vector<Platform>* platforms){
                             else{
                                 projPosition.y += velocity.y*delta;
                             }
+                            break;
+                        default:
                             break;
                     }
                 }

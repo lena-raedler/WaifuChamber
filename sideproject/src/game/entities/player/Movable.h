@@ -46,7 +46,7 @@ public:
     bool usesPlatforms;
     bool isFalling;
     GravityType gravityType;
-    void move(double delta, std::vector<Platform>* platforms);
+    void move(double delta);
     bool onPlatform(Platform& p);
     std::string textureLocation;
     std::vector<triangle> hitbox; //RELATIVE!!!!!!

@@ -5,9 +5,10 @@
 #ifndef WAIFU_GLOBALOBJECTS_H
 #define WAIFU_GLOBALOBJECTS_H
 
+#include <vector>
 
 namespace GlobalObjects {
-
+    extern std::vector<Platform> platforms;
 };
 
 
