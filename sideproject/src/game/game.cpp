@@ -21,11 +21,14 @@
 Mix_Music *gMusic = NULL;
 namespace GlobalObjects{
     std::vector<Platform> platforms;
+    Player* playerPtr = NULL;
+    std::vector<Projectile> projectiles;
 }
 ////////////////////////////////////////////////////////////////
 Game::Game()
     : pause(false)
 {
+    GlobalObjects::playerPtr = &player;
     debugshit();
     std::pair<int, int> resolution;
     resolution.first = screenWidth;

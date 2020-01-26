@@ -84,6 +84,11 @@ struct Vec2 {
             y = other.y;
         }
     }
+    void normalize(){
+        double div = x*x + y*y;
+        x /= div;
+        y /= div;
+    }
 };
 using vec_t = Vec2<value_t>;
 

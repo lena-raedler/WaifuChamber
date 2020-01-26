@@ -10,6 +10,7 @@
 #include "player.h"
 #include "statuseffect.h"
 #include <vector>
+#include <chrono>
 #include "../../utils/ImageNew.hpp"
 
 
@@ -29,6 +30,8 @@ public:
     // value between 0 and 359
     int angle;
 
+    int timeToLive = 1000;
+    std::chrono::time_point<std::chrono::high_resolution_clock> created;
     // How many pixels the projectile moves per loop
     //int velocity;
 

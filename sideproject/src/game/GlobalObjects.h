@@ -6,9 +6,13 @@
 #define WAIFU_GLOBALOBJECTS_H
 
 #include <vector>
-
+#include <memory>
+class Player;
+class Projectile;
 namespace GlobalObjects {
     extern std::vector<Platform> platforms;
+    extern Player* playerPtr;//careful with that
+    extern std::vector<Projectile> projectiles;
 };
 
 

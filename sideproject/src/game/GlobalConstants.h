@@ -5,7 +5,6 @@
 #define WAIFU_GLOBALCONSTANTS_H
 #include <vector>
 
-class Platform;
 namespace GlobalConstants {
     constexpr int deltaDenom = 100;
     constexpr int tileSize = 32;
