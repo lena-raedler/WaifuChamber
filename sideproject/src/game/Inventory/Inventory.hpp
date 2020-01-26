@@ -7,6 +7,7 @@
 #include "Slot.hpp"
 #include "../utils/utility.h"
 #include <memory>
+#include "Item.hpp"
 
 
 class Inventory {
@@ -17,6 +18,7 @@ public:
     void renderInventory();
 
 private:
-    Slot slot1, slot2, slot3, slot4, slot5, slot6;
+    Slot rangedWeaponSlot, slot2, slot3, slot4, slot5, slot6;
+    Item rangedWeapon;
     Renderer* renderer;
 };

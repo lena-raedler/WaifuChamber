@@ -34,3 +34,7 @@ void Slot::renderSlot() {
 void Slot::changePath(const std::string& newPath) {
     path = newPath;
 }
+
+void Slot::setAvailable(bool availableNew) {
+    available = availableNew;
+}

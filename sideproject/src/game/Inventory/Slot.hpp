@@ -10,13 +10,13 @@
 #include "../GlobalConstants.h"
 #include <memory>
 
-
 class Slot {
 public:
     Slot();
     Slot(const std::string& path, Renderer& renderer, Vec2<int> position);
     ~Slot();
     void renderSlot();
+    void setAvailable(bool availableNew);
 
 private:
     bool available;
