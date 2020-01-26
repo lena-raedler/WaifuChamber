@@ -202,6 +202,60 @@ game/GlobalConstants.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/GlobalConstants.cpp.s
 .PHONY : game/GlobalConstants.cpp.s
 
+game/Inventory/Inventory.o: game/Inventory/Inventory.cpp.o
+
+.PHONY : game/Inventory/Inventory.o
+
+# target to build an object file
+game/Inventory/Inventory.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Inventory.cpp.o
+.PHONY : game/Inventory/Inventory.cpp.o
+
+game/Inventory/Inventory.i: game/Inventory/Inventory.cpp.i
+
+.PHONY : game/Inventory/Inventory.i
+
+# target to preprocess a source file
+game/Inventory/Inventory.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Inventory.cpp.i
+.PHONY : game/Inventory/Inventory.cpp.i
+
+game/Inventory/Inventory.s: game/Inventory/Inventory.cpp.s
+
+.PHONY : game/Inventory/Inventory.s
+
+# target to generate assembly for a file
+game/Inventory/Inventory.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Inventory.cpp.s
+.PHONY : game/Inventory/Inventory.cpp.s
+
+game/Inventory/Slot.o: game/Inventory/Slot.cpp.o
+
+.PHONY : game/Inventory/Slot.o
+
+# target to build an object file
+game/Inventory/Slot.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Slot.cpp.o
+.PHONY : game/Inventory/Slot.cpp.o
+
+game/Inventory/Slot.i: game/Inventory/Slot.cpp.i
+
+.PHONY : game/Inventory/Slot.i
+
+# target to preprocess a source file
+game/Inventory/Slot.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Slot.cpp.i
+.PHONY : game/Inventory/Slot.cpp.i
+
+game/Inventory/Slot.s: game/Inventory/Slot.cpp.s
+
+.PHONY : game/Inventory/Slot.s
+
+# target to generate assembly for a file
+game/Inventory/Slot.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Slot.cpp.s
+.PHONY : game/Inventory/Slot.cpp.s
+
 game/SavedVariables.o: game/SavedVariables.cpp.o
 
 .PHONY : game/SavedVariables.o
@@ -228,6 +282,60 @@ game/SavedVariables.s: game/SavedVariables.cpp.s
 game/SavedVariables.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/SavedVariables.cpp.s
 .PHONY : game/SavedVariables.cpp.s
+
+game/entities/player/Ability.o: game/entities/player/Ability.cpp.o
+
+.PHONY : game/entities/player/Ability.o
+
+# target to build an object file
+game/entities/player/Ability.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Ability.cpp.o
+.PHONY : game/entities/player/Ability.cpp.o
+
+game/entities/player/Ability.i: game/entities/player/Ability.cpp.i
+
+.PHONY : game/entities/player/Ability.i
+
+# target to preprocess a source file
+game/entities/player/Ability.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Ability.cpp.i
+.PHONY : game/entities/player/Ability.cpp.i
+
+game/entities/player/Ability.s: game/entities/player/Ability.cpp.s
+
+.PHONY : game/entities/player/Ability.s
+
+# target to generate assembly for a file
+game/entities/player/Ability.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Ability.cpp.s
+.PHONY : game/entities/player/Ability.cpp.s
+
+game/entities/player/Enemy.o: game/entities/player/Enemy.cpp.o
+
+.PHONY : game/entities/player/Enemy.o
+
+# target to build an object file
+game/entities/player/Enemy.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Enemy.cpp.o
+.PHONY : game/entities/player/Enemy.cpp.o
+
+game/entities/player/Enemy.i: game/entities/player/Enemy.cpp.i
+
+.PHONY : game/entities/player/Enemy.i
+
+# target to preprocess a source file
+game/entities/player/Enemy.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Enemy.cpp.i
+.PHONY : game/entities/player/Enemy.cpp.i
+
+game/entities/player/Enemy.s: game/entities/player/Enemy.cpp.s
+
+.PHONY : game/entities/player/Enemy.s
+
+# target to generate assembly for a file
+game/entities/player/Enemy.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Enemy.cpp.s
+.PHONY : game/entities/player/Enemy.cpp.s
 
 game/entities/player/Movable.o: game/entities/player/Movable.cpp.o
 
@@ -337,32 +445,32 @@ game/game.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/game.cpp.s
 .PHONY : game/game.cpp.s
 
-game/utils/ImageNew.o: game/utils/ImageNew.cpp.o
+game/utils/Image.o: game/utils/Image.cpp.o
 
-.PHONY : game/utils/ImageNew.o
+.PHONY : game/utils/Image.o
 
 # target to build an object file
-game/utils/ImageNew.cpp.o:
-	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/ImageNew.cpp.o
-.PHONY : game/utils/ImageNew.cpp.o
+game/utils/Image.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/Image.cpp.o
+.PHONY : game/utils/Image.cpp.o
 
-game/utils/ImageNew.i: game/utils/ImageNew.cpp.i
+game/utils/Image.i: game/utils/Image.cpp.i
 
-.PHONY : game/utils/ImageNew.i
+.PHONY : game/utils/Image.i
 
 # target to preprocess a source file
-game/utils/ImageNew.cpp.i:
-	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/ImageNew.cpp.i
-.PHONY : game/utils/ImageNew.cpp.i
+game/utils/Image.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/Image.cpp.i
+.PHONY : game/utils/Image.cpp.i
 
-game/utils/ImageNew.s: game/utils/ImageNew.cpp.s
+game/utils/Image.s: game/utils/Image.cpp.s
 
-.PHONY : game/utils/ImageNew.s
+.PHONY : game/utils/Image.s
 
 # target to generate assembly for a file
-game/utils/ImageNew.cpp.s:
-	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/ImageNew.cpp.s
-.PHONY : game/utils/ImageNew.cpp.s
+game/utils/Image.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/Image.cpp.s
+.PHONY : game/utils/Image.cpp.s
 
 game/utils/InputManager.o: game/utils/InputManager.cpp.o
 
@@ -390,33 +498,6 @@ game/utils/InputManager.s: game/utils/InputManager.cpp.s
 game/utils/InputManager.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/InputManager.cpp.s
 .PHONY : game/utils/InputManager.cpp.s
-
-game/utils/image.o: game/utils/image.cpp.o
-
-.PHONY : game/utils/image.o
-
-# target to build an object file
-game/utils/image.cpp.o:
-	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/image.cpp.o
-.PHONY : game/utils/image.cpp.o
-
-game/utils/image.i: game/utils/image.cpp.i
-
-.PHONY : game/utils/image.i
-
-# target to preprocess a source file
-game/utils/image.cpp.i:
-	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/image.cpp.i
-.PHONY : game/utils/image.cpp.i
-
-game/utils/image.s: game/utils/image.cpp.s
-
-.PHONY : game/utils/image.s
-
-# target to generate assembly for a file
-game/utils/image.cpp.s:
-	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/image.cpp.s
-.PHONY : game/utils/image.cpp.s
 
 game/utils/renderer.o: game/utils/renderer.cpp.o
 
@@ -596,9 +677,21 @@ help:
 	@echo "... game/GlobalConstants.o"
 	@echo "... game/GlobalConstants.i"
 	@echo "... game/GlobalConstants.s"
+	@echo "... game/Inventory/Inventory.o"
+	@echo "... game/Inventory/Inventory.i"
+	@echo "... game/Inventory/Inventory.s"
+	@echo "... game/Inventory/Slot.o"
+	@echo "... game/Inventory/Slot.i"
+	@echo "... game/Inventory/Slot.s"
 	@echo "... game/SavedVariables.o"
 	@echo "... game/SavedVariables.i"
 	@echo "... game/SavedVariables.s"
+	@echo "... game/entities/player/Ability.o"
+	@echo "... game/entities/player/Ability.i"
+	@echo "... game/entities/player/Ability.s"
+	@echo "... game/entities/player/Enemy.o"
+	@echo "... game/entities/player/Enemy.i"
+	@echo "... game/entities/player/Enemy.s"
 	@echo "... game/entities/player/Movable.o"
 	@echo "... game/entities/player/Movable.i"
 	@echo "... game/entities/player/Movable.s"
@@ -611,15 +704,12 @@ help:
 	@echo "... game/game.o"
 	@echo "... game/game.i"
 	@echo "... game/game.s"
-	@echo "... game/utils/ImageNew.o"
-	@echo "... game/utils/ImageNew.i"
-	@echo "... game/utils/ImageNew.s"
+	@echo "... game/utils/Image.o"
+	@echo "... game/utils/Image.i"
+	@echo "... game/utils/Image.s"
 	@echo "... game/utils/InputManager.o"
 	@echo "... game/utils/InputManager.i"
 	@echo "... game/utils/InputManager.s"
-	@echo "... game/utils/image.o"
-	@echo "... game/utils/image.i"
-	@echo "... game/utils/image.s"
 	@echo "... game/utils/renderer.o"
 	@echo "... game/utils/renderer.i"
 	@echo "... game/utils/renderer.s"
