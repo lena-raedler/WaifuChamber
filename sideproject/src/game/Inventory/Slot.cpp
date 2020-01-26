@@ -4,7 +4,7 @@
 
 #include "Slot.hpp"
 
-Slot::Slot() {}
+Slot::Slot() = default; 
 
 Slot::Slot(const std::string& path, Renderer& renderer, Vec2<int> position)
     : available(false)
