@@ -17,9 +17,10 @@
 #include <utility>
 #include "utils/utility.h"
 #include "world/room.h"
-#include "utils/ImageNew.hpp"
+#include "utils/Image.hpp"
 #include "SavedVariables.h"
 #include <fstream>
+#include "Inventory/Inventory.hpp"
 #include "entities/player/Enemy.h"
 
 class Game {
@@ -36,6 +37,8 @@ private:
     void renderHealthBar();
     void processInput(double delta);
     vec_t determineInput(double delta);
+    void renderInventory();
+    //int renderInventory2(int argc, char *argv[]);
     SDL_Window* window;
     SDL_Texture* texture;
     SDL_Event e;
@@ -43,7 +46,7 @@ private:
     std::unique_ptr<Renderer> renderer;
     bool quit;
     bool pause;
-    ImageNew pauseImage;
+    Image pauseImage;
     SDL_Surface* surface;
     Player player;
     bool left;
@@ -65,6 +68,7 @@ private:
     Room room;
     std::vector<Checkpoint> checkpoints;
     std::vector<Platform> platforms;
+    Inventory inventory;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed

@@ -2,28 +2,28 @@
 // Created by bnorb on 23.01.20.
 //
 
-#include "ImageNew.hpp"
+#include "Image.hpp"
 
-ImageNew::ImageNew() {}
+Image::Image() {}
 
-ImageNew::ImageNew(SDL_Texture* textureTmp, SDL_Rect rectTmp)
+Image::Image(SDL_Texture* textureTmp, SDL_Rect rectTmp)
         : texture(textureTmp)
         , rect(rectTmp)
         {}
 
-ImageNew::~ImageNew() {
+Image::~Image() {
     // Gets called too early and destroys the texture while still in use(?)
     //SDL_DestroyTexture(texture);
 }
 
-SDL_Texture* ImageNew::getTexture() {
+SDL_Texture* Image::getTexture() {
     return texture;
 }
 
-SDL_Rect* ImageNew::getRect() {
+SDL_Rect* Image::getRect() {
     return &rect;
 }
 
-void ImageNew::render(Renderer& renderer) {
+void Image::render(Renderer& renderer) {
     renderer.renderTexture(texture, nullptr, &rect);
 }

@@ -10,8 +10,8 @@
 #include "player.h"
 #include "statuseffect.h"
 #include <vector>
+#include "../../utils/Image.hpp"
 #include <chrono>
-#include "../../utils/ImageNew.hpp"
 
 
 enum projectile_owner{PLAYER, HOSTILE};
@@ -49,6 +49,6 @@ public:
     void baseInit();
     void resolve(Player p); //this will be called on the object the projectile collides with
     bool collide(Movable m);
-    ImageNew imageNew;
+    Image imageNew;
 };
 

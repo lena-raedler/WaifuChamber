@@ -8,11 +8,11 @@
 #include "SDL2/SDL_image.h"
 #include "renderer.h"
 
-class ImageNew {
+class Image {
 public:
-    ImageNew();
-    ImageNew(SDL_Texture* texture, SDL_Rect rect);
-    ~ImageNew();
+    Image();
+    Image(SDL_Texture* texture, SDL_Rect rect);
+    ~Image();
     SDL_Texture* getTexture();
     SDL_Rect* getRect();
     void render(Renderer& renderer);

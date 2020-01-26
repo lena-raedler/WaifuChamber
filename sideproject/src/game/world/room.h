@@ -11,7 +11,6 @@
 #include "../utils/renderer.h"
 #include <vector>
 #include <sstream>
-#include "../utils/image.h"
 #include <unordered_map>
 #include <utility>
 #include "Gate.h"

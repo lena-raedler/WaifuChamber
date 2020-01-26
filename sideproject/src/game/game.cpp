@@ -136,6 +136,11 @@ Game::Game()
     healthBarBorderRect = {20, 20, 210, 30};
     healthBarBackgroundRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 10, healthBarBorderRect.h - 10};
     healthBarRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 50, healthBarBorderRect.h - 10};
+
+    // Rip QT Widget
+    //renderInventory2(argc, argv);
+
+    inventory = Inventory(*renderer);
 }
 
 Game::~Game() {
@@ -338,6 +343,8 @@ void Game::render() {
 
 
 
+    inventory.renderInventory();
+
     // Render the player after the background
     renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
@@ -404,3 +411,15 @@ void Game::debugshit() {
     triangle b{{1,0},{0,1},{1,1}};
     std::cout << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
 }
+
+
+
+/*
+int Game::renderInventory2(int argc, char *argv[]) {
+    QApplication application(argc, argv);
+    Calculator calculator;
+    calculator.show();
+    application.exec();
+    application.quit();
+}
+*/

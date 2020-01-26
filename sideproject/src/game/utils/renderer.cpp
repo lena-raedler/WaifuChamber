@@ -92,17 +92,3 @@ SDL_Surface* Renderer::createSurface(std::string path) {
     }
     return surface;
 }
-
-
-/*
-Image Renderer::renderRoom(std::string path) {
-    SDL_Surface* surface = createSurface(path);
-    SDL_Texture* texture = createTextureFromSurface(surface);
-    if(!texture) {
-        throw std::runtime_error("could not create texture");
-    }
-    Image image{texture, surface->w, surface->h};
-    return image;
-
-}
-*/

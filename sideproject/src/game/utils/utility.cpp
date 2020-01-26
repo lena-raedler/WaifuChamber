@@ -194,7 +194,7 @@ namespace utility {
 
     }
 
-    ImageNew loadImage(std::string path, Renderer& renderer) {
+    Image loadImage(std::string path, Renderer& renderer) {
         SDL_Surface* surface = IMG_Load(path.c_str());
         if (!surface)
             throw std::runtime_error("Could not load surface :(");
@@ -206,7 +206,7 @@ namespace utility {
         SDL_Rect rect = {0, 0, surface->w, surface->h};
         //SDL_Rect rect = {0, 0, 500, 500};
         SDL_FreeSurface(surface);
-        return ImageNew(texture, rect);
+        return Image(texture, rect);
     }
 
 
