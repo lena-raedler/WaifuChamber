@@ -62,10 +62,7 @@ bool Player::canJump(){
     auto timeSinceLastJump = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastJump);
     //std::chrono::duration<double, std::milli> fp_ms = time - lastJump;
 
-    if(jumps > 0 && (timeSinceLastJump > std::chrono::milliseconds(jumpCooldown)) /**/){
-        return true;
-    }
-    return false;
+    return jumps > 0 && (timeSinceLastJump > std::chrono::milliseconds(jumpCooldown));
 }
 void Player::pause() {
     lastPause = std::chrono::high_resolution_clock::now();

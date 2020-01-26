@@ -14,16 +14,12 @@
 
 class Ability {
 public:
-    Ability() = default;
-    Ability(Ability& o)=default;
-    Ability(Ability&& o) = default;
-    Ability(Projectile p, bool aimed, double speed, vec_t origin, int cooldown);
-    bool aimed;
-    vec_t origin;
+    bool aimed = true;
+    vec_t origin = {0, 0};
     Projectile projectile;
-    int cooldown;
+    int cooldown = 250;
     double speed;
-    std::chrono::time_point<std::chrono::high_resolution_clock> lastUsed = std::chrono::high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point lastUsed  = std::chrono::high_resolution_clock::now();
     bool isAvail();
     void use(vec_t pos);
 };

@@ -12,14 +12,14 @@ Projectile::Projectile(vec_t positionTmp, int angle)
 }
 
 void Projectile::upkeep(double delta) {
-    if(!alive) {
+    if(alive) {
         angle %= 360;
         move(delta);
         auto now = std::chrono::high_resolution_clock::now();
         auto timeSinceCreation = std::chrono::duration_cast<std::chrono::milliseconds>(now - created);
-        if (timeSinceCreation > std::chrono::milliseconds(timeToLive)) {
+        /*if (timeSinceCreation > std::chrono::milliseconds(timeToLive)) {
             alive = false;
-        }
+        }*/
     }
 }
 
@@ -40,4 +40,18 @@ bool Projectile::collide(Movable m){//this could be in movable...
         }
     }
     return false;
+}
+void Projectile::baseInit() {
+    {
+        triangle t{{0,                         0},
+                   {GlobalConstants::tileSize, 0},
+                   {0,                         GlobalConstants::tileSize}};
+        hitbox.push_back(t);
+    }
+    {
+        triangle t{{GlobalConstants::tileSize,  GlobalConstants::tileSize},
+                   {GlobalConstants::tileSize, 0},
+                   {0,  GlobalConstants::tileSize}};
+        hitbox.push_back(t);
+    }
 }

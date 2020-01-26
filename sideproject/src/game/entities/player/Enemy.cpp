@@ -6,7 +6,7 @@
 
 void Enemy::upkeep(double delta){
     move(delta);
-    for(Ability a : abilities){
+    for(Ability& a : abilities){
         if(a.isAvail()){
             a.use(position);
         }

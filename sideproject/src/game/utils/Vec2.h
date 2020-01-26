@@ -85,7 +85,7 @@ struct Vec2 {
         }
     }
     void normalize(){
-        double div = x*x + y*y;
+        double div = std::sqrt(x*x + y*y);
         x /= div;
         y /= div;
     }

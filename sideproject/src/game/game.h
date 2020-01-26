@@ -20,6 +20,7 @@
 #include "utils/ImageNew.hpp"
 #include "SavedVariables.h"
 #include <fstream>
+#include "entities/player/Enemy.h"
 
 class Game {
 public:
