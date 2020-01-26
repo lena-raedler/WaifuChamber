@@ -1,11 +1,11 @@
 BACKGROUND
-files/backgrounds/ugly_background.png
+files/backgrounds/dungeon_01.png
 TILES
   . = none
-  w = files/textures/test_texture
-  c = files/textures/test_texture
-  f = files/textures/test_texture
-  p = files/textures/test_texture
+  w = files/textures/brick_01
+  c = files/textures/wood
+  f = files/textures/gravel_01
+  p = files/textures/gravel_01
   d = files/textures/test_texture
 END
 LAYOUT

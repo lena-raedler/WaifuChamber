@@ -118,12 +118,12 @@ namespace utility {
                         std::string tilePath = tileMap.at(c);
                         tilePath += ".png";
                         if(tilePath.find("none") != std::string::npos) {
-                            y += surface->h;
+                            y += GlobalConstants::tileSize;
                             continue;
                         }
                         surface = IMG_Load(tilePath.c_str());
                         SDL_Texture* texture = renderer.createTextureFromSurface(surface);
-                        SDL_Rect rect = {y, x, surface->w, surface->h};
+                        SDL_Rect rect = {y, x, GlobalConstants::tileSize, GlobalConstants::tileSize};
                         if(c == 'p') {
                             std::pair<int, int> platformPosition;
                             platformPosition.first = y;
@@ -157,11 +157,11 @@ namespace utility {
                         textureRectanglePair.first = texture;
                         textureRectanglePair.second = rect;
                         tileRenderMap.insert(textureRectanglePair);
-                        y += surface->h;
+                        y += GlobalConstants::tileSize;
                         SDL_FreeSurface(surface);
                     }
                     y = 0;
-                    x += surface->w;
+                    x += GlobalConstants::tileSize;
                 }
             }
             else if(line.find("GATES") != std::string::npos) {
