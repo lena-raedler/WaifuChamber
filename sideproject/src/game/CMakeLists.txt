@@ -1,3 +1,8 @@
+#set(CMAKE_AUTOMOC ON)
+#set(CMAKE_AUTORCC ON)
+#set(CMAKE_AUTOUIC ON)
+#find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
 include(FindPkgConfig)
 find_package(SDL2 REQUIRED)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)

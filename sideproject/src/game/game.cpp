@@ -17,15 +17,18 @@
 #include "world/room.h"
 #include "GlobalObjects.h"
 
-
 Mix_Music *gMusic = NULL;
 namespace GlobalObjects{
+    std::vector<Enemy> enemies;
     std::vector<Platform> platforms;
+    Player* playerPtr = NULL;
+    std::vector<Projectile> projectiles;
 }
 ////////////////////////////////////////////////////////////////
 Game::Game()
     : pause(false)
 {
+    GlobalObjects::playerPtr = &player;
     debugshit();
     std::pair<int, int> resolution;
     resolution.first = screenWidth;
@@ -73,7 +76,6 @@ Game::Game()
 
     room = utility::parseRoom(room, currentRoom, *renderer, resolution);
     room.fillPlatformVector(GlobalObjects::platforms);
-    std::cout << "Sizeofmyanus: " << GlobalObjects::platforms.size() << std::endl;
     quit = false;
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
@@ -96,6 +98,32 @@ Game::Game()
                    {0,  GlobalConstants::tileSize}};
         player.hitbox.push_back(t);
     }
+    Enemy adam;
+    adam.position ={300, 300};
+    {
+        triangle t{{0,                         0},
+                   {GlobalConstants::tileSize, 0},
+                   {0,                         GlobalConstants::tileSize}};
+                   adam.hitbox.push_back(t);
+    }
+    {
+        triangle t{{GlobalConstants::tileSize,  GlobalConstants::tileSize},
+                   {GlobalConstants::tileSize, 0},
+                   {0,  GlobalConstants::tileSize}};
+        adam.hitbox.push_back(t);
+    }
+    Ability supermegadeathlazor;
+    Projectile lazor;
+    lazor.gravityType = NOGRAVITY;
+    lazor.usesPlatforms = false;
+    lazor.damage = 1;
+    lazor.baseInit();
+    supermegadeathlazor.projectile = lazor;
+    supermegadeathlazor.speed = 10;
+    supermegadeathlazor.cooldown = 1000;
+    adam.abilities.push_back(supermegadeathlazor);
+    GlobalObjects::enemies.push_back(adam);
+
     //create rectangle to load the texture onto
 
     rectangle.x = playerPosition.x;
@@ -108,6 +136,11 @@ Game::Game()
     healthBarBorderRect = {20, 20, 210, 30};
     healthBarBackgroundRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 10, healthBarBorderRect.h - 10};
     healthBarRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 50, healthBarBorderRect.h - 10};
+
+    // Rip QT Widget
+    //renderInventory2(argc, argv);
+
+    inventory = Inventory(*renderer);
 }
 
 Game::~Game() {
@@ -150,22 +183,18 @@ int Game::loop() {
         player.velocity += move;
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/deltaDenom);
+        for(Enemy& e : GlobalObjects::enemies){
+            e.upkeep(deltaTime/deltaDenom);
 
-        if(!projs.empty()){
-            for (Projectile& projectile : projs) {
-                projectile.upkeep(deltaTime/deltaDenom);
+        }
 
-                if(blackmagic::collide(projectile, player)){
-                    player.getHit(projectile.damage);
-                }
+        for (Projectile& projectile : GlobalObjects::projectiles) {
+            projectile.upkeep(deltaTime/deltaDenom);
+            std::cout << projectile.position.x << " " << projectile.position.y << std::endl;
+            if(blackmagic::collide(projectile, player)){
+                player.getHit(projectile.damage);
+                projectile.alive = false;
             }
-
-            /*
-            if(projs[0].collide(player)) {
-                player.getHit(projs[0].damage);
-            }
-             */
-
         }
 
         if(player.vit.hp <= 0){
@@ -312,27 +341,32 @@ void Game::render() {
     //if (!SDL_SetTextureColorMod(background, 0, 0, 0))
     //    std::cerr << "Could not set background color" << std::endl;
 
-    // Update the remaining health percentage
-    updateHealthBar();
 
-    // Render the health bar according to how much hp is left
-    renderHealthBar();
+
+    inventory.renderInventory();
 
     // Render the player after the background
     renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
 
-    for (Projectile& projectile : projs) {
-        renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
-        renderer->renderTriangles(projectile.hitbox, 255, 0, 0, projectile.position);
+    for (Projectile& projectile : GlobalObjects::projectiles) {
+        //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
+        renderer->renderTriangles(projectile.hitbox, 255, 255, 255, projectile.position);
     }
 
-    for (Platform p : GlobalObjects::platforms){
+    for (Platform& p : GlobalObjects::platforms){
         std::vector<triangle> t = {p.top, p.bot};
-        renderer->renderTriangles(t, 256, 0, 0, {0,0});
+        renderer->renderTriangles(t, 0, 0, 0, {0,0});
+    }
+    for (Enemy& e : GlobalObjects::enemies){
+        renderer->renderTriangles(e.hitbox,255, 255, 0,e.position);
     }
 
+    // Update the remaining health percentage
+    updateHealthBar();
 
+    // Render the health bar according to how much hp is left
+    renderHealthBar();
     //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
     //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
     //renderer->renderBar(50, 50, 100, 10, 200, hpCol, barBGCol);
@@ -377,3 +411,15 @@ void Game::debugshit() {
     triangle b{{1,0},{0,1},{1,1}};
     std::cout << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
 }
+
+
+
+/*
+int Game::renderInventory2(int argc, char *argv[]) {
+    QApplication application(argc, argv);
+    Calculator calculator;
+    calculator.show();
+    application.exec();
+    application.quit();
+}
+*/

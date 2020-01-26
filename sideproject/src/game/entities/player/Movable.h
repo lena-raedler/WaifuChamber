@@ -27,11 +27,6 @@ enum GravityType{
 };
 class Movable {
 public:
-    Movable() = default;
-    Movable(const Movable&) = default;
-    Movable(Movable&&) = default;
-
-
     virtual void grounded(); //and the lord spoketh thee shalt repent for thee sins
     int health = 1;
     bool iframes;//switch this on for iframes/static objects like bullets

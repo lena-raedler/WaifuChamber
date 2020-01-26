@@ -18,6 +18,9 @@ vec_t Movable::gravity(){
         case NORMAL:
             grav = isFalling ? gravityConstant : 0;
             break;
+        case NOGRAVITY :
+            grav = 0;
+            break;
         default:
             grav = isFalling ? gravityConstant : 0;
             break;
@@ -113,9 +116,10 @@ void Movable::move(double delta){
     }
     position = projPosition;
 
+    /*
     rec->x = position.x;
 
-    rec->y = position.y;
+    rec->y = position.y; */
 
 }
 bool Movable::onPlatform(Platform& p){

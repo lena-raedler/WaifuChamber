@@ -15,7 +15,7 @@
 #include <utility>
 #include <unordered_map>
 #include "renderer.h"
-#include "ImageNew.hpp"
+#include "Image.hpp"
 #include "../world/Gate.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/erase.hpp>
@@ -30,7 +30,7 @@ namespace utility {
     bool lineLineIntersection(const vec_t a1, const vec_t a2,const vec_t b1, const vec_t b2);
     int bongo();
     Room parseRoom(Room room, std::string path, Renderer &renderer, std::pair<int, int> resolution);
-    ImageNew loadImage(std::string path, Renderer& renderer);
+    Image loadImage(std::string path, Renderer& renderer);
 }
 
 

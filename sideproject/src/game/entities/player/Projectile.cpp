@@ -12,17 +12,15 @@ Projectile::Projectile(vec_t positionTmp, int angle)
 }
 
 void Projectile::upkeep(double delta) {
-    angle %= 360;
-    move(delta);
-
-    // dummy
-    /*
-     * if (collision) {
-     *   performActions();
-     *   deleteProjectile();
-     * }
-     */
-
+    if(alive) {
+        angle %= 360;
+        move(delta);
+        auto now = std::chrono::high_resolution_clock::now();
+        auto timeSinceCreation = std::chrono::duration_cast<std::chrono::milliseconds>(now - created);
+        /*if (timeSinceCreation > std::chrono::milliseconds(timeToLive)) {
+            alive = false;
+        }*/
+    }
 }
 
 void Projectile::resolve(Player p){
@@ -42,4 +40,18 @@ bool Projectile::collide(Movable m){//this could be in movable...
         }
     }
     return false;
+}
+void Projectile::baseInit() {
+    {
+        triangle t{{0,                         0},
+                   {GlobalConstants::tileSize, 0},
+                   {0,                         GlobalConstants::tileSize}};
+        hitbox.push_back(t);
+    }
+    {
+        triangle t{{GlobalConstants::tileSize,  GlobalConstants::tileSize},
+                   {GlobalConstants::tileSize, 0},
+                   {0,  GlobalConstants::tileSize}};
+        hitbox.push_back(t);
+    }
 }
