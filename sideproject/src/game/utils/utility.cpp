@@ -76,6 +76,7 @@ namespace utility {
         SDL_Texture* backgroundTexture;
         SDL_Rect backgroundRectangle;
         std::string gatePath;
+        std::pair<int, int> newPlayerPos;
         std::vector<std::pair<int, int>> platformPositionVector;
         std::vector<std::pair<int, int>> gatePositions;
         std::unordered_map<char, std::string> tileMap;
@@ -96,10 +97,11 @@ namespace utility {
                     if(line.find("END") != std::string::npos) {
                         break;
                     }
-                    char key = char(line[2]);
-                    std::string value = line.substr(6);
-                    tilePathPair.first = key;
-                    tilePathPair.second = value;
+                    std::vector<std::string> tileStrings;
+                    boost::algorithm::erase_all(line, " ");
+                    boost::split(tileStrings, line, boost::is_any_of("="));
+                    tilePathPair.first = tileStrings[0].front(); //key
+                    tilePathPair.second = tileStrings[1]; //value
                     tileMap.insert(tilePathPair);
                 }
             }
@@ -173,9 +175,13 @@ namespace utility {
                     std::string gateLine;
                     std::ifstream gates("files/rooms/gates.txt");
                     while (std::getline(gates, gateLine)) {
-                        std::string gateNumber = gateLine.substr(0, 7);
+                        std::vector<std::string> gateStrings;
+                        boost::split(gateStrings, gateLine, boost::is_space());
+                        std::string gateNumber = gateStrings[0];
                         if (line.compare(gateNumber)) {
-                            gatePath = gateLine.substr(8);
+                            gatePath = gateStrings[1];
+                            newPlayerPos.first = std::atoi(gateStrings[2].c_str());
+                            newPlayerPos.second = std::atoi(gateStrings[3].c_str());
                         }
 
                     }

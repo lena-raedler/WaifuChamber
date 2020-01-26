@@ -1,1 +1,1 @@
-gate_01 files/rooms/library.txt
+gate_01 files/rooms/library.txt 32 2

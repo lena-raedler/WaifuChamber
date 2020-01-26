@@ -17,6 +17,8 @@
 #include "renderer.h"
 #include "ImageNew.hpp"
 #include "../world/Gate.h"
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/erase.hpp>
 
 class Room;
 
