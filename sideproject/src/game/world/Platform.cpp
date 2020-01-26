@@ -3,13 +3,13 @@
 //
 
 #include "Platform.h"
-Platform::Platform(std::pair<int,int> p, bool semi){
+Platform::Platform(std::pair<int,int> p, int typearg){
     value_t x = p.first;
     value_t y = p.second;
 
     top = {{x, y},{x + GlobalConstants::tileSize, y}, {x, y+GlobalConstants::tileSize}};
     bot = {{x + GlobalConstants::tileSize, y + GlobalConstants::tileSize},{x + GlobalConstants::tileSize, y}, {x, y+GlobalConstants::tileSize}};
-    semisolid = semi;
+    type = static_cast<platformType>(typearg);
 }
 std::pair<bool, bool> Platform::direction(Movable& m){//false = left / up
     bool vertical = false;//TODO implement

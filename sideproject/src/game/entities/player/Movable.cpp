@@ -40,18 +40,51 @@ void Movable::move(double delta, std::vector<Platform>* platforms){
     projPosition += (velocity*delta);
 
     if(usesPlatforms && platforms != NULL){
-        for(Platform p : *platforms){
+        for(Platform p : *platforms){//todo change to global shiet
 //            auto direction = p.direction(*this);
             for(triangle t : hitbox) {
                 t.a += position;
                 t.b += position;
                 t.c += position;
                 if(p.collide(t)){
-                    if (p.semisolid){
-
-                    }
-                    else {
-                        if(position.y <= p.top.min().y) {//above
+                    switch(p.type){
+                        case PLATFORM :
+                            if(position.y <= p.top.min().y) {//above
+                                grounded();
+                                projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
+                                if(velocity.y > 0){
+                                    velocity.y = 0;
+                                }
+                                else{
+                                    projPosition.y += velocity.y*delta;
+                                }
+                            }
+                            else{//below
+                                velocity.y = 0;
+                                projPosition.y = p.top.max().y + GlobalConstants::epsilon;
+                            }
+                            break;
+                        case WALL :
+                            if(position.x <= p.top.min().x) {//above
+                                grounded();
+                                projPosition.x = p.top.min().x - GlobalConstants::tileSize; //maybe add epsilon idk
+                                if(velocity.x > 0){
+                                    velocity.x = 0;
+                                }
+                                else{
+                                    projPosition.x += velocity.x*delta;
+                                }
+                            }
+                            else{//below
+                                velocity.x = 0;
+                                projPosition.x = p.top.max().x + GlobalConstants::epsilon;
+                            }
+                            break;
+                        case CEILING :
+                            velocity.y = 0;
+                            projPosition.y = p.top.max().y + GlobalConstants::epsilon;
+                            break;
+                        case FLOOR :
                             grounded();
                             projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
                             if(velocity.y > 0){
@@ -60,15 +93,8 @@ void Movable::move(double delta, std::vector<Platform>* platforms){
                             else{
                                 projPosition.y += velocity.y*delta;
                             }
-                        }
-                        else{//below
-                            velocity.y = 0;
-                            projPosition.y = p.top.max().y + GlobalConstants::epsilon;
-                        }
-
-
+                            break;
                     }
-                    break;
                 }
 
             }

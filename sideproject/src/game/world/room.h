@@ -19,7 +19,6 @@
 
 enum TileType{
     BLANK,
-    SEMISOLID,
     SOLID,
     EVENT,
     ENEMY

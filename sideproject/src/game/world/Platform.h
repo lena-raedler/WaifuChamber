@@ -12,17 +12,18 @@
 #include <utility>
 
 class Movable;
+enum platformType{PLATFORM = 0, WALL = 1, CEILING = 2, FLOOR = 3, SEMISOLID = 4};
 class Platform {
 public:
     Platform() = default;
     Platform(Platform& p) = default;
     Platform(Platform&& p) = default;
-    Platform(std::pair<int,int> p, bool semi);
+    Platform(std::pair<int,int> p, int typearg);
 
     std::pair<bool, bool> direction(Movable& m);
     triangle top;
     triangle bot;
-    bool semisolid;
+    platformType type;
     bool collide(triangle& t);
 };
 
