@@ -47,12 +47,12 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
                 t.b += position;
                 t.c += position;
                 if(p.collide(t)){
-                    grounded();
                     if (p.semisolid){
 
                     }
                     else {
-                        if(position.y <= p.top.min().y) {
+                        if(position.y <= p.top.min().y) {//above
+                            grounded();
                             projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
                             if(velocity.y > 0){
                                 velocity.y = 0;
@@ -61,7 +61,8 @@ void Movable::move(double delta, std::vector<Platform>* platforms){//this is jan
                                 projPosition.y += velocity.y*delta;
                             }
                         }
-                        else{
+                        else{//below
+                            velocity.y = 0;
                             projPosition.y = p.top.max().y + GlobalConstants::epsilon;
                         }
 
