@@ -68,7 +68,6 @@ void Movable::move(double delta){
                             break;
                         case WALL :
                             if(position.x <= p.top.min().x) {//above
-                                grounded();
                                 projPosition.x = p.top.min().x - GlobalConstants::tileSize; //maybe add epsilon idk
                                 if(velocity.x > 0){
                                     velocity.x = 0;
@@ -78,8 +77,14 @@ void Movable::move(double delta){
                                 }
                             }
                             else{//below
-                                velocity.x = 0;
-                                projPosition.x = p.top.max().x + GlobalConstants::epsilon;
+                                projPosition.x = p.top.max().x;
+                                if(velocity.x < 0){
+                                    velocity.x = 0;
+                                }
+                                else{
+                                    projPosition.x += velocity.x*delta;
+                                }
+
                             }
                             break;
                         case CEILING :
