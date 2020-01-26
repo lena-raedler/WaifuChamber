@@ -99,6 +99,8 @@ Game::Game()
         player.hitbox.push_back(t);
     }
     Enemy adam;
+    adam.maxhealth = 100;
+    adam.health = 100;
     adam.position ={300, 300};
     {
         triangle t{{0,                         0},
@@ -118,9 +120,10 @@ Game::Game()
     lazor.usesPlatforms = false;
     lazor.damage = 1;
     lazor.baseInit();
+    lazor.timeToLive = 1000;
     supermegadeathlazor.projectile = lazor;
-    supermegadeathlazor.speed = 10;
-    supermegadeathlazor.cooldown = 1000;
+    supermegadeathlazor.speed = 30;
+    supermegadeathlazor.cooldown = 10;
     adam.abilities.push_back(supermegadeathlazor);
     GlobalObjects::enemies.push_back(adam);
 
@@ -190,7 +193,6 @@ int Game::loop() {
 
         for (Projectile& projectile : GlobalObjects::projectiles) {
             projectile.upkeep(deltaTime/deltaDenom);
-            std::cout << projectile.position.x << " " << projectile.position.y << std::endl;
             if(blackmagic::collide(projectile, player)){
                 player.getHit(projectile.damage);
                 projectile.alive = false;
@@ -206,6 +208,7 @@ int Game::loop() {
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
         render();
+        cleanup();
     }
     return 0;
 }
@@ -411,7 +414,30 @@ void Game::debugshit() {
     triangle b{{1,0},{0,1},{1,1}};
     std::cout << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
 }
+void Game::cleanup(){
+    {
+        auto it = GlobalObjects::projectiles.begin();
+        while (it != GlobalObjects::projectiles.end()) {
 
+            if (!it->alive) {
+                it = GlobalObjects::projectiles.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    }
+    {
+        auto it = GlobalObjects::enemies.begin();
+        while (it != GlobalObjects::enemies.end()) {
+
+            if (it->health <= 0) {
+                it = GlobalObjects::enemies.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    }
+}
 
 
 /*

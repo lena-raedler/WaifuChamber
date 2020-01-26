@@ -30,6 +30,7 @@ public:
     int loop();
 
 private:
+    void cleanup();
     InputManager inputManager;
     SavedVariables savedVariables;
     void render();

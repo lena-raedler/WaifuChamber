@@ -30,8 +30,9 @@ public:
     // value between 0 and 359
     int angle;
 
+    bool uninit = true;
     int timeToLive = 1000;
-    std::chrono::time_point<std::chrono::high_resolution_clock> created;
+    std::chrono::high_resolution_clock::time_point created;
     // How many pixels the projectile moves per loop
     //int velocity;
 

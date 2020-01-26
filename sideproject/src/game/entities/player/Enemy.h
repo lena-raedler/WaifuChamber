@@ -11,7 +11,8 @@
 
 class Enemy : public Movable{
 public:
-    int health;
+    int maxhealth = 1;
+    int health = maxhealth;
     double speed;
     std::vector<Ability> abilities;
     std::vector<double> probability;
