@@ -30,7 +30,16 @@ void Room::render(Renderer &renderer) {
 void Room::fillPlatformVector(std::vector<Platform>& p){
     p.clear();
     for(auto pair : platformPositions){
-        p.push_back(Platform(pair, false));
+        p.push_back(Platform(pair, 0));
+    }
+    for(auto pair : wallPostitions) {
+        p.push_back(Platform(pair, 1));
+    }
+    for(auto pair : ceilingPositions) {
+        p.push_back(Platform(pair, 2));
+    }
+    for(auto pair : floorPositions) {
+        p.push_back(Platform(pair, 3));
     }
 }
 

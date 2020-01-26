@@ -51,5 +51,9 @@ public:
     SDL_Texture* backgroundtexture;
     std::unordered_map<SDL_Texture*, SDL_Rect> tileMap;
     std::vector<std::pair<int, int >> platformPositions;
+    std::vector<std::pair<int, int >> wallPostitions;
+    std::vector<std::pair<int, int >> ceilingPositions;
+    std::vector<std::pair<int, int >> floorPositions;
+    std::vector<std::pair<int, int >> doorPositions;
     Gate gate;
 };

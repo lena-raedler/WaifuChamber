@@ -136,6 +136,24 @@ namespace utility {
                             gatePosition.second = x;
                             gatePositions.push_back(gatePosition);
                         }
+                        if(c == 'w') {
+                            std::pair<int, int> wallPosition;
+                            wallPosition.first =y;
+                            wallPosition.second = x;
+                            room.wallPostitions.push_back(wallPosition);
+                        }
+                        if(c == 'c') {
+                            std::pair<int, int> ceilingPosition;
+                            ceilingPosition.first = y;
+                            ceilingPosition.second = x;
+                            room.ceilingPositions.push_back(ceilingPosition);
+                        }
+                        if(c == 'f') {
+                            std::pair<int, int> floorPosition;
+                            floorPosition.first = y;
+                            floorPosition.second = x;
+                            room.floorPositions.push_back(floorPosition);
+                        }
                         textureRectanglePair.first = texture;
                         textureRectanglePair.second = rect;
                         tileRenderMap.insert(textureRectanglePair);
