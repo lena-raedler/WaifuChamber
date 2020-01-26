@@ -17,6 +17,7 @@
 #include "world/room.h"
 #include "GlobalObjects.h"
 
+
 Mix_Music *gMusic = NULL;
 namespace GlobalObjects{
     std::vector<Platform> platforms;
@@ -271,6 +272,22 @@ vec_t Game::determineInput(double delta){
     }
     if(inputManager.isPressed(KEY_N)){
         Mix_PauseMusic();
+    }
+    if(inputManager.isPressed(KEY_K)){
+        std::cout << savedVariables.test << std::endl;
+        savedVariables.test = 1222;
+    }
+    if(inputManager.isPressed(KEY_J)){
+        std::ofstream file("savegame.txt", std::ios::trunc);
+        if (file.good()) {
+            savedVariables.serialize(file);
+        }
+    }
+    if(inputManager.isPressed(KEY_L)){
+        std::ifstream file("savegame.txt");
+        if(file.good()) {
+            savedVariables.deSerialize(file);
+        }
     }
 
     return{out.x, out.y};
