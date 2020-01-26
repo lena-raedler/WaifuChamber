@@ -16,13 +16,13 @@ vec_t Movable::gravity(){
     value_t grav;
     switch(gravityType){
         case NORMAL:
-            grav = isFalling ? gravityConstant : 0;
+            grav =  gravityConstant;
             break;
         case NOGRAVITY :
             grav = 0;
             break;
         default:
-            grav = isFalling ? gravityConstant : 0;
+            grav = gravityConstant;
             break;
     }
     return {0, grav};

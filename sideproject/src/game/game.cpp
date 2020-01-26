@@ -102,6 +102,9 @@ Game::Game()
     adam.maxhealth = 100;
     adam.health = 100;
     adam.position ={300, 300};
+    adam.velocity = {0,0};
+    adam.gravityType = NORMAL;
+    adam.usesPlatforms = true;
     {
         triangle t{{0,                         0},
                    {GlobalConstants::tileSize, 0},

@@ -13,6 +13,11 @@ bool InputManager::update()
         keyDown[i] = false;
         keyUp[i]   = false;
     }
+    for (int i = 0; i < MOUSE_MAX; i++)
+    {
+        this->mouseDown[i] = false;
+        this->mouseUp[i]   = false;
+    }
 
     // Get key events from the OS
     SDL_Event event;
@@ -34,6 +39,33 @@ bool InputManager::update()
                 keyboard = SDL_GetKeyboardState(nullptr);
                 index = event.key.keysym.scancode;
                 keyUp[index] = true;
+                break;
+
+            case SDL_MOUSEMOTION:
+                this->mouseX = event.motion.x; //cameraX
+                this->mouseY = event.motion.y; //cameraY
+                break;
+
+            case SDL_MOUSEBUTTONDOWN:
+                this->mouse = SDL_GetMouseState(&(this->mouseX),
+                                                &(this->mouseY));
+
+                if (event.button.button == SDL_BUTTON_LEFT)
+                    this->mouseDown[MOUSE_LEFT] = true;
+
+                else if (event.button.button == SDL_BUTTON_RIGHT)
+                    this->mouseDown[MOUSE_RIGHT] = true;
+                break;
+
+            case SDL_MOUSEBUTTONUP:
+                this->mouse = SDL_GetMouseState(&(this->mouseX),
+                                                &(this->mouseY));
+
+                if (event.button.button == SDL_BUTTON_LEFT)
+                    this->mouseUp[MOUSE_LEFT] = true;
+
+                else if (event.button.button == SDL_BUTTON_RIGHT)
+                    this->mouseUp[MOUSE_RIGHT] = true;
                 break;
 
             default:

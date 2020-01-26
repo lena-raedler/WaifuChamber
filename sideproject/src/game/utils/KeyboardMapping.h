@@ -257,6 +257,14 @@ enum KeyboardKey
     KEY_SLEEP                 = SDL_SCANCODE_SLEEP
 };
 
+enum MouseButton
+{
+    MOUSE_LEFT,
+    MOUSE_RIGHT,
+
+    MOUSE_MAX
+};
+
 
 
 #endif //WAIFU_KEYBOARDMAPPING_H
