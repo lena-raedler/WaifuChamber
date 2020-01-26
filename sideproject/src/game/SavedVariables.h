@@ -25,8 +25,8 @@ file << _identifier << std::endl;
     void deSerialize(std::ifstream& file){
         std::string str;
 #define SAVE(_type, _identifier, _default) \
-std::getline(file, str); \
-str >> _identifier;
+if(std::getline(file, str)){; \
+str >> _identifier;}
 #include "SavedVariables.def"
     }
 };
