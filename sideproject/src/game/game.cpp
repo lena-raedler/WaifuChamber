@@ -97,6 +97,12 @@ Game::Game()
     right = false;
     isFalling = false;
     checkpoints.push_back(Checkpoint({50,50}, player));
+
+    //Checkpoint* c2 = Checkpoint({1000,500}, player);
+    //utility::fillDefaultHitbox(c2.hitbox);
+    //checkpoints.push_back(Checkpoint({50,50}, player));
+    //checkpoints.
+
     player.lastCP = &checkpoints[0];
     playerPosition = player.position;
     {
@@ -380,7 +386,7 @@ vec_t Game::determineInput(double delta){
             a.projectile = p;
             a.speed = 47;
             a.cooldown = 1000;
-            a.origin = {50, 0};
+            //a.origin = {0, 0};
             a.aimed = false;
             abilities.push_back(a);
 
