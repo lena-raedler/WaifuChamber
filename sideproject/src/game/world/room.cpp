@@ -15,7 +15,7 @@ Room::Room(SDL_Texture *texture, SDL_Rect rectangle, std::unordered_map<SDL_Text
     platformPositions = platformPositions;
 }
 
-//Room::~Room() {}
+Room::~Room() {}
 
 
 void Room::render(Renderer &renderer) {
@@ -46,5 +46,12 @@ void Room::fillPlatformVector(std::vector<Platform>& p){
 void Room::printP() {
     for(auto i : platformPositions) {
         std::cout << i.first << " " << i.second << std::endl;
+    }
+}
+
+void Room::clear() {
+    SDL_DestroyTexture(backgroundtexture);
+    for(auto &i : tileMap) {
+        SDL_DestroyTexture(i.first);
     }
 }

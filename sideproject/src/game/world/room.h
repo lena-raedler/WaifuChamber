@@ -38,7 +38,7 @@ public:
     Room();
     Room(SDL_Texture* texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap,
             std::vector<std::pair<int, int >> platformPositions, Gate gate);
-    //~Room();
+    ~Room();
     void render(Renderer &renderer);
 
     vec_t anchor; //where the base (bottom left) of the room is located in global space
@@ -55,4 +55,6 @@ public:
     std::vector<std::pair<int, int >> floorPositions;
     std::vector<std::pair<int, int >> doorPositions;
     Gate gate;
+
+    void clear();
 };
