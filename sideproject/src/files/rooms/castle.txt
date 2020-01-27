@@ -1,4 +1,6 @@
-ROOM_3 END
+ID
+ROOM_3
+END
 BACKGROUND
 files/backgrounds/dungeon_01.png
 TILES
