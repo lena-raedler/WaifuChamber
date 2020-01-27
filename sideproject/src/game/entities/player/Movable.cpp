@@ -129,6 +129,7 @@ void Movable::move(double delta){
 
     }
     position = projPosition;
+    position.y = std::clamp(position.y, 0.0, 2000.0);
 
     /*
     rec->x = position.x;

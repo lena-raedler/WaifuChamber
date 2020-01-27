@@ -319,6 +319,7 @@ int Game::loop() {
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
 
+        std::cout << player.position << std::endl;
         render();
         cleanup();
 
@@ -389,33 +390,7 @@ vec_t Game::determineInput(double delta){
         std::cout<< player.position << std::endl;
     }
     if(inputManager.isPressed(KEY_V)){
-        if (player.canSpawnProjectile() && projs.size() < 5) {
-            player.spawnProjectile();   // Set the cooldown timer
-
-            // TODO Bad, was just to test
-            Projectile projectile({100,200}, 0);
-            projectile.imageNew = utility::loadImage("files/textures/weapons/Arrow.png", *renderer);
-            projectile.rec = std::make_unique<SDL_Rect>();
-            projectile.rec->x = 100;
-            projectile.rec->y = 200;
-            projectile.rec->w = 32;
-            projectile.rec->h = 32;
-            projectile.velocity.x = 10;
-            //projectile.velocity.x *= 0.8;
-            //projectile.velocity.x = std::clamp(projectile.velocity.x, -30.0, 30.0); //terminal velocities
-            projs.push_back(projectile);
-
-            //projs.push_back(Projectile());
-            //projs[0].position = {100, 200};
-            //projs.push_back(Projectile({100,200}, 0, 1));
-            std::cout << "Projectile created at :" << projs[0].position.x << " " << projs[0].position.y << std::endl;
-            triangle t{{0,  0},
-                       {40, 0},
-                       {0,  40}};
-            //projs[0].hitbox.push_back(t);
-            projs.back().hitbox.push_back(t);
-
-        }
+        player.position={50, 50};
     }
     if (inputManager.isPressed(KEY_C) || inputManager.isMousePressed(MOUSE_LEFT)) {
         if (player.canSpawnProjectile()) {
