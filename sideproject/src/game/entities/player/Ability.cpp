@@ -31,6 +31,25 @@ void Ability::use(vec_t pos) {
     } else{
         tmp = pos;//TODO
     }
+
+    switch (projectile.owner) {
+        case HOSTILE:
+            break;
+        case PLAYER:
+            int mouse_x, mouse_y;
+            SDL_GetMouseState(&mouse_x, &mouse_y);
+            vec_t vec {static_cast<double>(mouse_x), static_cast<double>(mouse_y)};
+            tmp = vec - pos;
+            tmp.normalize();
+            tmp *= speed;
+
+            //projectile.position = pos + origin;
+            projectile.position = pos;
+            projectile.velocity = tmp;
+            GlobalObjects::projectiles.push_back(projectile);
+            break;
+    }
+
     lastUsed = std::chrono::high_resolution_clock::now();
 
 

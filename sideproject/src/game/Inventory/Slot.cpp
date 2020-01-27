@@ -14,8 +14,8 @@ Slot::Slot(Renderer& renderer, Vec2<int> position)
 {}
 
 Slot::Slot(Item item, Renderer& renderer, Vec2<int> position)
-        : item(item)
-        , itemImage(utility::loadImage(item.getImagePath(), renderer))
+        : itemImage(utility::loadImage(item.getImagePath(), renderer))
+        , item(item)
         , available(true)
         , background{position.x, position.y, GlobalConstants::tileSize, GlobalConstants::tileSize}
         , position(position)

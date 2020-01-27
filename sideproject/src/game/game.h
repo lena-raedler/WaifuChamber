@@ -23,6 +23,7 @@
 #include "Inventory/Inventory.hpp"
 #include "entities/player/Enemy.h"
 #include "Inventory/Slot.hpp"
+#include "entities/player/Ability.h"
 
 class Game {
 public:
@@ -71,6 +72,7 @@ private:
     std::vector<Checkpoint> checkpoints;
     std::vector<Platform> platforms;
     //Inventory inventory;
+    std::vector<Ability> abilities;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed

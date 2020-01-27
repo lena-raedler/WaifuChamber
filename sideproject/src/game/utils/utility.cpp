@@ -88,7 +88,8 @@ namespace utility {
 
     }
 
-    Room parseRoom(Room room, std::string path, Renderer &renderer, std::pair<int, int> resolution) {
+    Room parseRoom(std::string path, Renderer &renderer, std::pair<int, int> resolution) {
+        Room room;
         std::ifstream roomFile(path);
         std::string line;
         SDL_Texture* backgroundTexture;

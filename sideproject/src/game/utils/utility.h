@@ -31,7 +31,7 @@ namespace utility {
     bool lineLineIntersection(const vec_t a1, const vec_t a2,const vec_t b1, const vec_t b2);
     void fillDefaultHitbox(std::vector<triangle>& v);
     int bongo();
-    Room parseRoom(Room room, std::string path, Renderer &renderer, std::pair<int, int> resolution);
+    Room parseRoom(std::string path, Renderer &renderer, std::pair<int, int> resolution);
     Image loadImage(std::string path, Renderer& renderer);
 }
 

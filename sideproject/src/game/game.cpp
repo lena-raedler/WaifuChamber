@@ -18,6 +18,7 @@
 #include "GlobalObjects.h"
 #include "world/Gate.h"
 #include "entities/player/EnemyBuilder.h"
+#include "entities/player/Boss.h"
 
 Mix_Music *gMusic = NULL;
 namespace GlobalObjects{
@@ -84,7 +85,7 @@ Game::Game()
     }
     currentRoom = "files/rooms/testroom.txt";
 
-    room = utility::parseRoom(room, currentRoom, *renderer, GlobalObjects::resolution);
+    room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
     fillGlobalObjects(room);
 
     quit = false;
@@ -143,6 +144,7 @@ Game::Game()
     adam.abilities.push_back(supermegadeathlazor);
     GlobalObjects::enemies.push_back(adam);
      */
+    Boss boss;
     EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
     std::cout << GlobalObjects::enemies.size() << std::endl;
 
@@ -217,14 +219,16 @@ int Game::loop() {
             }
         }
         bool leave = false;
-        for(Gate& gate : GlobalObjects::gates){
+        for(Gate gate : GlobalObjects::gates){
             for(triangle t : player.hitbox) {
                 t+=player.position;
+                std::cout << gate.nextRoomPath << std::endl;
                 if (gate.collide(t)) {
-                    room.clear();
                     GlobalObjects::clear();
-                    room = utility::parseRoom(room, gate.nextRoomPath, *renderer, GlobalObjects::resolution);
+                    std::cout << gate.nextRoomPath << std::endl;
+                    room = utility::parseRoom(gate.nextRoomPath, *renderer, GlobalObjects::resolution);
                     player.position = utility::convert(room.newStartPosition);
+                    std::cout << player.position << std::endl;
                     std::cout << "hey hey kids" << std::endl;
                     fillGlobalObjects(room);
                     leave = true;
@@ -250,6 +254,7 @@ int Game::loop() {
         cleanup();
 
     }
+
     return 0;
 }
 
@@ -342,6 +347,37 @@ vec_t Game::determineInput(double delta){
             //projs[0].hitbox.push_back(t);
             projs.back().hitbox.push_back(t);
 
+        }
+    }
+    if (inputManager.isPressed(KEY_C)) {
+        if (player.canSpawnProjectile()) {
+            player.spawnProjectile();   // Set the cooldown timer
+
+            Projectile p;
+            utility::fillDefaultHitbox(p.hitbox);
+            p.damage = 20;
+            p.timeToLive = 2000;
+            p.usesPlatforms = false;
+            p.fragile = true;
+            p.gravityType = NOGRAVITY;
+            p.owner = PLAYER;   // Not yet implementedd
+            p.baseInit();
+
+            Ability a;
+            a.projectile = p;
+            a.speed = 20;
+            a.cooldown = 1000;
+            a.origin = {50, 0};
+            a.aimed = false;
+            abilities.push_back(a);
+
+            //int mouse_x, mouse_y;
+            //SDL_GetMouseState(&mouse_x, &mouse_y);
+            //vec_t vec {mouse_x, mouse_y};
+            //Vec2<double> vec2 {static_cast<double>(mouse_x), static_cast<double>(mouse_y)};
+            //Vec2<double> vec2 {static_cast<double>(player.position.x ), static_cast<double>(player.position.y)};
+            a.use({player.position});
+            //std::cout << "mouse_x: " << mouse_x << "\tmouse_y: " << mouse_y << std::endl;
         }
     }
     if(inputManager.isPressed(KEY_M)){

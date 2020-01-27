@@ -63,4 +63,10 @@ void Room::clear() {
     for(auto &i : tileMap) {
         SDL_DestroyTexture(i.first);
     }
+    platformPositions.clear();
+    wallPostitions.clear();
+    ceilingPositions.clear();
+    floorPositions.clear();
+    doorPositions.clear();
+    enemyInformation.clear();
 }
