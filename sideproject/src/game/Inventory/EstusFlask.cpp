@@ -6,8 +6,8 @@
 #include "Inventory.hpp"
 
 EstusFlask::EstusFlask()
-    : item("Estus Flask", "files/textures/estusFlask/estus_flask.png", 9001)
-    , usages(3)
+    : usages(3)
+    , item("Estus Flask", "files/textures/estusFlask/estus_flask.png", 9001)
     , lastUse(std::chrono::high_resolution_clock::now())
 {}
 

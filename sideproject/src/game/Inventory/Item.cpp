@@ -10,8 +10,8 @@ Item::Item()
 {}
 
 Item::Item(std::string name, std::string imagePath, int value)
-        : name(name)
-        , imagePath(imagePath)
+        : imagePath(std::move(imagePath))
+        , name(std::move(name))
         , value(value)
 {}
 
