@@ -15,7 +15,6 @@ Room::Room(SDL_Texture *texture, SDL_Rect rectangle, std::unordered_map<SDL_Text
     platformPositions = platformPositions;
 }
 
-Room::~Room() {}
 
 
 void Room::render(Renderer &renderer) {
