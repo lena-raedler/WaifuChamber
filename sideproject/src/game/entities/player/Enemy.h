@@ -22,6 +22,7 @@ public:
 
     void setMaxHealth(int i);
     void getHit(double d);
+    void kill();
 
     void upkeep(double delta);
 };

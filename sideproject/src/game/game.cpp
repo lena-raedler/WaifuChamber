@@ -22,6 +22,7 @@
 
 Mix_Music *gMusic = NULL;
 namespace GlobalObjects{
+    SavedVariables savedVariables;
     std::vector<Enemy> enemies;
     std::vector<Platform> platforms;
     Player* playerPtr = NULL;
@@ -34,12 +35,18 @@ namespace GlobalObjects{
         platforms.clear();
         projectiles.clear();
         gates.clear();
+        bosses.clear();
     }
 }
 ////////////////////////////////////////////////////////////////
 Game::Game()
     : pause(false)
 {
+    std::ifstream file("savegame.txt");
+    if(file.good()) {
+        GlobalObjects::savedVariables.deSerialize(file);
+    }
+    file.close();
     GlobalObjects::playerPtr = &player;
     debugshit();
 
@@ -97,6 +104,12 @@ Game::Game()
     right = false;
     isFalling = false;
     checkpoints.push_back(Checkpoint({50,50}, player));
+
+    //Checkpoint* c2 = Checkpoint({1000,500}, player);
+    //utility::fillDefaultHitbox(c2.hitbox);
+    //checkpoints.push_back(Checkpoint({50,50}, player));
+    //checkpoints.
+
     player.lastCP = &checkpoints[0];
     playerPosition = player.position;
     {
@@ -145,29 +158,12 @@ Game::Game()
     adam.abilities.push_back(supermegadeathlazor);
     GlobalObjects::enemies.push_back(adam);
      */
-    Boss boss;
-    Ability supermegadeathlazor;
-    Projectile lazor;
-    lazor.gravityType = NOGRAVITY;
-    lazor.usesPlatforms = false;
-    lazor.damage = 10;
-    utility::fillDefaultHitbox(lazor.hitbox);
-    lazor.timeToLive = 1000;
-    supermegadeathlazor.projectile = lazor;
-    supermegadeathlazor.speed = 30;
-    supermegadeathlazor.cooldown = 10;
-    boss.addAbility(supermegadeathlazor, 1, 1);
-    boss.addHealthBar(100);
-    boss.position ={400, 400};
-    boss.speed = 20;
-    boss.velocity = {0,0};
-    boss.gravityType = NORMAL;
-    boss.usesPlatforms = true;
-    utility::fillDefaultHitbox(boss.hitbox, 2);
-    GlobalObjects::bosses.push_back(boss);
-    //EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
-    std::cout << GlobalObjects::bosses.size() << std::endl;
 
+
+
+    if(!bossDefeated(1)) {
+        spawnBoss(400, 400);
+    }
     //create rectangle to load the texture onto
 
     rectangle.x = playerPosition.x;
@@ -400,7 +396,7 @@ vec_t Game::determineInput(double delta){
             a.projectile = p;
             a.speed = 47;
             a.cooldown = 1000;
-            a.origin = {50, 0};
+            //a.origin = {0, 0};
             a.aimed = false;
             abilities.push_back(a);
 
@@ -424,25 +420,6 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_N)){
         Mix_PauseMusic();
     }
-    if(inputManager.isPressed(KEY_K)){
-        std::cout << savedVariables.test << std::endl;
-        savedVariables.test = 1222;
-    }
-    if(inputManager.isPressed(KEY_J)){
-        std::ofstream file("savegame.txt", std::ios::trunc);
-        if (file.good()) {
-            savedVariables.serialize(file);
-        }
-        file.close();
-    }
-    if(inputManager.isPressed(KEY_L)){
-        std::ifstream file("savegame.txt");
-        if(file.good()) {
-            savedVariables.deSerialize(file);
-        }
-        file.close();
-    }
-
     return{out.x, out.y};
 }
 
@@ -565,6 +542,7 @@ void Game::cleanup(){
         while (it != GlobalObjects::enemies.end()) {
 
             if (it->health <= 0) {
+                it->kill();
                 it = GlobalObjects::enemies.erase(it);
             } else {
                 ++it;
@@ -576,6 +554,7 @@ void Game::cleanup(){
         while (it != GlobalObjects::bosses.end()) {
 
             if (it->defeated) {
+                it->kill();
                 it = GlobalObjects::bosses.erase(it);
             } else {
                 ++it;
@@ -587,6 +566,34 @@ void Game::fillGlobalObjects(Room& room){
     room.fillPlatformVector(GlobalObjects::platforms);
     room.fillEnemyVector(GlobalObjects::enemies);
     room.fillDoorVector(GlobalObjects::gates);
+}
+
+void Game::spawnBoss(int x, int y){
+    Boss boss;
+    Ability supermegadeathlazor;
+    Projectile lazor;
+    lazor.gravityType = NOGRAVITY;
+    lazor.usesPlatforms = false;
+    lazor.damage = 10;
+    utility::fillDefaultHitbox(lazor.hitbox);
+    lazor.timeToLive = 1000;
+    supermegadeathlazor.projectile = lazor;
+    supermegadeathlazor.speed = 30;
+    supermegadeathlazor.cooldown = 10;
+    boss.addAbility(supermegadeathlazor, 1, 1);
+    boss.addHealthBar(100);
+    boss.position ={(double)x, (double)y};
+    boss.speed = 20;
+    boss.velocity = {0,0};
+    boss.gravityType = NORMAL;
+    boss.usesPlatforms = true;
+    utility::fillDefaultHitbox(boss.hitbox, 2);
+    GlobalObjects::bosses.push_back(boss);
+}
+
+bool Game::bossDefeated(int i){
+    int tmp = GlobalObjects::savedVariables.bossesDefeated >> (i - 1);
+    return tmp & 1;
 }
 
 

@@ -12,7 +12,9 @@ class Enemy;
 class Gate;
 class Projectile;
 class Boss;
+struct SavedVariables;
 namespace GlobalObjects {
+    extern SavedVariables savedVariables;
     extern std::vector<Enemy> enemies;
     extern std::vector<Platform> platforms;
     extern Player* playerPtr;//careful with that
