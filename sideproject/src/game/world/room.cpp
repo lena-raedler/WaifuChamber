@@ -8,7 +8,7 @@
 Room::Room() {}
 
 Room::Room(SDL_Texture *texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap,
-        std::vector<std::pair<int, int>> platformPositions, std::vector<std::pair<int, int>> gatePositions)
+        std::vector<std::pair<int, int>> platformPositions, std::vector<std::pair<std::pair<int, int>, std::string>> gatePositions)
         : doorPositions(gatePositions) {
     backgroundtexture = texture;
     backgroundRectangle = rectangle;
@@ -44,6 +44,10 @@ void Room::fillPlatformVector(std::vector<Platform>& p){
 }
 void Room::fillDoorVector(std::vector<Gate>& g){
     g.clear();
+    for(auto i : doorPositions) {
+        g.push_back(Gate(i.first, i.second));
+    }
+
 }
 void Room::fillEnemyVector(std::vector<Enemy>& e){
     e.clear();

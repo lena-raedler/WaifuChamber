@@ -7,8 +7,6 @@
 Gate::Gate(std::pair<int, int> pos, std::string path) {
     position = utility::convert(pos);
     nextRoomPath = path;
-
-    std::cout << nextRoomPath << std::endl;
 }
 
 Gate::Gate(std::pair<int, int> pos, std::string path, bool leftLock, bool rightLock) {
@@ -21,7 +19,6 @@ Gate::Gate(std::pair<int, int> pos, std::string path, bool leftLock, bool rightL
         std::cout << "WARNING: Unopenable gate spawned" << std::endl;
     }
 
-    std::cout << nextRoomPath << std::endl;
 }
 Gate::Gate(std::pair<int, int> pos, std::string path, int key) {
     position = utility::convert(pos);
@@ -29,7 +26,5 @@ Gate::Gate(std::pair<int, int> pos, std::string path, int key) {
     leftLocked = true;
     rightLocked = true;
     keyId = key;
-
-    std::cout << nextRoomPath << std::endl;
 }
 
