@@ -101,7 +101,7 @@ namespace utility {
         SDL_Rect backgroundRectangle;
         std::string gatePath;
         std::vector<std::pair<int, int>> platformPositionVector;
-        std::vector<std::pair<int, int>> gatePositions;
+        std::vector<std::pair<std::pair<int, int>, char>> gatePositions;
         std::unordered_map<char, std::string> tileMap;
         std::unordered_map<SDL_Texture*, SDL_Rect> tileRenderMap;
 
@@ -156,7 +156,13 @@ namespace utility {
                             std::pair<int, int> gatePosition;
                             gatePosition.first = y;
                             gatePosition.second = x;
-                            gatePositions.push_back(gatePosition);
+                            gatePositions.push_back(std::make_pair(gatePosition, c));
+                        }
+                        if(c == 'e') {
+                            std::pair<int, int> gatePosition;
+                            gatePosition.first = y;
+                            gatePosition.second = x;
+                            gatePositions.push_back(std::make_pair(gatePosition, c));
                         }
                         if(c == 'w') {
                             std::pair<int, int> wallPosition;
@@ -205,17 +211,19 @@ namespace utility {
                         while(line.front() == ' ') {
                             boost::algorithm::erase_first(line, " ");
                         }
-                        if(boost::algorithm::equals(line, gateNumber)) {
-                        //if (line == gateNumber) {
+                        std::vector<std::string> moreGateInfo;
+                        boost::split(moreGateInfo, line, boost::is_space());
+                        if(boost::algorithm::equals(moreGateInfo[0], gateNumber)) {
                             gatePath = gateStrings[1];
                             room.newStartPosition.first = std::atoi(gateStrings[2].c_str());
                             room.newStartPosition.second = std::atoi(gateStrings[3].c_str());
                             std::pair<std::pair<int, int>, std::string> gateInfo;
                             for(auto i : gatePositions) {
-                                gateInfo.first = i;
-                                gateInfo.second = gatePath;
-                                room.doorPositions.push_back(gateInfo);
-                                std::cout << "here: " << gateInfo.second << std::endl;
+                                if (moreGateInfo[1].front() == i.second) {
+                                    gateInfo.first = i.first;
+                                    gateInfo.second = gatePath;
+                                    room.doorPositions.push_back(gateInfo);
+                                } else { continue; }
                             }
                         } else { continue; }
 

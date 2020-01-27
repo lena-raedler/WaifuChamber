@@ -45,7 +45,7 @@ LAYOUT
   wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 END
 GATES
-  gate_04
+  gate_04 d
 END
 BOSS
   b_1 57 31
