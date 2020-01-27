@@ -59,7 +59,6 @@ public:
     std::vector<std::pair<std::pair<int, int >, std::string>> doorPositions;
     std::vector<std::pair<std::pair<int, int >, int>> enemyInformation;
     std::pair<int, int> newStartPosition;
-    Gate gate;
 
     void clear();
 };

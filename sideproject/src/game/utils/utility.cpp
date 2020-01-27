@@ -138,10 +138,6 @@ namespace utility {
                     for(auto& c : line) {
                         std::string tilePath = tileMap.at(c);
                         tilePath += ".png";
-                        if(tilePath.find("none") != std::string::npos) {
-                            y += GlobalConstants::tileSize;
-                            continue;
-                        }
                         surface = IMG_Load(tilePath.c_str());
                         SDL_Texture* texture = renderer.createTextureFromSurface(surface);
                         SDL_Rect rect = {y, x, GlobalConstants::tileSize, GlobalConstants::tileSize};
@@ -175,6 +171,10 @@ namespace utility {
                             floorPosition.second = x;
                             room.floorPositions.push_back(floorPosition);
                         }
+                        if(tilePath.find("none") != std::string::npos) {
+                            y += GlobalConstants::tileSize;
+                            continue;
+                        }
                         textureRectanglePair.first = texture;
                         textureRectanglePair.second = rect;
                         tileRenderMap.insert(textureRectanglePair);
@@ -200,7 +200,8 @@ namespace utility {
                         while(line.front() == ' ') {
                             boost::algorithm::erase_first(line, " ");
                         }
-                        if (line.compare(gateNumber) == 0) {
+                        if(boost::algorithm::equals(line, gateNumber)) {
+                        //if (line == gateNumber) {
                             gatePath = gateStrings[1];
                             room.newStartPosition.first = std::atoi(gateStrings[2].c_str());
                             room.newStartPosition.second = std::atoi(gateStrings[3].c_str());
@@ -209,8 +210,9 @@ namespace utility {
                                 gateInfo.first = i;
                                 gateInfo.second = gatePath;
                                 room.doorPositions.push_back(gateInfo);
+                                std::cout << "here: " << gateInfo.second << std::endl;
                             }
-                        }
+                        } else { continue; }
 
                     }
                 }

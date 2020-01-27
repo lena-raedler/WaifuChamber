@@ -391,6 +391,33 @@ game/entities/player/Ability.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Ability.cpp.s
 .PHONY : game/entities/player/Ability.cpp.s
 
+game/entities/player/Boss.o: game/entities/player/Boss.cpp.o
+
+.PHONY : game/entities/player/Boss.o
+
+# target to build an object file
+game/entities/player/Boss.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Boss.cpp.o
+.PHONY : game/entities/player/Boss.cpp.o
+
+game/entities/player/Boss.i: game/entities/player/Boss.cpp.i
+
+.PHONY : game/entities/player/Boss.i
+
+# target to preprocess a source file
+game/entities/player/Boss.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Boss.cpp.i
+.PHONY : game/entities/player/Boss.cpp.i
+
+game/entities/player/Boss.s: game/entities/player/Boss.cpp.s
+
+.PHONY : game/entities/player/Boss.s
+
+# target to generate assembly for a file
+game/entities/player/Boss.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Boss.cpp.s
+.PHONY : game/entities/player/Boss.cpp.s
+
 game/entities/player/Enemy.o: game/entities/player/Enemy.cpp.o
 
 .PHONY : game/entities/player/Enemy.o
@@ -779,6 +806,9 @@ help:
 	@echo "... game/entities/player/Ability.o"
 	@echo "... game/entities/player/Ability.i"
 	@echo "... game/entities/player/Ability.s"
+	@echo "... game/entities/player/Boss.o"
+	@echo "... game/entities/player/Boss.i"
+	@echo "... game/entities/player/Boss.s"
 	@echo "... game/entities/player/Enemy.o"
 	@echo "... game/entities/player/Enemy.i"
 	@echo "... game/entities/player/Enemy.s"
