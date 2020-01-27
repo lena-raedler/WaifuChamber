@@ -46,6 +46,10 @@ void Ability::use(vec_t pos) {
             //projectile.position = pos + origin;
             projectile.position = pos;
             projectile.velocity = tmp;
+            {
+                SDL_Rect r = {(int)projectile.position.x, (int)projectile.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                projectile.rec = std::make_shared<SDL_Rect>(r);
+            }
             GlobalObjects::projectiles.push_back(projectile);
             break;
     }

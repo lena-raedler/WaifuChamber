@@ -349,7 +349,7 @@ vec_t Game::determineInput(double delta){
 
         }
     }
-    if (inputManager.isPressed(KEY_C)) {
+    if (inputManager.isPressed(KEY_C) || inputManager.isMousePressed(MOUSE_LEFT)) {
         if (player.canSpawnProjectile()) {
             player.spawnProjectile();   // Set the cooldown timer
 

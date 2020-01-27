@@ -87,9 +87,22 @@ bool InputManager::isPressed(KeyboardKey key)
 
 }
 
+bool InputManager::isMousePressed(MouseButton button)
+{
+    if (!(mouseDown))     // Always true
+        return false;
+
+    int sdl_key = static_cast<int>(button);
+    return mouseDown[sdl_key] != 0;
+}
+
 void InputManager::flush() {
     for (int i = 0; i < KEYBOARD_SIZE; i++) {
         keyDown[i] = false;
         keyUp[i] = false;
+    }
+    for (int i = 0; i < MOUSE_MAX; i++) {
+        this->mouseDown[i] = false;
+        this->mouseUp[i]   = false;
     }
 }
