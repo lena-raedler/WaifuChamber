@@ -13,8 +13,7 @@ Item::Item(std::string name, std::string imagePath, int value)
         : name(name)
         , imagePath(imagePath)
         , value(value)
-{
-}
+{}
 
 Item::~Item() = default;
 

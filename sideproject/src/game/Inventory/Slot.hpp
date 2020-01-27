@@ -18,10 +18,13 @@ public:
     Slot(Item item, Renderer& renderer, Vec2<int> position);
     ~Slot();
     void renderSlot();
+    void changeItem(Item& item);
+    void removeItem();
+    Image itemImage;
+    void loadNewItemImage(std::string path);
 
 private:
     Item item;
-    Image itemImage;
     bool available;
     SDL_Rect background;
     Vec2<int> position;

@@ -159,10 +159,8 @@ Game::Game()
     healthBarBackgroundRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 10, healthBarBorderRect.h - 10};
     healthBarRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 50, healthBarBorderRect.h - 10};
 
-    // Rip QT Widget
-    //renderInventory2(argc, argv);
-
-    inventory = Inventory(*renderer);
+    //inventory = Inventory(*renderer);
+    player.inventory = Inventory(*renderer);
 }
 
 Game::~Game() {
@@ -276,6 +274,12 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_R)){//test
         player.rest();
     }
+    if(inputManager.isPressed(KEY_T)) {
+        if (player.inventory.estusFlask.canUse()) {
+            player.inventory.estusFlask.use(player.inventory);
+            player.rest();
+        }
+    }
     if(inputManager.isPressed(KEY_F)){//test
         if(!player.iframes) {
             player.getHit(10);
@@ -365,7 +369,8 @@ void Game::render() {
 
 
 
-    inventory.renderInventory();
+    //inventory.renderInventory();
+    player.inventory.renderInventory();
 
     // Render the player after the background
     renderer->renderTexture(texture, nullptr, player.rec.get());

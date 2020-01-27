@@ -6,6 +6,7 @@
 
 #include "Slot.hpp"
 #include "../utils/renderer.h"
+#include "EstusFlask.hpp"
 
 
 class Inventory {
@@ -14,8 +15,9 @@ public:
     Inventory(Renderer& renderer);
     ~Inventory();
     void renderInventory();
+    Slot rangedWeaponSlot, slot2, slot3, slot4, slot5, estusFlaskSlot;
+    EstusFlask estusFlask;
 
 private:
-    Slot slot1, slot2, slot3, slot4, slot5, slot6;
     Renderer* renderer;
 };

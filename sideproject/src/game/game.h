@@ -22,6 +22,7 @@
 #include <fstream>
 #include "Inventory/Inventory.hpp"
 #include "entities/player/Enemy.h"
+#include "Inventory/Slot.hpp"
 
 class Game {
 public:
@@ -69,7 +70,7 @@ private:
     Room room;
     std::vector<Checkpoint> checkpoints;
     std::vector<Platform> platforms;
-    Inventory inventory;
+    //Inventory inventory;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed

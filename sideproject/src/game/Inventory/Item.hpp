@@ -14,9 +14,9 @@ public:
     Item(std::string name, std::string imagePath, int value);
     ~Item();
     std::string getImagePath();
+    std::string imagePath;
 
 private:
     std::string name;
-    std::string imagePath;
     int value;
 };

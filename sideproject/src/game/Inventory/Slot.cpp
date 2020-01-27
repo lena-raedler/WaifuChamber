@@ -29,6 +29,24 @@ Slot::Slot(Item item, Renderer& renderer, Vec2<int> position)
 
 Slot::~Slot() = default;
 
+void Slot::changeItem(Item& newItem) {
+    item = newItem;
+    available = true;
+}
+
+void Slot::removeItem() {
+    item = Item();
+    available = false;
+}
+
+void Slot::loadNewItemImage(std::string path) {
+    itemImage = utility::loadImage(path, *renderer);
+    itemImage.getRect()->w = GlobalConstants::tileSize;
+    itemImage.getRect()->h = GlobalConstants::tileSize;
+    itemImage.getRect()->x = position.x;
+    itemImage.getRect()->y = position.y;
+}
+
 void Slot::renderSlot() {
     // Gray background
     SDL_SetRenderDrawColor(renderer->getRenderer(), 0x80, 0x80, 0x80, 0xFF);
