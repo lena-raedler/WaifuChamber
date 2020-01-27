@@ -34,8 +34,14 @@ namespace EnemyBuilder {
             a.cooldown = 1000;
 
             e.abilities.push_back(a);
+            e.textureLocation = "files/textures/skeleton_01.png";
+            e.position = {(double)pos.first, (double)pos.second};
 
-            //todo fill rec
+            //rectangle is filled with the given position of the enemy and the global tilesize
+                {
+                    SDL_Rect r = {pos.first, pos.second, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                    e.rec = std::make_shared<SDL_Rect>(r);
+                }
             GlobalObjects::enemies.push_back(e);
             break;
             default:

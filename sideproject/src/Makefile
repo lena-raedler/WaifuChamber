@@ -202,6 +202,33 @@ game/GlobalConstants.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/GlobalConstants.cpp.s
 .PHONY : game/GlobalConstants.cpp.s
 
+game/Inventory/EstusFlask.o: game/Inventory/EstusFlask.cpp.o
+
+.PHONY : game/Inventory/EstusFlask.o
+
+# target to build an object file
+game/Inventory/EstusFlask.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/EstusFlask.cpp.o
+.PHONY : game/Inventory/EstusFlask.cpp.o
+
+game/Inventory/EstusFlask.i: game/Inventory/EstusFlask.cpp.i
+
+.PHONY : game/Inventory/EstusFlask.i
+
+# target to preprocess a source file
+game/Inventory/EstusFlask.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/EstusFlask.cpp.i
+.PHONY : game/Inventory/EstusFlask.cpp.i
+
+game/Inventory/EstusFlask.s: game/Inventory/EstusFlask.cpp.s
+
+.PHONY : game/Inventory/EstusFlask.s
+
+# target to generate assembly for a file
+game/Inventory/EstusFlask.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/EstusFlask.cpp.s
+.PHONY : game/Inventory/EstusFlask.cpp.s
+
 game/Inventory/Inventory.o: game/Inventory/Inventory.cpp.o
 
 .PHONY : game/Inventory/Inventory.o
@@ -731,6 +758,9 @@ help:
 	@echo "... game/GlobalConstants.o"
 	@echo "... game/GlobalConstants.i"
 	@echo "... game/GlobalConstants.s"
+	@echo "... game/Inventory/EstusFlask.o"
+	@echo "... game/Inventory/EstusFlask.i"
+	@echo "... game/Inventory/EstusFlask.s"
 	@echo "... game/Inventory/Inventory.o"
 	@echo "... game/Inventory/Inventory.i"
 	@echo "... game/Inventory/Inventory.s"

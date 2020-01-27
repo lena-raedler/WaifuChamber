@@ -196,7 +196,10 @@ namespace utility {
                         std::vector<std::string> gateStrings;
                         boost::split(gateStrings, gateLine, boost::is_space());
                         std::string gateNumber = gateStrings[0];
-                        if (line.compare(gateNumber)) {
+                        while(line.front() == ' ') {
+                            boost::algorithm::erase_first(line, " ");
+                        }
+                        if (line.compare(gateNumber) == 0) {
                             gatePath = gateStrings[1];
                             room.newStartPosition.first = std::atoi(gateStrings[2].c_str());
                             room.newStartPosition.second = std::atoi(gateStrings[3].c_str());

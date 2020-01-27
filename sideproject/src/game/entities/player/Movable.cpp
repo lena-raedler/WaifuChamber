@@ -6,7 +6,10 @@
 #include "../../GlobalObjects.h"
 
 const void Movable::render(Renderer &renderer) {
-    //do something
+    SDL_Surface* surface = IMG_Load(textureLocation.c_str());
+    SDL_Texture* texture = renderer.createTextureFromSurface(surface);
+    renderer.renderTexture(texture, nullptr, rec.get());
+    SDL_FreeSurface(surface);
 }
 
 const std::string Movable::getTextureLocation() {
@@ -123,10 +126,9 @@ void Movable::move(double delta){
     }
     position = projPosition;
 
-    /*
     rec->x = position.x;
 
-    rec->y = position.y; */
+    rec->y = position.y;
 
 }
 bool Movable::onPlatform(Platform& p){

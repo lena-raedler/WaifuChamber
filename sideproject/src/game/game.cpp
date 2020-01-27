@@ -209,6 +209,7 @@ int Game::loop() {
         }
 
         for (Projectile& projectile : GlobalObjects::projectiles) {
+            projectile.textureLocation = "files/textures/weapons/projectile_01.png";
             projectile.upkeep(deltaTime/deltaDenom);
             if(blackmagic::collide(projectile, player)){
                 player.getHit(projectile.damage);
@@ -404,6 +405,7 @@ void Game::render() {
     renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
 
+
     for (Projectile& projectile : GlobalObjects::projectiles) {
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
         renderer->renderTriangles(projectile.hitbox, 255, 255, 255, projectile.position);
@@ -419,6 +421,12 @@ void Game::render() {
     for (Gate& g : GlobalObjects::gates){
         renderer->renderTriangles(g.hitbox, 0,255, 255, g.position);
     }
+    /*for(auto& i : GlobalObjects::enemies) {
+        i.render(*renderer);
+    }
+    for(auto& i : GlobalObjects::projectiles) {
+        i.render(*renderer);
+    }*/
 
     // Update the remaining health percentage
     updateHealthBar();
