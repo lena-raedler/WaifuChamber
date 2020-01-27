@@ -30,7 +30,8 @@ public:
     // value between 0 and 359
     int angle;
 
-    bool uninit = true;
+
+    bool bounce = false;
     int timeToLive = 1000;
     std::chrono::high_resolution_clock::time_point created;
     // How many pixels the projectile moves per loop
@@ -43,13 +44,14 @@ public:
     //who is owning the projectile? default to enemy for testing
     projectile_owner owner = HOSTILE;
 
-    // Check in game.cpp if the projectile should be deleted
-    bool alive = true;
+
 
     void upkeep(double delta);
     void baseInit();
-    void resolve(Player p); //this will be called on the object the projectile collides with
+    void resolve(Player& p); //this will be called on the object the projectile collides with
     bool collide(Movable m);
     Image imageNew;
+private:
+    bool uninit = true;
 };
 

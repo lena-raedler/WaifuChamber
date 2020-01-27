@@ -99,6 +99,7 @@ namespace utility {
         std::vector<std::pair<int, int>> gatePositions;
         std::unordered_map<char, std::string> tileMap;
         std::unordered_map<SDL_Texture*, SDL_Rect> tileRenderMap;
+
         while(std::getline(roomFile, line)) {
             if(line.find("BACKGROUND") != std::string::npos) {
                 std::getline(roomFile, line);
@@ -200,18 +201,47 @@ namespace utility {
                             gatePath = gateStrings[1];
                             newPlayerPos.first = std::atoi(gateStrings[2].c_str());
                             newPlayerPos.second = std::atoi(gateStrings[3].c_str());
+                            std::pair<std::pair<int, int>, std::string> gateInfo;
+                            for(auto i : gatePositions) {
+                                gateInfo.first = i;
+                                gateInfo.second = gatePath;
+                                room.doorPositions.push_back(gateInfo);
+                            }
                         }
 
                     }
                 }
             }
+            else if(line.find("ENEMY") != std::string::npos) {
+                while(line.find("END") == std::string::npos) {
+                    std::getline(roomFile, line);
+                    if (line.find("END") != std::string::npos) {
+                        break;
+                    }
+                    std::pair<std::pair<int, int>, int> enemyInformation;
+                    std::vector<std::string> enemyStrings;
+                    while (line.front() == ' ') {
+                        boost::algorithm::erase_first(line, " ");
+                    }
+                    boost::split(enemyStrings, line, boost::is_space());
+                    std::pair<int, int> enemyPosition;
+                    enemyPosition.first = std::atoi(enemyStrings[1].c_str());
+                    enemyPosition.second = std::atoi(enemyStrings[2].c_str());
+                    enemyInformation.first = enemyPosition;
+                    std::vector<std::string> idInformation;
+                    boost::split(idInformation, enemyStrings[0], boost::is_any_of("_"));
+                    int enemyId = std::atoi(idInformation[1].c_str());
+                    enemyInformation.second = enemyId;
+                    room.enemyInformation.push_back(enemyInformation);
+                }
+            }
+
         }
 
         room.platformPositions = platformPositionVector;
         room.backgroundRectangle = backgroundRectangle;
         room.backgroundtexture = backgroundTexture;
         room.tileMap = tileRenderMap;
-        room.doorPositions = gatePositions;
 
         //Room room(backgroundTexture, backgroundRectangle, tileRenderMap, *&platformPositionVector, gate);
         return room;

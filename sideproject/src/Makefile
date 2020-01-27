@@ -229,6 +229,60 @@ game/Inventory/Inventory.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Inventory.cpp.s
 .PHONY : game/Inventory/Inventory.cpp.s
 
+game/Inventory/Item.o: game/Inventory/Item.cpp.o
+
+.PHONY : game/Inventory/Item.o
+
+# target to build an object file
+game/Inventory/Item.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Item.cpp.o
+.PHONY : game/Inventory/Item.cpp.o
+
+game/Inventory/Item.i: game/Inventory/Item.cpp.i
+
+.PHONY : game/Inventory/Item.i
+
+# target to preprocess a source file
+game/Inventory/Item.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Item.cpp.i
+.PHONY : game/Inventory/Item.cpp.i
+
+game/Inventory/Item.s: game/Inventory/Item.cpp.s
+
+.PHONY : game/Inventory/Item.s
+
+# target to generate assembly for a file
+game/Inventory/Item.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Item.cpp.s
+.PHONY : game/Inventory/Item.cpp.s
+
+game/Inventory/RangedWeapon.o: game/Inventory/RangedWeapon.cpp.o
+
+.PHONY : game/Inventory/RangedWeapon.o
+
+# target to build an object file
+game/Inventory/RangedWeapon.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/RangedWeapon.cpp.o
+.PHONY : game/Inventory/RangedWeapon.cpp.o
+
+game/Inventory/RangedWeapon.i: game/Inventory/RangedWeapon.cpp.i
+
+.PHONY : game/Inventory/RangedWeapon.i
+
+# target to preprocess a source file
+game/Inventory/RangedWeapon.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/RangedWeapon.cpp.i
+.PHONY : game/Inventory/RangedWeapon.cpp.i
+
+game/Inventory/RangedWeapon.s: game/Inventory/RangedWeapon.cpp.s
+
+.PHONY : game/Inventory/RangedWeapon.s
+
+# target to generate assembly for a file
+game/Inventory/RangedWeapon.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/RangedWeapon.cpp.s
+.PHONY : game/Inventory/RangedWeapon.cpp.s
+
 game/Inventory/Slot.o: game/Inventory/Slot.cpp.o
 
 .PHONY : game/Inventory/Slot.o
@@ -680,6 +734,12 @@ help:
 	@echo "... game/Inventory/Inventory.o"
 	@echo "... game/Inventory/Inventory.i"
 	@echo "... game/Inventory/Inventory.s"
+	@echo "... game/Inventory/Item.o"
+	@echo "... game/Inventory/Item.i"
+	@echo "... game/Inventory/Item.s"
+	@echo "... game/Inventory/RangedWeapon.o"
+	@echo "... game/Inventory/RangedWeapon.i"
+	@echo "... game/Inventory/RangedWeapon.s"
 	@echo "... game/Inventory/Slot.o"
 	@echo "... game/Inventory/Slot.i"
 	@echo "... game/Inventory/Slot.s"

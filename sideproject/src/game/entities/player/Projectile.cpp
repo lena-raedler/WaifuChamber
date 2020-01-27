@@ -28,7 +28,7 @@ void Projectile::upkeep(double delta) {
 
 }
 
-void Projectile::resolve(Player p){
+void Projectile::resolve(Player& p){
     if(alive) {
         p.getHit(damage);
         alive = false; //piercing prjectiles?
@@ -47,17 +47,5 @@ bool Projectile::collide(Movable m){//this could be in movable...
     return false;
 }
 void Projectile::baseInit() {
-    {
-        triangle t{{0,                         0},
-                   {GlobalConstants::tileSize, 0},
-                   {0,                         GlobalConstants::tileSize}};
-        hitbox.push_back(t);
-    }
-    {
-        triangle t{{GlobalConstants::tileSize,  GlobalConstants::tileSize},
-                   {GlobalConstants::tileSize, 0},
-                   {0,  GlobalConstants::tileSize}};
-        hitbox.push_back(t);
-    }
 
 }

@@ -38,7 +38,7 @@ class Room {
 public:
     Room();
     Room(SDL_Texture* texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap,
-            std::vector<std::pair<int, int >> platformPositions, std::vector<std::pair<int, int >> doors);
+            std::vector<std::pair<int, int >> platformPositions, std::vector<std::pair<std::pair<int, int >, std::string>> doors);
     //~Room();
     void render(Renderer &renderer);
 
@@ -56,7 +56,8 @@ public:
     std::vector<std::pair<int, int >> wallPostitions;
     std::vector<std::pair<int, int >> ceilingPositions;
     std::vector<std::pair<int, int >> floorPositions;
-    std::vector<std::pair<int, int >> doorPositions;
+    std::vector<std::pair<std::pair<int, int >, std::string>> doorPositions;
+    std::vector<std::pair<std::pair<int, int >, int>> enemyInformation;
     Gate gate;
 
     void clear();
