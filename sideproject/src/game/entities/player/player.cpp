@@ -3,6 +3,7 @@
 //
 
 #include "player.h"
+#include "../../GlobalObjects.h"
 //#include "../../utils/Rgba.hpp"
 
 
@@ -64,6 +65,7 @@ void Player::upkeep(double delta){
     }
 }
 void Player::jump(){
+    Mix_PlayChannel(-1, GlobalObjects::chunkPtr[1], 0);
     jumps--;
     std::cout << "Jumping, Jumps left: " << jumps << std::endl;
     /*
@@ -117,6 +119,7 @@ void Player::rest(){
     vit.mp = vit.maxMp;
 }
 void Player::kill(){
+    Mix_PlayChannel(-1, GlobalObjects::chunkPtr[0], 0);
     position = lastCP->position;
     rest();
 }

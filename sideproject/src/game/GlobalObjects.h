@@ -7,6 +7,8 @@
 
 #include <vector>
 #include <memory>
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_mixer.h"
 class Player;
 class Enemy;
 class Gate;
@@ -14,6 +16,7 @@ class Projectile;
 class Boss;
 struct SavedVariables;
 namespace GlobalObjects {
+    extern Mix_Chunk* chunkPtr[3];
     extern SavedVariables savedVariables;
     extern std::vector<Enemy> enemies;
     extern std::vector<Platform> platforms;

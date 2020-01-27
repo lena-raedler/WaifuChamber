@@ -24,6 +24,7 @@ Mix_Music *gMusic = NULL;
 Mix_Music *gMusicBoss = NULL;
 Mix_Music *gMusicVic = NULL;
 namespace GlobalObjects{
+    Mix_Chunk* chunkPtr[3];
     SavedVariables savedVariables;
     std::vector<Enemy> enemies;
     std::vector<Platform> platforms;
@@ -68,11 +69,19 @@ Game::Game()
 
     //init sound
 
+    int result;
     Mix_Init(MIX_INIT_MP3);
     if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 )
     {
         printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
     }
+    result = Mix_AllocateChannels(4);
+    if( result < 0 )
+    {
+        fprintf(stderr, "Unable to allocate mixing channels: %s\n", SDL_GetError());
+    }
+    GlobalObjects::chunkPtr[0] = Mix_LoadWAV("files/sounds/scream.wav");
+    GlobalObjects::chunkPtr[1] = Mix_LoadWAV("files/sounds/jump.wav");
     gMusic=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 1.mp3");
     gMusicBoss=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 2.mp3");
     gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
