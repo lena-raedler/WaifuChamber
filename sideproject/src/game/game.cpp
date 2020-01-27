@@ -273,6 +273,9 @@ int Game::loop() {
 
         if(player.vit.hp <= 0){
             std::cout << "GIT GUD" << std::endl;
+            GlobalObjects::clear();
+            room = utility::parseRoom(player.lastCP->room, *renderer, GlobalObjects::resolution);
+            fillGlobalObjects(room);
             player.kill();
         }
 
@@ -389,7 +392,7 @@ vec_t Game::determineInput(double delta){
             p.usesPlatforms = false;
             p.fragile = true;
             p.gravityType = NOGRAVITY;
-            p.owner = PLAYER;   // Not yet implementedd
+            p.owner = PLAYER;
             p.baseInit();
 
             Ability a;
@@ -580,10 +583,12 @@ void Game::spawnBoss(int x, int y){
     supermegadeathlazor.projectile = lazor;
     supermegadeathlazor.speed = 30;
     supermegadeathlazor.cooldown = 10;
+    supermegadeathlazor.origin = {GlobalConstants::tileSize, GlobalConstants::tileSize};
     boss.addAbility(supermegadeathlazor, 1, 1);
     boss.addHealthBar(100);
     boss.position ={(double)x, (double)y};
     boss.speed = 20;
+    boss.id = 1;
     boss.velocity = {0,0};
     boss.gravityType = NORMAL;
     boss.usesPlatforms = true;

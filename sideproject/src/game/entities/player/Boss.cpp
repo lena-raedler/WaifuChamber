@@ -40,7 +40,7 @@ void Boss::addAbility(Ability a, double probability, int phase){
     abilities.push_back({a, probability, phase});
 }
 void Boss::kill(){
-    GlobalObjects::savedVariables.bossesDefeated |= 1 << (id - 1);
+    GlobalObjects::savedVariables.bossesDefeated |= (1 << (id - 1));
     std::ofstream file("savegame.txt", std::ios::trunc);
     if (file.good()) {
         GlobalObjects::savedVariables.serialize(file);

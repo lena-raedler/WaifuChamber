@@ -47,3 +47,6 @@ END
 GATES
   gate_02
 END
+ENEMY
+  e_1 10 10
+END

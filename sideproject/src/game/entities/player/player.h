@@ -41,7 +41,7 @@ struct attributes{
 };
 struct vitals{
     int maxHp = 100;
-    int hp = 50;
+    int hp = 100;
 
     int maxStam = 100;
     int stam = 50;
