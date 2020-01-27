@@ -499,8 +499,8 @@ void Game::render() {
     for (Boss& b : GlobalObjects::bosses){
         scuff2 = true;
         renderer->renderTriangles(b.hitbox, 255, 0, 255, b.position);
-        //b.bars[0].renderBar(*renderer);
-        b.healthBar.renderBar(*renderer);
+        b.bars[0].renderBar(*renderer);
+        //b.healthBar.renderBar(*renderer);
     }
     /*for(auto& i : GlobalObjects::enemies) {
         i.render(*renderer);
@@ -618,7 +618,12 @@ void Game::spawnBoss(int x, int y){
     supermegadeathlazor.cooldown = 10;
     supermegadeathlazor.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
     boss.addAbility(supermegadeathlazor, 1, 1);
-    boss.addHealthBar(200);
+    //boss.addHealthBar(200);
+    //boss.addHealthBar(100);
+    boss.addHealthBar(200, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF});
+    boss.addHealthBar(160, {0x80, 0xFF, 0x80, 0xFF}, {0x00, 0xFF, 0x00, 0xFF});
+    boss.addHealthBar(120, {0x80, 0x80, 0xff, 0xFF}, {0x00, 0x00, 0xFF, 0xFF});
+    //boss.healthBar ( {64, 900, 1500, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}});
     boss.position ={(double)x, (double)y};
     boss.speed = 20;
     boss.id = 1;

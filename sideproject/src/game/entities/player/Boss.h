@@ -7,6 +7,7 @@
 #include "Movable.h"
 #include "Ability.h"
 #include "Bar.hpp"
+#include "../../utils/Rgba.hpp"
 
 class Boss : public Movable {
 public:
@@ -15,6 +16,7 @@ public:
     //Bar* healthBar = Bar();
     //std::unique_ptr<Bar> healthBar;
     Bar healthBar;
+    std::vector<Bar> bars;
 
     //virtual void specialStuff(double d);
     int phase = 1;
@@ -25,7 +27,7 @@ public:
     double speed;
     std::string name;
 
-    void addHealthBar(int i);
+    void addHealthBar(int i, Rgba borderColor, Rgba barColor);
     void upkeep(double d);
 
     void getHit(double d);

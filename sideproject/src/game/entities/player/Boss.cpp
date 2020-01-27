@@ -3,7 +3,7 @@
 //
 #include "../../SavedVariables.h"
 #include "Boss.h"
-void Boss::addHealthBar(int i){
+void Boss::addHealthBar(int i, Rgba borderColor, Rgba barColor){
     healthbars.push_back(std::make_pair(i, i));
     //bars.push_back({64, 900, 1500, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}});
 
@@ -21,8 +21,12 @@ void Boss::addHealthBar(int i){
     healthBar.healthBarBorderRect = {x, y, width, height};
     healthBar.healthBarBackgroundRect = {x+5, y+5, width-10, height-10};
     healthBar.healthBarRect = {x+5, y+5, width-10, height-10};
-    healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
-    healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
+    //healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
+    //healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
+    healthBar.borderColor = borderColor;
+    healthBar.barColor = barColor;
+
+    bars.push_back(healthBar);
 
     //healthBar->x = 64;
     /*
@@ -38,6 +42,7 @@ void Boss::upkeep(double d){
     if(healthbars.size() > 0) {
         if (healthbars[0].first < 1){
             healthbars.erase(healthbars.begin());
+            bars.erase(bars.begin());
         }
     } else{
         defeated = true;
@@ -45,9 +50,9 @@ void Boss::upkeep(double d){
     }
 
     // Bn0rb start
-    //for (int i = 0; i < healthbars.size(); i++) {
-        //bars[i].updateBar(healthbars[i].first / healthbars[i].second);
-    //}
+    for (int i = 0; i < healthbars.size(); i++) {
+        bars[i].updateBar(static_cast<double>(healthbars[i].first) / healthbars[i].second);
+    }
     healthBar.updateBar(static_cast<double>(healthbars[0].first) / healthbars[0].second);
     // Bn0rb end
 
