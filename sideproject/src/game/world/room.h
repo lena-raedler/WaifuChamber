@@ -15,6 +15,7 @@
 #include <utility>
 #include "Gate.h"
 #include "Platform.h"
+#include "../entities/player/Enemy.h"
 
 enum TileType{
     BLANK,
@@ -44,6 +45,8 @@ public:
     vec_t anchor; //where the base (bottom left) of the room is located in global space
     RoomRep rep;
     void fillPlatformVector(std::vector<Platform>& p);
+    void fillDoorVector(std::vector<Gate>& g);
+    void fillEnemyVector(std::vector<Enemy>& e);
 
     void printP();
     SDL_Rect backgroundRectangle;

@@ -84,6 +84,8 @@ Game::Game()
 
     room = utility::parseRoom(room, currentRoom, *renderer, resolution);
     room.fillPlatformVector(GlobalObjects::platforms);
+    room.fillEnemyVector(GlobalObjects::enemies);
+    room.fillDoorVector(GlobalObjects::gates);
     quit = false;
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);

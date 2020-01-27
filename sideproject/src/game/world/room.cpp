@@ -3,6 +3,7 @@
 //
 
 #include "room.h"
+#include "../entities/player/Enemy.h"
 
 Room::Room() {}
 
@@ -41,7 +42,12 @@ void Room::fillPlatformVector(std::vector<Platform>& p){
         p.push_back(Platform(pair, 3));
     }
 }
-
+void Room::fillDoorVector(std::vector<Gate>& g){
+    g.clear();
+}
+void Room::fillEnemyVector(std::vector<Enemy>& e){
+    e.clear();
+}
 void Room::printP() {
     for(auto i : platformPositions) {
         std::cout << i.first << " " << i.second << std::endl;

@@ -206,9 +206,6 @@ namespace utility {
                 }
             }
         }
-        for(auto& gp : gatePositions){
-            Gate gate(gp, gatePath);
-        }
 
         room.platformPositions = platformPositionVector;
         room.backgroundRectangle = backgroundRectangle;
