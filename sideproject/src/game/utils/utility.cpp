@@ -106,6 +106,17 @@ namespace utility {
         std::unordered_map<SDL_Texture*, SDL_Rect> tileRenderMap;
 
         while(std::getline(roomFile, line)) {
+            if(line.find("ID") != std::string::npos) {
+                while(line.find("END") == std::string::npos) {
+                    std::getline(roomFile, line);
+                    if(line.find("END") != std::string::npos) {
+                        break;
+                    }
+                    std::vector<std::string> idInformation;
+                    boost::split(idInformation, line, boost::is_any_of("_"));
+                    room.roomId = std::atoi(idInformation[1].c_str());
+                }
+            }
             if(line.find("BACKGROUND") != std::string::npos) {
                 std::getline(roomFile, line);
                 SDL_Surface* surface = IMG_Load(line.c_str());

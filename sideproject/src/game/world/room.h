@@ -60,6 +60,7 @@ public:
     std::vector<std::pair<std::pair<int, int >, int>> enemyInformation;
     std::vector<std::pair<std::pair<int, int >, int>> bossInformation;
     std::pair<int, int> newStartPosition;
+    int roomId;
 
     void clear();
 };
