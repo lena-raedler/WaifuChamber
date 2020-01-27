@@ -84,7 +84,7 @@ Game::Game()
     }
     currentRoom = "files/rooms/testroom.txt";
 
-    room = utility::parseRoom(room, currentRoom, *renderer, GlobalObjects::resolution);
+    room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
     fillGlobalObjects(room);
 
     quit = false;
@@ -222,7 +222,7 @@ int Game::loop() {
                 if (gate.collide(t)) {
                     room.clear();
                     GlobalObjects::clear();
-                    room = utility::parseRoom(room, gate.nextRoomPath, *renderer, GlobalObjects::resolution);
+                    room = utility::parseRoom(gate.nextRoomPath, *renderer, GlobalObjects::resolution);
                     player.position = utility::convert(room.newStartPosition);
                     std::cout << "hey hey kids" << std::endl;
                     fillGlobalObjects(room);
