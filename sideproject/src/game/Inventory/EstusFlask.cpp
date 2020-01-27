@@ -26,3 +26,15 @@ void EstusFlask::use(Inventory& inventory) {
         inventory.estusFlaskSlot.loadNewItemImage("files/textures/estusFlask/estus_flask_empty.png");
     }
 }
+
+bool EstusFlask::canReset() {
+    auto time = std::chrono::high_resolution_clock::now();
+    auto timeSinceLastReset = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastReset);
+    return timeSinceLastReset > std::chrono::milliseconds(cooldown);
+}
+
+void EstusFlask::reset(Inventory& inventory) {
+    usages = 3;
+    item.imagePath = "files/textures/estusFlask/estus_flask.png";
+    inventory.estusFlaskSlot.loadNewItemImage("files/textures/estusFlask/estus_flask.png");
+}

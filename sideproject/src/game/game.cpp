@@ -280,6 +280,10 @@ vec_t Game::determineInput(double delta){
             player.rest();
         }
     }
+    if(inputManager.isPressed(KEY_Y)) {     // QWERTY layout!
+        if (player.inventory.estusFlask.canReset())
+            player.inventory.estusFlask.reset(player.inventory);
+    }
     if(inputManager.isPressed(KEY_F)){//test
         if(!player.iframes) {
             player.getHit(10);
