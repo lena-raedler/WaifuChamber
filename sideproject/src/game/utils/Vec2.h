@@ -93,4 +93,5 @@ struct Vec2 {
 using vec_t = Vec2<value_t>;
 
 
+
 #endif //WAIFU_VEC2_H

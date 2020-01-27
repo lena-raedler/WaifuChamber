@@ -39,6 +39,9 @@ public:
     vec_t minPos;
     vec_t maxPos;
     bool usesPlatforms = true;
+    bool fragile = false; //deleted when hits platform
+    // Check in game.cpp if the projectile should be deleted
+    bool alive = true;
     bool isFalling;
     GravityType gravityType;
     void move(double delta);

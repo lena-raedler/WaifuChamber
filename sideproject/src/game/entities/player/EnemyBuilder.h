@@ -23,8 +23,10 @@ namespace EnemyBuilder {
 
             utility::fillDefaultHitbox(p.hitbox);
             p.damage = 20;
-            p.timeToLive = 1000;
+            p.timeToLive = 10000;
             p.usesPlatforms = false;
+            p.fragile = true;
+            p.gravityType = NOGRAVITY;
             p.baseInit();
 
             a.projectile = p;

@@ -46,12 +46,19 @@ void Movable::move(double delta){
 
     if(usesPlatforms){
         for(Platform p : GlobalObjects::platforms){
+
 //            auto direction = p.direction(*this);
             for(triangle t : hitbox) {
                 t.a += position;
                 t.b += position;
                 t.c += position;
-                if(p.collide(t)){
+                bool collide = p.collide(t);
+                if(fragile && collide){
+                    std::cout << "s" << std::endl;
+                    alive = false;
+                    return;
+                }
+                if(collide){
                     switch(p.type){
                         case PLATFORM :
                             if(position.y <= p.top.min().y) {//above

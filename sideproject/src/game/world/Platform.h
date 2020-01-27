@@ -10,7 +10,6 @@
 #include "../utils/utility.h"
 #include <vector>
 #include <utility>
-
 class Movable;
 enum platformType{PLATFORM = 0, WALL = 1, CEILING = 2, FLOOR = 3, SEMISOLID = 4};
 class Platform {

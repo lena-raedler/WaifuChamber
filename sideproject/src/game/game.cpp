@@ -17,6 +17,7 @@
 #include "world/room.h"
 #include "GlobalObjects.h"
 #include "world/Gate.h"
+#include "entities/player/EnemyBuilder.h"
 
 Mix_Music *gMusic = NULL;
 namespace GlobalObjects{
@@ -108,6 +109,8 @@ Game::Game()
                    {0,  GlobalConstants::tileSize}};
         player.hitbox.push_back(t);
     }
+
+    /*
     Enemy adam;
     adam.maxHealth = 100;
     adam.health = 100;
@@ -139,6 +142,9 @@ Game::Game()
     supermegadeathlazor.cooldown = 10;
     adam.abilities.push_back(supermegadeathlazor);
     GlobalObjects::enemies.push_back(adam);
+     */
+    EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
+    std::cout << GlobalObjects::enemies.size() << std::endl;
 
     //create rectangle to load the texture onto
 

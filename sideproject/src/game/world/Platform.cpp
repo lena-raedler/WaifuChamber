@@ -20,4 +20,3 @@ bool Platform::collide(triangle& t){
     return utility::triangleTriangleIntersection(top, t) || utility::triangleTriangleIntersection(bot, t);
 
 }
-

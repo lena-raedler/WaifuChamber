@@ -69,8 +69,10 @@ public:
         y = std::min(y, points[2].y);
         return {x, y};
     }
+    friend std::ostream& operator<<(std::ostream& os, triangle& obj){
+        os << "(" << obj.a << " " << obj.b << " " << obj.c << ")";
+        return os;
+    }
 
 };
-
-
 #endif //WAIFU_TRIANGLE_H
