@@ -85,7 +85,7 @@ Game::Game()
     gMusic=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 1.mp3");
     gMusicBoss=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 2.mp3");
     gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
-    Mix_VolumeMusic(0);
+    Mix_VolumeMusic(66);
     Mix_PlayMusic(gMusic, -1);
     // White background
     renderer->renderColor(255, 255, 255, 0);
