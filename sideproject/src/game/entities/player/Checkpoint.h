@@ -17,6 +17,7 @@ public:
         lockMovement = true;
         position = pos;
     }
+    std::string room;
     Player& player;
 
 

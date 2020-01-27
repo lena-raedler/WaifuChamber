@@ -62,7 +62,6 @@ void Movable::move(double delta){
                 t += position;
                 bool collide = p.collide(t);
                 if(fragile && collide){
-                    std::cout << "s" << std::endl;
                     alive = false;
                     return;
                 }

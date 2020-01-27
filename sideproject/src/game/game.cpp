@@ -145,28 +145,8 @@ Game::Game()
     adam.abilities.push_back(supermegadeathlazor);
     GlobalObjects::enemies.push_back(adam);
      */
-    Boss boss;
-    Ability supermegadeathlazor;
-    Projectile lazor;
-    lazor.gravityType = NOGRAVITY;
-    lazor.usesPlatforms = false;
-    lazor.damage = 10;
-    utility::fillDefaultHitbox(lazor.hitbox);
-    lazor.timeToLive = 1000;
-    supermegadeathlazor.projectile = lazor;
-    supermegadeathlazor.speed = 30;
-    supermegadeathlazor.cooldown = 10;
-    boss.addAbility(supermegadeathlazor, 1, 1);
-    boss.addHealthBar(100);
-    boss.position ={400, 400};
-    boss.speed = 20;
-    boss.velocity = {0,0};
-    boss.gravityType = NORMAL;
-    boss.usesPlatforms = true;
-    utility::fillDefaultHitbox(boss.hitbox, 2);
-    GlobalObjects::bosses.push_back(boss);
-    //EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
-    std::cout << GlobalObjects::bosses.size() << std::endl;
+
+    EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
 
     //create rectangle to load the texture onto
 
@@ -565,6 +545,7 @@ void Game::cleanup(){
         while (it != GlobalObjects::enemies.end()) {
 
             if (it->health <= 0) {
+                it->kill();
                 it = GlobalObjects::enemies.erase(it);
             } else {
                 ++it;
@@ -576,6 +557,7 @@ void Game::cleanup(){
         while (it != GlobalObjects::bosses.end()) {
 
             if (it->defeated) {
+                it->kill();
                 it = GlobalObjects::bosses.erase(it);
             } else {
                 ++it;
@@ -587,6 +569,29 @@ void Game::fillGlobalObjects(Room& room){
     room.fillPlatformVector(GlobalObjects::platforms);
     room.fillEnemyVector(GlobalObjects::enemies);
     room.fillDoorVector(GlobalObjects::gates);
+}
+
+void Game::spawnBoss(int x, int y){
+    Boss boss;
+    Ability supermegadeathlazor;
+    Projectile lazor;
+    lazor.gravityType = NOGRAVITY;
+    lazor.usesPlatforms = false;
+    lazor.damage = 10;
+    utility::fillDefaultHitbox(lazor.hitbox);
+    lazor.timeToLive = 1000;
+    supermegadeathlazor.projectile = lazor;
+    supermegadeathlazor.speed = 30;
+    supermegadeathlazor.cooldown = 10;
+    boss.addAbility(supermegadeathlazor, 1, 1);
+    boss.addHealthBar(100);
+    boss.position ={(double)x, (double)y};
+    boss.speed = 20;
+    boss.velocity = {0,0};
+    boss.gravityType = NORMAL;
+    boss.usesPlatforms = true;
+    utility::fillDefaultHitbox(boss.hitbox, 2);
+    GlobalObjects::bosses.push_back(boss);
 }
 
 

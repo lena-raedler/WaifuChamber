@@ -32,6 +32,7 @@ public:
     int loop();
 
 private:
+
     void cleanup();
     InputManager inputManager;
     SavedVariables savedVariables;
@@ -78,6 +79,7 @@ private:
     //this is just to quickly test things, everything below this will be removed
     std::vector<Projectile> projs;
 
+    void spawnBoss(int x, int y);
     void fillGlobalObjects(Room &room);
 };
 

@@ -22,6 +22,7 @@ public:
     void upkeep(double d);
 
     void getHit(double d);
+    void kill();
 
     void addAbility(Ability a, double probability, int phase);
 
