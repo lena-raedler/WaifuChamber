@@ -372,6 +372,10 @@ vec_t Game::determineInput(double delta){
             player.jump();
         }
     }
+    if(inputManager.isPressed(KEY_S)) {
+        // player.velocity = {0, 0};    // Makes the player hover lol
+        //player.velocity.y = 0;
+    }
     if(inputManager.isPressed(KEY_R)){//test
         player.rest();
     }
