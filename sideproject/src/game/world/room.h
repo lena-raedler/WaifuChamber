@@ -58,6 +58,7 @@ public:
     std::vector<std::pair<int, int >> floorPositions;
     std::vector<std::pair<std::pair<int, int >, std::string>> doorPositions;
     std::vector<std::pair<std::pair<int, int >, int>> enemyInformation;
+    std::vector<std::pair<std::pair<int, int >, int>> bossInformation;
     std::pair<int, int> newStartPosition;
 
     void clear();

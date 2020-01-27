@@ -245,6 +245,28 @@ namespace utility {
                     room.enemyInformation.push_back(enemyInformation);
                 }
             }
+            else if(line.find("BOSS") != std::string::npos) {
+                while(line.find("END") == std::string::npos) {
+                    std::getline(roomFile, line);
+                    if(line.find("END") != std::string::npos) {
+                        break;
+                    }
+                    std::pair<std::pair<int, int>, int> bossInformation;
+                    std::vector<std::string> bossStrings;
+                    while(line.front() == ' ') {
+                        boost::algorithm::erase_first(line, " ");
+                    }
+                    boost::split(bossStrings, line, boost::is_space());
+                    std::pair<int, int> bossPosition;
+                    bossPosition.first = std::atoi(bossStrings[1].c_str());
+                    bossPosition.second = std::atoi(bossStrings[2].c_str());
+                    bossInformation.first = bossPosition;
+                    std::vector<std::string> bossIdStrings;
+                    boost::split(bossIdStrings, bossStrings[0], boost::is_any_of("_"));
+                    bossInformation.second = std::atoi(bossIdStrings[1].c_str());
+                    room.bossInformation.push_back(bossInformation);
+                }
+            }
 
         }
 
