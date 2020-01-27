@@ -18,6 +18,7 @@
 #include "GlobalObjects.h"
 #include "world/Gate.h"
 #include "entities/player/EnemyBuilder.h"
+#include "entities/player/Boss.h"
 
 Mix_Music *gMusic = NULL;
 namespace GlobalObjects{
@@ -143,6 +144,7 @@ Game::Game()
     adam.abilities.push_back(supermegadeathlazor);
     GlobalObjects::enemies.push_back(adam);
      */
+    Boss boss;
     EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
     std::cout << GlobalObjects::enemies.size() << std::endl;
 
@@ -216,14 +218,16 @@ int Game::loop() {
             }
         }
         bool leave = false;
-        for(Gate& gate : GlobalObjects::gates){
+        for(Gate gate : GlobalObjects::gates){
             for(triangle t : player.hitbox) {
                 t+=player.position;
+                std::cout << gate.nextRoomPath << std::endl;
                 if (gate.collide(t)) {
-                    room.clear();
                     GlobalObjects::clear();
+                    std::cout << gate.nextRoomPath << std::endl;
                     room = utility::parseRoom(gate.nextRoomPath, *renderer, GlobalObjects::resolution);
                     player.position = utility::convert(room.newStartPosition);
+                    std::cout << player.position << std::endl;
                     std::cout << "hey hey kids" << std::endl;
                     fillGlobalObjects(room);
                     leave = true;
