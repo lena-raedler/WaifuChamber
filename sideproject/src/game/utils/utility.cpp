@@ -10,16 +10,21 @@ namespace utility {
         return {(double) p.first * GlobalConstants::tileSize, (double) p.second * GlobalConstants::tileSize};
     }
     void fillDefaultHitbox(std::vector<triangle>& vec){
+
+        fillDefaultHitbox(vec, 1);
+
+    }
+    void fillDefaultHitbox(std::vector<triangle>& vec, int i){
         {
             triangle t{{0,                         0},
-                       {GlobalConstants::tileSize, 0},
-                       {0,                         GlobalConstants::tileSize}};
+                       {static_cast<double>(GlobalConstants::tileSize*i), 0},
+                       {0,                         static_cast<double>(GlobalConstants::tileSize * i)}};
             vec.push_back(t);
         }
         {
-            triangle t{{GlobalConstants::tileSize,  GlobalConstants::tileSize},
-                       {GlobalConstants::tileSize, 0},
-                       {0,  GlobalConstants::tileSize}};
+            triangle t{{static_cast<double>(GlobalConstants::tileSize * i),  static_cast<double>(GlobalConstants::tileSize * i)},
+                       {static_cast<double>(GlobalConstants::tileSize * i), 0},
+                       {0,  static_cast<double>(GlobalConstants::tileSize * i)}};
             vec.push_back(t);
         }
 

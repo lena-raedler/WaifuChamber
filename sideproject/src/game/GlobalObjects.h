@@ -11,6 +11,7 @@ class Player;
 class Enemy;
 class Gate;
 class Projectile;
+class Boss;
 namespace GlobalObjects {
     extern std::vector<Enemy> enemies;
     extern std::vector<Platform> platforms;
@@ -18,6 +19,7 @@ namespace GlobalObjects {
     extern std::vector<Projectile> projectiles;
     extern std::vector<Gate> gates;
     extern std::pair<int, int> resolution;
+    extern std::vector<Boss> bosses;
 };
 
 

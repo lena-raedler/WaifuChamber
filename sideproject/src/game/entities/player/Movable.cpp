@@ -48,13 +48,18 @@ void Movable::move(double delta){
     projPosition += (velocity*delta);
 
     if(usesPlatforms){
+        double xMax = std::numeric_limits<double>::min();
+        double yMax = std::numeric_limits<double>::min();
+        for(triangle& t :hitbox ){//todo remove this
+            vec_t tmp = t.max();
+            xMax = std::max(xMax, tmp.x);
+            yMax = std::max(yMax, tmp.y);
+        }
         for(Platform p : GlobalObjects::platforms){
 
 //            auto direction = p.direction(*this);
             for(triangle t : hitbox) {
-                t.a += position;
-                t.b += position;
-                t.c += position;
+                t += position;
                 bool collide = p.collide(t);
                 if(fragile && collide){
                     std::cout << "s" << std::endl;
@@ -66,7 +71,7 @@ void Movable::move(double delta){
                         case PLATFORM :
                             if(position.y <= p.top.min().y) {//above
                                 grounded();
-                                projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
+                                projPosition.y = p.top.min().y - yMax; ; //maybe add epsilon idk
                                 if(velocity.y > 0){
                                     velocity.y = 0;
                                 }
@@ -81,7 +86,7 @@ void Movable::move(double delta){
                             break;
                         case WALL :
                             if(position.x <= p.top.min().x) {//above
-                                projPosition.x = p.top.min().x - GlobalConstants::tileSize; //maybe add epsilon idk
+                                projPosition.x = p.top.min().x - xMax; //maybe add epsilon idk
                                 if(velocity.x > 0){
                                     velocity.x = 0;
                                 }
@@ -106,7 +111,7 @@ void Movable::move(double delta){
                             break;
                         case FLOOR :
                             grounded();
-                            projPosition.y = p.top.min().y - GlobalConstants::tileSize; //maybe add epsilon idk
+                            projPosition.y = p.top.min().y - yMax; //maybe add epsilon idk
                             if(velocity.y > 0){
                                 velocity.y = 0;
                             }

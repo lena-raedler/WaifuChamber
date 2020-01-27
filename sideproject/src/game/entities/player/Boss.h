@@ -21,6 +21,10 @@ public:
     void addHealthBar(int i);
     void upkeep(double d);
 
+    void getHit(double d);
+
+    void addAbility(Ability a, double probability, int phase);
+
 
 };
 
