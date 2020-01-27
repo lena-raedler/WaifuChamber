@@ -21,6 +21,7 @@ public:
     Behaviour ai;
 
     void setMaxHealth(int i);
+    void getHit(double d);
 
     void upkeep(double delta);
 };

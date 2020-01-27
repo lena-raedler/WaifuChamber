@@ -50,6 +50,7 @@ public:
     void baseInit();
     void resolve(Player& p); //this will be called on the object the projectile collides with
     bool collide(Movable m);
+    bool collide(Movable& m, bool weirdjank);
     Image imageNew;
 private:
     bool uninit = true;

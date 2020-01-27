@@ -28,6 +28,7 @@ namespace GlobalObjects{
     std::vector<Projectile> projectiles;
     std::vector<Gate> gates;
     std::pair<int, int> resolution;
+    std::vector<Boss> bosses;
     void clear(){
         enemies.clear();
         platforms.clear();
@@ -145,8 +146,27 @@ Game::Game()
     GlobalObjects::enemies.push_back(adam);
      */
     Boss boss;
-    EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
-    std::cout << GlobalObjects::enemies.size() << std::endl;
+    Ability supermegadeathlazor;
+    Projectile lazor;
+    lazor.gravityType = NOGRAVITY;
+    lazor.usesPlatforms = false;
+    lazor.damage = 10;
+    utility::fillDefaultHitbox(lazor.hitbox);
+    lazor.timeToLive = 1000;
+    supermegadeathlazor.projectile = lazor;
+    supermegadeathlazor.speed = 30;
+    supermegadeathlazor.cooldown = 10;
+    boss.addAbility(supermegadeathlazor, 1, 1);
+    boss.addHealthBar(100);
+    boss.position ={400, 400};
+    boss.speed = 20;
+    boss.velocity = {0,0};
+    boss.gravityType = NORMAL;
+    boss.usesPlatforms = true;
+    utility::fillDefaultHitbox(boss.hitbox, 2);
+    GlobalObjects::bosses.push_back(boss);
+    //EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
+    std::cout << GlobalObjects::bosses.size() << std::endl;
 
     //create rectangle to load the texture onto
 
@@ -213,23 +233,37 @@ int Game::loop() {
         for (Projectile& projectile : GlobalObjects::projectiles) {
             projectile.textureLocation = "files/textures/weapons/projectile_01.png";
             projectile.upkeep(deltaTime/deltaDenom);
-            if(blackmagic::collide(projectile, player)){
-                player.getHit(projectile.damage);
-                projectile.alive = false;
+            if(projectile.owner == HOSTILE) {
+                if (blackmagic::collide(projectile, player)) {
+                    player.getHit(projectile.damage);
+                    projectile.alive = false;
+                }
+            }else if (projectile.owner == PLAYER){
+                for (Enemy &e : GlobalObjects::enemies) {
+                    if (blackmagic::collide(projectile, e)) {
+                        e.getHit(projectile.damage);
+                        projectile.alive = false;
+                    }
+                }
+                for (Boss &b: GlobalObjects::bosses) {
+                    if (projectile.collide(b, false)) {
+                        b.getHit(projectile.damage);
+                        projectile.alive = false;
+                    }
+                }
             }
+        }
+        for(Boss& boss : GlobalObjects::bosses){
+            boss.upkeep(deltaTime/deltaDenom);
         }
         bool leave = false;
         for(Gate gate : GlobalObjects::gates){
             for(triangle t : player.hitbox) {
                 t+=player.position;
-                std::cout << gate.nextRoomPath << std::endl;
                 if (gate.collide(t)) {
                     GlobalObjects::clear();
-                    std::cout << gate.nextRoomPath << std::endl;
                     room = utility::parseRoom(gate.nextRoomPath, *renderer, GlobalObjects::resolution);
                     player.position = utility::convert(room.newStartPosition);
-                    std::cout << player.position << std::endl;
-                    std::cout << "hey hey kids" << std::endl;
                     fillGlobalObjects(room);
                     leave = true;
                     break;
@@ -254,7 +288,6 @@ int Game::loop() {
         cleanup();
 
     }
-
     return 0;
 }
 
@@ -365,7 +398,7 @@ vec_t Game::determineInput(double delta){
 
             Ability a;
             a.projectile = p;
-            a.speed = 20;
+            a.speed = 47;
             a.cooldown = 1000;
             a.origin = {50, 0};
             a.aimed = false;
@@ -441,7 +474,6 @@ void Game::render() {
     renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
 
-
     for (Projectile& projectile : GlobalObjects::projectiles) {
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
         renderer->renderTriangles(projectile.hitbox, 255, 255, 255, projectile.position);
@@ -456,6 +488,9 @@ void Game::render() {
     }
     for (Gate& g : GlobalObjects::gates){
         renderer->renderTriangles(g.hitbox, 0,255, 255, g.position);
+    }
+    for (Boss& b : GlobalObjects::bosses){
+        renderer->renderTriangles(b.hitbox, 255, 0, 255, b.position);
     }
     /*for(auto& i : GlobalObjects::enemies) {
         i.render(*renderer);
@@ -531,6 +566,17 @@ void Game::cleanup(){
 
             if (it->health <= 0) {
                 it = GlobalObjects::enemies.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    }
+    {
+        auto it = GlobalObjects::bosses.begin();
+        while (it != GlobalObjects::bosses.end()) {
+
+            if (it->defeated) {
+                it = GlobalObjects::bosses.erase(it);
             } else {
                 ++it;
             }

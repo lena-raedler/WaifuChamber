@@ -34,6 +34,7 @@ namespace utility {
     int bongo();
     Room parseRoom(std::string path, Renderer &renderer, std::pair<int, int> resolution);
     Image loadImage(std::string path, Renderer& renderer);
+    void fillDefaultHitbox(std::vector<triangle>& vec, int i);
 }
 
 

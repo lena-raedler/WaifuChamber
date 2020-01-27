@@ -16,3 +16,7 @@ void Enemy::setMaxHealth(int i) {
     maxHealth = i;
     health = i;
 }
+
+void Enemy::getHit(double d){
+    health -= d;
+}
