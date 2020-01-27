@@ -21,6 +21,8 @@
 #include "entities/player/Boss.h"
 
 Mix_Music *gMusic = NULL;
+Mix_Music *gMusicBoss = NULL;
+Mix_Music *gMusicVic = NULL;
 namespace GlobalObjects{
     SavedVariables savedVariables;
     std::vector<Enemy> enemies;
@@ -71,8 +73,11 @@ Game::Game()
     {
         printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
     }
-    gMusic=Mix_LoadMUS("files/music/Certain Plan.mp3");
-    Mix_VolumeMusic(32);
+    gMusic=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 1.mp3");
+    gMusicBoss=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 2.mp3");
+    gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
+    Mix_VolumeMusic(0);
+    Mix_PlayMusic(gMusic, -1);
     // White background
     renderer->renderColor(255, 255, 255, 0);
 
@@ -161,9 +166,7 @@ Game::Game()
 
 
 
-    if(!bossDefeated(1)) {
-        spawnBoss(400, 400);
-    }
+
     //create rectangle to load the texture onto
 
     rectangle.x = playerPosition.x;
@@ -181,7 +184,6 @@ Game::Game()
 
     //inventory = Inventory(*renderer);
     player.inventory = Inventory(*renderer);
-    spawnBoss(500, 500);
 }
 
 Game::~Game() {
@@ -263,6 +265,17 @@ int Game::loop() {
                     GlobalObjects::clear();
                     room = utility::parseRoom(gate.nextRoomPath, *renderer, GlobalObjects::resolution);
                     player.position = utility::convert(room.newStartPosition);
+                    switch(room.roomId){
+                        case 1: player.position=utility::convert({57, 28});
+                        break;
+                        case 2: player.position=utility::convert({2, 28});
+                        break;
+                        case 3: player.position=utility::convert({3, 4});
+                        break;
+                        default:
+                            break;
+                    }
+                    std::cout << player.position << std::endl;
                     fillGlobalObjects(room);
                     leave = true;
                     break;
@@ -280,6 +293,17 @@ int Game::loop() {
             room = utility::parseRoom(player.lastCP->room, *renderer, GlobalObjects::resolution);
             fillGlobalObjects(room);
             player.kill();
+        }
+        if(!scuffed && room.roomId == 3 && !bossDefeated(1)) {
+
+            scuffed = true;
+            Mix_PlayMusic(gMusicBoss, -1);
+            spawnBoss(800, 800);
+        }
+
+        if(scuff2 && GlobalObjects::bosses.size() == 0){
+            Mix_PlayMusic(gMusicVic, 1);
+            scuff2 = false;
         }
 
         // Update player
@@ -473,6 +497,7 @@ void Game::render() {
         renderer->renderTriangles(g.hitbox, 0,255, 255, g.position);
     }
     for (Boss& b : GlobalObjects::bosses){
+        scuff2 = true;
         renderer->renderTriangles(b.hitbox, 255, 0, 255, b.position);
         //b.bars[0].renderBar(*renderer);
         b.healthBar.renderBar(*renderer);
@@ -579,7 +604,7 @@ void Game::fillGlobalObjects(Room& room){
     room.fillDoorVector(GlobalObjects::gates);
 }
 
-void Game::spawnBoss(int x, int y) {
+void Game::spawnBoss(int x, int y){
     Boss boss;
     Ability supermegadeathlazor;
     Projectile lazor;
@@ -587,14 +612,13 @@ void Game::spawnBoss(int x, int y) {
     lazor.usesPlatforms = false;
     lazor.damage = 10;
     utility::fillDefaultHitbox(lazor.hitbox);
-    lazor.timeToLive = 1000;
+    lazor.timeToLive = 1200;
     supermegadeathlazor.projectile = lazor;
     supermegadeathlazor.speed = 30;
     supermegadeathlazor.cooldown = 10;
-    supermegadeathlazor.origin = {GlobalConstants::tileSize, GlobalConstants::tileSize};
+    supermegadeathlazor.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
     boss.addAbility(supermegadeathlazor, 1, 1);
-    boss.addHealthBar(100);
-    //boss.healthBar ( {64, 900, 1500, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}});
+    boss.addHealthBar(200);
     boss.position ={(double)x, (double)y};
     boss.speed = 20;
     boss.id = 1;

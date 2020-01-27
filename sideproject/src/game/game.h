@@ -79,6 +79,9 @@ private:
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed
     std::vector<Projectile> projs;
+    bool scuffed = false;
+    bool scuff2 = false;
+    bool scuff3 = false;
 
     void spawnBoss(int x, int y);
     void fillGlobalObjects(Room &room);
