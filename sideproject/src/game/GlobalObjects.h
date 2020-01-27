@@ -17,6 +17,7 @@ namespace GlobalObjects {
     extern Player* playerPtr;//careful with that
     extern std::vector<Projectile> projectiles;
     extern std::vector<Gate> gates;
+    extern std::pair<int, int> resolution;
 };
 
 

@@ -26,9 +26,12 @@ public:
     vec_t position;
     std::string nextRoomPath;
     std::vector<triangle> hitbox;
+    bool collide(triangle& p);
+    void warpPlayer();
     bool leftLocked; //top
     bool rightLocked; //bot
     int keyId = -1;
+
 };
 
 

@@ -26,6 +26,7 @@ namespace GlobalObjects{
     Player* playerPtr = NULL;
     std::vector<Projectile> projectiles;
     std::vector<Gate> gates;
+    std::pair<int, int> resolution;
     void clear(){
         enemies.clear();
         platforms.clear();
@@ -39,9 +40,9 @@ Game::Game()
 {
     GlobalObjects::playerPtr = &player;
     debugshit();
-    std::pair<int, int> resolution;
-    resolution.first = screenWidth;
-    resolution.second = screenHeight;
+
+    GlobalObjects::resolution.first = screenWidth;
+    GlobalObjects::resolution.second = screenHeight;
     //initialize SDL components here
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         std::cout << "Couldn't inititalize SDL" << std::endl;
@@ -52,7 +53,7 @@ Game::Game()
     if(!(IMG_Init(imageFlags) & imageFlags)) {
         throw std::runtime_error("Could not initialize SDL_image");
     }
-    renderer = std::make_unique<Renderer>(resolution);
+    renderer = std::make_unique<Renderer>(GlobalObjects::resolution);
 
     //init sound
 
@@ -83,7 +84,7 @@ Game::Game()
     }
     currentRoom = "files/rooms/testroom.txt";
 
-    room = utility::parseRoom(room, currentRoom, *renderer, resolution);
+    room = utility::parseRoom(room, currentRoom, *renderer, GlobalObjects::resolution);
     room.fillPlatformVector(GlobalObjects::platforms);
     room.fillEnemyVector(GlobalObjects::enemies);
     room.fillDoorVector(GlobalObjects::gates);
@@ -215,6 +216,25 @@ int Game::loop() {
                 projectile.alive = false;
             }
         }
+        bool leave = false;
+        for(Gate& gate : GlobalObjects::gates){
+            for(triangle t : player.hitbox) {
+                t+=player.position;
+                std::cout<< "mongo"<< std::endl;
+                if (gate.collide(t)) {
+                    std::cout<< "bongo"<< std::endl;
+                    room.clear();
+                    GlobalObjects::clear();
+                    room = utility::parseRoom(room, gate.nextRoomPath, *renderer, GlobalObjects::resolution);
+                    leave = true;
+                    break;
+                }
+
+            }
+            if(leave){
+                break;
+            }
+        }
 
         if(player.vit.hp <= 0){
             std::cout << "GIT GUD" << std::endl;
@@ -224,8 +244,9 @@ int Game::loop() {
         // Update player
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
-        render();
         cleanup();
+        render();
+
     }
     return 0;
 }

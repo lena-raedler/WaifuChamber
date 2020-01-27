@@ -54,6 +54,12 @@ public:
         std::clamp(id, 0, 2);
         return points[id];
     }
+    triangle& operator+=(vec_t& rhs){
+        a+=rhs;
+        b+=rhs;
+        c+=rhs;
+        return (*this);
+    }
 
     vec_t max(){
         double x = std::max(points[0].x, points[1].x);
