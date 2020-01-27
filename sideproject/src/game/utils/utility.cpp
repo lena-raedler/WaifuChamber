@@ -94,7 +94,6 @@ namespace utility {
         SDL_Texture* backgroundTexture;
         SDL_Rect backgroundRectangle;
         std::string gatePath;
-        std::pair<int, int> newPlayerPos;
         std::vector<std::pair<int, int>> platformPositionVector;
         std::vector<std::pair<int, int>> gatePositions;
         std::unordered_map<char, std::string> tileMap;
@@ -199,8 +198,8 @@ namespace utility {
                         std::string gateNumber = gateStrings[0];
                         if (line.compare(gateNumber)) {
                             gatePath = gateStrings[1];
-                            newPlayerPos.first = std::atoi(gateStrings[2].c_str());
-                            newPlayerPos.second = std::atoi(gateStrings[3].c_str());
+                            room.newStartPosition.first = std::atoi(gateStrings[2].c_str());
+                            room.newStartPosition.second = std::atoi(gateStrings[3].c_str());
                             std::pair<std::pair<int, int>, std::string> gateInfo;
                             for(auto i : gatePositions) {
                                 gateInfo.first = i;
