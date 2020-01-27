@@ -3,9 +3,30 @@
 //
 
 #include "player.h"
+//#include "../../utils/Rgba.hpp"
 
 
-Player::Player() {
+Player::Player()
+    //: healthBar({64, 64, 210, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}})
+{
+    int x = 64;
+    int y = 64;
+    int width = 210;
+    int height = 30;
+    healthBar.x = x;
+    healthBar.y = y;
+    healthBar.width = width;
+    healthBar.height = height;
+    //healthBar = {x, y, width, height, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}};
+    healthBar.healthBarBorderRect = {x, y, width, height};
+    healthBar.healthBarBackgroundRect = {x+5, y+5, width-10, height-10};
+    healthBar.healthBarRect = {x+5, y+5, width-10, height-10};
+    healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
+    healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
+
+    //healthBar.healthBarBorderRect({x, y, width, height})
+    //        , healthBarBackgroundRect({x+5, y+5, width-10, height-10})
+    //        , healthBarRect({x+5, y+5, width-10, height-10})
     position.x = 50;
     position.y = 50;
     textureLocation = "files/textures/test_player.png";

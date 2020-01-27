@@ -19,6 +19,7 @@
 #include "Checkpoint.h"
 #include "statuseffect.h"
 #include "../../Inventory/Inventory.hpp"
+#include "Bar.hpp"
 
 enum lastCheckPoint{//maybe we dont need this
     A1C1,
@@ -71,6 +72,7 @@ public:
     vitals vit;
     Checkpoint* lastCP;
     Inventory inventory;
+    Bar healthBar;
 
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);

@@ -28,6 +28,8 @@ public:
 
     void render();
 
+    std::vector<triangle> hitbox;
+
 };
 
 

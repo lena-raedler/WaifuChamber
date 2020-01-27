@@ -173,12 +173,15 @@ Game::Game()
     player.rec = std::make_unique<SDL_Rect>(rectangle);
     inputManager.init();
 
+    /*
     healthBarBorderRect = {20, 20, 210, 30};
     healthBarBackgroundRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 10, healthBarBorderRect.h - 10};
     healthBarRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 50, healthBarBorderRect.h - 10};
+    */
 
     //inventory = Inventory(*renderer);
     player.inventory = Inventory(*renderer);
+    spawnBoss(500, 500);
 }
 
 Game::~Game() {
@@ -471,6 +474,8 @@ void Game::render() {
     }
     for (Boss& b : GlobalObjects::bosses){
         renderer->renderTriangles(b.hitbox, 255, 0, 255, b.position);
+        //b.bars[0].renderBar(*renderer);
+        b.healthBar.renderBar(*renderer);
     }
     /*for(auto& i : GlobalObjects::enemies) {
         i.render(*renderer);
@@ -480,10 +485,13 @@ void Game::render() {
     }*/
 
     // Update the remaining health percentage
-    updateHealthBar();
+    //updateHealthBar();
+    player.healthBar.updateBar(player.vit.healthPercentage());
 
     // Render the health bar according to how much hp is left
-    renderHealthBar();
+    //renderHealthBar();
+    player.healthBar.renderBar(*renderer);
+
     //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
     //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
     //renderer->renderBar(50, 50, 100, 10, 200, hpCol, barBGCol);
@@ -571,7 +579,7 @@ void Game::fillGlobalObjects(Room& room){
     room.fillDoorVector(GlobalObjects::gates);
 }
 
-void Game::spawnBoss(int x, int y){
+void Game::spawnBoss(int x, int y) {
     Boss boss;
     Ability supermegadeathlazor;
     Projectile lazor;
@@ -586,6 +594,7 @@ void Game::spawnBoss(int x, int y){
     supermegadeathlazor.origin = {GlobalConstants::tileSize, GlobalConstants::tileSize};
     boss.addAbility(supermegadeathlazor, 1, 1);
     boss.addHealthBar(100);
+    //boss.healthBar ( {64, 900, 1500, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}});
     boss.position ={(double)x, (double)y};
     boss.speed = 20;
     boss.id = 1;

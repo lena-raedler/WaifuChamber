@@ -7,12 +7,12 @@
 Inventory::Inventory() = default;
 
 Inventory::Inventory(Renderer& renderer)
-        : rangedWeaponSlot(Item("Standard Crossbow", "files/textures/weapons/bow_01.png", 10), renderer, Vec2<int> {50, 60})
-        , slot2(renderer, Vec2<int> {90, 60})
-        , slot3(renderer, Vec2<int> {130, 60})
-        , slot4(renderer, Vec2<int> {170, 60})
-        , slot5(renderer, Vec2<int> {210, 60})
-        , estusFlaskSlot(Item("Estus Flask", "files/textures/estusFlask/estus_flask.png", 10), renderer, Vec2<int> {250, 60})
+        : rangedWeaponSlot(Item("Standard Crossbow", "files/textures/weapons/bow_01.png", 10), renderer, Vec2<int> {64, 112})
+        , slot2(renderer, Vec2<int> {104, 112})
+        , slot3(renderer, Vec2<int> {144, 112})
+        , slot4(renderer, Vec2<int> {184, 112})
+        , slot5(renderer, Vec2<int> {224, 112})
+        , estusFlaskSlot(Item("Estus Flask", "files/textures/estusFlask/estus_flask.png", 10), renderer, Vec2<int> {264, 112})
         , estusFlask()
         , renderer(&renderer)
 {}

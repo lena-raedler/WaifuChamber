@@ -6,10 +6,16 @@
 #define WAIFU_BOSS_H
 #include "Movable.h"
 #include "Ability.h"
+#include "Bar.hpp"
 
 class Boss : public Movable {
 public:
     std::vector<std::pair<int, int>> healthbars;//cur, max
+    //std::vector<Bar> bars;
+    //Bar* healthBar = Bar();
+    //std::unique_ptr<Bar> healthBar;
+    Bar healthBar;
+
     //virtual void specialStuff(double d);
     int phase = 1;
     int id;
@@ -26,6 +32,7 @@ public:
     void kill();
 
     void addAbility(Ability a, double probability, int phase);
+    // double healthPercentage(){return (double) hp / maxHp;}
 
 
 };
