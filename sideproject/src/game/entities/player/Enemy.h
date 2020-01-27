@@ -9,13 +9,18 @@
 #include "player.h"
 #include "Ability.h"
 
+enum Behaviour{CHASE, STATIONARY, FLEE, PATROL};
+
 class Enemy : public Movable{
 public:
-    int maxhealth = 1;
-    int health = maxhealth;
+    int maxHealth = 1;
+    int health = maxHealth;
     double speed;
     std::vector<Ability> abilities;
     std::vector<double> probability;
+    Behaviour ai;
+
+    void setMaxHealth(int i);
 
     void upkeep(double delta);
 };

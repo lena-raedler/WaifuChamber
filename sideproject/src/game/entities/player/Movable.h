@@ -38,7 +38,7 @@ public:
     vec_t velocity; // {0, 0};
     vec_t minPos;
     vec_t maxPos;
-    bool usesPlatforms;
+    bool usesPlatforms = true;
     bool isFalling;
     GravityType gravityType;
     void move(double delta);

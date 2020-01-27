@@ -12,3 +12,7 @@ void Enemy::upkeep(double delta){
         }
     }
 }
+void Enemy::setMaxHealth(int i) {
+    maxHealth = i;
+    health = i;
+}

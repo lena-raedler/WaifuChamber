@@ -109,7 +109,7 @@ Game::Game()
         player.hitbox.push_back(t);
     }
     Enemy adam;
-    adam.maxhealth = 100;
+    adam.maxHealth = 100;
     adam.health = 100;
     adam.position ={300, 300};
     adam.velocity = {0,0};
