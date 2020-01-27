@@ -253,6 +253,7 @@ int Game::loop() {
         cleanup();
 
     }
+
     return 0;
 }
 
@@ -345,6 +346,37 @@ vec_t Game::determineInput(double delta){
             //projs[0].hitbox.push_back(t);
             projs.back().hitbox.push_back(t);
 
+        }
+    }
+    if (inputManager.isPressed(KEY_C)) {
+        if (player.canSpawnProjectile()) {
+            player.spawnProjectile();   // Set the cooldown timer
+
+            Projectile p;
+            utility::fillDefaultHitbox(p.hitbox);
+            p.damage = 20;
+            p.timeToLive = 2000;
+            p.usesPlatforms = false;
+            p.fragile = true;
+            p.gravityType = NOGRAVITY;
+            p.owner = PLAYER;   // Not yet implementedd
+            p.baseInit();
+
+            Ability a;
+            a.projectile = p;
+            a.speed = 20;
+            a.cooldown = 1000;
+            a.origin = {50, 0};
+            a.aimed = false;
+            abilities.push_back(a);
+
+            //int mouse_x, mouse_y;
+            //SDL_GetMouseState(&mouse_x, &mouse_y);
+            //vec_t vec {mouse_x, mouse_y};
+            //Vec2<double> vec2 {static_cast<double>(mouse_x), static_cast<double>(mouse_y)};
+            //Vec2<double> vec2 {static_cast<double>(player.position.x ), static_cast<double>(player.position.y)};
+            a.use({player.position});
+            //std::cout << "mouse_x: " << mouse_x << "\tmouse_y: " << mouse_y << std::endl;
         }
     }
     if(inputManager.isPressed(KEY_M)){
