@@ -85,9 +85,8 @@ Game::Game()
     currentRoom = "files/rooms/testroom.txt";
 
     room = utility::parseRoom(room, currentRoom, *renderer, GlobalObjects::resolution);
-    room.fillPlatformVector(GlobalObjects::platforms);
-    room.fillEnemyVector(GlobalObjects::enemies);
-    room.fillDoorVector(GlobalObjects::gates);
+    fillGlobalObjects(room);
+
     quit = false;
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
@@ -220,12 +219,13 @@ int Game::loop() {
         for(Gate& gate : GlobalObjects::gates){
             for(triangle t : player.hitbox) {
                 t+=player.position;
-                std::cout<< "mongo"<< std::endl;
                 if (gate.collide(t)) {
-                    std::cout<< "bongo"<< std::endl;
                     room.clear();
                     GlobalObjects::clear();
                     room = utility::parseRoom(room, gate.nextRoomPath, *renderer, GlobalObjects::resolution);
+                    player.position = utility::convert(room.newStartPosition);
+                    std::cout << "hey hey kids" << std::endl;
+                    fillGlobalObjects(room);
                     leave = true;
                     break;
                 }
@@ -244,8 +244,9 @@ int Game::loop() {
         // Update player
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
-        cleanup();
+
         render();
+        cleanup();
 
     }
     return 0;
@@ -362,12 +363,14 @@ vec_t Game::determineInput(double delta){
         if (file.good()) {
             savedVariables.serialize(file);
         }
+        file.close();
     }
     if(inputManager.isPressed(KEY_L)){
         std::ifstream file("savegame.txt");
         if(file.good()) {
             savedVariables.deSerialize(file);
         }
+        file.close();
     }
 
     return{out.x, out.y};
@@ -489,6 +492,11 @@ void Game::cleanup(){
             }
         }
     }
+}
+void Game::fillGlobalObjects(Room& room){
+    room.fillPlatformVector(GlobalObjects::platforms);
+    room.fillEnemyVector(GlobalObjects::enemies);
+    room.fillDoorVector(GlobalObjects::gates);
 }
 
 

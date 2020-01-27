@@ -75,6 +75,8 @@ private:
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed
     std::vector<Projectile> projs;
+
+    void fillGlobalObjects(Room &room);
 };
 
 
