@@ -22,6 +22,7 @@
 
 Mix_Music *gMusic = NULL;
 namespace GlobalObjects{
+    SavedVariables savedVariables;
     std::vector<Enemy> enemies;
     std::vector<Platform> platforms;
     Player* playerPtr = NULL;
@@ -34,12 +35,18 @@ namespace GlobalObjects{
         platforms.clear();
         projectiles.clear();
         gates.clear();
+        bosses.clear();
     }
 }
 ////////////////////////////////////////////////////////////////
 Game::Game()
     : pause(false)
 {
+    std::ifstream file("savegame.txt");
+    if(file.good()) {
+        GlobalObjects::savedVariables.deSerialize(file);
+    }
+    file.close();
     GlobalObjects::playerPtr = &player;
     debugshit();
 
@@ -154,6 +161,9 @@ Game::Game()
 
 
 
+    if(!bossDefeated(1)) {
+        spawnBoss(400, 400);
+    }
     //create rectangle to load the texture onto
 
     rectangle.x = playerPosition.x;
@@ -410,25 +420,6 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_N)){
         Mix_PauseMusic();
     }
-    if(inputManager.isPressed(KEY_K)){
-        std::cout << savedVariables.test << std::endl;
-        savedVariables.test = 1222;
-    }
-    if(inputManager.isPressed(KEY_J)){
-        std::ofstream file("savegame.txt", std::ios::trunc);
-        if (file.good()) {
-            savedVariables.serialize(file);
-        }
-        file.close();
-    }
-    if(inputManager.isPressed(KEY_L)){
-        std::ifstream file("savegame.txt");
-        if(file.good()) {
-            savedVariables.deSerialize(file);
-        }
-        file.close();
-    }
-
     return{out.x, out.y};
 }
 
@@ -598,6 +589,11 @@ void Game::spawnBoss(int x, int y){
     boss.usesPlatforms = true;
     utility::fillDefaultHitbox(boss.hitbox, 2);
     GlobalObjects::bosses.push_back(boss);
+}
+
+bool Game::bossDefeated(int i){
+    int tmp = GlobalObjects::savedVariables.bossesDefeated >> (i - 1);
+    return tmp & 1;
 }
 
 

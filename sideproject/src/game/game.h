@@ -35,7 +35,8 @@ private:
 
     void cleanup();
     InputManager inputManager;
-    SavedVariables savedVariables;
+
+    bool bossDefeated(int i);
     void render();
     void updateHealthBar();
     void renderHealthBar();

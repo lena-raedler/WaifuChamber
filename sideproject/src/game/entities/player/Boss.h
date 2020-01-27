@@ -12,6 +12,7 @@ public:
     std::vector<std::pair<int, int>> healthbars;//cur, max
     //virtual void specialStuff(double d);
     int phase = 1;
+    int id;
     std::vector<std::tuple<Ability, double, int>> abilities;
 
     bool defeated = false;
