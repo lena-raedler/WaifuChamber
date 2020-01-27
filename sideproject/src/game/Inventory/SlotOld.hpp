@@ -1,5 +1,5 @@
 //
-// Created by bnorb on 27.01.20.
+// Created by bnorb on 26.01.20.
 //
 
 #pragma once
@@ -8,22 +8,22 @@
 #include "../utils/Image.hpp"
 #include "../utils/utility.h"
 #include "../GlobalConstants.h"
-#include "Item.hpp"
 #include <memory>
 
-class Slot {
+class SlotOld {
 public:
-    Slot();
-    Slot(Renderer&, Vec2<int> position);
-    Slot(Item item, Renderer& renderer, Vec2<int> position);
-    ~Slot();
+    SlotOld();
+    SlotOld(const std::string& path, Renderer& renderer, Vec2<int> position);
+    ~SlotOld();
     void renderSlot();
+    void setAvailable(bool availableNew);
 
 private:
-    Item item;
-    Image itemImage;
     bool available;
+    std::string path;
+    Image image;
     SDL_Rect background;
     Vec2<int> position;
     Renderer* renderer;
+    void changePath(const std::string& newPath);
 };

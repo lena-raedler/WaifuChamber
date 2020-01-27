@@ -1,21 +1,14 @@
 //
-// Created by bnorb on 26.01.20.
+// Created by bnorb on 27.01.20.
 //
 
-#pragma once
+#ifndef WAIFU_RANGEDWEAPON_HPP
+#define WAIFU_RANGEDWEAPON_HPP
 
-#include "Item.hpp"
 
-class RangedWeapon : public Item{
-public:
-    RangedWeapon(std::string& name, std::string& imagePath, int value);
-    ~RangedWeapon();
+class RangedWeapon {
 
-private:
-    int damage;
-    int range;
-    int cooldown;
-    int bulletQuantity;
-    int bulletSpeed;
 };
 
+
+#endif //WAIFU_RANGEDWEAPON_HPP
