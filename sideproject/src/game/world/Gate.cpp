@@ -4,29 +4,32 @@
 
 #include "Gate.h"
 
-Gate::Gate() {}
-Gate::Gate(std::vector<std::pair<int, int>> position, std::string path) {
-    position = position;
+Gate::Gate(std::pair<int, int> pos, std::string path) {
+    position = utility::convert(pos);
     nextRoomPath = path;
 
     std::cout << nextRoomPath << std::endl;
 }
 
-Gate::Gate(std::vector<std::pair<int, int>> position, std::string path, bool leftLock, bool rightLock) {
-    position = position;
-    nextRoomPath = path;
-    leftLocked = leftLock;
-    rightLocked = rightLock;
-
-    std::cout << nextRoomPath << std::endl;
-}
-Gate::Gate(std::vector<std::pair<int, int>> position, std::string path, bool leftLock, bool rightLock, Key& key) {
-    position = position;
+Gate::Gate(std::pair<int, int> pos, std::string path, bool leftLock, bool rightLock) {
+    position = utility::convert(pos);
     nextRoomPath = path;
     leftLocked = leftLock;
     rightLocked = rightLock;
 
+    if(leftLocked == rightLocked && rightLocked == true){
+        std::cout << "WARNING: Unopenable gate spawned" << std::endl;
+    }
+
+    std::cout << nextRoomPath << std::endl;
+}
+Gate::Gate(std::pair<int, int> pos, std::string path, int key) {
+    position = utility::convert(pos);
+    nextRoomPath = path;
+    leftLocked = true;
+    rightLocked = true;
+    keyId = key;
+
     std::cout << nextRoomPath << std::endl;
 }
 
-Gate::~Gate() {}

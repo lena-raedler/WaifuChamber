@@ -6,6 +6,24 @@
 #include "../world/room.h"
 
 namespace utility {
+    vec_t convert(std::pair<int, int> p){
+        return {(double) p.first * GlobalConstants::tileSize, (double) p.second * GlobalConstants::tileSize};
+    }
+    void fillDefaultHitbox(std::vector<triangle>& vec){
+        {
+            triangle t{{0,                         0},
+                       {GlobalConstants::tileSize, 0},
+                       {0,                         GlobalConstants::tileSize}};
+            vec.push_back(t);
+        }
+        {
+            triangle t{{GlobalConstants::tileSize,  GlobalConstants::tileSize},
+                       {GlobalConstants::tileSize, 0},
+                       {0,  GlobalConstants::tileSize}};
+            vec.push_back(t);
+        }
+
+    }
     std::vector <value_t> getBarycentricCoordinates(const triangle a,const vec_t b) {
         vec_t v0 = a[1] - a[0];
         vec_t v1 = a[2] - a[0];
@@ -188,12 +206,15 @@ namespace utility {
                 }
             }
         }
-        Gate gate(gatePositions, gatePath);
+        for(auto& gp : gatePositions){
+            Gate gate(gp, gatePath);
+        }
+
         room.platformPositions = platformPositionVector;
         room.backgroundRectangle = backgroundRectangle;
         room.backgroundtexture = backgroundTexture;
         room.tileMap = tileRenderMap;
-        room.gate = gate;
+        room.doorPositions = gatePositions;
 
         //Room room(backgroundTexture, backgroundRectangle, tileRenderMap, *&platformPositionVector, gate);
         return room;

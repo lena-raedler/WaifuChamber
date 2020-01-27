@@ -7,8 +7,8 @@
 Room::Room() {}
 
 Room::Room(SDL_Texture *texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap,
-        std::vector<std::pair<int, int>> platformPositions, Gate gate)
-        : gate(gate) {
+        std::vector<std::pair<int, int>> platformPositions, std::vector<std::pair<int, int>> gatePositions)
+        : doorPositions(gatePositions) {
     backgroundtexture = texture;
     backgroundRectangle = rectangle;
     tileMap = tileRectMap;
