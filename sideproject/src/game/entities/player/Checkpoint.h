@@ -17,7 +17,7 @@ public:
         lockMovement = true;
         position = pos;
     }
-    std::string room;
+    std::string room = "files/rooms/testroom.txt";
     Player& player;
 
 
