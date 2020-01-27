@@ -152,7 +152,7 @@ Game::Game()
     GlobalObjects::enemies.push_back(adam);
      */
 
-    EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
+
 
     //create rectangle to load the texture onto
 

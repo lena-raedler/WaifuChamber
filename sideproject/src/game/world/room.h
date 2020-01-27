@@ -15,7 +15,7 @@
 #include <utility>
 #include "Gate.h"
 #include "Platform.h"
-#include "../entities/player/Enemy.h"
+#include "../entities/player/EnemyBuilder.h"
 
 enum TileType{
     BLANK,

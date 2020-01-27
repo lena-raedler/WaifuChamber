@@ -48,4 +48,6 @@ GATES
   gate_01
 END
 ENEMY
+  e_1 10 10
+  e_1 20 10
 END

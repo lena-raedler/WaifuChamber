@@ -3,7 +3,6 @@
 //
 
 #include "room.h"
-#include "../entities/player/Enemy.h"
 
 Room::Room() {}
 
@@ -51,6 +50,9 @@ void Room::fillDoorVector(std::vector<Gate>& g){
 }
 void Room::fillEnemyVector(std::vector<Enemy>& e){
     e.clear();
+    for(auto& it: enemyInformation) {
+        EnemyBuilder::buildEnemy(e, it.second, it.first);
+    }
 }
 void Room::printP() {
     for(auto i : platformPositions) {
