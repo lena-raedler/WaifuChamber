@@ -10,21 +10,25 @@
 #include <string>
 #include "../utils/utility.h"
 #include <iostream>
-
-class Key;
+#include "../GlobalConstants.h"
 
 class Gate {
 public:
-    Gate();
-    ~Gate();
-    Gate(std::vector<std::pair<int, int>> position, std::string path);
-    Gate(std::vector<std::pair<int, int>> position, std::string path, bool leftLocked, bool rightLocked);
-    Gate(std::vector<std::pair<int, int>> position, std::string path, bool leftLocked, bool rightLocked, Key& key);
-private:
-    std::vector<std::pair<int, int>> position;
+    Gate& operator=(Gate& g) = default;
+    Gate& operator=(Gate&& g) = default;
+    Gate(Gate& g) = default;
+    Gate(Gate&& g) = default;
+    Gate() = default;
+    ~Gate() = default;
+    Gate(std::pair<int, int> position, std::string path);
+    Gate(std::pair<int, int> position, std::string path, bool leftLocked, bool rightLocked);
+    Gate(std::pair<int, int> position, std::string path, int keyId);
+    vec_t position;
     std::string nextRoomPath;
-    bool leftLocked;
-    bool rightLocked;
+    std::vector<triangle> hitbox;
+    bool leftLocked; //top
+    bool rightLocked; //bot
+    int keyId = -1;
 };
 
 

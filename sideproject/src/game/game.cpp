@@ -16,6 +16,7 @@
 #include "utils/blackmagic.h"
 #include "world/room.h"
 #include "GlobalObjects.h"
+#include "world/Gate.h"
 
 Mix_Music *gMusic = NULL;
 namespace GlobalObjects{
@@ -23,6 +24,13 @@ namespace GlobalObjects{
     std::vector<Platform> platforms;
     Player* playerPtr = NULL;
     std::vector<Projectile> projectiles;
+    std::vector<Gate> gates;
+    void clear(){
+        enemies.clear();
+        platforms.clear();
+        projectiles.clear();
+        gates.clear();
+    }
 }
 ////////////////////////////////////////////////////////////////
 Game::Game()
@@ -76,6 +84,8 @@ Game::Game()
 
     room = utility::parseRoom(room, currentRoom, *renderer, resolution);
     room.fillPlatformVector(GlobalObjects::platforms);
+    room.fillEnemyVector(GlobalObjects::enemies);
+    room.fillDoorVector(GlobalObjects::gates);
     quit = false;
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
@@ -366,6 +376,9 @@ void Game::render() {
     }
     for (Enemy& e : GlobalObjects::enemies){
         renderer->renderTriangles(e.hitbox,255, 255, 0,e.position);
+    }
+    for (Gate& g : GlobalObjects::gates){
+        renderer->renderTriangles(g.hitbox, 0,255, 255, g.position);
     }
 
     // Update the remaining health percentage

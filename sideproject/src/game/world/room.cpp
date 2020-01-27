@@ -3,19 +3,19 @@
 //
 
 #include "room.h"
+#include "../entities/player/Enemy.h"
 
 Room::Room() {}
 
 Room::Room(SDL_Texture *texture, SDL_Rect rectangle, std::unordered_map<SDL_Texture*, SDL_Rect> tileRectMap,
-        std::vector<std::pair<int, int>> platformPositions, Gate gate)
-        : gate(gate) {
+        std::vector<std::pair<int, int>> platformPositions, std::vector<std::pair<int, int>> gatePositions)
+        : doorPositions(gatePositions) {
     backgroundtexture = texture;
     backgroundRectangle = rectangle;
     tileMap = tileRectMap;
     platformPositions = platformPositions;
 }
 
-Room::~Room() {}
 
 
 void Room::render(Renderer &renderer) {
@@ -42,7 +42,12 @@ void Room::fillPlatformVector(std::vector<Platform>& p){
         p.push_back(Platform(pair, 3));
     }
 }
-
+void Room::fillDoorVector(std::vector<Gate>& g){
+    g.clear();
+}
+void Room::fillEnemyVector(std::vector<Enemy>& e){
+    e.clear();
+}
 void Room::printP() {
     for(auto i : platformPositions) {
         std::cout << i.first << " " << i.second << std::endl;
