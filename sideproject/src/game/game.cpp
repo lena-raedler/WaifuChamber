@@ -82,6 +82,10 @@ Game::Game()
     }
     GlobalObjects::chunkPtr[0] = Mix_LoadWAV("files/sounds/scream.wav");
     GlobalObjects::chunkPtr[1] = Mix_LoadWAV("files/sounds/jump.wav");
+    GlobalObjects::chunkPtr[2] = Mix_LoadWAV("files/sounds/smb_fireball.wav");
+    Mix_VolumeChunk(GlobalObjects::chunkPtr[0], 100);
+    Mix_VolumeChunk(GlobalObjects::chunkPtr[1], 15);
+    Mix_VolumeChunk(GlobalObjects::chunkPtr[2], 80);
     gMusic=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 1.mp3");
     gMusicBoss=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 2.mp3");
     gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
@@ -421,6 +425,7 @@ vec_t Game::determineInput(double delta){
             //Vec2<double> vec2 {static_cast<double>(player.position.x ), static_cast<double>(player.position.y)};
             a.use({player.position});
             //std::cout << "mouse_x: " << mouse_x << "\tmouse_y: " << mouse_y << std::endl;
+            Mix_PlayChannel(-1, GlobalObjects::chunkPtr[2], 0);
         }
     }
     if(inputManager.isPressed(KEY_M)){
