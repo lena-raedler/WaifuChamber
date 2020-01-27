@@ -478,7 +478,7 @@ void Game::render() {
     player.inventory.renderInventory();
 
     // Render the player after the background
-    renderer->renderTexture(texture, nullptr, player.rec.get());
+    //renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
 
     for (Projectile& projectile : GlobalObjects::projectiles) {
