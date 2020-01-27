@@ -131,9 +131,11 @@ void Movable::move(double delta){
     }
     position = projPosition;
 
+    /*
     rec->x = position.x;
 
     rec->y = position.y;
+     */
 
 }
 bool Movable::onPlatform(Platform& p){

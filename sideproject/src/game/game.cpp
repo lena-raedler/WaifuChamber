@@ -165,8 +165,8 @@ Game::Game()
     boss.usesPlatforms = true;
     utility::fillDefaultHitbox(boss.hitbox, 2);
     GlobalObjects::bosses.push_back(boss);
-    EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
-    std::cout << GlobalObjects::enemies.size() << std::endl;
+    //EnemyBuilder::buildEnemy(GlobalObjects::enemies, 1, {10, 10});
+    std::cout << GlobalObjects::bosses.size() << std::endl;
 
     //create rectangle to load the texture onto
 
@@ -237,18 +237,18 @@ int Game::loop() {
                 if (blackmagic::collide(projectile, player)) {
                     player.getHit(projectile.damage);
                     projectile.alive = false;
-                } else {
-                    for (Enemy &e : GlobalObjects::enemies) {
-                        if (blackmagic::collide(projectile, e)) {
-                            e.getHit(projectile.damage);
-                            projectile.alive = false;
-                        }
+                }
+            }else if (projectile.owner == PLAYER){
+                for (Enemy &e : GlobalObjects::enemies) {
+                    if (blackmagic::collide(projectile, e)) {
+                        e.getHit(projectile.damage);
+                        projectile.alive = false;
                     }
-                    for (Boss &b: GlobalObjects::bosses) {
-                        if (projectile.collide(b, false)) {
-                            b.getHit(projectile.damage);
-                            projectile.alive = false;
-                        }
+                }
+                for (Boss &b: GlobalObjects::bosses) {
+                    if (projectile.collide(b, false)) {
+                        b.getHit(projectile.damage);
+                        projectile.alive = false;
                     }
                 }
             }
@@ -398,7 +398,7 @@ vec_t Game::determineInput(double delta){
 
             Ability a;
             a.projectile = p;
-            a.speed = 20;
+            a.speed = 47;
             a.cooldown = 1000;
             a.origin = {50, 0};
             a.aimed = false;
@@ -566,6 +566,17 @@ void Game::cleanup(){
 
             if (it->health <= 0) {
                 it = GlobalObjects::enemies.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    }
+    {
+        auto it = GlobalObjects::bosses.begin();
+        while (it != GlobalObjects::bosses.end()) {
+
+            if (it->defeated) {
+                it = GlobalObjects::bosses.erase(it);
             } else {
                 ++it;
             }

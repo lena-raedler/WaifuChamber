@@ -48,5 +48,4 @@ GATES
   gate_01
 END
 ENEMY
-  e_1 36 49
 END

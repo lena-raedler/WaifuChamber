@@ -26,7 +26,6 @@ void Boss::upkeep(double d){
         [[maybe_unused]] int& p= std::get<2>(stuff);
 
         if(a.isAvail()){//todo stuff
-            std::cout << "boingo" << std::endl;
             a.use(position);
         }
     }
@@ -35,6 +34,7 @@ void Boss::upkeep(double d){
 void Boss::getHit(double d){
     if(healthbars.size() > 0){
         healthbars[0].first -= d;
+        std::cout << healthbars[0].first << std::endl;
     }
 }
 void Boss::addAbility(Ability a, double probability, int phase){
