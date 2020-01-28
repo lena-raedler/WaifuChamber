@@ -16,7 +16,7 @@ class Ability {
 public:
     bool aimed = true;
     vec_t origin = {0, 0};
-    Projectile projectile;
+    std::vector<Projectile> projectiles;
     int cooldown = 250;
     double speed;
     std::chrono::high_resolution_clock::time_point lastUsed  = std::chrono::high_resolution_clock::now();

@@ -13,45 +13,49 @@ bool Ability::isAvail() {
 void Ability::use(vec_t pos) {
     vec_t tmp;
 
-    pos += origin;
-    if(aimed){
-        tmp = GlobalObjects::playerPtr->position - pos;
-        tmp.normalize();
-        tmp *= speed;
+    for(Projectile projectile : projectiles) {
+        pos = pos + origin;
+        switch (projectile.owner) {
+            case HOSTILE:
+                if (aimed) {
+                    tmp = GlobalObjects::playerPtr->position - pos;
+                    tmp.normalize();
+                    tmp *= speed;
 
-        projectile.position = pos + origin;
-        projectile.velocity = tmp;
-        {
-            SDL_Rect r = {(int)projectile.position.x, (int)projectile.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-            projectile.rec = std::make_shared<SDL_Rect>(r);
+                    projectile.position = pos + origin;
+                    projectile.velocity += tmp;
+                    {
+                        SDL_Rect r = {(int) projectile.position.x, (int) projectile.position.y, GlobalConstants::tileSize,
+                                      GlobalConstants::tileSize};
+                        projectile.rec = std::make_shared<SDL_Rect>(r);
+                    }
+                    GlobalObjects::projectiles.push_back(projectile);
+
+
+                } else {
+                    tmp = pos;//TODO
+                }
+
+                break;  // Soon (tm)
+            case PLAYER:
+                int mouse_x, mouse_y;
+                SDL_GetMouseState(&mouse_x, &mouse_y);
+                vec_t vec{static_cast<double>(mouse_x), static_cast<double>(mouse_y)};
+                tmp = (vec - pos) - vec_t{GlobalConstants::tileSize / 2, GlobalConstants::tileSize / 2};
+                tmp.normalize();
+                tmp *= speed;
+
+                //projectile.position = pos + origin;
+                projectile.position = pos;
+                projectile.velocity = tmp;
+                {
+                    SDL_Rect r = {(int) projectile.position.x, (int) projectile.position.y, GlobalConstants::tileSize,
+                                  GlobalConstants::tileSize};
+                    projectile.rec = std::make_shared<SDL_Rect>(r);
+                }
+                GlobalObjects::projectiles.push_back(projectile);
+                break;
         }
-        GlobalObjects::projectiles.push_back(projectile);
-
-
-    } else{
-        tmp = pos;//TODO
-    }
-
-    switch (projectile.owner) {
-        case HOSTILE:
-            break;  // Soon (tm)
-        case PLAYER:
-            int mouse_x, mouse_y;
-            SDL_GetMouseState(&mouse_x, &mouse_y);
-            vec_t vec {static_cast<double>(mouse_x), static_cast<double>(mouse_y)};
-            tmp = (vec - pos) - vec_t{GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
-            tmp.normalize();
-            tmp *= speed;
-
-            //projectile.position = pos + origin;
-            projectile.position = pos;
-            projectile.velocity = tmp;
-            {
-                SDL_Rect r = {(int)projectile.position.x, (int)projectile.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-                projectile.rec = std::make_shared<SDL_Rect>(r);
-            }
-            GlobalObjects::projectiles.push_back(projectile);
-            break;
     }
 
     lastUsed = std::chrono::high_resolution_clock::now();

@@ -25,7 +25,7 @@ namespace EnemyBuilder {
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
-                a.projectile = p;
+                a.projectiles.push_back(p);
                 a.speed = 20;
                 a.cooldown = 1000;
 

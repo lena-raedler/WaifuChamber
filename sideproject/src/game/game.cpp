@@ -415,7 +415,7 @@ vec_t Game::determineInput(double delta){
             p.baseInit();
 
             Ability a;
-            a.projectile = p;
+            a.projectiles.push_back(p);
             a.speed = 47;
             a.cooldown = 1000;
             //a.origin = {0, 0};
@@ -606,7 +606,7 @@ void Game::spawnBoss(int x, int y){
     lazor.damage = 10;
     utility::fillDefaultHitbox(lazor.hitbox);
     lazor.timeToLive = 1200;
-    supermegadeathlazor.projectile = lazor;
+    supermegadeathlazor.projectiles.push_back(lazor);
     supermegadeathlazor.speed = 30;
     supermegadeathlazor.cooldown = 10;
     supermegadeathlazor.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
