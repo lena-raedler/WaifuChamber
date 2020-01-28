@@ -33,7 +33,7 @@ public:
 
 private:
 
-    void cleanup();
+    void cleanup(bool& s);
     InputManager inputManager;
 
     bool bossDefeated(int i);

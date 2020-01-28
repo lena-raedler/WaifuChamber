@@ -11,10 +11,10 @@ bool Ability::isAvail() {
 }
 
 void Ability::use(vec_t pos) {
+    pos = pos + origin;
     vec_t tmp;
 
     for(Projectile projectile : projectiles) {
-        pos = pos + origin;
         switch (projectile.owner) {
             case HOSTILE:
                 if (aimed) {
@@ -38,6 +38,7 @@ void Ability::use(vec_t pos) {
 
                 break;  // Soon (tm)
             case PLAYER:
+                std::cout << "MONGO" << std::endl;
                 int mouse_x, mouse_y;
                 SDL_GetMouseState(&mouse_x, &mouse_y);
                 vec_t vec{static_cast<double>(mouse_x), static_cast<double>(mouse_y)};

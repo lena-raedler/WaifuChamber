@@ -314,18 +314,17 @@ int Game::loop() {
             spawnBoss(800, 800);
         }
 
-        if(scuff2 && GlobalObjects::bosses.size() == 0){
+        if(scuff3 && GlobalObjects::bosses.size() == 0){
             Mix_PlayMusic(gMusicVic, 1);
-            scuff2 = false;
+            scuff3 = false;
         }
 
         // Update player
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
 
-        std::cout << player.position << std::endl;
         render();
-        cleanup();
+        cleanup(scuff3);
 
     }
     return 0;
@@ -554,7 +553,7 @@ void Game::debugshit() {
     triangle b{{1,0},{0,1},{1,1}};
     std::cout << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
 }
-void Game::cleanup(){
+void Game::cleanup(bool& remove){
     {
         auto it = GlobalObjects::projectiles.begin();
         while (it != GlobalObjects::projectiles.end()) {
@@ -583,6 +582,7 @@ void Game::cleanup(){
         while (it != GlobalObjects::bosses.end()) {
 
             if (it->defeated) {
+                remove = true;
                 it->kill();
                 it = GlobalObjects::bosses.erase(it);
             } else {
