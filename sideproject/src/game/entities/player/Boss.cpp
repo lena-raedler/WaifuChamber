@@ -43,6 +43,7 @@ void Boss::upkeep(double d){
         if (healthbars[0].first < 1){
             healthbars.erase(healthbars.begin());
             bars.erase(bars.begin());
+            transitionPhase();
         }
     } else{
         defeated = true;
@@ -62,9 +63,9 @@ void Boss::upkeep(double d){
     for(auto& stuff : abilities){
         Ability& a= std::get<0>(stuff);
         [[maybe_unused]] double& d= std::get<1>(stuff);
-        [[maybe_unused]] int& p= std::get<2>(stuff);
+        int& p= std::get<2>(stuff);
 
-        if(a.isAvail()){//todo stuff
+        if(p <= phase && a.isAvail() ){//todo stuff
             a.use(position);
         }
     }
@@ -87,4 +88,18 @@ void Boss::kill(){
     }
     file.close();
     //dostuff
+}
+void Boss::transitionPhase() {
+    switch(++phase){
+        case 2:
+            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {15, 10});
+            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {40, 10});
+            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {45, 10});
+            break;
+        case 3:
+            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {10, 10});
+            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {30, 10});
+            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {50, 10});
+            break;
+    }
 }

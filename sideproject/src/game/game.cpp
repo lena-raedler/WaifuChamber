@@ -606,11 +606,31 @@ void Game::spawnBoss(int x, int y){
     lazor.damage = 10;
     utility::fillDefaultHitbox(lazor.hitbox);
     lazor.timeToLive = 1200;
+    lazor.velocity = {0,0};
     supermegadeathlazor.projectiles.push_back(lazor);
     supermegadeathlazor.speed = 30;
     supermegadeathlazor.cooldown = 10;
     supermegadeathlazor.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
     boss.addAbility(supermegadeathlazor, 1, 1);
+    Ability aoeblast;
+    Projectile blast;
+    blast.gravityType = NOGRAVITY;
+    blast.usesPlatforms = false;
+    blast.damage = 20;
+    blast.timeToLive = 2000;
+    utility::fillDefaultHitbox(blast.hitbox);
+    aoeblast.speed = 50;
+    aoeblast.cooldown = 3000;
+    aoeblast.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
+    aoeblast.aimed = false;
+    for(int i = -1; i < 2; ++i){
+        for(int j = -1; j < 2;++j){
+            blast.velocity = {(double)i, (double)j};
+            aoeblast.projectiles.push_back(blast);
+        }
+    }
+    boss.addAbility(aoeblast, 1, 3);
+
     //boss.addHealthBar(200);
     //boss.addHealthBar(100);
     boss.addHealthBar(200, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF});

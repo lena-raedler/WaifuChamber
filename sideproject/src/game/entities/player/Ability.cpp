@@ -29,13 +29,15 @@ void Ability::use(vec_t pos) {
                                       GlobalConstants::tileSize};
                         projectile.rec = std::make_shared<SDL_Rect>(r);
                     }
-                    GlobalObjects::projectiles.push_back(projectile);
+
 
 
                 } else {
-                    tmp = pos;//TODO
+                    projectile.position = pos + origin;//todo fix double addition
+                    projectile.velocity.normalize();
+                    projectile.velocity *=speed;
                 }
-
+                GlobalObjects::projectiles.push_back(projectile);
                 break;  // Soon (tm)
             case PLAYER:
                 std::cout << "MONGO" << std::endl;

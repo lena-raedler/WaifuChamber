@@ -7,6 +7,7 @@
 #include "Movable.h"
 #include "Ability.h"
 #include "Bar.hpp"
+#include "EnemyBuilder.h"
 #include "../../utils/Rgba.hpp"
 
 class Boss : public Movable {
@@ -34,6 +35,7 @@ public:
     void kill();
 
     void addAbility(Ability a, double probability, int phase);
+    void transitionPhase();
     // double healthPercentage(){return (double) hp / maxHp;}
 
 
