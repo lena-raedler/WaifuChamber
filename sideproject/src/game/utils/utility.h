@@ -20,6 +20,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/erase.hpp>
 #include <boost/algorithm/string/compare.hpp>
+#include "../world/gateInformation.h"
 
 class Room;
 

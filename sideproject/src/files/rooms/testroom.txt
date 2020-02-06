@@ -48,7 +48,7 @@ LAYOUT
   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 END
 GATES
-  gate_01 d
+  gate_01 d -1
 END
 ENEMY
   e_1 10 15

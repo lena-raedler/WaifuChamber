@@ -61,6 +61,7 @@ public:
     std::vector<std::pair<std::pair<int, int >, int>> bossInformation;
     std::pair<int, int> newStartPosition;
     int roomId;
+    std::vector<gateInformation> gates;
 
     void clear();
 };

@@ -10,6 +10,7 @@ TILES
   f = files/textures/gravel_01
   p = files/textures/gravel_01
   d = none
+  l = files/textures/door_03
 END
 LAYOUT
   wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
@@ -42,13 +43,14 @@ LAYOUT
   ww........p........p........ppp........p.........p........ww
   ww........................................................ww
   ww........................................................ww
-  ww........................................................ww
-  ww........................................................ww
+  ww........................................................lw
+  ww........................................................lw
   wffffffffffffffffffffffffffffffffffffffffffffffffffffffffffw
   wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 END
 GATES
-  gate_04 d
+  gate_04 d -1
+  gate_05 l 0
 END
 BOSS
   b_1 57 31

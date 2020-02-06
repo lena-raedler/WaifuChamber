@@ -175,6 +175,12 @@ namespace utility {
                             gatePosition.second = x;
                             gatePositions.push_back(std::make_pair(gatePosition, c));
                         }
+                        if(c == 'l') {
+                            std::pair<int, int> gatePosition;
+                            gatePosition.first = y;
+                            gatePosition.second = x;
+                            gatePositions.push_back(std::make_pair(gatePosition, c));
+                        }
                         if(c == 'w') {
                             std::pair<int, int> wallPosition;
                             wallPosition.first =y;
@@ -213,6 +219,7 @@ namespace utility {
                     if (line.find("END") != std::string::npos) {
                         break;
                     }
+                    gateInformation allGateInfo;
                     std::string gateLine;
                     std::ifstream gates("files/rooms/gates.txt");
                     while (std::getline(gates, gateLine)) {
@@ -231,9 +238,23 @@ namespace utility {
                             std::pair<std::pair<int, int>, std::string> gateInfo;
                             for(auto i : gatePositions) {
                                 if (moreGateInfo[1].front() == i.second) {
+                                    if(i.second == 'l') {
+                                        allGateInfo.leftLocked = true;
+                                        allGateInfo.rightLocked = true;
+                                    } else {
+                                        allGateInfo.leftLocked = false;
+                                        allGateInfo.rightLocked = false;
+                                    }
                                     gateInfo.first = i.first;
                                     gateInfo.second = gatePath;
                                     room.doorPositions.push_back(gateInfo);
+                                    allGateInfo.gateId = gateNumber;
+                                    allGateInfo.keyId = std::atoi(moreGateInfo[2].c_str());
+                                    allGateInfo.path = gatePath;
+                                    allGateInfo.position = i.first;
+                                    allGateInfo.newPlayerPosition.first = std::atoi(gateStrings[2].c_str());
+                                    allGateInfo.newPlayerPosition.second = std::atoi(gateStrings[3].c_str());
+                                    room.gates.push_back(allGateInfo);
                                 } else { continue; }
                             }
                         } else { continue; }
