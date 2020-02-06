@@ -2,7 +2,7 @@ ID
 ROOM_4
 END
 BACKGROUND
-files/backgrounds/forest.jpg
+files/backgrounds/forest.png
 TILES
   . = none
   w = files/textures/leaves_01
