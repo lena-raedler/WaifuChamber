@@ -4,3 +4,9 @@ gate_03 files/rooms/castle.txt 3 5
 gate_04 files/rooms/library.txt 3 30
 gate_05 files/rooms/forest.txt 3 30
 gate_06 files/rooms/castle.txt 58 30
+gate_07 files/rooms/plains.txt 3 12
+gate_08 files/rooms/forest.txt 57 12
+gate_09 files/rooms/deep_forest.txt 26 31
+gate_10 files/rooms/plains.txt 26 2
+gate_11 files/rooms/cool_room.txt 3 2
+gate_12 files/rooms/deep_forest.txt 58 2
