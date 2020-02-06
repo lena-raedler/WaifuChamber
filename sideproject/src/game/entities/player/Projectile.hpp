@@ -32,7 +32,7 @@ public:
 
 
     bool bounce = false;
-    int timeToLive = 1000;
+    double timeToLive = 100;
     std::chrono::high_resolution_clock::time_point created;
     // How many pixels the projectile moves per loop
     //int velocity;
@@ -52,7 +52,5 @@ public:
     bool collide(Movable m);
     bool collide(Movable& m, bool weirdjank);
     Image imageNew;
-private:
-    bool uninit = true;
 };
 

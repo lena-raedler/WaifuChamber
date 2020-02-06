@@ -4,10 +4,13 @@
 
 #include "Ability.h"
 
-bool Ability::isAvail() {
-    auto time = std::chrono::high_resolution_clock::now();
-    auto timeSinceLastUse = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastUsed);
-    return timeSinceLastUse > std::chrono::milliseconds(cooldown);
+bool Ability::isAvail(double delta) {
+    lastUsed -= delta;
+    if (lastUsed < 0){
+        lastUsed = cooldown;
+        return true;
+    }
+    return false;
 }
 
 void Ability::use(vec_t pos) {
@@ -59,8 +62,4 @@ void Ability::use(vec_t pos) {
                 break;
         }
     }
-
-    lastUsed = std::chrono::high_resolution_clock::now();
-
-
 }

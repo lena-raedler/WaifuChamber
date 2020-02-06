@@ -607,11 +607,11 @@ void Game::spawnBoss(int x, int y){
     lazor.usesPlatforms = false;
     lazor.damage = 10;
     utility::fillDefaultHitbox(lazor.hitbox);
-    lazor.timeToLive = 1200;
+    lazor.timeToLive = 12;
     lazor.velocity = {0,0};
     supermegadeathlazor.projectiles.push_back(lazor);
     supermegadeathlazor.speed = 30;
-    supermegadeathlazor.cooldown = 10;
+    supermegadeathlazor.cooldown = 1;
     supermegadeathlazor.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
     boss.addAbility(supermegadeathlazor, 1, 1);
     Ability aoeblast;
@@ -619,10 +619,10 @@ void Game::spawnBoss(int x, int y){
     blast.gravityType = NOGRAVITY;
     blast.usesPlatforms = false;
     blast.damage = 20;
-    blast.timeToLive = 2000;
+    blast.timeToLive = 20;
     utility::fillDefaultHitbox(blast.hitbox);
     aoeblast.speed = 50;
-    aoeblast.cooldown = 3000;
+    aoeblast.cooldown = 30;
     aoeblast.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
     aoeblast.aimed = false;
     for(int i = -1; i < 2; ++i){

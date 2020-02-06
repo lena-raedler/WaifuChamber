@@ -65,7 +65,7 @@ void Boss::upkeep(double d){
         [[maybe_unused]] double& d= std::get<1>(stuff);
         int& p= std::get<2>(stuff);
 
-        if(p <= phase && a.isAvail() ){//todo stuff
+        if(p <= phase && a.isAvail(d) ){//todo stuff
             a.use(position);
         }
     }

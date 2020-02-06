@@ -12,16 +12,11 @@ Projectile::Projectile(vec_t positionTmp, int angle)
 }
 
 void Projectile::upkeep(double delta) {
-    if(uninit){
-        created = std::chrono::high_resolution_clock::now();
-        uninit = false;
-    }
     if(alive) {
         angle %= 360;
         move(delta);
-        auto now = std::chrono::high_resolution_clock::now();
-        auto timeSinceCreation = std::chrono::duration_cast<std::chrono::milliseconds>(now - created);
-        if (timeSinceCreation > std::chrono::milliseconds(timeToLive)) {
+        timeToLive -= delta;
+        if (timeToLive < 0) {
             alive = false;
         }
     }

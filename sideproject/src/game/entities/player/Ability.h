@@ -17,10 +17,10 @@ public:
     bool aimed = true;
     vec_t origin = {0, 0};
     std::vector<Projectile> projectiles;
-    int cooldown = 250;
+    double cooldown = 2.5;
     double speed;
-    std::chrono::high_resolution_clock::time_point lastUsed  = std::chrono::high_resolution_clock::now();
-    bool isAvail();
+    double lastUsed  = 0;
+    bool isAvail(double delta);
     void use(vec_t pos);
 };
 

@@ -20,7 +20,7 @@ namespace EnemyBuilder {
 
                 utility::fillDefaultHitbox(p.hitbox);
                 p.damage = 20;
-                p.timeToLive = 10000;
+                p.timeToLive = 100;
                 p.usesPlatforms = false;
                 p.fragile = true;
                 p.gravityType = NOGRAVITY;
@@ -28,7 +28,7 @@ namespace EnemyBuilder {
 
                 a.projectiles.push_back(p);
                 a.speed = 20;
-                a.cooldown = 1000;
+                a.cooldown = 10;
 
                 e.abilities.push_back(a);
                 e.textureLocation = "files/textures/skeleton_01.png";
@@ -50,7 +50,7 @@ namespace EnemyBuilder {
 
                 utility::fillDefaultHitbox(p.hitbox);
                 p.damage = 20;
-                p.timeToLive = 10000;
+                p.timeToLive = 100;
                 p.usesPlatforms = false;
                 p.fragile = true;
                 p.gravityType = NOGRAVITY;
@@ -58,7 +58,7 @@ namespace EnemyBuilder {
 
                 a.projectiles.push_back(p);
                 a.speed = 20;
-                a.cooldown = 1000;
+                a.cooldown = 10;
 
                 e.abilities.push_back(a);
                 e.textureLocation = "files/textures/skeleton_01.png";
