@@ -17,10 +17,18 @@ extern void operator>>(std::string& string, double& d);
 struct SavedVariables {
 #define SAVE(_type, _identifier, _default) _type _identifier = _default;
 #include "SavedVariables.def"
+
     void serialize(std::ofstream& file){
 #define SAVE(_type, _identifier, _default) \
 file << _identifier << std::endl;
 #include "SavedVariables.def"
+    }
+    void serialize(){
+        std::ofstream file("savegame.txt", std::ios::trunc);
+        if (file.good()) {
+            serialize(file);
+        }
+        file.close();
     }
     void deSerialize(std::ifstream& file){
         std::string str;
@@ -28,6 +36,13 @@ file << _identifier << std::endl;
 if(std::getline(file, str)){; \
 str >> _identifier;}
 #include "SavedVariables.def"
+    }
+    void deSerialze(){
+        std::ifstream file("savegame.txt");
+        if(file.good()) {
+            deSerialize(file);
+        }
+        file.close();
     }
 };
 

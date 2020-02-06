@@ -112,6 +112,13 @@ Game::Game()
         throw std::runtime_error("Could not create texture");
     }
     currentRoom = "files/rooms/testroom.txt";
+    makeCheckpoints();
+    for(auto& c: GlobalObjects::checkpoints){
+        if(GlobalObjects::savedVariables.currentCheckpoint == c.id){
+            player.position = c.position;
+            currentRoom = c.room;
+        }
+    }
 
     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
     fillGlobalObjects(room);
@@ -123,7 +130,8 @@ Game::Game()
     left = false;
     right = false;
     isFalling = false;
-    makeCheckpoints();
+
+
 
 
     playerPosition = player.position;
@@ -340,8 +348,11 @@ int Game::loop() {
             if(boost::algorithm::equals(c.room, currentRoom)) {
                 if (utility::hitboxCollision(player.hitbox, player.position, c.hitbox, c.position)) {
                     player.rest();
-                    std::cout << "rested" << std::endl;
                     player.lastCP = &c;
+                    if(GlobalObjects::savedVariables.currentCheckpoint != c.id){
+                        GlobalObjects::savedVariables.currentCheckpoint = c.id;
+                        GlobalObjects::savedVariables.serialize();
+                    }
                 }
             }
         }
@@ -618,7 +629,7 @@ void Game::cleanup(bool& remove){
         auto it = GlobalObjects::bosses.begin();
         while (it != GlobalObjects::bosses.end()) {
 
-            if (it->get()->alive) {
+            if (!it->get()->defeated) {
                 bs.push_back(*it);
             }
             ++it;
