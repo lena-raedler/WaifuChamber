@@ -55,22 +55,22 @@ void Movable::move(double delta){
             xMax = std::max(xMax, tmp.x);
             yMax = std::max(yMax, tmp.y);
         }
-        for(Platform p : GlobalObjects::platforms){
+        for(auto p : GlobalObjects::platforms){
 
 //            auto direction = p.direction(*this);
             for(triangle t : hitbox) {
                 t += position;
-                bool collide = p.collide(t);
+                bool collide = p->collide(t);
                 if(fragile && collide){
                     alive = false;
                     return;
                 }
                 if(collide){
-                    switch(p.type){
+                    switch(p->type){
                         case PLATFORM :
-                            if(position.y <= p.top.min().y) {//above
+                            if(position.y <= p->top.min().y) {//above
                                 grounded();
-                                projPosition.y = p.top.min().y - yMax; ; //maybe add epsilon idk
+                                projPosition.y = p->top.min().y - yMax; ; //maybe add epsilon idk
                                 if(velocity.y > 0){
                                     velocity.y = 0;
                                 }
@@ -80,12 +80,12 @@ void Movable::move(double delta){
                             }
                             else{//below
                                 velocity.y = 0;
-                                projPosition.y = p.top.max().y + GlobalConstants::epsilon;
+                                projPosition.y = p->top.max().y + GlobalConstants::epsilon;
                             }
                             break;
                         case WALL :
-                            if(position.x <= p.top.min().x) {//above
-                                projPosition.x = p.top.min().x - xMax; //maybe add epsilon idk
+                            if(position.x <= p->top.min().x) {//above
+                                projPosition.x = p->top.min().x - xMax; //maybe add epsilon idk
                                 if(velocity.x > 0){
                                     velocity.x = 0;
                                 }
@@ -94,7 +94,7 @@ void Movable::move(double delta){
                                 }
                             }
                             else{//below
-                                projPosition.x = p.top.max().x;
+                                projPosition.x = p->top.max().x;
                                 if(velocity.x < 0){
                                     velocity.x = 0;
                                 }
@@ -106,11 +106,11 @@ void Movable::move(double delta){
                             break;
                         case CEILING :
                             velocity.y = 0;
-                            projPosition.y = p.top.max().y + GlobalConstants::epsilon;
+                            projPosition.y = p->top.max().y + GlobalConstants::epsilon;
                             break;
                         case FLOOR :
                             grounded();
-                            projPosition.y = p.top.min().y - yMax; //maybe add epsilon idk
+                            projPosition.y = p->top.min().y - yMax; //maybe add epsilon idk
                             if(velocity.y > 0){
                                 velocity.y = 0;
                             }

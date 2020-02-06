@@ -26,29 +26,29 @@ void Room::render(Renderer &renderer) {
     }
 
 }
-void Room::fillPlatformVector(std::vector<Platform>& p){
+void Room::fillPlatformVector(std::vector<std::shared_ptr<Platform>>& p){
     p.clear();
     for(auto pair : platformPositions){
-        p.push_back(Platform(pair, 0));
+        p.push_back(std::make_shared<Platform>(pair, 0));
     }
     for(auto pair : wallPostitions) {
-        p.push_back(Platform(pair, 1));
+        p.push_back(std::make_shared<Platform>(pair, 1));
     }
     for(auto pair : ceilingPositions) {
-        p.push_back(Platform(pair, 2));
+        p.push_back(std::make_shared<Platform>(pair, 2));
     }
     for(auto pair : floorPositions) {
-        p.push_back(Platform(pair, 3));
+        p.push_back(std::make_shared<Platform>(pair, 3));
     }
 }
-void Room::fillDoorVector(std::vector<Gate>& g){
+void Room::fillDoorVector(std::vector<std::shared_ptr<Gate>>& g){
     g.clear();
     for(auto i : doorPositions) {
-        g.push_back(Gate(i.first, i.second));
+        g.push_back(std::make_shared<Gate>(i.first, i.second));
     }
 
 }
-void Room::fillEnemyVector(std::vector<Enemy>& e){
+void Room::fillEnemyVector(std::vector<std::shared_ptr<Enemy>>& e){
     e.clear();
     for(auto& it: enemyInformation) {
         EnemyBuilder::buildEnemy(e, it.second, it.first);

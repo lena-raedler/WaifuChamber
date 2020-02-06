@@ -51,7 +51,7 @@ void Boss::upkeep(double d){
     }
 
     // Bn0rb start
-    for (int i = 0; i < healthbars.size(); i++) {
+    for (size_t i = 0; i < healthbars.size(); i++) {
         bars[i].updateBar(static_cast<double>(healthbars[i].first) / healthbars[i].second);
     }
     healthBar.updateBar(static_cast<double>(healthbars[0].first) / healthbars[0].second);

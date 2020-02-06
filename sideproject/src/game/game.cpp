@@ -26,13 +26,13 @@ Mix_Music *gMusicVic = NULL;
 namespace GlobalObjects{
     Mix_Chunk* chunkPtr[3];
     SavedVariables savedVariables;
-    std::vector<Enemy> enemies;
-    std::vector<Platform> platforms;
+    std::vector<std::shared_ptr<Enemy>> enemies;
+    std::vector<std::shared_ptr<Platform>> platforms;
     Player* playerPtr = NULL;
-    std::vector<Projectile> projectiles;
-    std::vector<Gate> gates;
+    std::vector<std::shared_ptr<Projectile>> projectiles;
+    std::vector<std::shared_ptr<Gate>> gates;
     std::pair<int, int> resolution;
-    std::vector<Boss> bosses;
+    std::vector<std::shared_ptr<Boss>> bosses;
     void clear(){
         enemies.clear();
         platforms.clear();
@@ -239,44 +239,44 @@ int Game::loop() {
         player.velocity += move;
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/deltaDenom);
-        for(Enemy& e : GlobalObjects::enemies){
-            e.upkeep(deltaTime/deltaDenom);
+        for(auto e : GlobalObjects::enemies){
+            e->upkeep(deltaTime/deltaDenom);
 
         }
 
-        for (Projectile& projectile : GlobalObjects::projectiles) {
-            projectile.textureLocation = "files/textures/weapons/projectile_01.png";
-            projectile.upkeep(deltaTime/deltaDenom);
-            if(projectile.owner == HOSTILE) {
-                if (blackmagic::collide(projectile, player)) {
-                    player.getHit(projectile.damage);
-                    projectile.alive = false;
+        for (auto projectile : GlobalObjects::projectiles) {
+            projectile->textureLocation = "files/textures/weapons/projectile_01.png";
+            projectile->upkeep(deltaTime/deltaDenom);
+            if(projectile->owner == HOSTILE) {
+                if (blackmagic::collide(*projectile, player)) {
+                    player.getHit(projectile->damage);
+                    projectile->alive = false;
                 }
-            }else if (projectile.owner == PLAYER){
-                for (Enemy &e : GlobalObjects::enemies) {
-                    if (blackmagic::collide(projectile, e)) {
-                        e.getHit(projectile.damage);
-                        projectile.alive = false;
+            }else if (projectile->owner == PLAYER){
+                for (auto e : GlobalObjects::enemies) {
+                    if (blackmagic::collide(*projectile, *e)) {
+                        e->getHit(projectile->damage);
+                        projectile->alive = false;
                     }
                 }
-                for (Boss &b: GlobalObjects::bosses) {
-                    if (projectile.collide(b, false)) {
-                        b.getHit(projectile.damage);
-                        projectile.alive = false;
+                for (auto b: GlobalObjects::bosses) {
+                    if (projectile->collide(*b, false)) {
+                        b->getHit(projectile->damage);
+                        projectile->alive = false;
                     }
                 }
             }
         }
-        for(Boss& boss : GlobalObjects::bosses){
-            boss.upkeep(deltaTime/deltaDenom);
+        for(auto boss : GlobalObjects::bosses){
+            boss->upkeep(deltaTime/deltaDenom);
         }
         bool leave = false;
-        for(Gate gate : GlobalObjects::gates){
+        for(auto gate : GlobalObjects::gates){
             for(triangle t : player.hitbox) {
                 t+=player.position;
-                if (gate.collide(t)) {
+                if (gate->collide(t)) {
                     GlobalObjects::clear();
-                    room = utility::parseRoom(gate.nextRoomPath, *renderer, GlobalObjects::resolution);
+                    room = utility::parseRoom(gate->nextRoomPath, *renderer, GlobalObjects::resolution);
                     player.position = utility::convert(room.newStartPosition);
                     switch(room.roomId){
                         case 1: player.position=utility::convert({57, 28});
@@ -473,25 +473,25 @@ void Game::render() {
     //renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
 
-    for (Projectile& projectile : GlobalObjects::projectiles) {
+    for (auto projectile : GlobalObjects::projectiles) {
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
-        renderer->renderTriangles(projectile.hitbox, 255, 255, 255, projectile.position);
+        renderer->renderTriangles(projectile->hitbox, 255, 255, 255, projectile->position);
     }
 
-    for (Platform& p : GlobalObjects::platforms){
-        std::vector<triangle> t = {p.top, p.bot};
+    for (auto p : GlobalObjects::platforms){
+        std::vector<triangle> t = {p->top, p->bot};
         renderer->renderTriangles(t, 0, 0, 0, {0,0});
     }
-    for (Enemy& e : GlobalObjects::enemies){
-        renderer->renderTriangles(e.hitbox,255, 255, 0,e.position);
+    for (auto e : GlobalObjects::enemies){
+        renderer->renderTriangles(e->hitbox,255, 255, 0,e->position);
     }
-    for (Gate& g : GlobalObjects::gates){
-        renderer->renderTriangles(g.hitbox, 0,255, 255, g.position);
+    for (auto g : GlobalObjects::gates){
+        renderer->renderTriangles(g->hitbox, 0,255, 255, g->position);
     }
-    for (Boss& b : GlobalObjects::bosses){
+    for (auto b : GlobalObjects::bosses){
         scuff2 = true;
-        renderer->renderTriangles(b.hitbox, 255, 0, 255, b.position);
-        b.bars[0].renderBar(*renderer);
+        renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
+        b->bars[0].renderBar(*renderer);
         //b.healthBar.renderBar(*renderer);
     }
     /*for(auto& i : GlobalObjects::enemies) {
@@ -554,42 +554,44 @@ void Game::debugshit() {
     std::cout << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
 }
 void Game::cleanup(bool& remove){
+    std::vector<std::shared_ptr<Projectile>> ps;
     {
         auto it = GlobalObjects::projectiles.begin();
         while (it != GlobalObjects::projectiles.end()) {
 
-            if (!it->alive) {
-                it = GlobalObjects::projectiles.erase(it);
-            } else {
-                ++it;
+            if (it->get()->alive) {
+                ps.push_back(*it);
             }
+            ++it;
         }
     }
+    std::vector<std::shared_ptr<Enemy>> es;
     {
         auto it = GlobalObjects::enemies.begin();
         while (it != GlobalObjects::enemies.end()) {
 
-            if (it->health <= 0) {
-                it->kill();
-                it = GlobalObjects::enemies.erase(it);
+            if (it->get()->health <= 0) {
+                it->get()->kill();
             } else {
-                ++it;
+                es.push_back(*it);
             }
+            ++it;
         }
     }
+    std::vector<std::shared_ptr<Boss>> bs;
     {
         auto it = GlobalObjects::bosses.begin();
         while (it != GlobalObjects::bosses.end()) {
 
-            if (it->defeated) {
-                remove = true;
-                it->kill();
-                it = GlobalObjects::bosses.erase(it);
-            } else {
-                ++it;
+            if (it->get()->alive) {
+                bs.push_back(*it);
             }
+            ++it;
         }
     }
+    GlobalObjects::enemies = es;
+    GlobalObjects::projectiles = ps;
+    GlobalObjects::bosses = bs;
 }
 void Game::fillGlobalObjects(Room& room){
     room.fillPlatformVector(GlobalObjects::platforms);
@@ -625,6 +627,9 @@ void Game::spawnBoss(int x, int y){
     aoeblast.aimed = false;
     for(int i = -1; i < 2; ++i){
         for(int j = -1; j < 2;++j){
+            if (i == 0 && j == 0){
+                continue;
+            }
             blast.velocity = {(double)i, (double)j};
             aoeblast.projectiles.push_back(blast);
         }
@@ -644,7 +649,7 @@ void Game::spawnBoss(int x, int y){
     boss.gravityType = NORMAL;
     boss.usesPlatforms = true;
     utility::fillDefaultHitbox(boss.hitbox, 2);
-    GlobalObjects::bosses.push_back(boss);
+    GlobalObjects::bosses.push_back(std::make_shared<Boss>(boss));
 }
 
 bool Game::bossDefeated(int i){

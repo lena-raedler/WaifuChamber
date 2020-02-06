@@ -37,10 +37,9 @@ void Ability::use(vec_t pos) {
                     projectile.velocity.normalize();
                     projectile.velocity *=speed;
                 }
-                GlobalObjects::projectiles.push_back(projectile);
+                GlobalObjects::projectiles.push_back(std::make_shared<Projectile>(projectile));
                 break;  // Soon (tm)
             case PLAYER:
-                std::cout << "MONGO" << std::endl;
                 int mouse_x, mouse_y;
                 SDL_GetMouseState(&mouse_x, &mouse_y);
                 vec_t vec{static_cast<double>(mouse_x), static_cast<double>(mouse_y)};
@@ -56,7 +55,7 @@ void Ability::use(vec_t pos) {
                                   GlobalConstants::tileSize};
                     projectile.rec = std::make_shared<SDL_Rect>(r);
                 }
-                GlobalObjects::projectiles.push_back(projectile);
+                GlobalObjects::projectiles.push_back(std::make_shared<Projectile>(projectile));
                 break;
         }
     }

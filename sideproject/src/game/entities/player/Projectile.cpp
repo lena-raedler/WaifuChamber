@@ -36,24 +36,14 @@ void Projectile::resolve(Player& p){
 }
 
 bool Projectile::collide(Movable m){//this could be in movable...
-    //dumbo iteration TODO: aabbs
-    for(auto& tri_proj : hitbox){
-        for(auto& tri_mov : m.hitbox){
-            if(!m.iframes && utility::triangleTriangleIntersection(tri_proj, position, tri_mov, m.position)){
-                return true;
-            }
-        }
+    if(!m.iframes && utility::hitboxCollision(hitbox, position, m.hitbox, m.position)){
+        return true;
     }
     return false;
 }
 bool Projectile::collide(Movable& m, bool weirdjank){//this could be in movable...
-    //dumbo iteration TODO: aabbs
-    for(auto& tri_proj : hitbox){
-        for(auto& tri_mov : m.hitbox){
-            if(!m.iframes && utility::triangleTriangleIntersection(tri_proj, position, tri_mov, m.position)){
-                return true;
-            }
-        }
+    if(!m.iframes && utility::hitboxCollision(hitbox, position, m.hitbox, m.position)){
+        return true;
     }
     return false;
 }

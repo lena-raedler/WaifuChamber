@@ -12,8 +12,8 @@ using value_t = double;
 
 template<typename T>
 struct Vec2 {
-    T x;
-    T y;
+    T x = 0;
+    T y = 0;
 
 
 

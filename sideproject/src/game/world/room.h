@@ -44,9 +44,9 @@ public:
 
     vec_t anchor; //where the base (bottom left) of the room is located in global space
     RoomRep rep;
-    void fillPlatformVector(std::vector<Platform>& p);
-    void fillDoorVector(std::vector<Gate>& g);
-    void fillEnemyVector(std::vector<Enemy>& e);
+    void fillPlatformVector(std::vector<std::shared_ptr<Platform>>& p);
+    void fillDoorVector(std::vector<std::shared_ptr<Gate>>& g);
+    void fillEnemyVector(std::vector<std::shared_ptr<Enemy>>& e);
 
     void printP();
     SDL_Rect backgroundRectangle;
