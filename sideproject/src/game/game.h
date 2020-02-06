@@ -24,6 +24,12 @@
 #include "entities/player/Enemy.h"
 #include "Inventory/Slot.hpp"
 #include "entities/player/Ability.h"
+#include "menu/Menu.hpp"
+
+// QT Widget
+//#include "Calculator/calculator.hpp"
+//#include "menu/Menu.hpp"
+//#include <QApplication>
 
 class Game {
 public:
@@ -52,6 +58,7 @@ private:
     std::unique_ptr<Renderer> renderer;
     bool quit;
     bool pause;
+    bool pause2;
     Image pauseImage;
     SDL_Surface* surface;
     Player player;
@@ -76,6 +83,7 @@ private:
     std::vector<Platform> platforms;
     //Inventory inventory;
     std::vector<Ability> abilities;
+    Menu menu;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed

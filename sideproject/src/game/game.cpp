@@ -202,6 +202,10 @@ Game::Game()
 
     //inventory = Inventory(*renderer);
     player.inventory = Inventory(*renderer);
+
+    // Menu
+    menu = Menu(*renderer);
+    //menu.renderMenu(*renderer);
 }
 void Game::makeCheckpoints(){
     {
@@ -241,13 +245,20 @@ int Game::loop() {
     unsigned long long last = 0;
     double deltaTime = 0;
 
-    while(!quit) {
+    while(!quit && !menu.exitGame) {
         last = now;
         now = SDL_GetPerformanceCounter();
         deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
 
         // If the game is paused, no input shall be accepted, except for quit (escape) and unpause (p)
         if (pause) {
+            determineInput(1);
+            render();
+            continue;
+        }
+
+        // Merge with pause check
+        if (!menu.startGame || pause2) {
             determineInput(1);
             render();
             continue;
@@ -379,6 +390,13 @@ vec_t Game::determineInput(double delta){
     quit = !inputManager.update();
 
     if(inputManager.isPressed(KEY_ESCAPE)){
+        if (player.canPause()) {
+            player.pause();
+            pause2 = !pause2;
+        }
+    }
+
+    if(inputManager.isPressed(KEY_O)){
         std::cout << "Quitting..." << std::endl;
         quit = true;
     }
@@ -442,7 +460,7 @@ vec_t Game::determineInput(double delta){
         player.position={50, 50};
     }
     if (inputManager.isPressed(KEY_C) || inputManager.isMousePressed(MOUSE_LEFT)) {
-        if (player.canSpawnProjectile()) {
+        if (menu.startGame && player.canSpawnProjectile() && !pause2) {
             player.spawnProjectile();   // Set the cooldown timer
 
             Projectile p;
@@ -472,6 +490,12 @@ vec_t Game::determineInput(double delta){
             //std::cout << "mouse_x: " << mouse_x << "\tmouse_y: " << mouse_y << std::endl;
             Mix_PlayChannel(-1, GlobalObjects::chunkPtr[2], 0);
         }
+
+        if (!menu.startGame || pause2) {
+            int mouseX, mouseY;
+            SDL_GetMouseState(&mouseX, &mouseY);
+            menu.resolveMouseInput(mouseX, mouseY);
+        }
     }
     if(inputManager.isPressed(KEY_M)){
         if(Mix_PausedMusic() == 1)
@@ -492,6 +516,14 @@ void Game::render() {
     renderer->renderColor(255, 255, 255, 0);
     renderer->clear();
 
+    // Menu
+    if (!menu.startGame || pause2) {
+        menu.renderMenu(*renderer);
+        renderer->render();
+        return;
+    }
+
+    // Room
     room.render(*renderer);
 
     // Render pause screen
