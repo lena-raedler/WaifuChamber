@@ -14,6 +14,7 @@ class Enemy;
 class Gate;
 class Projectile;
 class Boss;
+class Checkpoint;
 struct SavedVariables;
 namespace GlobalObjects {
     extern Mix_Chunk* chunkPtr[3];
@@ -25,6 +26,7 @@ namespace GlobalObjects {
     extern std::vector<std::shared_ptr<Gate>> gates;
     extern std::pair<int, int> resolution;
     extern std::vector<std::shared_ptr<Boss>> bosses;
+    extern std::vector<Checkpoint> checkpoints;
 };
 
 

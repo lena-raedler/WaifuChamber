@@ -121,7 +121,9 @@ Game::Game()
     left = false;
     right = false;
     isFalling = false;
-    checkpoints.push_back(Checkpoint({50,50}, player));
+    checkpoints.push_back(Checkpoint({50,190}, player));
+    utility::fillDefaultHitbox(checkpoints[0].hitbox);
+    checkpoints[0].id = 1;
 
     //Checkpoint* c2 = Checkpoint({1000,500}, player);
     //utility::fillDefaultHitbox(c2.hitbox);
@@ -129,6 +131,10 @@ Game::Game()
     //checkpoints.
 
     player.lastCP = &checkpoints[0];
+    checkpoints.push_back(Checkpoint({400,190}, player));
+    utility::fillDefaultHitbox(checkpoints[1].hitbox);
+    checkpoints[1].id = 2;
+
     playerPosition = player.position;
     {
         triangle t{{0,  0},
@@ -319,6 +325,14 @@ int Game::loop() {
             scuff3 = false;
         }
 
+        for(auto& c: checkpoints){
+            if(utility::hitboxCollision(player.hitbox, player.position, c.hitbox, c.position)){
+                player.rest();
+                std::cout << "rested" <<std::endl;
+                player.lastCP = &c;
+            }
+        }
+
         // Update player
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
@@ -388,11 +402,10 @@ vec_t Game::determineInput(double delta){
         if (player.inventory.estusFlask.canReset())
             player.inventory.estusFlask.reset(player.inventory);
     }
-    if(inputManager.isPressed(KEY_F)){//test
-        if(!player.iframes) {
-            player.getHit(10);
-        }
+    /*
+    if(inputManager.isPressed(KEY_F)){//cp
     }
+     */
     if(inputManager.isPressed(KEY_Q)){//test
         std::cout<< player.position << std::endl;
     }
@@ -493,6 +506,13 @@ void Game::render() {
         renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
         b->bars[0].renderBar(*renderer);
         //b.healthBar.renderBar(*renderer);
+    }
+    for(auto c : checkpoints){
+        if(player.lastCP->id == c.id) {
+            renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
+        }else{
+            renderer->renderTriangles(c.hitbox, 0, 120, 0, c.position);
+        }
     }
     /*for(auto& i : GlobalObjects::enemies) {
         i.render(*renderer);
@@ -622,7 +642,7 @@ void Game::spawnBoss(int x, int y){
     blast.timeToLive = 20;
     utility::fillDefaultHitbox(blast.hitbox);
     aoeblast.speed = 50;
-    aoeblast.cooldown = 30;
+    aoeblast.cooldown = 50;
     aoeblast.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
     aoeblast.aimed = false;
     for(int i = -1; i < 2; ++i){

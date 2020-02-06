@@ -19,6 +19,7 @@ public:
     }
     std::string room = "files/rooms/testroom.txt";
     Player& player;
+    int id;
 
 
     //todo make 2 different sprites depending on cp active / inactive
