@@ -24,6 +24,7 @@ public:
     Gate(std::pair<int, int> position, std::string path, bool leftLocked, bool rightLocked);
     Gate(std::pair<int, int> position, std::string path, int keyId);
     vec_t position;
+    vec_t newPosition;
     std::string nextRoomPath;
     std::vector<triangle> hitbox;
     bool collide(triangle& p);

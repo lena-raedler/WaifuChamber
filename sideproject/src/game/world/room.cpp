@@ -43,9 +43,18 @@ void Room::fillPlatformVector(std::vector<std::shared_ptr<Platform>>& p){
 }
 void Room::fillDoorVector(std::vector<std::shared_ptr<Gate>>& g){
     g.clear();
-    for(auto i : doorPositions) {
-        g.push_back(std::make_shared<Gate>(i.first, i.second));
+    for(auto i : gates) {
+        Gate gate;
+        gate.position = {(double) i.position.first, (double) i.position.second};
+        gate.nextRoomPath = i.path;
+        gate.keyId = i.keyId;
+        gate.leftLocked = i.leftLocked;
+        gate.rightLocked = i.rightLocked;
+        gate.newPosition = utility::convert(i.newPlayerPosition);
+        utility::fillDefaultHitbox(gate.hitbox);
+        g.push_back(std::make_shared<Gate>(gate));
     }
+    std::cout << "ooo" << g.size() << std::endl;
 
 }
 void Room::fillEnemyVector(std::vector<std::shared_ptr<Enemy>>& e){

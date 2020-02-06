@@ -124,5 +124,7 @@ void Player::kill(){
     rest();
 }
 void Player::grounded(){
-    jumps = 2;
+    if(velocity.y >= 0) {
+        jumps = 2;
+    }
 }

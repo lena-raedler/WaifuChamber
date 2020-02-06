@@ -263,12 +263,12 @@ int Game::loop() {
         player.velocity += move;
         player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/deltaDenom);
-        for(auto e : GlobalObjects::enemies){
+        for(auto& e : GlobalObjects::enemies){
             e->upkeep(deltaTime/deltaDenom);
 
         }
 
-        for (auto projectile : GlobalObjects::projectiles) {
+        for (auto& projectile : GlobalObjects::projectiles) {
             projectile->textureLocation = "files/textures/weapons/projectile_01.png";
             projectile->upkeep(deltaTime/deltaDenom);
             if(projectile->owner == HOSTILE) {
@@ -291,18 +291,22 @@ int Game::loop() {
                 }
             }
         }
-        for(auto boss : GlobalObjects::bosses){
+        for(auto& boss : GlobalObjects::bosses){
             boss->upkeep(deltaTime/deltaDenom);
         }
         bool leave = false;
-        for(auto gate : GlobalObjects::gates){
+        for(auto& gate : GlobalObjects::gates){
             for(triangle t : player.hitbox) {
                 t+=player.position;
                 if (gate->collide(t)) {
-                    GlobalObjects::clear();
+
                     currentRoom = gate->nextRoomPath;
-                    room = utility::parseRoom(gate->nextRoomPath, *renderer, GlobalObjects::resolution);
-                    player.position = utility::convert(room.newStartPosition);
+                    std::cout << "moving to " << currentRoom << std::endl;
+                    player.position = gate->newPosition;
+                    GlobalObjects::clear();
+                    room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
+
+                    /*
                     switch(room.roomId){
                         case 1: player.position=utility::convert({57, 28});
                         break;
@@ -313,6 +317,7 @@ int Game::loop() {
                         default:
                             break;
                     }
+                     */
                     std::cout << player.position << std::endl;
                     fillGlobalObjects(room);
                     leave = true;
