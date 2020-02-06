@@ -4,7 +4,7 @@
 
 #include "EnemyBuilder.h"
 namespace EnemyBuilder {
-    void buildEnemy(std::vector<Enemy>& vece, int id, std::pair<int, int> pos){//hardcoded because fuck that shit
+    void buildEnemy(std::vector<std::shared_ptr<Enemy>>& vece, int id, std::pair<int, int> pos){//hardcoded because fuck that shit
         Enemy e;
         Projectile p;
         Ability a;
@@ -20,7 +20,7 @@ namespace EnemyBuilder {
 
                 utility::fillDefaultHitbox(p.hitbox);
                 p.damage = 20;
-                p.timeToLive = 10000;
+                p.timeToLive = 100;
                 p.usesPlatforms = false;
                 p.fragile = true;
                 p.gravityType = NOGRAVITY;
@@ -28,7 +28,7 @@ namespace EnemyBuilder {
 
                 a.projectiles.push_back(p);
                 a.speed = 20;
-                a.cooldown = 1000;
+                a.cooldown = 10;
 
                 e.abilities.push_back(a);
                 e.textureLocation = "files/textures/skeleton_01.png";
@@ -38,7 +38,6 @@ namespace EnemyBuilder {
                     SDL_Rect r = {pos.first, pos.second, GlobalConstants::tileSize, GlobalConstants::tileSize};
                     e.rec = std::make_shared<SDL_Rect>(r);
                 }
-                GlobalObjects::enemies.push_back(e);
                 break;
             case 2://floating skelly
                 e.position = utility::convert(pos);
@@ -51,7 +50,7 @@ namespace EnemyBuilder {
 
                 utility::fillDefaultHitbox(p.hitbox);
                 p.damage = 20;
-                p.timeToLive = 10000;
+                p.timeToLive = 100;
                 p.usesPlatforms = false;
                 p.fragile = true;
                 p.gravityType = NOGRAVITY;
@@ -59,7 +58,7 @@ namespace EnemyBuilder {
 
                 a.projectiles.push_back(p);
                 a.speed = 20;
-                a.cooldown = 1000;
+                a.cooldown = 10;
 
                 e.abilities.push_back(a);
                 e.textureLocation = "files/textures/skeleton_01.png";
@@ -69,10 +68,12 @@ namespace EnemyBuilder {
                     SDL_Rect r = {pos.first, pos.second, GlobalConstants::tileSize, GlobalConstants::tileSize};
                     e.rec = std::make_shared<SDL_Rect>(r);
                 }
-                GlobalObjects::enemies.push_back(e);
+
+                break;
             default:
                 break;
         }
+        GlobalObjects::enemies.push_back(std::make_shared<Enemy>(e));
     };
 
 };

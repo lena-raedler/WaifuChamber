@@ -11,14 +11,9 @@
 class Player;
 class Checkpoint : public Interactable {
 public:
-    Checkpoint(Checkpoint& cp) = default;
-    Checkpoint(Checkpoint&& cp) = default;
-    Checkpoint (vec_t pos, Player& player) : player(player){
-        lockMovement = true;
-        position = pos;
-    }
     std::string room = "files/rooms/testroom.txt";
-    Player& player;
+    int id = 0;
+
 
 
     //todo make 2 different sprites depending on cp active / inactive

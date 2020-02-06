@@ -6,6 +6,29 @@
 #include "../world/room.h"
 
 namespace utility {
+    bool hitboxCollision(std::vector<triangle> a, vec_t posA, std::vector<triangle> b, vec_t posB){
+        for(triangle& t: a){
+            t+=posA;
+        }
+        for(triangle& t: b){
+            t+=posB;
+        }
+        vec_t aMax = getMax(a);
+        vec_t aMin = getMin(a);
+        vec_t bMax = getMax(b);
+        vec_t bMin = getMin(b);
+
+        if(aMax.y >= bMin.y && aMax.x >= bMin.x && bMax.y >= aMin.y && bMax.x >= aMin.x) {
+            for (auto &tri_proj : a) {
+                for (auto &tri_mov : b) {
+                    if (utility::triangleTriangleIntersection(tri_proj, tri_mov)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     vec_t convert(std::pair<int, int> p){
         return {(double) p.first * GlobalConstants::tileSize, (double) p.second * GlobalConstants::tileSize};
     }
@@ -333,6 +356,33 @@ namespace utility {
         //SDL_Rect rect = {0, 0, 500, 500};
         SDL_FreeSurface(surface);
         return Image(texture, rect);
+    }
+
+    vec_t getMax(std::vector<triangle>& tris){
+        vec_t max;
+        for(triangle& t : tris){
+            vec_t tmp = t.max();
+            if(tmp.x > max.x){
+                max.x = tmp.x;
+            }
+            if(tmp.y > max.y){
+                max.y = tmp.y;
+            }
+        }
+        return max;
+    }
+    vec_t getMin(std::vector<triangle>& tris){
+        vec_t min;
+        for(triangle& t : tris){
+            vec_t tmp = t.min();
+            if(tmp.x < min.x){
+                min.x = tmp.x;
+            }
+            if(tmp.y < min.y){
+                min.y = tmp.y;
+            }
+        }
+        return min;
     }
 
 

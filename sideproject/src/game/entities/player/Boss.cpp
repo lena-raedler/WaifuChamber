@@ -47,11 +47,12 @@ void Boss::upkeep(double d){
         }
     } else{
         defeated = true;
+        kill();
         return;
     }
 
     // Bn0rb start
-    for (int i = 0; i < healthbars.size(); i++) {
+    for (size_t i = 0; i < healthbars.size(); i++) {
         bars[i].updateBar(static_cast<double>(healthbars[i].first) / healthbars[i].second);
     }
     healthBar.updateBar(static_cast<double>(healthbars[0].first) / healthbars[0].second);
@@ -65,7 +66,7 @@ void Boss::upkeep(double d){
         [[maybe_unused]] double& d= std::get<1>(stuff);
         int& p= std::get<2>(stuff);
 
-        if(p <= phase && a.isAvail() ){//todo stuff
+        if(p <= phase && a.isAvail(d) ){//todo stuff
             a.use(position);
         }
     }
@@ -90,16 +91,22 @@ void Boss::kill(){
     //dostuff
 }
 void Boss::transitionPhase() {
-    switch(++phase){
-        case 2:
-            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {15, 10});
-            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {40, 10});
-            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {45, 10});
-            break;
-        case 3:
-            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {10, 10});
-            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {30, 10});
-            EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {50, 10});
+    switch(id) {
+        case 1:
+        switch (++phase) {
+            case 2:
+                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {15, 10});
+                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {40, 10});
+                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {45, 10});
+                break;
+            case 3:
+                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {10, 10});
+                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {30, 10});
+                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {50, 10});
+                break;
+        }
+        break;
+        default:
             break;
     }
 }

@@ -4,10 +4,13 @@
 
 #include "Ability.h"
 
-bool Ability::isAvail() {
-    auto time = std::chrono::high_resolution_clock::now();
-    auto timeSinceLastUse = std::chrono::duration_cast<std::chrono::milliseconds>(time - lastUsed);
-    return timeSinceLastUse > std::chrono::milliseconds(cooldown);
+bool Ability::isAvail(double delta) {
+    lastUsed -= delta;
+    if (lastUsed < 0){
+        lastUsed = cooldown;
+        return true;
+    }
+    return false;
 }
 
 void Ability::use(vec_t pos) {
@@ -37,10 +40,9 @@ void Ability::use(vec_t pos) {
                     projectile.velocity.normalize();
                     projectile.velocity *=speed;
                 }
-                GlobalObjects::projectiles.push_back(projectile);
+                GlobalObjects::projectiles.push_back(std::make_shared<Projectile>(projectile));
                 break;  // Soon (tm)
             case PLAYER:
-                std::cout << "MONGO" << std::endl;
                 int mouse_x, mouse_y;
                 SDL_GetMouseState(&mouse_x, &mouse_y);
                 vec_t vec{static_cast<double>(mouse_x), static_cast<double>(mouse_y)};
@@ -56,12 +58,8 @@ void Ability::use(vec_t pos) {
                                   GlobalConstants::tileSize};
                     projectile.rec = std::make_shared<SDL_Rect>(r);
                 }
-                GlobalObjects::projectiles.push_back(projectile);
+                GlobalObjects::projectiles.push_back(std::make_shared<Projectile>(projectile));
                 break;
         }
     }
-
-    lastUsed = std::chrono::high_resolution_clock::now();
-
-
 }

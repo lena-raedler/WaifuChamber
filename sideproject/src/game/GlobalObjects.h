@@ -14,17 +14,19 @@ class Enemy;
 class Gate;
 class Projectile;
 class Boss;
+class Checkpoint;
 struct SavedVariables;
 namespace GlobalObjects {
     extern Mix_Chunk* chunkPtr[3];
     extern SavedVariables savedVariables;
-    extern std::vector<Enemy> enemies;
-    extern std::vector<Platform> platforms;
+    extern std::vector<std::shared_ptr<Enemy>> enemies;
+    extern std::vector<std::shared_ptr<Platform>> platforms;
     extern Player* playerPtr;//careful with that
-    extern std::vector<Projectile> projectiles;
-    extern std::vector<Gate> gates;
+    extern std::vector<std::shared_ptr<Projectile>> projectiles;
+    extern std::vector<std::shared_ptr<Gate>> gates;
     extern std::pair<int, int> resolution;
-    extern std::vector<Boss> bosses;
+    extern std::vector<std::shared_ptr<Boss>> bosses;
+    extern std::vector<Checkpoint> checkpoints;
 };
 
 

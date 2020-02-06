@@ -25,6 +25,7 @@
 class Room;
 
 namespace utility {
+    bool hitboxCollision(std::vector<triangle> a, vec_t posA, std::vector<triangle> b, vec_t posB);
     vec_t convert(std::pair<int, int> p);
     std::vector<value_t> getBarycentricCoordinates(const triangle a,const vec_t b);
     bool pointTriangleIntersection(const triangle a,const vec_t b);
@@ -36,6 +37,8 @@ namespace utility {
     Room parseRoom(std::string path, Renderer &renderer, std::pair<int, int> resolution);
     Image loadImage(std::string path, Renderer& renderer);
     void fillDefaultHitbox(std::vector<triangle>& vec, int i);
+    vec_t getMax(std::vector<triangle>& tris);
+    vec_t getMin(std::vector<triangle>& tris);
 }
 
 

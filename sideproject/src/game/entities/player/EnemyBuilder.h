@@ -9,7 +9,7 @@
 
 namespace EnemyBuilder {
 
-    extern void buildEnemy(std::vector<Enemy>& vece, int id, std::pair<int, int> pos);
+    extern void buildEnemy(std::vector<std::shared_ptr<Enemy>>& vece, int id, std::pair<int, int> pos);
 };
 
 

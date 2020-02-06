@@ -22,7 +22,7 @@ constexpr bool collide_compatible_v = collide_compatible<T, K>::value;
 
 namespace blackmagic{
     template<typename T, typename K>
-    bool collide(T t, K k) {//this function lets you collide everything if either side has a dedicated collide function (preference for t.collide)
+    bool collide(T t, K k) {
         if constexpr (collide_compatible_v<T, K>){
             return t.collide(k);
         }
