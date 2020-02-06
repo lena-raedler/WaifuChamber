@@ -43,6 +43,7 @@ private:
     void processInput(double delta);
     vec_t determineInput(double delta);
     void renderInventory();
+    void makeCheckpoints();
     //int renderInventory2(int argc, char *argv[]);
     SDL_Window* window;
     SDL_Texture* texture;

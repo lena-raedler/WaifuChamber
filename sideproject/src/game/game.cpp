@@ -10,6 +10,7 @@
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_mixer.h"
 #include <string>
+#include <boost/algorithm/string/compare.hpp>
 #include "utils/renderer.h"
 #include "entities/player/player.h"
 #include <memory>
@@ -33,6 +34,7 @@ namespace GlobalObjects{
     std::vector<std::shared_ptr<Gate>> gates;
     std::pair<int, int> resolution;
     std::vector<std::shared_ptr<Boss>> bosses;
+    std::vector<Checkpoint> checkpoints;
     void clear(){
         enemies.clear();
         platforms.clear();
@@ -121,19 +123,8 @@ Game::Game()
     left = false;
     right = false;
     isFalling = false;
-    checkpoints.push_back(Checkpoint({50,190}, player));
-    utility::fillDefaultHitbox(checkpoints[0].hitbox);
-    checkpoints[0].id = 1;
+    makeCheckpoints();
 
-    //Checkpoint* c2 = Checkpoint({1000,500}, player);
-    //utility::fillDefaultHitbox(c2.hitbox);
-    //checkpoints.push_back(Checkpoint({50,50}, player));
-    //checkpoints.
-
-    player.lastCP = &checkpoints[0];
-    checkpoints.push_back(Checkpoint({400,190}, player));
-    utility::fillDefaultHitbox(checkpoints[1].hitbox);
-    checkpoints[1].id = 2;
 
     playerPosition = player.position;
     {
@@ -203,6 +194,25 @@ Game::Game()
 
     //inventory = Inventory(*renderer);
     player.inventory = Inventory(*renderer);
+}
+void Game::makeCheckpoints(){
+    {
+        Checkpoint c;
+        c.position = utility::convert({3, 6});
+        utility::fillDefaultHitbox(c.hitbox);
+        c.id = GlobalObjects::checkpoints.size();
+        GlobalObjects::checkpoints.push_back(c);
+    }
+    {
+        Checkpoint c;
+        c.position = utility::convert({55, 4});
+        utility::fillDefaultHitbox(c.hitbox);
+        c.room = "files/rooms/library.txt";
+        c.id = GlobalObjects::checkpoints.size();
+        GlobalObjects::checkpoints.push_back(c);
+    }
+
+    player.lastCP = &(GlobalObjects::checkpoints[0]);
 }
 
 Game::~Game() {
@@ -282,6 +292,7 @@ int Game::loop() {
                 t+=player.position;
                 if (gate->collide(t)) {
                     GlobalObjects::clear();
+                    currentRoom = gate->nextRoomPath;
                     room = utility::parseRoom(gate->nextRoomPath, *renderer, GlobalObjects::resolution);
                     player.position = utility::convert(room.newStartPosition);
                     switch(room.roomId){
@@ -325,11 +336,13 @@ int Game::loop() {
             scuff3 = false;
         }
 
-        for(auto& c: checkpoints){
-            if(utility::hitboxCollision(player.hitbox, player.position, c.hitbox, c.position)){
-                player.rest();
-                std::cout << "rested" <<std::endl;
-                player.lastCP = &c;
+        for(auto& c: GlobalObjects::checkpoints){
+            if(boost::algorithm::equals(c.room, currentRoom)) {
+                if (utility::hitboxCollision(player.hitbox, player.position, c.hitbox, c.position)) {
+                    player.rest();
+                    std::cout << "rested" << std::endl;
+                    player.lastCP = &c;
+                }
             }
         }
 
@@ -486,32 +499,34 @@ void Game::render() {
     //renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
 
-    for (auto projectile : GlobalObjects::projectiles) {
+    for (auto& projectile : GlobalObjects::projectiles) {
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
         renderer->renderTriangles(projectile->hitbox, 255, 255, 255, projectile->position);
     }
 
-    for (auto p : GlobalObjects::platforms){
+    for (auto& p : GlobalObjects::platforms){
         std::vector<triangle> t = {p->top, p->bot};
         renderer->renderTriangles(t, 0, 0, 0, {0,0});
     }
-    for (auto e : GlobalObjects::enemies){
+    for (auto& e : GlobalObjects::enemies){
         renderer->renderTriangles(e->hitbox,255, 255, 0,e->position);
     }
-    for (auto g : GlobalObjects::gates){
+    for (auto& g : GlobalObjects::gates){
         renderer->renderTriangles(g->hitbox, 0,255, 255, g->position);
     }
-    for (auto b : GlobalObjects::bosses){
+    for (auto& b : GlobalObjects::bosses){
         scuff2 = true;
         renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
         b->bars[0].renderBar(*renderer);
         //b.healthBar.renderBar(*renderer);
     }
-    for(auto c : checkpoints){
-        if(player.lastCP->id == c.id) {
-            renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
-        }else{
-            renderer->renderTriangles(c.hitbox, 0, 120, 0, c.position);
+    for(auto& c : GlobalObjects::checkpoints){
+        if(boost::algorithm::equals(currentRoom, c.room)) {
+            if (player.lastCP->id == c.id) {
+                renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
+            } else {
+                renderer->renderTriangles(c.hitbox, 0, 120, 0, c.position);
+            }
         }
     }
     /*for(auto& i : GlobalObjects::enemies) {
