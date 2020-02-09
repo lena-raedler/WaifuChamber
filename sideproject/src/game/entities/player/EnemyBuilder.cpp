@@ -22,7 +22,7 @@ namespace EnemyBuilder {
                 p.damage = 20;
                 p.timeToLive = 100;
                 p.usesPlatforms = false;
-                p.fragile = true;
+                p.fragile = false;
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
@@ -52,7 +52,7 @@ namespace EnemyBuilder {
                 p.damage = 20;
                 p.timeToLive = 100;
                 p.usesPlatforms = false;
-                p.fragile = true;
+                p.fragile = false;
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 

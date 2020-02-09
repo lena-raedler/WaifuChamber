@@ -19,6 +19,7 @@
 #include "Checkpoint.h"
 #include "statuseffect.h"
 #include "../../Inventory/Inventory.hpp"
+#include "Ability.h"
 #include "Bar.hpp"
 
 enum lastCheckPoint{//maybe we dont need this
@@ -87,6 +88,7 @@ public:
     void getHit(double damage, statuseffect status);
     void kill();
     void grounded();
+    void rangedAttack();
 
     void processStatuseffects(statuseffect status);
 
