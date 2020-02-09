@@ -3,6 +3,7 @@
 //
 
 #include "Projectile.hpp"
+#include "../../GlobalObjects.h"
 
 Projectile::Projectile(vec_t positionTmp, int angle)
     : angle(angle)
@@ -13,9 +14,15 @@ Projectile::Projectile(vec_t positionTmp, int angle)
 
 void Projectile::upkeep(double delta) {
     if(alive) {
-        angle %= 360;
         move(delta);
         timeToLive -= delta;
+        vec_t vMax = utility::getMax(hitbox);
+        vec_t vMin = utility::getMin(hitbox);
+        vMax += position;
+        vMin += position;
+        if(vMax.x >= GlobalObjects::resolution.first || vMax.y >= GlobalObjects::resolution.second || vMin.x <= 0 || vMin.y <= 0){
+            alive = false;
+        }
         if (timeToLive < 0) {
             alive = false;
         }
@@ -30,7 +37,7 @@ void Projectile::resolve(Player& p){
     }
 }
 
-bool Projectile::collide(Movable m){//this could be in movable...
+bool Projectile::collide(Movable& m){//this could be in movable...
     if(!m.iframes && utility::hitboxCollision(hitbox, position, m.hitbox, m.position)){
         return true;
     }

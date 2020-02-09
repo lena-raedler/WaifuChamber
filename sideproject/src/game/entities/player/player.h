@@ -19,6 +19,7 @@
 #include "Checkpoint.h"
 #include "statuseffect.h"
 #include "../../Inventory/Inventory.hpp"
+#include "Ability.h"
 #include "Bar.hpp"
 
 enum lastCheckPoint{//maybe we dont need this
@@ -45,11 +46,13 @@ struct vitals{
     int hp = 100;
 
     int maxStam = 100;
-    int stam = 50;
+    int stam = 100;
     int maxMp = 100;
     int mp = 50;
 
+    double stamRegen = 50;
     double healthPercentage(){return (double) hp / maxHp;}
+    double staminaPercentage(){return (double) stam / maxStam;}
 };
 class Player : public Movable {
 public:
@@ -73,6 +76,7 @@ public:
     Checkpoint* lastCP;
     Inventory inventory;
     Bar healthBar;
+    Bar staminaBar;
 
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);
@@ -86,7 +90,8 @@ public:
     void getHit(double damage);
     void getHit(double damage, statuseffect status);
     void kill();
-    void grounded();
+    void grounded(double delta);
+    void rangedAttack();
 
     void processStatuseffects(statuseffect status);
 

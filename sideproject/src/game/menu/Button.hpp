@@ -13,10 +13,11 @@ class Button {
 
 public:
     Button() = default;
-    Button(Renderer& renderer, std::string imagePath, int x, int y, int width, int height);
+    Button(Renderer& renderer, std::string imagePath, std::string imagePathHighlighted, int x, int y, int width, int height);
     ~Button() = default;
     int x, y, width, height = 0;
-    Image image;
+    Image image, imageHighlighted;
+    bool highlighted;
     void renderButton(Renderer& renderer);
     bool inButton(int x2, int y2);
 };

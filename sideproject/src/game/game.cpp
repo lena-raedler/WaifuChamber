@@ -20,6 +20,7 @@
 #include "world/Gate.h"
 #include "entities/player/EnemyBuilder.h"
 #include "entities/player/Boss.h"
+#include "entities/player/AbilityPicker.h"
 
 Mix_Music *gMusic = NULL;
 Mix_Music *gMusicBoss = NULL;
@@ -35,6 +36,7 @@ namespace GlobalObjects{
     std::pair<int, int> resolution;
     std::vector<std::shared_ptr<Boss>> bosses;
     std::vector<Checkpoint> checkpoints;
+    std::vector<Ability> abilities;
     void clear(){
         enemies.clear();
         platforms.clear();
@@ -47,11 +49,9 @@ namespace GlobalObjects{
 Game::Game()
     : pause(false)
 {
-    std::ifstream file("savegame.txt");
-    if(file.good()) {
-        GlobalObjects::savedVariables.deSerialize(file);
-    }
-    file.close();
+    currentRoom = "files/rooms/testroom.txt";
+    loadSavedVariables();
+
     GlobalObjects::playerPtr = &player;
     debugshit();
 
@@ -111,14 +111,8 @@ Game::Game()
         std::cerr << "could not create texture" << std::endl;
         throw std::runtime_error("Could not create texture");
     }
-    currentRoom = "files/rooms/testroom.txt";
-    makeCheckpoints();
-    for(auto& c: GlobalObjects::checkpoints){
-        if(GlobalObjects::savedVariables.currentCheckpoint == c.id){
-            player.position = c.position;
-            currentRoom = c.room;
-        }
-    }
+
+
 
     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
     fillGlobalObjects(room);
@@ -147,44 +141,6 @@ Game::Game()
                    {0,  GlobalConstants::tileSize}};
         player.hitbox.push_back(t);
     }
-
-    /*
-    Enemy adam;
-    adam.maxHealth = 100;
-    adam.health = 100;
-    adam.position ={300, 300};
-    adam.velocity = {0,0};
-    adam.gravityType = NORMAL;
-    adam.usesPlatforms = true;
-    {
-        triangle t{{0,                         0},
-                   {GlobalConstants::tileSize, 0},
-                   {0,                         GlobalConstants::tileSize}};
-                   adam.hitbox.push_back(t);
-    }
-    {
-        triangle t{{GlobalConstants::tileSize,  GlobalConstants::tileSize},
-                   {GlobalConstants::tileSize, 0},
-                   {0,  GlobalConstants::tileSize}};
-        adam.hitbox.push_back(t);
-    }
-    Ability supermegadeathlazor;
-    Projectile lazor;
-    lazor.gravityType = NOGRAVITY;
-    lazor.usesPlatforms = false;
-    lazor.damage = 1;
-    lazor.baseInit();
-    lazor.timeToLive = 1000;
-    supermegadeathlazor.projectile = lazor;
-    supermegadeathlazor.speed = 30;
-    supermegadeathlazor.cooldown = 10;
-    adam.abilities.push_back(supermegadeathlazor);
-    GlobalObjects::enemies.push_back(adam);
-     */
-
-
-
-
     //create rectangle to load the texture onto
 
     rectangle.x = playerPosition.x;
@@ -194,11 +150,6 @@ Game::Game()
     player.rec = std::make_unique<SDL_Rect>(rectangle);
     inputManager.init();
 
-    /*
-    healthBarBorderRect = {20, 20, 210, 30};
-    healthBarBackgroundRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 10, healthBarBorderRect.h - 10};
-    healthBarRect = {healthBarBorderRect.x + 5, healthBarBorderRect.y + 5, healthBarBorderRect.w - 50, healthBarBorderRect.h - 10};
-    */
 
     //inventory = Inventory(*renderer);
     player.inventory = Inventory(*renderer);
@@ -240,7 +191,7 @@ Game::~Game() {
 }
 
 int Game::loop() {
-    int deltaDenom = 100;
+    int deltaDenom = GlobalConstants::deltaDenom;
     unsigned long long now = SDL_GetPerformanceCounter();
     unsigned long long last = 0;
     double deltaTime = 0;
@@ -266,7 +217,7 @@ int Game::loop() {
 
         //processInput(deltaTime);
         player.velocity.x *= 0.8;
-        auto move = determineInput(1);
+        auto move = determineInput(deltaTime*deltaDenom);
         if(quit){
             break;
         }
@@ -276,6 +227,11 @@ int Game::loop() {
         player.upkeep(deltaTime/deltaDenom);
         for(auto& e : GlobalObjects::enemies){
             e->upkeep(deltaTime/deltaDenom);
+            if (!e->damageOnTouch == 0){
+                if(utility::hitboxCollision(player.hitbox, player.position, e->hitbox, e->position)){
+                    player.getHit(e->damageOnTouch);
+                }
+            }
 
         }
 
@@ -283,21 +239,32 @@ int Game::loop() {
             projectile->textureLocation = "files/textures/weapons/projectile_01.png";
             projectile->upkeep(deltaTime/deltaDenom);
             if(projectile->owner == HOSTILE) {
-                if (blackmagic::collide(*projectile, player)) {
+                if (projectile->collide(player)) {
                     player.getHit(projectile->damage);
                     projectile->alive = false;
                 }
             }else if (projectile->owner == PLAYER){
-                for (auto e : GlobalObjects::enemies) {
-                    if (blackmagic::collide(*projectile, *e)) {
+                for (auto& e : GlobalObjects::enemies) {
+                    if (projectile->collide(*e)) {
                         e->getHit(projectile->damage);
                         projectile->alive = false;
                     }
                 }
-                for (auto b: GlobalObjects::bosses) {
+                for (auto& b: GlobalObjects::bosses) {
                     if (projectile->collide(*b, false)) {
                         b->getHit(projectile->damage);
                         projectile->alive = false;
+                    }
+                }
+            }
+            if(projectile->fragile){
+                for(auto& platform: GlobalObjects::platforms){
+                    for(auto& tri: projectile->hitbox){
+                        triangle tmp = tri;
+                        tmp += projectile->position;
+                        if(platform->collide(tmp)){
+                            projectile->alive = false;
+                        }
                     }
                 }
             }
@@ -316,20 +283,6 @@ int Game::loop() {
                     player.position = gate->newPosition;
                     GlobalObjects::clear();
                     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
-
-                    /*
-                    switch(room.roomId){
-                        case 1: player.position=utility::convert({57, 28});
-                        break;
-                        case 2: player.position=utility::convert({2, 28});
-                        break;
-                        case 3: player.position=utility::convert({3, 4});
-                        break;
-                        default:
-                            break;
-                    }
-                     */
-                    std::cout << player.position << std::endl;
                     fillGlobalObjects(room);
                     leave = true;
                     break;
@@ -345,6 +298,7 @@ int Game::loop() {
             std::cout << "GIT GUD" << std::endl;
             GlobalObjects::clear();
             room = utility::parseRoom(player.lastCP->room, *renderer, GlobalObjects::resolution);
+            currentRoom = player.lastCP->room;
             fillGlobalObjects(room);
             player.kill();
         }
@@ -360,6 +314,7 @@ int Game::loop() {
             scuff3 = false;
         }
 
+        //TODO Redo this shit
         for(auto& c: GlobalObjects::checkpoints){
             if(boost::algorithm::equals(c.room, currentRoom)) {
                 if (utility::hitboxCollision(player.hitbox, player.position, c.hitbox, c.position)) {
@@ -371,6 +326,11 @@ int Game::loop() {
                     }
                 }
             }
+        }
+
+        if (menu.saveGame) {
+            GlobalObjects::savedVariables.serialize();
+            menu.saveGame = false;
         }
 
         // Update player
@@ -434,7 +394,10 @@ vec_t Game::determineInput(double delta){
     }
     if(inputManager.isPressed(KEY_S)) {
         // player.velocity = {0, 0};    // Makes the player hover lol
-        player.velocity.y = 0;
+        if(player.vit.stam > 0){
+            player.velocity.y *= 0.2;
+            player.vit.stam -= delta * 2;
+        }
     }
     if(inputManager.isPressed(KEY_R)){//test
         player.rest();
@@ -470,22 +433,9 @@ vec_t Game::determineInput(double delta){
         if (menu.startGame && player.canSpawnProjectile() && !menu.pause) {
             player.spawnProjectile();   // Set the cooldown timer
 
-            Projectile p;
-            utility::fillDefaultHitbox(p.hitbox);
-            p.damage = 20;
-            p.timeToLive = 2000;
-            p.usesPlatforms = false;
-            p.fragile = true;
-            p.gravityType = NOGRAVITY;
-            p.owner = PLAYER;
-            p.baseInit();
 
             Ability a;
-            a.projectiles.push_back(p);
-            a.speed = 47;
-            a.cooldown = 1000;
-            //a.origin = {0, 0};
-            a.aimed = false;
+            AbilityPicker::pickAbility(a, 1, PL_RANGED);
             abilities.push_back(a);
 
             //int mouse_x, mouse_y;
@@ -596,10 +546,13 @@ void Game::render() {
     // Update the remaining health percentage
     //updateHealthBar();
     player.healthBar.updateBar(player.vit.healthPercentage());
+    player.staminaBar.updateBar(player.vit.staminaPercentage());
 
     // Render the health bar according to how much hp is left
     //renderHealthBar();
     player.healthBar.renderBar(*renderer);
+    player.staminaBar.renderBar(*renderer);
+    std::cout << player.vit.stam << std::endl;
 
     //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
     //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
@@ -749,7 +702,21 @@ bool Game::bossDefeated(int i){
     return tmp & 1;
 }
 
+void Game::loadSavedVariables(){
+    std::ifstream file("savegame.txt");
+    if(file.good()) {
+        GlobalObjects::savedVariables.deSerialize(file);
+    }
+    file.close();
+    makeCheckpoints();
+    for(auto& c: GlobalObjects::checkpoints){
+        if(GlobalObjects::savedVariables.currentCheckpoint == c.id){
+            player.position = c.position;
+            currentRoom = c.room;
+        }
+    }
 
+}
 /*
 int Game::renderInventory2(int argc, char *argv[]) {
     QApplication application(argc, argv);

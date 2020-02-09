@@ -10,6 +10,8 @@
 Player::Player()
     //: healthBar({64, 64, 210, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}})
 {
+    Ability range;
+    Ability melee;
     int x = 64;
     int y = 64;
     int width = 210;
@@ -24,6 +26,18 @@ Player::Player()
     healthBar.healthBarRect = {x+5, y+5, width-10, height-10};
     healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
     healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
+
+    staminaBar.x = x + width + 5;
+    staminaBar.y = healthBar.y;
+    staminaBar.width = healthBar.width;
+    staminaBar.height = healthBar.height;
+    staminaBar.healthBarBorderRect = {staminaBar.x, staminaBar.y, staminaBar.width, staminaBar.height};
+    staminaBar.healthBarBackgroundRect = {staminaBar.x+5, staminaBar.y+5, staminaBar.width-10, staminaBar.height-10};
+    staminaBar.healthBarRect = staminaBar.healthBarBackgroundRect;
+    //staminaBar.borderColor = {0x80, 0xFF, 0x80, 0xFF};
+    staminaBar.borderColor = {0x8F, 0xC3, 0x1F, 0xFF};
+    //staminaBar.barColor = {0x00, 0xFF, 0x00, 0xFF};
+    staminaBar.barColor = {0x00, 0x99, 0x44, 0xFF};
 
     //healthBar.healthBarBorderRect({x, y, width, height})
     //        , healthBarBackgroundRect({x+5, y+5, width-10, height-10})
@@ -47,7 +61,6 @@ void Player::updatePlayer(double x, double y) {
 }
 
 void Player::upkeep(double delta){
-
 
     move(delta);
     if (velocity.y <= 0 + GlobalConstants::epsilon){
@@ -104,9 +117,11 @@ bool Player::canSpawnProjectile() {
     return timeSinceLastSpawnProjectile > std::chrono::milliseconds(spawnProjectileCooldown);
 }
 void Player::getHit(double damage) {
-    iframes = true;
-    lastHit = std::chrono::high_resolution_clock::now();
-    vit.hp -= damage;
+    if(!iframes) {
+        iframes = true;
+        lastHit = std::chrono::high_resolution_clock::now();
+        vit.hp -= damage;
+    }
 }
 void Player::getHit(double damage, statuseffect status){
     getHit(damage);
@@ -123,8 +138,10 @@ void Player::kill(){
     position = lastCP->position;
     rest();
 }
-void Player::grounded(){
+void Player::grounded(double delta) {
     if(velocity.y >= 0) {
         jumps = 2;
     }
+    vit.stam += delta * vit.stamRegen;
+    vit.stam = std::min(vit.stam, vit.maxStam);
 }

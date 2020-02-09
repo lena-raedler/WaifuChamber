@@ -15,6 +15,7 @@ class Gate;
 class Projectile;
 class Boss;
 class Checkpoint;
+class Ability;
 struct SavedVariables;
 namespace GlobalObjects {
     extern Mix_Chunk* chunkPtr[3];
@@ -27,6 +28,8 @@ namespace GlobalObjects {
     extern std::pair<int, int> resolution;
     extern std::vector<std::shared_ptr<Boss>> bosses;
     extern std::vector<Checkpoint> checkpoints;
+    extern std::vector<Ability> abilities; //0 ranged 1 melee
+    extern Platform& lastTouchedPlatform; //no damage boosting
 };
 
 

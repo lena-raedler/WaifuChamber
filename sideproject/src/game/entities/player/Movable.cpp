@@ -55,7 +55,7 @@ void Movable::move(double delta){
             xMax = std::max(xMax, tmp.x);
             yMax = std::max(yMax, tmp.y);
         }
-        for(auto p : GlobalObjects::platforms){
+        for(auto& p : GlobalObjects::platforms){
 
 //            auto direction = p.direction(*this);
             for(triangle t : hitbox) {
@@ -69,7 +69,7 @@ void Movable::move(double delta){
                     switch(p->type){
                         case PLATFORM :
                             if(position.y <= p->top.min().y) {//above
-                                grounded();
+                                grounded(delta);
                                 projPosition.y = p->top.min().y - yMax; ; //maybe add epsilon idk
                                 if(velocity.y > 0){
                                     velocity.y = 0;
@@ -109,7 +109,7 @@ void Movable::move(double delta){
                             projPosition.y = p->top.max().y + GlobalConstants::epsilon;
                             break;
                         case FLOOR :
-                            grounded();
+                            grounded(delta);
                             projPosition.y = p->top.min().y - yMax; //maybe add epsilon idk
                             if(velocity.y > 0){
                                 velocity.y = 0;
@@ -142,6 +142,6 @@ bool Movable::onPlatform(Platform& p){
     return true;
 
 }
-void Movable::grounded(){
+void Movable::grounded(double delta) {
 
 }
