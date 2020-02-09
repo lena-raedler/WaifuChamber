@@ -359,7 +359,7 @@ void Game::handleMenu() {
             menu.optionsMenu.increaseVolume = false;
         }
         else if (menu.optionsMenu.decreaseVolume) {
-            if (volume >= 22)
+            if (volume >= 12)
                 volume -= 12;
             menu.optionsMenu.decreaseVolume = false;
         }

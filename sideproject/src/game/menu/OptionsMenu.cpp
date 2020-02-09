@@ -14,23 +14,16 @@ OptionsMenu::OptionsMenu(Renderer& renderer) {
 
     decreaseVolumeButton = Button(renderer, "files/textures/menu/options/decrease_volume.png", "files/textures/menu/options/decrease_volume_highlighted.png", x, y, width, height);
 
-    volumeImages = std::vector<Image>(10);
+    volumeImages = std::vector<Image>(11);
 
     volume = 5;     // Default, goes from 1 to 10
     for (int i = 0; i < 10; i++) {
-        volumeImages[i] = utility::loadImage("files/textures/menu/options/volume_" + std::to_string(i+1) + ".png", renderer);
+        volumeImages[i] = utility::loadImage("files/textures/menu/options/volume_" + std::to_string(i) + ".png", renderer);
         volumeImages[i].getRect()->x = decreaseVolumeButton.x + decreaseVolumeButton.width + widthGap;
         volumeImages[i].getRect()->y = decreaseVolumeButton.y;
         volumeImages[i].getRect()->w = decreaseVolumeButton.width;
         volumeImages[i].getRect()->h = decreaseVolumeButton.height;
     }
-    /*
-    volumeImage = utility::loadImage("files/textures/menu/options/volume_" + std::to_string(volume) + ".png", renderer);  // TODO Change file path
-    volumeImage.getRect()->x = decreaseVolumeButton.x + decreaseVolumeButton.width + widthGap;
-    volumeImage.getRect()->y = decreaseVolumeButton.y;
-    volumeImage.getRect()->w = decreaseVolumeButton.width;
-    volumeImage.getRect()->h = decreaseVolumeButton.height;
-    */
 
     increaseVolumeButton = Button(renderer, "files/textures/menu/options/increase_volume.png", "files/textures/menu/options/increase_volume_highlighted.png", x + width * 2 + widthGap * 2, y, width, height);
 
@@ -40,8 +33,7 @@ OptionsMenu::OptionsMenu(Renderer& renderer) {
 
 void OptionsMenu::renderOptionsMenu(Renderer& renderer) {
     increaseVolumeButton.renderButton(renderer);
-    //volumeImage.render(renderer);
-    volumeImages[volume-1].render(renderer);
+    volumeImages[volume].render(renderer);
     decreaseVolumeButton.renderButton(renderer);
 
     increaseVolumeButton.highlighted = false;
@@ -63,7 +55,7 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
         decreaseVolumeButton.highlighted = true;
         if (clicked) {      // Unpause or start the game
             decreaseVolume = true;
-            if (volume > 1)
+            if (volume > 0)
                 volume--;
         }
     }
