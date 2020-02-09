@@ -16,14 +16,10 @@ public:
     Menu(Renderer& renderer);
     ~Menu() = default;
     void renderMenu(Renderer& renderer);
-    bool startGame, exitGame, pause;
+    bool startGame, saveGame, exitGame, pause;
     Button startGameButton;
-    //Button startGameButtonHighlighted;
-    //Button currentStartGameButton;
-
+    Button saveGameButton;
     Button exitGameButton;
-    //Button exitGameButtonHighlighted;
-    //Button currentExitGameButton;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
 
 };
