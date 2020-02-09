@@ -8,6 +8,9 @@
 
 Menu::Menu(Renderer& renderer) {
     mainMenuImage = utility::loadImage("files/textures/menu/main_menu_background.png", renderer);
+    pauseImage = utility::loadImage("files/textures/menu/pause_menu_background.png", renderer);
+    pauseImage.getRect()->x = 1920 / 2 - pauseImage.getRect()->w / 2;   // Using GlobalObjects::resolution.first() gives me errors because platform is uninitialized(?)
+
     int width = 299;    // Exact size of the button textures
     int height = 84;
     int heightGap = 25;
@@ -25,6 +28,8 @@ Menu::Menu(Renderer& renderer) {
 void Menu::renderMenu(Renderer& renderer) {
     if (!startGame)
         mainMenuImage.render(renderer);
+    else
+        pauseImage.render(renderer);
 
     startGameButton.renderButton(renderer);
     saveGameButton.renderButton(renderer);

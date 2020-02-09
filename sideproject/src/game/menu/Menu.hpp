@@ -22,7 +22,7 @@ public:
     Button saveGameButton;
     Button optionsGameButton;
     Button exitGameButton;
-    Image mainMenuImage;
+    Image mainMenuImage, pauseImage;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
 
 };

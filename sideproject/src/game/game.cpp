@@ -464,7 +464,7 @@ void Game::render() {
     renderer->clear();
 
     // Menu
-    if (!menu.startGame || menu.pause) {
+    if (!menu.startGame) {
         menu.renderMenu(*renderer);
         renderer->render();
         return;
@@ -477,17 +477,6 @@ void Game::render() {
     if (pause)
         pauseImage.render(*renderer);
 
-    //renderer->renderColor(255, 255, 255, 255);
-    //renderer->renderTexture(texture, nullptr, player.rec.get());
-    //SDL_Color backgroundColor = Renderer::color(255, 255, 255, 0);
-
-    // Unused
-    //if (!SDL_SetTextureColorMod(background, 0, 0, 0))
-    //    std::cerr << "Could not set background color" << std::endl;
-
-
-
-    //inventory.renderInventory();
     player.inventory.renderInventory();
 
     // Render the player after the background
@@ -546,6 +535,11 @@ void Game::render() {
     //renderer->renderBar(50, 50, 100, 10, 200, hpCol, barBGCol);
 
 //    renderer->renderBar(50, 50, 100, 10, player.vit.hp/player.vit.maxHp, hpCol, barBGCol);
+
+    // Pause menu
+    if (menu.pause)
+        menu.renderMenu(*renderer);
+
     renderer->render();
 }
 
