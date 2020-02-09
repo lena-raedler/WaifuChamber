@@ -300,11 +300,12 @@ int Game::loop() {
             room = utility::parseRoom(player.lastCP->room, *renderer, GlobalObjects::resolution);
             currentRoom = player.lastCP->room;
             fillGlobalObjects(room);
+            bossFight = false;
             player.kill();
         }
-        if(!scuffed && room.roomId == 3 && !bossDefeated(1)) {
+        if(!bossFight && room.roomId == 3 && !bossDefeated(1)) {
 
-            scuffed = true;
+            bossFight = true;
             Mix_PlayMusic(gMusicBoss, -1);
             spawnBoss(800, 800);
         }
@@ -637,8 +638,8 @@ void Game::spawnBoss(int x, int y){
     lazor.velocity = {0,0};
     supermegadeathlazor.projectiles.push_back(lazor);
     supermegadeathlazor.speed = 30;
-    supermegadeathlazor.cooldown = 1;
-    supermegadeathlazor.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
+    supermegadeathlazor.cooldown = 10;
+    supermegadeathlazor.origin = {GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
     boss.addAbility(supermegadeathlazor, 1, 1);
     Ability aoeblast;
     Projectile blast;
@@ -649,7 +650,7 @@ void Game::spawnBoss(int x, int y){
     utility::fillDefaultHitbox(blast.hitbox);
     aoeblast.speed = 50;
     aoeblast.cooldown = 50;
-    aoeblast.origin = {GlobalConstants::tileSize/4, GlobalConstants::tileSize/4};
+    aoeblast.origin = {GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
     aoeblast.aimed = false;
     for(int i = -1; i < 2; ++i){
         for(int j = -1; j < 2;++j){

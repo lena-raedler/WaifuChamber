@@ -20,9 +20,11 @@ bool Ability::isAvail(double delta) {
 
 void Ability::use(vec_t pos) {
     pos = pos + origin;
+
     vec_t tmp;
 
     for(Projectile projectile : projectiles) {
+        projectile.position = pos;
         switch (projectile.owner) {
             case HOSTILE:
                 if (aimed) {
@@ -30,7 +32,7 @@ void Ability::use(vec_t pos) {
                     tmp.normalize();
                     tmp *= speed;
 
-                    projectile.position = pos + origin;
+
                     projectile.velocity += tmp;
                     {
                         SDL_Rect r = {(int) projectile.position.x, (int) projectile.position.y, GlobalConstants::tileSize,
@@ -41,7 +43,6 @@ void Ability::use(vec_t pos) {
 
 
                 } else {
-                    projectile.position = pos + origin;//todo fix double addition
                     projectile.velocity.normalize();
                     projectile.velocity *=speed;
                 }
@@ -55,8 +56,7 @@ void Ability::use(vec_t pos) {
                 tmp.normalize();
                 tmp *= speed;
 
-                //projectile.position = pos + origin;
-                projectile.position = pos;
+
                 projectile.velocity = tmp;
                 {
                     SDL_Rect r = {(int) projectile.position.x, (int) projectile.position.y, GlobalConstants::tileSize,
