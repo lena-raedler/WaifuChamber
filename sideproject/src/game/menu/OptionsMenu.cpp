@@ -46,7 +46,7 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
     if (increaseVolumeButton.inButton(mouseX, mouseY)) {
         increaseVolumeButton.highlighted = true;
         if (clicked) {      // Unpause or start the game
-            increaseVolume = true;  // TODO unused
+            increaseVolume = true;
             if (volume < 10)
                 volume++;
         }

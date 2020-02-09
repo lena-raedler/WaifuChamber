@@ -377,7 +377,11 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_ESCAPE)){
         if (player.canPause()) {
             player.pause();
-            menu.pause = !menu.pause;
+
+            if (menu.inOptions)
+                menu.inOptions = !menu.inOptions;
+            else
+                menu.pause = !menu.pause;
         }
     }
 

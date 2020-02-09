@@ -19,7 +19,6 @@ public:
     ~OptionsMenu() = default;
     Button increaseVolumeButton, decreaseVolumeButton;
     bool increaseVolume, decreaseVolume;
-    //Image volumeImage;
     std::vector<Image> volumeImages;    // TODO Initialize with size 10
     int volume;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
