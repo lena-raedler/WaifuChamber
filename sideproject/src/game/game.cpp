@@ -540,7 +540,6 @@ void Game::render() {
     //renderHealthBar();
     player.healthBar.renderBar(*renderer);
     player.staminaBar.renderBar(*renderer);
-    std::cout << player.vit.stam << std::endl;
 
     //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
     //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
