@@ -13,6 +13,24 @@ namespace utility {
         for(triangle& t: b){
             t+=posB;
         }
+
+            for (auto &tri_proj : a) {
+                for (auto &tri_mov : b) {
+                    if (utility::triangleTriangleIntersection(tri_proj, tri_mov)) {
+                        return true;
+                    }
+                }
+            }
+
+        return false;
+    }
+    bool hitboxCollisionAABB(std::vector<triangle> a, vec_t posA, std::vector<triangle> b, vec_t posB){
+        for(triangle& t: a){
+            t+=posA;
+        }
+        for(triangle& t: b){
+            t+=posB;
+        }
         vec_t aMax = getMax(a);
         vec_t aMin = getMin(a);
         vec_t bMax = getMax(b);

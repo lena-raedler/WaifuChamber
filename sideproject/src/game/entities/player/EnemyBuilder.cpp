@@ -68,6 +68,7 @@ namespace EnemyBuilder {
                     SDL_Rect r = {pos.first, pos.second, GlobalConstants::tileSize, GlobalConstants::tileSize};
                     e.rec = std::make_shared<SDL_Rect>(r);
                 }
+                break;
             case 3: //spikes
                 e.position = utility::convert(pos);
                 e.setMaxHealth(10);

@@ -88,7 +88,7 @@ private:
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed
     std::vector<Projectile> projs;
-    bool scuffed = false;
+    bool bossFight = false;
     bool scuff2 = false;
     bool scuff3 = false;
 
