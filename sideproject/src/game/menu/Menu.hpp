@@ -4,10 +4,11 @@
 
 #pragma once
 
+#include "Button.hpp"
+#include "OptionsMenu.hpp"
+#include "../utils/Image.hpp"
 #include "../utils/renderer.h"
 #include "../utils/utility.h"
-#include "Button.hpp"
-#include "../utils/Image.hpp"
 
 class Game;
 class Menu {
@@ -16,13 +17,14 @@ public:
     Menu() = default;
     Menu(Renderer& renderer);
     ~Menu() = default;
-    void renderMenu(Renderer& renderer);
-    bool startGame, saveGame, optionsGame, exitGame, pause;
+    bool startGame, saveGame, inOptions, exitGame, pause;
     Button startGameButton;
     Button optionsGameButton;
     Button exitGameButton;
     Button saveGameButton;
     Image mainMenuImage, pauseImage;
+    OptionsMenu optionsMenu;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
+    void renderMenu(Renderer& renderer);
 
 };
