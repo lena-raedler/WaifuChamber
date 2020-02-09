@@ -25,6 +25,7 @@ enum GravityType{
     INVERTED,
     SOMEOTHERBSCATEGORYTHATIJUSTMAKEUPFORABSOLUTELYNOREASON
 };
+
 class Movable {
 public:
     virtual void grounded(double delta); //and the lord spoketh thee shalt repent for thee sins

@@ -14,7 +14,7 @@ namespace EnemyBuilder {
                 e.velocity = {0,0};
                 e.setMaxHealth(10);
                 e.speed = 10;
-                e.ai = PATROL;
+                e.ai = FLEE;
                 e.gravityType = NORMAL;
                 utility::fillDefaultHitbox(e.hitbox);
 
@@ -61,6 +61,24 @@ namespace EnemyBuilder {
                 a.cooldown = 10;
 
                 e.abilities.push_back(a);
+                e.textureLocation = "files/textures/skeleton_01.png";
+
+                //rectangle is filled with the given position of the enemy and the global tilesize
+                {
+                    SDL_Rect r = {pos.first, pos.second, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                    e.rec = std::make_shared<SDL_Rect>(r);
+                }
+            case 3: //spikes
+                e.position = utility::convert(pos);
+                e.setMaxHealth(10);
+                e.speed = 10;
+                e.ai = STATIONARY;
+                e.gravityType = NOGRAVITY;
+                utility::fillDefaultHitbox(e.hitbox);
+
+                utility::fillDefaultHitbox(p.hitbox);
+                e.iframes = true;
+                e.damageOnTouch = 70;
                 e.textureLocation = "files/textures/skeleton_01.png";
 
                 //rectangle is filled with the given position of the enemy and the global tilesize

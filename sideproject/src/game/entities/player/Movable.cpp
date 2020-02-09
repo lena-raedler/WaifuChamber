@@ -55,7 +55,7 @@ void Movable::move(double delta){
             xMax = std::max(xMax, tmp.x);
             yMax = std::max(yMax, tmp.y);
         }
-        for(auto p : GlobalObjects::platforms){
+        for(auto& p : GlobalObjects::platforms){
 
 //            auto direction = p.direction(*this);
             for(triangle t : hitbox) {

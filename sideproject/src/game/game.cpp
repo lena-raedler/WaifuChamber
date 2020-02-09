@@ -217,7 +217,7 @@ int Game::loop() {
 
         //processInput(deltaTime);
         player.velocity.x *= 0.8;
-        auto move = determineInput(1);
+        auto move = determineInput(deltaTime*deltaDenom);
         if(quit){
             break;
         }
@@ -227,6 +227,11 @@ int Game::loop() {
         player.upkeep(deltaTime/deltaDenom);
         for(auto& e : GlobalObjects::enemies){
             e->upkeep(deltaTime/deltaDenom);
+            if (!e->damageOnTouch == 0){
+                if(utility::hitboxCollision(player.hitbox, player.position, e->hitbox, e->position)){
+                    player.getHit(e->damageOnTouch);
+                }
+            }
 
         }
 
@@ -293,6 +298,7 @@ int Game::loop() {
             std::cout << "GIT GUD" << std::endl;
             GlobalObjects::clear();
             room = utility::parseRoom(player.lastCP->room, *renderer, GlobalObjects::resolution);
+            currentRoom = player.lastCP->room;
             fillGlobalObjects(room);
             player.kill();
         }
@@ -308,6 +314,7 @@ int Game::loop() {
             scuff3 = false;
         }
 
+        //TODO Redo this shit
         for(auto& c: GlobalObjects::checkpoints){
             if(boost::algorithm::equals(c.room, currentRoom)) {
                 if (utility::hitboxCollision(player.hitbox, player.position, c.hitbox, c.position)) {

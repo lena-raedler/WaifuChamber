@@ -117,9 +117,11 @@ bool Player::canSpawnProjectile() {
     return timeSinceLastSpawnProjectile > std::chrono::milliseconds(spawnProjectileCooldown);
 }
 void Player::getHit(double damage) {
-    iframes = true;
-    lastHit = std::chrono::high_resolution_clock::now();
-    vit.hp -= damage;
+    if(!iframes) {
+        iframes = true;
+        lastHit = std::chrono::high_resolution_clock::now();
+        vit.hp -= damage;
+    }
 }
 void Player::getHit(double damage, statuseffect status){
     getHit(damage);
