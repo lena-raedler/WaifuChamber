@@ -10,7 +10,7 @@ TILES
   f = files/textures/gravel_02
   p = files/textures/gravel_01
   d = none
-  l = none
+  e = none
 END
 LAYOUT
   cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
