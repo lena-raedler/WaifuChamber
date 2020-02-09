@@ -33,6 +33,8 @@ void OptionsMenu::renderOptionsMenu(Renderer& renderer) {
 
     increaseVolumeButton.highlighted = false;
     decreaseVolumeButton.highlighted = false;
+    //increaseVolume = false;
+    //decreaseVolume = false;
 }
 
 void  OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {

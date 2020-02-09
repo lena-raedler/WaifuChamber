@@ -84,6 +84,8 @@ private:
     //Inventory inventory;
     std::vector<Ability> abilities;
     Menu menu;
+    int volume;
+    void handleMenu();
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed

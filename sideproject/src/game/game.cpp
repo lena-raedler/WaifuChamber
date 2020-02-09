@@ -91,8 +91,12 @@ Game::Game()
     gMusic=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 1.mp3");
     gMusicBoss=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 2.mp3");
     gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
-    Mix_VolumeMusic(66);
+
+    volume = 60;    // 5/10 on the volume tracker, max = 128
+    Mix_VolumeMusic(volume);
     Mix_PlayMusic(gMusic, -1);
+    Mix_Volume(-1, volume);     // MIX_MAX_VOLUME = 128
+
     // White background
     renderer->renderColor(255, 255, 255, 0);
 
@@ -211,6 +215,7 @@ int Game::loop() {
         // Merge with pause check
         if (!menu.startGame || menu.pause) {
             determineInput(1);
+            handleMenu();
             render();
             continue;
         }
@@ -328,11 +333,6 @@ int Game::loop() {
             }
         }
 
-        if (menu.saveGame && menu.pause) {  // Only has an effect mid-game
-            GlobalObjects::savedVariables.serialize();
-            menu.saveGame = false;
-        }
-
         // Update player
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
@@ -342,6 +342,31 @@ int Game::loop() {
 
     }
     return 0;
+}
+
+void Game::handleMenu() {
+    //if (menu.saveGame && menu.pause) {  // Only has an effect mid-game
+    if (menu.saveGame) {  // Only has an effect mid-game
+        GlobalObjects::savedVariables.serialize();
+        menu.saveGame = false;
+    }
+
+    // Options menu
+    if (menu.inOptions) {
+        if (menu.optionsMenu.increaseVolume) {
+            if (volume <= 108)
+                volume += 12;
+            menu.optionsMenu.increaseVolume = false;
+        }
+        else if (menu.optionsMenu.decreaseVolume) {
+            if (volume >= 22)
+                volume -= 12;
+            menu.optionsMenu.decreaseVolume = false;
+        }
+
+        Mix_VolumeMusic(volume);
+        Mix_Volume(-1, volume);
+    }
 }
 
 vec_t Game::determineInput(double delta){
