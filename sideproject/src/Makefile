@@ -607,6 +607,60 @@ game/game.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/game.cpp.s
 .PHONY : game/game.cpp.s
 
+game/menu/Button.o: game/menu/Button.cpp.o
+
+.PHONY : game/menu/Button.o
+
+# target to build an object file
+game/menu/Button.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/Button.cpp.o
+.PHONY : game/menu/Button.cpp.o
+
+game/menu/Button.i: game/menu/Button.cpp.i
+
+.PHONY : game/menu/Button.i
+
+# target to preprocess a source file
+game/menu/Button.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/Button.cpp.i
+.PHONY : game/menu/Button.cpp.i
+
+game/menu/Button.s: game/menu/Button.cpp.s
+
+.PHONY : game/menu/Button.s
+
+# target to generate assembly for a file
+game/menu/Button.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/Button.cpp.s
+.PHONY : game/menu/Button.cpp.s
+
+game/menu/Menu.o: game/menu/Menu.cpp.o
+
+.PHONY : game/menu/Menu.o
+
+# target to build an object file
+game/menu/Menu.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/Menu.cpp.o
+.PHONY : game/menu/Menu.cpp.o
+
+game/menu/Menu.i: game/menu/Menu.cpp.i
+
+.PHONY : game/menu/Menu.i
+
+# target to preprocess a source file
+game/menu/Menu.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/Menu.cpp.i
+.PHONY : game/menu/Menu.cpp.i
+
+game/menu/Menu.s: game/menu/Menu.cpp.s
+
+.PHONY : game/menu/Menu.s
+
+# target to generate assembly for a file
+game/menu/Menu.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/Menu.cpp.s
+.PHONY : game/menu/Menu.cpp.s
+
 game/utils/Image.o: game/utils/Image.cpp.o
 
 .PHONY : game/utils/Image.o
@@ -884,6 +938,12 @@ help:
 	@echo "... game/game.o"
 	@echo "... game/game.i"
 	@echo "... game/game.s"
+	@echo "... game/menu/Button.o"
+	@echo "... game/menu/Button.i"
+	@echo "... game/menu/Button.s"
+	@echo "... game/menu/Menu.o"
+	@echo "... game/menu/Menu.i"
+	@echo "... game/menu/Menu.s"
 	@echo "... game/utils/Image.o"
 	@echo "... game/utils/Image.i"
 	@echo "... game/utils/Image.s"
