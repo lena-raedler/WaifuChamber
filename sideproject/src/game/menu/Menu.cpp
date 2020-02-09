@@ -24,7 +24,6 @@ Menu::Menu(Renderer& renderer) {
 }
 
 void Menu::renderMenu(Renderer& renderer) {
-    //startGameButton.renderButton(renderer);
     currentStartGameButton.renderButton(renderer);
     currentExitGameButton.renderButton(renderer);
 
@@ -45,9 +44,4 @@ void Menu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
         if (clicked)
             exitGame = true;
     }
-
-    //if (startGameButton.inButton(mouseX, mouseY))
-    //    startGame = true;
-    //else if (exitGameButton.inButton(mouseX, mouseY))
-    //    exitGame = true;
 }

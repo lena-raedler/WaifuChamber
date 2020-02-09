@@ -58,7 +58,6 @@ private:
     std::unique_ptr<Renderer> renderer;
     bool quit;
     bool pause;
-    bool pause2;
     Image pauseImage;
     SDL_Surface* surface;
     Player player;
