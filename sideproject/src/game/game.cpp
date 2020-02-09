@@ -258,7 +258,8 @@ int Game::loop() {
         }
 
         // Merge with pause check
-        if (!menu.startGame || pause2) {
+        //if (!menu.startGame || pause2) {
+        if (!menu.startGame || menu.pause) {
             determineInput(1);
             render();
             continue;
@@ -392,7 +393,8 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_ESCAPE)){
         if (player.canPause()) {
             player.pause();
-            pause2 = !pause2;
+            //pause2 = !pause2;
+            menu.pause = !menu.pause;
         }
     }
 
@@ -459,8 +461,17 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_V)){
         player.position={50, 50};
     }
+
+    int mouseX, mouseY;
+    SDL_GetMouseState(&mouseX, &mouseY);
+    //if (!menu.startGame || pause2) {
+    if (!menu.startGame || menu.pause) {
+        menu.resolveMouseInput(mouseX, mouseY, false);
+    }
+
     if (inputManager.isPressed(KEY_C) || inputManager.isMousePressed(MOUSE_LEFT)) {
-        if (menu.startGame && player.canSpawnProjectile() && !pause2) {
+        //if (menu.startGame && player.canSpawnProjectile() && !pause2) {
+        if (menu.startGame && player.canSpawnProjectile() && !menu.pause) {
             player.spawnProjectile();   // Set the cooldown timer
 
             Projectile p;
@@ -491,10 +502,11 @@ vec_t Game::determineInput(double delta){
             Mix_PlayChannel(-1, GlobalObjects::chunkPtr[2], 0);
         }
 
-        if (!menu.startGame || pause2) {
-            int mouseX, mouseY;
-            SDL_GetMouseState(&mouseX, &mouseY);
-            menu.resolveMouseInput(mouseX, mouseY);
+        //if (!menu.startGame || pause2) {
+        if (!menu.startGame || menu.pause) {
+            //int mouseX, mouseY;
+            //SDL_GetMouseState(&mouseX, &mouseY);
+            menu.resolveMouseInput(mouseX, mouseY, true);
         }
     }
     if(inputManager.isPressed(KEY_M)){
@@ -508,6 +520,10 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_N)){
         Mix_PauseMusic();
     }
+
+    // Check mouse position for button highlighting.
+
+
     return{out.x, out.y};
 }
 
@@ -517,7 +533,8 @@ void Game::render() {
     renderer->clear();
 
     // Menu
-    if (!menu.startGame || pause2) {
+    //if (!menu.startGame || pause2) {
+    if (!menu.startGame || menu.pause) {
         menu.renderMenu(*renderer);
         renderer->render();
         return;
