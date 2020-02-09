@@ -17,9 +17,9 @@ Menu::Menu(Renderer& renderer) {
     int x = 1920 / 2 - width / 2;
     int y = 1080 / 2 - height / 2 - height*2 - heightGap*2;
     startGameButton = Button(renderer, "files/textures/menu/start_game_2.png", "files/textures/menu/start_game_2_highlighted.png", x, y, width, height);
-    saveGameButton = Button(renderer, "files/textures/menu/save_game.png", "files/textures/menu/save_game_highlighted.png", x, y + height + heightGap, width, height);
-    optionsGameButton = Button(renderer, "files/textures/menu/options_game.png", "files/textures/menu/options_game_highlighted.png", x, y + height*2 + heightGap*2, width, height);
-    exitGameButton = Button(renderer, "files/textures/menu/exit_game_2.png", "files/textures/menu/exit_game_2_highlighted.png", x, y + height*3 + heightGap*3, width, height);
+    optionsGameButton = Button(renderer, "files/textures/menu/options_game.png", "files/textures/menu/options_game_highlighted.png", x, y + height + heightGap, width, height);
+    exitGameButton = Button(renderer, "files/textures/menu/exit_game_2.png", "files/textures/menu/exit_game_2_highlighted.png", x, y + height*2 + heightGap*2, width, height);
+    saveGameButton = Button(renderer, "files/textures/menu/save_game.png", "files/textures/menu/save_game_highlighted.png", x, y + height*3 + heightGap*3, width, height);
     startGame = false;
     exitGame = false;
     pause = false;
@@ -28,18 +28,19 @@ Menu::Menu(Renderer& renderer) {
 void Menu::renderMenu(Renderer& renderer) {
     if (!startGame)
         mainMenuImage.render(renderer);
-    else
+    else {
         pauseImage.render(renderer);
+        saveGameButton.renderButton(renderer);
+    }
 
     startGameButton.renderButton(renderer);
-    saveGameButton.renderButton(renderer);
     optionsGameButton.renderButton(renderer);
     exitGameButton.renderButton(renderer);
 
     startGameButton.highlighted = false;
-    saveGameButton.highlighted = false;
     optionsGameButton.highlighted = false;
     exitGameButton.highlighted = false;
+    saveGameButton.highlighted = false;
 }
 
 void Menu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
@@ -50,7 +51,7 @@ void Menu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
             pause = false;
         }
     }
-    else if (saveGameButton.inButton(mouseX, mouseY)) {
+    else if (startGame && saveGameButton.inButton(mouseX, mouseY)) {
         saveGameButton.highlighted = true;
         if (clicked)
             saveGame = true;

@@ -328,7 +328,7 @@ int Game::loop() {
             }
         }
 
-        if (menu.saveGame) {
+        if (menu.saveGame && menu.pause) {  // Only has an effect mid-game
             GlobalObjects::savedVariables.serialize();
             menu.saveGame = false;
         }

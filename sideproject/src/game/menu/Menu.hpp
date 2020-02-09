@@ -19,9 +19,9 @@ public:
     void renderMenu(Renderer& renderer);
     bool startGame, saveGame, optionsGame, exitGame, pause;
     Button startGameButton;
-    Button saveGameButton;
     Button optionsGameButton;
     Button exitGameButton;
+    Button saveGameButton;
     Image mainMenuImage, pauseImage;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
 
