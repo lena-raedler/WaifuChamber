@@ -217,6 +217,18 @@ namespace utility {
                             gatePosition.second = x;
                             gatePositions.push_back(std::make_pair(gatePosition, c));
                         }
+                        if(c == 'g') {
+                            std::pair<int, int> gatePosition;
+                            gatePosition.first = y;
+                            gatePosition.second = x;
+                            gatePositions.push_back(std::make_pair(gatePosition, c));
+                        }
+                        if(c == 'h') {
+                            std::pair<int, int> gatePosition;
+                            gatePosition.first = y;
+                            gatePosition.second = x;
+                            gatePositions.push_back(std::make_pair(gatePosition, c));
+                        }
                         if(c == 'l') {
                             std::pair<int, int> gatePosition;
                             gatePosition.first = y;
