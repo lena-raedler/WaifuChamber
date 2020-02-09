@@ -51,7 +51,7 @@ GATES
   gate_01 d -1
 END
 ENEMY
-  e_3 10 15
+  e_1 10 15
   e_3 15 15
   e_3 50 24
   e_3 10 32

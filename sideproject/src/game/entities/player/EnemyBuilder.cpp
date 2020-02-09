@@ -8,6 +8,7 @@ namespace EnemyBuilder {
         Enemy e;
         Projectile p;
         Ability a;
+        statuseffect s;
         switch(id){
             case 1: //Skelly
                 e.position = utility::convert(pos);
@@ -25,6 +26,11 @@ namespace EnemyBuilder {
                 p.fragile = false;
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
+
+                s.type = BLEED;
+                s.intensity = 100;
+
+                p.status = s;
 
                 a.projectiles.push_back(p);
                 a.speed = 20;

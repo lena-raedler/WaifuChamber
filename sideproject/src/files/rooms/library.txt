@@ -54,4 +54,5 @@ GATES
 END
 ENEMY
   e_4 3 3
+  e_1 10 15
 END

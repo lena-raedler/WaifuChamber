@@ -76,6 +76,16 @@ void Player::upkeep(double delta){
             iframes = false;
         }
     }
+    checkStatusEffects();
+    std::vector<statuseffect> vecS;
+    for(auto& s: statusEffects){
+        processStatusEffects(s, delta);
+        if(s.duration > 0){
+            vecS.push_back(s);
+        }
+    }
+    statusEffects = vecS;
+
 }
 void Player::jump(){
     Mix_PlayChannel(-1, GlobalObjects::chunkPtr[1], 0);
@@ -144,4 +154,74 @@ void Player::grounded(double delta) {
     }
     vit.stam += delta * vit.stamRegen;
     vit.stam = std::min(vit.stam, vit.maxStam);
+}
+
+void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT, FRENZY
+    switch(status.type){
+        case BLEED:
+            break;
+        case SHOCK:
+            break;
+        case BURN:
+            break;
+        case ROT:
+            break;
+        case FRENZY:
+            break;
+        default:
+            break;
+    }
+    statusEffects.push_back(status);
+
+}
+void Player::processStatusEffects(statuseffect &status, double delta) {
+    if(status.durationLeft > 0) {
+        switch (status.type) {
+            case BLEED:
+                std::cout << ((vit.maxHp * 0.3)/status.duration) * delta << std::endl;
+                vit.hp -= ((vit.maxHp * 0.3)/status.duration) * delta;
+                break;
+            case SHOCK:
+                break;
+            case BURN:
+                break;
+            case ROT:
+                break;
+            case FRENZY:
+                break;
+            default:
+                break;
+        }
+        status.durationLeft -= delta;
+    }
+
+}
+void Player::removeStatusEffect(statuseffect &status) {
+    switch(status.type){
+        case BLEED:
+            break;
+        case SHOCK:
+            break;
+        case BURN:
+            break;
+        case ROT:
+            break;
+        case FRENZY:
+            break;
+        default:
+            break;
+    }
+
+}
+
+void Player::checkStatusEffects(){
+    if(vit.bleed >= vit.bleedRes){
+        std::cout << " bleed" << std::endl;
+        statuseffect s;
+        s.type = BLEED;
+        s.duration = 100;
+        s.durationLeft = 100;
+        vit.bleed = -9999;
+        applyStatusEffect(s);
+    }
 }

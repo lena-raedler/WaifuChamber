@@ -13,12 +13,11 @@ enum status{BLEED, SHOCK, BURN, ROT, FRENZY};//this is gonna get templated so ha
  * rot = something so vile i have to think about how im going to fuck the player (instant death???, no stamina regen?, mana drain?)
  * frenzy = +50% damage taken, +20% damage dealt
  */
-class statuseffect {//TODO
+struct statuseffect {//TODO
     status type;
     int intensity;
-    double duration;
-
-    void process();
+    double duration = 100;
+    double durationLeft = duration;
 
 };
 
