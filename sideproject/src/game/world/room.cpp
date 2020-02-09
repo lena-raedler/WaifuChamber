@@ -54,13 +54,16 @@ void Room::fillDoorVector(std::vector<std::shared_ptr<Gate>>& g){
         utility::fillDefaultHitbox(gate.hitbox);
         g.push_back(std::make_shared<Gate>(gate));
     }
-    std::cout << "ooo" << g.size() << std::endl;
 
 }
 void Room::fillEnemyVector(std::vector<std::shared_ptr<Enemy>>& e){
     e.clear();
     for(auto& it: enemyInformation) {
         EnemyBuilder::buildEnemy(e, it.second, it.first);
+        if(it.second == 4){
+            e.back()->patrolPoints.push_back(utility::convert({3, 3}));
+            e.back()->patrolPoints.push_back(utility::convert({20, 3}));
+        }
     }
 }
 void Room::printP() {

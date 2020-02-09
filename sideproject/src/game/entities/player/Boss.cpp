@@ -96,14 +96,19 @@ void Boss::transitionPhase() {
         case 1:
         switch (++phase) {
             case 2:
+                /*
                 EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {15, 10});
                 EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {40, 10});
                 EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {45, 10});
+                 */
+                speed *= 1.2;
                 break;
             case 3:
+                /*
                 EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {10, 10});
                 EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {30, 10});
                 EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {50, 10});
+                 */
                 break;
         }
         break;

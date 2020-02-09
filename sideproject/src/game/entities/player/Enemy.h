@@ -22,7 +22,7 @@ public:
     Behaviour ai = CONSTANT;
     int damageOnTouch = 0;
     std::vector<vec_t> patrolPoints;
-    int patrolCounter = 0;
+    size_t patrolCounter = 0;
     void setMaxHealth(int i);
     void getHit(double d);
     void kill();

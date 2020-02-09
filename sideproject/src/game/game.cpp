@@ -649,7 +649,7 @@ void Game::spawnBoss(int x, int y){
     blast.timeToLive = 20;
     utility::fillDefaultHitbox(blast.hitbox);
     aoeblast.speed = 50;
-    aoeblast.cooldown = 50;
+    aoeblast.cooldown = 80;
     aoeblast.origin = {GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
     aoeblast.aimed = false;
     for(int i = -1; i < 2; ++i){
