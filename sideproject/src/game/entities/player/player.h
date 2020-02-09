@@ -52,6 +52,7 @@ struct vitals{
 
     double stamRegen = 50;
     double healthPercentage(){return (double) hp / maxHp;}
+    double staminaPercentage(){return (double) stam / maxStam;}
 };
 class Player : public Movable {
 public:
@@ -75,6 +76,7 @@ public:
     Checkpoint* lastCP;
     Inventory inventory;
     Bar healthBar;
+    Bar staminaBar;
 
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);

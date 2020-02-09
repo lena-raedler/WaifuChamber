@@ -27,6 +27,18 @@ Player::Player()
     healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
     healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
 
+    staminaBar.x = x + width + 5;
+    staminaBar.y = healthBar.y;
+    staminaBar.width = healthBar.width;
+    staminaBar.height = healthBar.height;
+    staminaBar.healthBarBorderRect = {staminaBar.x, staminaBar.y, staminaBar.width, staminaBar.height};
+    staminaBar.healthBarBackgroundRect = {staminaBar.x+5, staminaBar.y+5, staminaBar.width-10, staminaBar.height-10};
+    staminaBar.healthBarRect = staminaBar.healthBarBackgroundRect;
+    //staminaBar.borderColor = {0x80, 0xFF, 0x80, 0xFF};
+    staminaBar.borderColor = {0x8F, 0xC3, 0x1F, 0xFF};
+    //staminaBar.barColor = {0x00, 0xFF, 0x00, 0xFF};
+    staminaBar.barColor = {0x00, 0x99, 0x44, 0xFF};
+
     //healthBar.healthBarBorderRect({x, y, width, height})
     //        , healthBarBackgroundRect({x+5, y+5, width-10, height-10})
     //        , healthBarRect({x+5, y+5, width-10, height-10})

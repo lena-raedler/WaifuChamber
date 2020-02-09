@@ -534,10 +534,13 @@ void Game::render() {
     // Update the remaining health percentage
     //updateHealthBar();
     player.healthBar.updateBar(player.vit.healthPercentage());
+    player.staminaBar.updateBar(player.vit.staminaPercentage());
 
     // Render the health bar according to how much hp is left
     //renderHealthBar();
     player.healthBar.renderBar(*renderer);
+    player.staminaBar.renderBar(*renderer);
+    std::cout << player.vit.stam << std::endl;
 
     //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
     //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
