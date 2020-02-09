@@ -10,3 +10,9 @@ gate_09 files/rooms/deep_forest.txt 26 31
 gate_10 files/rooms/plains.txt 26 2
 gate_11 files/rooms/cool_room.txt 3 2
 gate_12 files/rooms/deep_forest.txt 58 2
+gate_13 files/rooms/fancy_forest.txt 2 18
+gate_14 files/rooms/cool_room.txt 57 18
+gate_15 files/rooms/snowy_mountain.txt 38 30
+gate_16 files_rooms/fancy_forest.txt 38 6
+gate_17 files/rooms/desert1.txt 3 32
+gate_18 files/rooms/snowy_mountain.txt 57 9
