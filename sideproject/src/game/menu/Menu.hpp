@@ -7,6 +7,7 @@
 #include "../utils/renderer.h"
 #include "../utils/utility.h"
 #include "Button.hpp"
+#include "../utils/Image.hpp"
 
 class Game;
 class Menu {
@@ -16,10 +17,12 @@ public:
     Menu(Renderer& renderer);
     ~Menu() = default;
     void renderMenu(Renderer& renderer);
-    bool startGame, saveGame, exitGame, pause;
+    bool startGame, saveGame, optionsGame, exitGame, pause;
     Button startGameButton;
     Button saveGameButton;
+    Button optionsGameButton;
     Button exitGameButton;
+    Image mainMenuImage;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
 
 };
