@@ -4,20 +4,25 @@
 
 #include "Button.hpp"
 
-Button::Button(Renderer& renderer, std::string imagePath, int xTmp, int yTmp, int widthTmp, int heightTmp) {
+Button::Button(Renderer& renderer, std::string imagePath, std::string imagePathHighlighted, int xTmp, int yTmp, int widthTmp, int heightTmp) {
     x = xTmp;
     y = yTmp;
     width = widthTmp;
     height = heightTmp;
     image = utility::loadImage(imagePath, renderer);
-    image.getRect()->x = x;
-    image.getRect()->y = y;
-    image.getRect()->w = width;
-    image.getRect()->h = height;
+    imageHighlighted = utility::loadImage(imagePathHighlighted, renderer);
+    image.getRect()->x = imageHighlighted.getRect()->x = x;
+    image.getRect()->y = imageHighlighted.getRect()->y = y;
+    image.getRect()->w = imageHighlighted.getRect()->w = width;
+    image.getRect()->h = imageHighlighted.getRect()->h = height;
+    highlighted = false;
 }
 
 void Button::renderButton(Renderer& renderer) {
-    image.render(renderer);
+    if (highlighted)
+        imageHighlighted.render(renderer);
+    else
+        image.render(renderer);
 
     // Gray background
     //SDL_SetRenderDrawColor(renderer.getRenderer(), 0x80, 0x80, 0x80, 0xFF);

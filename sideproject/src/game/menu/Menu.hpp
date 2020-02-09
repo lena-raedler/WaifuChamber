@@ -18,12 +18,12 @@ public:
     void renderMenu(Renderer& renderer);
     bool startGame, exitGame, pause;
     Button startGameButton;
-    Button startGameButtonHighlighted;
-    Button currentStartGameButton;
+    //Button startGameButtonHighlighted;
+    //Button currentStartGameButton;
 
     Button exitGameButton;
-    Button exitGameButtonHighlighted;
-    Button currentExitGameButton;
+    //Button exitGameButtonHighlighted;
+    //Button currentExitGameButton;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
 
 };
