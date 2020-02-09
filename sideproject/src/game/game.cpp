@@ -240,8 +240,7 @@ int Game::loop() {
             projectile->upkeep(deltaTime/deltaDenom);
             if(projectile->owner == HOSTILE) {
                 if (projectile->collide(player)) {
-                    player.getHit(projectile->damage);
-                    projectile->alive = false;
+                    projectile->resolve(player);
                 }
             }else if (projectile->owner == PLAYER){
                 for (auto& e : GlobalObjects::enemies) {

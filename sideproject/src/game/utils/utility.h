@@ -40,6 +40,7 @@ namespace utility {
     void fillDefaultHitbox(std::vector<triangle>& vec, int i);
     vec_t getMax(std::vector<triangle>& tris);
     vec_t getMin(std::vector<triangle>& tris);
+
 }
 
 

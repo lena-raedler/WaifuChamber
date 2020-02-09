@@ -53,6 +53,18 @@ struct vitals{
     double stamRegen = 50;
     double healthPercentage(){return (double) hp / maxHp;}
     double staminaPercentage(){return (double) stam / maxStam;}
+
+    double bleedRes = 100;
+    double shockRes = 100;
+    double burnRes = 100;
+    double rotRes = 100;
+    double frenzyRes = 100;
+
+    double bleed = 0;
+    double shock = 0;
+    double burn = 0;
+    double rot = 0;
+    double frenzy = 0;
 };
 class Player : public Movable {
 public:
@@ -93,11 +105,13 @@ public:
     void grounded(double delta);
     void rangedAttack();
 
-    void processStatuseffects(statuseffect status);
+    void applyStatusEffect(statuseffect &status);
+    void processStatusEffects(statuseffect &status, double delta);
+    void removeStatusEffect(statuseffect &status);
 
     void rest();
-
-    //std::vector<statuseffect> statusEffects; TODO: implement status effects
+    void checkStatusEffects();
+    std::vector<statuseffect> statusEffects;
 
 
 
