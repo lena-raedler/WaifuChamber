@@ -7,12 +7,12 @@
 
 
 Menu::Menu(Renderer& renderer) {
-    int width = 300;
-    int height = 100;
+    int width = 299;    // Exact size of the button textures
+    int height = 84;
     int x = 1920 / 2 - width / 2;
     int y = 1080 / 2 - height / 2;
-    startGameButton = Button(renderer, "files/textures/menu/start_game_transparent.png", x, y, width, height);
-    exitGameButton = Button(renderer, "files/textures/menu/exit_game.png", x, y + height + 25, width, height);
+    startGameButton = Button(renderer, "files/textures/menu/start_game_2_light.png", x, y, width, height);
+    exitGameButton = Button(renderer, "files/textures/menu/exit_game_2_light.png", x, y + height + 25, width, height);
     startGame = false;
     exitGame = false;
 }
