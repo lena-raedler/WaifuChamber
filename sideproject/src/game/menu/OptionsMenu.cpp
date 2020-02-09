@@ -17,7 +17,7 @@ OptionsMenu::OptionsMenu(Renderer& renderer) {
     volumeImages = std::vector<Image>(11);
 
     volume = 5;     // Default, goes from 1 to 10
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 11; i++) {
         volumeImages[i] = utility::loadImage("files/textures/menu/options/volume_" + std::to_string(i) + ".png", renderer);
         volumeImages[i].getRect()->x = decreaseVolumeButton.x + decreaseVolumeButton.width + widthGap;
         volumeImages[i].getRect()->y = decreaseVolumeButton.y;
@@ -46,7 +46,7 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
     if (increaseVolumeButton.inButton(mouseX, mouseY)) {
         increaseVolumeButton.highlighted = true;
         if (clicked) {      // Unpause or start the game
-            increaseVolume = true;
+            increaseVolume = true;  // TODO unused
             if (volume < 10)
                 volume++;
         }
