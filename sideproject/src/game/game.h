@@ -84,7 +84,8 @@ private:
     //Inventory inventory;
     std::vector<Ability> abilities;
     Menu menu;
-    int volume;
+    int volume, volumeStep;
+    int getVolume(){return volume * volumeStep;}
     void handleMenu();
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////

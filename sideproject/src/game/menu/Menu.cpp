@@ -39,11 +39,11 @@ void Menu::renderMenu(Renderer& renderer) {
     } else {
         startGameButton.renderButton(renderer);
         optionsGameButton.renderButton(renderer);
+        exitGameButton.renderButton(renderer);
         if (startGame) {
             saveGameButton.renderButton(renderer);
         }
     }
-    exitGameButton.renderButton(renderer);
 
     startGameButton.highlighted = false;
     optionsGameButton.highlighted = false;
@@ -55,28 +55,27 @@ void Menu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
     // Options menu
     if (inOptions) {
         optionsMenu.resolveMouseInput(mouseX, mouseY, clicked);
+        return;
     }
-    else {  // Normal menu
-        if (!inOptions && startGameButton.inButton(mouseX, mouseY)) {
-            startGameButton.highlighted = true;
-            if (clicked) {      // Unpause or start the game
-                startGame = true;
-                pause = false;
-            }
-        }
-        else if (startGame && !inOptions && saveGameButton.inButton(mouseX, mouseY)) {
-            saveGameButton.highlighted = true;
-            if (clicked)
-                saveGame = true;
-        }
-        else if (!inOptions && optionsGameButton.inButton(mouseX, mouseY)) {
-            optionsGameButton.highlighted = true;
-            if (clicked)
-                inOptions = true;     // TODO implement
+    // Normal menu
+    if (!inOptions && startGameButton.inButton(mouseX, mouseY)) {
+        startGameButton.highlighted = true;
+        if (clicked) {      // Unpause or start the game
+            startGame = true;
+            pause = false;
         }
     }
-
-    if (exitGameButton.inButton(mouseX, mouseY)) {
+    else if (startGame && !inOptions && saveGameButton.inButton(mouseX, mouseY)) {
+        saveGameButton.highlighted = true;
+        if (clicked)
+            saveGame = true;
+    }
+    else if (!inOptions && optionsGameButton.inButton(mouseX, mouseY)) {
+        optionsGameButton.highlighted = true;
+        if (clicked)
+            inOptions = true;     // TODO implement
+    }
+    else if (exitGameButton.inButton(mouseX, mouseY)) {
         exitGameButton.highlighted = true;
         if (clicked)
             exitGame = true;

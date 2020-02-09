@@ -50,6 +50,8 @@ Game::Game()
     : pause(false)
 {
     currentRoom = "files/rooms/testroom.txt";
+    volume = 5;     // Unnecessary due to loadSavedVariables(). Still here as a safety measure for now.
+    volumeStep = 12;
     loadSavedVariables();
 
     GlobalObjects::playerPtr = &player;
@@ -92,10 +94,13 @@ Game::Game()
     gMusicBoss=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 2.mp3");
     gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
 
-    volume = 60;    // 5/10 on the volume tracker, max = 128
-    Mix_VolumeMusic(volume);
+    //volume = 60;    // 5/10 on the volume tracker, max = 128
+
+    std::cout << getVolume() << std::endl;
+
+    Mix_VolumeMusic(getVolume());
     Mix_PlayMusic(gMusic, -1);
-    Mix_Volume(-1, volume);     // MIX_MAX_VOLUME = 128
+    Mix_Volume(-1, getVolume());     // MIX_MAX_VOLUME = 128
 
     // White background
     renderer->renderColor(255, 255, 255, 0);
@@ -116,8 +121,6 @@ Game::Game()
         throw std::runtime_error("Could not create texture");
     }
 
-
-
     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
     fillGlobalObjects(room);
 
@@ -128,9 +131,6 @@ Game::Game()
     left = false;
     right = false;
     isFalling = false;
-
-
-
 
     playerPosition = player.position;
     {
@@ -160,6 +160,9 @@ Game::Game()
 
     // Menu
     menu = Menu(*renderer);
+    std::cout << "volume " << volume << std::endl;
+    menu.optionsMenu.volume = volume;
+    GlobalObjects::savedVariables.volume = volume;
     //menu.renderMenu(*renderer);
 }
 void Game::makeCheckpoints(){
@@ -347,6 +350,7 @@ int Game::loop() {
 void Game::handleMenu() {
     //if (menu.saveGame && menu.pause) {  // Only has an effect mid-game
     if (menu.saveGame) {  // Only has an effect mid-game
+        GlobalObjects::savedVariables.volume = volume;
         GlobalObjects::savedVariables.serialize();
         menu.saveGame = false;
     }
@@ -354,18 +358,20 @@ void Game::handleMenu() {
     // Options menu
     if (menu.inOptions) {
         if (menu.optionsMenu.increaseVolume) {
-            if (volume <= 108)
-                volume += 12;
+            if (getVolume() <= 108)
+                volume++;
+                //volume += 12;
             menu.optionsMenu.increaseVolume = false;
         }
         else if (menu.optionsMenu.decreaseVolume) {
-            if (volume >= 12)
-                volume -= 12;
+            if (getVolume() >= 12)
+                volume--;
+                //volume -= 12;
             menu.optionsMenu.decreaseVolume = false;
         }
 
-        Mix_VolumeMusic(volume);
-        Mix_Volume(-1, volume);
+        Mix_VolumeMusic(getVolume());
+        Mix_Volume(-1, getVolume());
     }
 }
 
@@ -730,6 +736,8 @@ void Game::loadSavedVariables(){
     abilities.push_back(a);
     AbilityPicker::pickAbility(a, GlobalObjects::savedVariables.meleeWeapon, PL_MELEE);
     abilities.push_back(a);
+
+    volume = GlobalObjects::savedVariables.volume;
 
 }
 /*
