@@ -42,11 +42,11 @@ struct attributes{
     int con;
 };
 struct vitals{
-    int maxHp = 100;
-    int hp = 100;
+    double  maxHp = 100;
+    double hp = 100;
 
-    int maxStam = 100;
-    int stam = 100;
+    double maxStam = 100;
+    double stam = 100;
     int maxMp = 100;
     int mp = 50;
 

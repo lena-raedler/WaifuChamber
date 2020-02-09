@@ -20,6 +20,7 @@ public:
     double cooldown = 2.5;
     double speed;
     double lastUsed  = 0;
+    void useIfAvail(double delta, vec_t& pos);
     bool isAvail(double delta);
     void use(vec_t pos);
 };

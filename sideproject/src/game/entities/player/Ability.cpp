@@ -4,6 +4,11 @@
 
 #include "Ability.h"
 
+void Ability::useIfAvail(double delta, vec_t& pos){
+    if(isAvail(delta)){
+        use(pos);
+    }
+}
 bool Ability::isAvail(double delta) {
     lastUsed -= delta;
     if (lastUsed < 0){

@@ -396,7 +396,7 @@ vec_t Game::determineInput(double delta){
         // player.velocity = {0, 0};    // Makes the player hover lol
         if(player.vit.stam > 0){
             player.velocity.y *= 0.2;
-            player.vit.stam -= delta * 2;
+            player.vit.stam -= delta / 500;
         }
     }
     if(inputManager.isPressed(KEY_R)){//test
@@ -431,19 +431,7 @@ vec_t Game::determineInput(double delta){
 
     if (inputManager.isPressed(KEY_C) || inputManager.isMousePressed(MOUSE_LEFT)) {
         if (menu.startGame && player.canSpawnProjectile() && !menu.pause) {
-            player.spawnProjectile();   // Set the cooldown timer
-
-
-            Ability a;
-            AbilityPicker::pickAbility(a, 1, PL_RANGED);
-            abilities.push_back(a);
-
-            //int mouse_x, mouse_y;
-            //SDL_GetMouseState(&mouse_x, &mouse_y);
-            //vec_t vec {mouse_x, mouse_y};
-            //Vec2<double> vec2 {static_cast<double>(mouse_x), static_cast<double>(mouse_y)};
-            //Vec2<double> vec2 {static_cast<double>(player.position.x ), static_cast<double>(player.position.y)};
-            a.use({player.position});
+            abilities[0].useIfAvail(delta, player.position);//todo make sound into ability
             //std::cout << "mouse_x: " << mouse_x << "\tmouse_y: " << mouse_y << std::endl;
             Mix_PlayChannel(-1, GlobalObjects::chunkPtr[2], 0);
         }
@@ -715,6 +703,11 @@ void Game::loadSavedVariables(){
             currentRoom = c.room;
         }
     }
+    Ability a;
+    AbilityPicker::pickAbility(a, GlobalObjects::savedVariables.rangedWeapon, PL_RANGED);
+    abilities.push_back(a);
+    AbilityPicker::pickAbility(a, GlobalObjects::savedVariables.meleeWeapon, PL_MELEE);
+    abilities.push_back(a);
 
 }
 /*

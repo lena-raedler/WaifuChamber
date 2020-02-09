@@ -18,9 +18,10 @@ enum AbilitySet{
 namespace AbilityPicker {
 
     void plRanged(int i, Ability& a){
+        Projectile p;
         switch(i){
-            case 1: //default shot
-                Projectile p;
+            case 0: //default shot
+
                 utility::fillDefaultHitbox(p.hitbox);
                 p.damage = 20;
                 p.timeToLive = 2000;
@@ -35,6 +36,8 @@ namespace AbilityPicker {
                 a.cooldown = 1000;
                 //a.origin = {0, 0};
                 a.aimed = false;
+                break;
+            default:
                 break;
         }
 
