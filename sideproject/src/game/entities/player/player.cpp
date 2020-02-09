@@ -144,5 +144,4 @@ void Player::grounded(double delta) {
     }
     vit.stam += delta * vit.stamRegen;
     vit.stam = std::min(vit.stam, vit.maxStam);
-    std::cout << vit.stam << std::endl;
 }
