@@ -62,6 +62,7 @@ public:
     std::pair<int, int> newStartPosition;
     int roomId;
     std::vector<gateInformation> gates;
+    std::vector<LockedWall> lockedWalls;
 
     void clear();
 };

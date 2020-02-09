@@ -21,6 +21,7 @@
 #include <boost/algorithm/string/erase.hpp>
 #include <boost/algorithm/string/compare.hpp>
 #include "../world/gateInformation.h"
+#include "../world/LockedWall.h"
 
 class Room;
 

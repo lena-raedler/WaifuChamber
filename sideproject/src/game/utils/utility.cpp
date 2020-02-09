@@ -127,6 +127,7 @@ namespace utility {
         std::vector<std::pair<std::pair<int, int>, char>> gatePositions;
         std::unordered_map<char, std::string> tileMap;
         std::unordered_map<SDL_Texture*, SDL_Rect> tileRenderMap;
+        int lockedWallId = 0;
 
         while(std::getline(roomFile, line)) {
             if(line.find("ID") != std::string::npos) {
@@ -221,6 +222,15 @@ namespace utility {
                             floorPosition.first = y;
                             floorPosition.second = x;
                             room.floorPositions.push_back(floorPosition);
+                        }
+                        if(c == '<') {
+                            LockedWall wall;
+                            wall.id = lockedWallId;
+                            wall.position.first = y;
+                            wall.position.second = x;
+                            wall.orientation = true;
+                            room.lockedWalls.push_back(wall);
+
                         }
                         if(tilePath.find("none") != std::string::npos) {
                             y += GlobalConstants::tileSize;
@@ -337,6 +347,7 @@ namespace utility {
         room.backgroundRectangle = backgroundRectangle;
         room.backgroundtexture = backgroundTexture;
         room.tileMap = tileRenderMap;
+        lockedWallId++;
 
         //Room room(backgroundTexture, backgroundRectangle, tileRenderMap, *&platformPositionVector, gate);
         return room;

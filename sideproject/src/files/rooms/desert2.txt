@@ -2,7 +2,7 @@ ID
 ROOM_11
 END
 BACKGROUND
-files/backgrounds/desert_02.PNG
+files/backgrounds/desert_02.png
 TILES
   . = none
   w = files/textures/gravel_01

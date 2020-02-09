@@ -18,3 +18,5 @@ gate_17 files/rooms/desert1.txt 3 32
 gate_18 files/rooms/snowy_mountain.txt 57 9
 gate_19 files/rooms/desert2.txt 2 31
 gate_20 files/rooms/desert1.txt 57 29
+gate_21 files/rooms/mazement1.txt 4 32
+gate_22 files/rooms/desert2.txt 4 3
