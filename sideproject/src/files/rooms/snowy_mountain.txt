@@ -13,7 +13,7 @@ TILES
   l = none
 END
 LAYOUT
-  wccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+  cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
   w..........................................................w
   w..........................................................w
   w..........................................................w
