@@ -125,8 +125,10 @@ void Player::kill(){
     position = lastCP->position;
     rest();
 }
-void Player::grounded(){
+void Player::grounded(double delta) {
     if(velocity.y >= 0) {
         jumps = 2;
     }
+    vit.stam += delta * vit.stamRegen;
+    vit.stam = std::max(vit.stam, vit.maxStam);
 }

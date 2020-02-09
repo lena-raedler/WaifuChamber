@@ -27,7 +27,7 @@ enum GravityType{
 };
 class Movable {
 public:
-    virtual void grounded(); //and the lord spoketh thee shalt repent for thee sins
+    virtual void grounded(double delta); //and the lord spoketh thee shalt repent for thee sins
     int health = 1;
     bool iframes;//switch this on for iframes/static objects like bullets
     const void render(Renderer& renderer);

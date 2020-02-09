@@ -46,10 +46,11 @@ struct vitals{
     int hp = 100;
 
     int maxStam = 100;
-    int stam = 50;
+    int stam = 100;
     int maxMp = 100;
     int mp = 50;
 
+    double stamRegen = 50;
     double healthPercentage(){return (double) hp / maxHp;}
 };
 class Player : public Movable {
@@ -87,7 +88,7 @@ public:
     void getHit(double damage);
     void getHit(double damage, statuseffect status);
     void kill();
-    void grounded();
+    void grounded(double delta);
     void rangedAttack();
 
     void processStatuseffects(statuseffect status);

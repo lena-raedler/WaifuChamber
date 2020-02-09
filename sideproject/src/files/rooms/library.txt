@@ -52,13 +52,3 @@ GATES
   gate_02 d -1
   gate_03 e -1
 END
-ENEMY
-  e_1 2 14
-  e_1 4 14
-  e_1 6 14
-  e_1 8 14
-  e_1 10 14
-  e_1 59 8
-  e_1 59 20
-  e_1 59 32
-END
