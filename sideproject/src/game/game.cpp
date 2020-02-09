@@ -384,7 +384,7 @@ vec_t Game::determineInput(double delta){
         // player.velocity = {0, 0};    // Makes the player hover lol
         if(player.vit.stam > 0){
             player.velocity.y *= 0.2;
-            player.vit.stam -= delta * 30;
+            player.vit.stam -= delta * 2;
         }
     }
     if(inputManager.isPressed(KEY_R)){//test

@@ -29,6 +29,7 @@ namespace GlobalObjects {
     extern std::vector<std::shared_ptr<Boss>> bosses;
     extern std::vector<Checkpoint> checkpoints;
     extern std::vector<Ability> abilities; //0 ranged 1 melee
+    extern Platform& lastTouchedPlatform; //no damage boosting
 };
 
 

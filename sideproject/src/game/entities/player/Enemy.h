@@ -18,8 +18,10 @@ public:
     double speed;
     std::vector<Ability> abilities;
     std::vector<double> probability;
-    Behaviour ai;
 
+    Behaviour ai;
+    int damageOnTouch = 0;
+    std::vector<vec_t> patrolPoints;
     void setMaxHealth(int i);
     void getHit(double d);
     void kill();

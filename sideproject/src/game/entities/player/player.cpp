@@ -50,7 +50,6 @@ void Player::updatePlayer(double x, double y) {
 
 void Player::upkeep(double delta){
 
-
     move(delta);
     if (velocity.y <= 0 + GlobalConstants::epsilon){
 
@@ -130,5 +129,6 @@ void Player::grounded(double delta) {
         jumps = 2;
     }
     vit.stam += delta * vit.stamRegen;
-    vit.stam = std::max(vit.stam, vit.maxStam);
+    vit.stam = std::min(vit.stam, vit.maxStam);
+    std::cout << vit.stam << std::endl;
 }
