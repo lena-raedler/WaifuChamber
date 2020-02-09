@@ -321,6 +321,11 @@ int Game::loop() {
             }
         }
 
+        if (menu.saveGame) {
+            GlobalObjects::savedVariables.serialize();
+            menu.saveGame = false;
+        }
+
         // Update player
         // TODO Update player in a separate function
         //player.updatePlayer(playerPosition.x, playerPosition.y);
