@@ -32,25 +32,27 @@ void Projectile::upkeep(double delta) {
 
 void Projectile::resolve(Player& p){
     if(alive) {
-            switch(status.type){
+        for(auto& s : status) {
+            switch (s.type) {
                 case BLEED:
-                    p.vit.bleed += status.intensity;
+                    p.vit.bleed += s.intensity;
                     break;
                 case SHOCK:
-                    p.vit.shock += status.intensity;
+                    p.vit.shock += s.intensity;
                     break;
                 case BURN:
-                    p.vit.burn += status.intensity;
+                    p.vit.burn += s.intensity;
                     break;
                 case ROT:
-                    p.vit.rot += status.intensity;
+                    p.vit.rot += s.intensity;
                     break;
                 case FRENZY:
-                    p.vit.frenzy += status.intensity;
+                    p.vit.frenzy += s.intensity;
                     break;
                 default:
                     break;
             }
+        }
         p.getHit(damage);
         alive = false; //piercing prjectiles?
     }
