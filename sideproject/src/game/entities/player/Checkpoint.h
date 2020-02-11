@@ -13,6 +13,8 @@ class Checkpoint : public Interactable {
 public:
     std::string room = "files/rooms/testroom.txt";
     int id = 0;
+    SDL_Texture* texture;
+    SDL_Rect rectangle;
 
 
 

@@ -353,7 +353,7 @@ namespace utility {
                     enemies.position.first = std::atoi(enemyStrings[1].c_str());
                     enemies.position.second = std::atoi(enemyStrings[2].c_str());
                     if(enemyStrings.size() > 3) {
-                        for(int i = 3; i < enemyStrings.size(); i++) {
+                        for(size_t i = 3; i < enemyStrings.size(); i++) {
                             std::vector<std::string> patrolPoints;
                             boost::split(patrolPoints, enemyStrings[i], boost::is_any_of(","));
                             std::pair<int, int> patrolPositions;

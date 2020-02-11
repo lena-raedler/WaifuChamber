@@ -53,7 +53,6 @@ Game::Game()
     musicVolume = 5;     // Unnecessary due to loadSavedVariables(). Still here as a safety measure for now.
     effectVolume = 5;
     volumeStep = 12;
-    loadSavedVariables();
 
     GlobalObjects::playerPtr = &player;
     debugshit();
@@ -71,6 +70,8 @@ Game::Game()
         throw std::runtime_error("Could not initialize SDL_image");
     }
     renderer = std::make_unique<Renderer>(GlobalObjects::resolution);
+
+    loadSavedVariables();
 
     //init sound
 
@@ -169,11 +170,18 @@ Game::Game()
     //menu.renderMenu(*renderer);
 }
 void Game::makeCheckpoints(){
+    SDL_Surface* s = IMG_Load("files/textures/savepoint_01.png");
     {
+
         Checkpoint c;
+        if(!c.texture) {
+            std::cerr << SDL_GetError() << std::endl;
+        }
         c.position = utility::convert({3, 6});
         utility::fillDefaultHitbox(c.hitbox);
         c.id = GlobalObjects::checkpoints.size();
+        c.texture = renderer->createTextureFromSurface(s);
+        c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
         GlobalObjects::checkpoints.push_back(c);
     }
     {
@@ -182,8 +190,12 @@ void Game::makeCheckpoints(){
         utility::fillDefaultHitbox(c.hitbox);
         c.room = "files/rooms/library.txt";
         c.id = GlobalObjects::checkpoints.size();
+        c.texture = renderer->createTextureFromSurface(s);
+        std::cout << c.position.y << " " << c.position.x << std::endl;
+        c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
         GlobalObjects::checkpoints.push_back(c);
     }
+    SDL_FreeSurface(s);
 
     player.lastCP = &(GlobalObjects::checkpoints[0]);
 }
@@ -556,8 +568,10 @@ void Game::render() {
         if(boost::algorithm::equals(currentRoom, c.room)) {
             if (player.lastCP->id == c.id) {
                 renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
+                renderer->renderTexture(c.texture, nullptr, &c.rectangle);
             } else {
                 renderer->renderTriangles(c.hitbox, 0, 120, 0, c.position);
+                renderer->renderTexture(c.texture, nullptr, &c.rectangle);
             }
         }
     }
