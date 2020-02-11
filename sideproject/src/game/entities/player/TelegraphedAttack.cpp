@@ -13,9 +13,9 @@ void TelegraphedAttack::render(Renderer& renderer){
     SDL_SetRenderDrawColor(renderer.getRenderer(), 255, 0, 0, 120);
     SDL_Rect tmp = rect;
     if(rect.w > rect.h){
-        tmp.w /= (time/maxTime);
+        tmp.w *= (time/maxTime);
     } else{
-        tmp.h /= (time/maxTime);
+        tmp.h *= (time/maxTime);
     }
     SDL_RenderFillRect(renderer.getRenderer(), &tmp);
     SDL_RenderDrawLine(renderer.getRenderer(), x, y, x+w, y);

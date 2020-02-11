@@ -359,6 +359,10 @@ int Game::loop() {
             }
         }
 
+        for(auto& tas : GlobalObjects::telegraphedAttacks){
+            tas.update(deltaTime/deltaDenom);
+        }
+
         if(player.vit.hp <= 0){
             std::cout << "GIT GUD" << std::endl;
             GlobalObjects::clear();
@@ -522,7 +526,8 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_Q)){//test
         if(GlobalObjects::telegraphedAttacks.size() == 0){
             TelegraphedAttack ta;
-            ta.set(player.position.x-5, player.position.y, 10, 5);
+            ta.maxTime = 10;
+            ta.set(player.position.x-50, player.position.y, 100, 50);
             GlobalObjects::telegraphedAttacks.push_back(ta);
         }
     }
