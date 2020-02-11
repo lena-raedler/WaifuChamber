@@ -17,11 +17,11 @@ public:
     OptionsMenu() = default;
     OptionsMenu(Renderer& renderer);
     ~OptionsMenu() = default;
-    Button increaseVolumeButton, decreaseVolumeButton;
     Button increaseEffectVolumeButton, decreaseEffectVolumeButton;
-    bool increaseVolume, decreaseVolume;
+    Button increaseMusicVolumeButton, decreaseMusicVolumeButton;
     bool increaseEffectVolume, decreaseEffectVolume;
-    std::vector<Image> volumeImages, effectVolumeImages;
+    bool increaseMusicVolume, decreaseMusicVolume;
+    std::vector<Image> effectVolumeImages, musicVolumeImages;
     int effectVolume, musicVolume;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
     void renderOptionsMenu(Renderer& renderer);

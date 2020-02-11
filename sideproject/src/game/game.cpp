@@ -361,15 +361,15 @@ void Game::handleMenu() {
 
     // Options menu
     if (menu.inOptions) {
-        if (menu.optionsMenu.increaseVolume) {
+        if (menu.optionsMenu.increaseMusicVolume) {
             if (getMusicVolume() <= 108)
                 musicVolume++;
-            menu.optionsMenu.increaseVolume = false;
+            menu.optionsMenu.increaseMusicVolume = false;
         }
-        else if (menu.optionsMenu.decreaseVolume) {
+        else if (menu.optionsMenu.decreaseMusicVolume) {
             if (getMusicVolume() >= 12)
                 musicVolume--;
-            menu.optionsMenu.decreaseVolume = false;
+            menu.optionsMenu.decreaseMusicVolume = false;
         }
         else if (menu.optionsMenu.increaseEffectVolume) {
             if (getEffectVolume() <= 108)
