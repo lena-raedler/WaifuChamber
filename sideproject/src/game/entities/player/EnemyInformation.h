@@ -6,12 +6,12 @@
 #define WAIFU_ENEMYINFORMATION_H
 
 #include <utility>
+#include <vector>
 
 struct EnemyInformation {
     int id;
     std::pair<int, int> position;
-    std::pair<int, int> patrolStartPosition;
-    std::pair<int, int> patrolEndPosition;
+    std::vector<std::pair<int, int>> patrolPoints;
     // maybe add texture and rectangle for the enemy here
 };
 

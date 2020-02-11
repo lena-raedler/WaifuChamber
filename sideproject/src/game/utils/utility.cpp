@@ -353,18 +353,15 @@ namespace utility {
                     enemies.position.first = std::atoi(enemyStrings[1].c_str());
                     enemies.position.second = std::atoi(enemyStrings[2].c_str());
                     if(enemyStrings.size() > 3) {
-                        //start patrol positions
-                        std::vector<std::string> patrolStart;
-                        boost::split(patrolStart, enemyStrings[3], boost::is_any_of(","));
-                        enemies.patrolStartPosition.first = std::atoi(patrolStart[0].c_str());
-                        enemies.patrolStartPosition.second = std::atoi(patrolStart[1].c_str());
-
-                        //end patrol positions
-                        std::vector<std::string> patrolEnd;
-                        boost::split(patrolEnd, enemyStrings[4], boost::is_any_of(","));
-                        enemies.patrolEndPosition.first = std::atoi(patrolEnd[0].c_str());
-                        enemies.patrolEndPosition.second = std::atoi(patrolEnd[1].c_str());
-                    }
+                        for(int i = 3; i < enemyStrings.size(); i++) {
+                            std::vector<std::string> patrolPoints;
+                            boost::split(patrolPoints, enemyStrings[i], boost::is_any_of(","));
+                            std::pair<int, int> patrolPositions;
+                            patrolPositions.first = std::atoi(patrolPoints[0].c_str());
+                            patrolPositions.second = std::atoi(patrolPoints[1].c_str());
+                            enemies.patrolPoints.push_back(patrolPositions);
+                        }
+                    } else {}
                     room.enemies.push_back(enemies);
                 }
             }
