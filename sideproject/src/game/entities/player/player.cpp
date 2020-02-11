@@ -46,14 +46,12 @@ Player::Player()
 
     activeBleedBar = bleedBar;
     activeBleedBar.borderColor = GlobalConstants::YELLOW;
-    currentBleedBar = bleedBar;
 
     // Shock
     shockBar = bleedBar;
     shockBar.barColor = GlobalConstants::BLUE;
     activeShockBar = shockBar;
     activeShockBar.borderColor = GlobalConstants::YELLOW;
-    currentShockBar = shockBar;
 
     // Player position
     position.x = 50;

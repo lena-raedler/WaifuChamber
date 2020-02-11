@@ -110,9 +110,8 @@ public:
     int statusBarBackgroundOffset = 4;
     int statusBarHeight = GlobalConstants::tileSize / 4;
     int statusBarMultiplier = 1;
-
-    Bar bleedBar, activeBleedBar, currentBleedBar;
-    Bar shockBar, activeShockBar, currentShockBar;
+    Bar bleedBar, activeBleedBar;
+    Bar shockBar, activeShockBar;
 
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);
