@@ -18,8 +18,8 @@ Menu::Menu(Renderer& renderer) {
     int y = 1080 / 2 - height / 2 - height*2 - heightGap*2;
     startGameButton = Button(renderer, "files/textures/menu/start_game_2.png", "files/textures/menu/start_game_2_highlighted.png", x, y, width, height);
     optionsGameButton = Button(renderer, "files/textures/menu/options_game.png", "files/textures/menu/options_game_highlighted.png", x, y + height + heightGap, width, height);
-    exitGameButton = Button(renderer, "files/textures/menu/exit_game_2.png", "files/textures/menu/exit_game_2_highlighted.png", x, y + height*2 + heightGap*2, width, height);
-    saveGameButton = Button(renderer, "files/textures/menu/save_game.png", "files/textures/menu/save_game_highlighted.png", x, y + height*3 + heightGap*3, width, height);
+    saveGameButton = Button(renderer, "files/textures/menu/save_game.png", "files/textures/menu/save_game_highlighted.png", x, y + height*2 + heightGap*2, width, height);
+    exitGameButton = Button(renderer, "files/textures/menu/exit_game_2.png", "files/textures/menu/exit_game_2_highlighted.png", x, y + height*3 + heightGap*3, width, height);
     startGame = false;
     exitGame = false;
     pause = false;
@@ -73,7 +73,7 @@ void Menu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
     else if (!inOptions && optionsGameButton.inButton(mouseX, mouseY)) {
         optionsGameButton.highlighted = true;
         if (clicked)
-            inOptions = true;     // TODO implement
+            inOptions = true;
     }
     else if (exitGameButton.inButton(mouseX, mouseY)) {
         exitGameButton.highlighted = true;

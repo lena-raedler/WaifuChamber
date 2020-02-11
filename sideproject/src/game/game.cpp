@@ -51,6 +51,7 @@ Game::Game()
 {
     currentRoom = "files/rooms/testroom.txt";
     volume = 5;     // Unnecessary due to loadSavedVariables(). Still here as a safety measure for now.
+    effectVolume = 5;
     volumeStep = 12;
     loadSavedVariables();
 
@@ -96,11 +97,12 @@ Game::Game()
 
     //volume = 60;    // 5/10 on the volume tracker, max = 128
 
-    std::cout << getVolume() << std::endl;
+    //std::cout << getVolume() << std::endl;
 
     Mix_VolumeMusic(getVolume());
     Mix_PlayMusic(gMusic, -1);
-    Mix_Volume(-1, getVolume());     // MIX_MAX_VOLUME = 128
+    //Mix_Volume(-1, getVolume());     // MIX_MAX_VOLUME = 128
+    Mix_Volume(-1, getEffectVolume());     // MIX_MAX_VOLUME = 128
 
     // White background
     renderer->renderColor(255, 255, 255, 0);
@@ -160,9 +162,10 @@ Game::Game()
 
     // Menu
     menu = Menu(*renderer);
-    std::cout << "volume " << volume << std::endl;
+    //std::cout << "volume " << volume << std::endl;
     menu.optionsMenu.volume = volume;
-    GlobalObjects::savedVariables.volume = volume;
+    menu.optionsMenu.effectVolume = effectVolume;
+    //GlobalObjects::savedVariables.volume = volume;
     //menu.renderMenu(*renderer);
 }
 void Game::makeCheckpoints(){
@@ -351,6 +354,7 @@ void Game::handleMenu() {
     //if (menu.saveGame && menu.pause) {  // Only has an effect mid-game
     if (menu.saveGame) {  // Only has an effect mid-game
         GlobalObjects::savedVariables.volume = volume;
+        GlobalObjects::savedVariables.effectVolume = effectVolume;
         GlobalObjects::savedVariables.serialize();
         menu.saveGame = false;
     }
@@ -369,9 +373,21 @@ void Game::handleMenu() {
                 //volume -= 12;
             menu.optionsMenu.decreaseVolume = false;
         }
+        else if (menu.optionsMenu.increaseEffectVolume) {
+            if (getEffectVolume() <= 108)
+                effectVolume++;
+            menu.optionsMenu.increaseEffectVolume = false;
+        }
+        else if (menu.optionsMenu.decreaseEffectVolume) {
+            if (getEffectVolume() >= 12)
+                effectVolume--;
+            //volume -= 12;
+            menu.optionsMenu.decreaseEffectVolume = false;
+        }
 
         Mix_VolumeMusic(getVolume());
-        Mix_Volume(-1, getVolume());
+        //Mix_Volume(-1, getVolume());
+        Mix_Volume(-1, getEffectVolume());
     }
 }
 
@@ -738,6 +754,8 @@ void Game::loadSavedVariables(){
     abilities.push_back(a);
 
     volume = GlobalObjects::savedVariables.volume;
+    effectVolume = GlobalObjects::savedVariables.effectVolume;
+    musicVolume = GlobalObjects::savedVariables.musicVolume;
 
 }
 /*

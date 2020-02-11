@@ -18,9 +18,12 @@ public:
     OptionsMenu(Renderer& renderer);
     ~OptionsMenu() = default;
     Button increaseVolumeButton, decreaseVolumeButton;
+    Button increaseEffectVolumeButton, decreaseEffectVolumeButton;
     bool increaseVolume, decreaseVolume;
-    std::vector<Image> volumeImages;    // TODO Initialize with size 10
+    bool increaseEffectVolume, decreaseEffectVolume;
+    std::vector<Image> volumeImages, effectVolumeImages;
     int volume;
+    int effectVolume;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
     void renderOptionsMenu(Renderer& renderer);
 };
