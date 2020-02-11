@@ -7,7 +7,7 @@
 
 const void Movable::render(Renderer &renderer) {
     SDL_Surface* surface = IMG_Load(textureLocation.c_str());
-    SDL_Texture* texture = renderer.createTextureFromSurface(surface);
+    texture = renderer.createTextureFromSurface(surface);
     {
         SDL_Rect r = {(int)position.x, (int)position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
         rec = std::make_shared<SDL_Rect>(r);

@@ -34,6 +34,7 @@ public:
     const void render(Renderer& renderer);
     const std::string getTextureLocation();
     std::shared_ptr<SDL_Rect> rec;
+    SDL_Texture* texture;
     double gravityConstant = 5;
     vec_t position; // {0, 0};
     vec_t velocity; // {0, 0};

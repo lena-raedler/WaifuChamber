@@ -52,6 +52,7 @@ void Enemy::getHit(double d){
 }
 
 void Enemy::kill(){
+    SDL_DestroyTexture(texture);
     //dostuff
 }
 void Enemy::chase(double d){
