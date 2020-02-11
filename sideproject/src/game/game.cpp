@@ -54,6 +54,7 @@ Game::Game()
     effectVolume = 5;
     volumeStep = 12;
 
+
     GlobalObjects::playerPtr = &player;
     debugshit();
 
@@ -86,6 +87,7 @@ Game::Game()
     {
         fprintf(stderr, "Unable to allocate mixing channels: %s\n", SDL_GetError());
     }
+    loadSavedVariables();
     GlobalObjects::chunkPtr[0] = Mix_LoadWAV("files/sounds/scream.wav");
     GlobalObjects::chunkPtr[1] = Mix_LoadWAV("files/sounds/jump.wav");
     GlobalObjects::chunkPtr[2] = Mix_LoadWAV("files/sounds/smb_fireball.wav");
@@ -279,7 +281,7 @@ int Game::loop() {
 
         //processInput(deltaTime);
         player.velocity.x *= 0.8;
-        auto move = determineInput(deltaTime*deltaDenom);
+        auto move = determineInput(deltaTime/deltaDenom);
         if(quit){
             break;
         }
@@ -494,7 +496,7 @@ vec_t Game::determineInput(double delta){
         // player.velocity = {0, 0};    // Makes the player hover lol
         if(player.vit.stam > 0){
             player.velocity.y *= 0.2;
-            player.vit.stam -= delta / 500;
+            player.vit.stam -= delta * player.staminaCostReduction * player.floatStaminaCost;
         }
     }
     if(inputManager.isPressed(KEY_R)){//test
@@ -527,15 +529,16 @@ vec_t Game::determineInput(double delta){
         menu.resolveMouseInput(mouseX, mouseY, false);
     }
 
-    if (inputManager.isPressed(KEY_C) || inputManager.isMousePressed(MOUSE_LEFT)) {
-        if (menu.startGame && player.canSpawnProjectile() && !menu.pause) {
-            abilities[0].useIfAvail(delta, player.position);//todo make sound into ability
-            //std::cout << "mouse_x: " << mouse_x << "\tmouse_y: " << mouse_y << std::endl;
-            Mix_PlayChannel(-1, GlobalObjects::chunkPtr[2], 0);
-        }
+    if (inputManager.isMousePressed(MOUSE_LEFT)) {
 
-        if (!menu.startGame || menu.pause) {
+
+        if ((!menu.startGame || menu.pause)) {
             menu.resolveMouseInput(mouseX, mouseY, true);
+        }
+    }
+    if (inputManager.isMouseHeld(MOUSE_LEFT) || inputManager.isMousePressed(MOUSE_LEFT)){
+        if (menu.startGame  && !menu.pause) {
+            GlobalObjects::abilities[0].useIfAvail(delta, player.position);
         }
     }
     if(inputManager.isPressed(KEY_M)){
@@ -801,9 +804,9 @@ void Game::loadSavedVariables(){
     }
     Ability a;
     AbilityPicker::pickAbility(a, GlobalObjects::savedVariables.rangedWeapon, PL_RANGED);
-    abilities.push_back(a);
+    GlobalObjects::abilities.push_back(a);
     AbilityPicker::pickAbility(a, GlobalObjects::savedVariables.meleeWeapon, PL_MELEE);
-    abilities.push_back(a);
+    GlobalObjects::abilities.push_back(a);
 
     musicVolume = GlobalObjects::savedVariables.musicVolume;
     effectVolume = GlobalObjects::savedVariables.effectVolume;

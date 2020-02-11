@@ -10,8 +10,6 @@
 Player::Player()
     //: healthBar({64, 64, 210, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}})
 {
-    Ability range;
-    Ability melee;
     int x = 64;
     int y = 64;
     int width = 210;
@@ -98,6 +96,15 @@ void Player::upkeep(double delta){
         }
     }
     statusEffects = vecS;
+    vit.bleed -= delta * vit.statusDecay;
+    vit.shock -= delta * vit.statusDecay;
+    vit.burn -= delta * vit.statusDecay;
+    vit.rot -= delta * vit.statusDecay;
+    vit.frenzy -= delta * vit.statusDecay;
+
+    for(auto& a: GlobalObjects::abilities){
+        a.lastUsed -= delta;
+    }
 
 }
 void Player::jump(){

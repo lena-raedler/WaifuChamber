@@ -18,6 +18,7 @@ enum AbilitySet{
 namespace AbilityPicker {
 
     void plRanged(int i, Ability& a){
+        SoundEffect s;
         Projectile p;
         switch(i){
             case 0: //default shot
@@ -32,9 +33,10 @@ namespace AbilityPicker {
                 p.owner = PLAYER;
                 p.baseInit();
 
+                a.soundUse.load("smb_fireball.wav");
                 a.projectiles.push_back(p);
                 a.speed = 47;
-                a.cooldown = 1000;
+                a.cooldown = 5;
                 a.origin = {GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
                 a.aimOffset = a.origin;
                 a.aimed = false;

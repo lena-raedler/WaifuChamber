@@ -31,9 +31,10 @@ namespace EnemyBuilder {
                 //s.type = BLEED;
                 //s.intensity = 20;
                 s.type = SHOCK;
-                s.intensity = 100;
+                s.intensity = 50;
 
-                p.status = s;
+                p.status.push_back(s);
+
 
                 a.projectiles.push_back(p);
                 a.speed = 20;
@@ -67,7 +68,7 @@ namespace EnemyBuilder {
 
                 s.type = BLEED;
                 s.intensity = 20;
-                p.status = s;
+                p.status.push_back(s);
 
                 a.projectiles.push_back(p);
                 a.speed = 20;

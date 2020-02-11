@@ -40,6 +40,7 @@ void Enemy::upkeep(double delta){
         if(a.isAvail(delta)){
             a.use(position);
         }
+        a.lastUsed -= delta;
     }
 }
 void Enemy::setMaxHealth(int i) {

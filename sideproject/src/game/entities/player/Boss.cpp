@@ -69,6 +69,7 @@ void Boss::upkeep(double d){
         if(p <= phase && a.isAvail(d) ){//todo stuff
             a.use(position);
         }
+        a.lastUsed -= d;
     }
     move(d);
 }

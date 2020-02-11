@@ -50,22 +50,29 @@ bool InputManager::update()
                 this->mouse = SDL_GetMouseState(&(this->mouseX),
                                                 &(this->mouseY));
 
-                if (event.button.button == SDL_BUTTON_LEFT)
+                if (event.button.button == SDL_BUTTON_LEFT) {
                     this->mouseDown[MOUSE_LEFT] = true;
-
-                else if (event.button.button == SDL_BUTTON_RIGHT)
+                    this->mouseHeld[MOUSE_LEFT] = true;
+                }
+                else if (event.button.button == SDL_BUTTON_RIGHT) {
                     this->mouseDown[MOUSE_RIGHT] = true;
+                    this->mouseHeld[MOUSE_RIGHT] = true;
+                }
                 break;
 
             case SDL_MOUSEBUTTONUP:
                 this->mouse = SDL_GetMouseState(&(this->mouseX),
                                                 &(this->mouseY));
 
-                if (event.button.button == SDL_BUTTON_LEFT)
+                if (event.button.button == SDL_BUTTON_LEFT) {
+                    this->mouseHeld[MOUSE_LEFT] = false;
                     this->mouseUp[MOUSE_LEFT] = true;
+                }
 
-                else if (event.button.button == SDL_BUTTON_RIGHT)
+                else if (event.button.button == SDL_BUTTON_RIGHT) {
+                    this->mouseHeld[MOUSE_RIGHT] = false;
                     this->mouseUp[MOUSE_RIGHT] = true;
+                }
                 break;
 
             default:
@@ -94,6 +101,14 @@ bool InputManager::isMousePressed(MouseButton button)
 
     int sdl_key = static_cast<int>(button);
     return mouseDown[sdl_key] != 0;
+}
+bool InputManager::isMouseHeld(MouseButton button)
+{
+    if (!(mouseDown))     // Always true
+        return false;
+
+    int sdl_key = static_cast<int>(button);
+    return mouseHeld[sdl_key] != 0;
 }
 
 void InputManager::flush() {

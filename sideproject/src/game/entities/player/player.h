@@ -68,6 +68,8 @@ struct vitals{
     double burn = 0;
     double rot = 0;
     double frenzy = 0;
+
+    double statusDecay = 5;
 };
 class Player : public Movable {
 public:
@@ -90,6 +92,8 @@ public:
     vitals vit;
     double stamRegenMultiplier = 1;
     double speedMultiplier = 1;
+    double staminaCostReduction = 1;
+    double floatStaminaCost = 10;
     Checkpoint* lastCP;
     Inventory inventory;
     Bar healthBar;

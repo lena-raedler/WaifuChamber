@@ -39,7 +39,7 @@ public:
 
     double damage= 20;//TODO remove this default val
 
-    statuseffect status;
+    std::vector<statuseffect> status;
 
     //who is owning the projectile? default to enemy for testing
     projectile_owner owner = HOSTILE;

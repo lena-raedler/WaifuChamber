@@ -9,6 +9,7 @@
 #include "../../utils/Vec2.h"
 #include "Projectile.hpp"
 #include "../../GlobalObjects.h"
+#include "SoundEffect.h"
 #include <chrono>
 #include <utility>
 
@@ -20,6 +21,7 @@ public:
     std::vector<Projectile> projectiles;
     double cooldown = 2.5;
     double speed;
+    SoundEffect soundUse;
     double lastUsed  = 0;
     void useIfAvail(double delta, vec_t& pos);
     bool isAvail(double delta);
