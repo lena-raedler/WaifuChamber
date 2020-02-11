@@ -21,6 +21,7 @@
 #include "entities/player/EnemyBuilder.h"
 #include "entities/player/Boss.h"
 #include "entities/player/AbilityPicker.h"
+#include "entities/player/TelegraphedAttack.h"
 
 Mix_Music *gMusic = NULL;
 Mix_Music *gMusicBoss = NULL;
@@ -37,6 +38,7 @@ namespace GlobalObjects{
     std::vector<std::shared_ptr<Boss>> bosses;
     std::vector<Checkpoint> checkpoints;
     std::vector<Ability> abilities;
+    std::vector<TelegraphedAttack> telegraphedAttacks;
     void clear(){
         enemies.clear();
         platforms.clear();
@@ -518,7 +520,11 @@ vec_t Game::determineInput(double delta){
     }
      */
     if(inputManager.isPressed(KEY_Q)){//test
-        std::cout<< player.position << std::endl;
+        if(GlobalObjects::telegraphedAttacks.size() == 0){
+            TelegraphedAttack ta;
+            ta.set(player.position.x-5, player.position.y, 10, 5);
+            GlobalObjects::telegraphedAttacks.push_back(ta);
+        }
     }
     if(inputManager.isPressed(KEY_V)){
         player.position={50, 50};
@@ -622,6 +628,10 @@ void Game::render() {
     }
     for(auto& i : GlobalObjects::projectiles) {
         //i->render(*renderer);
+    }
+
+    for(auto& i: GlobalObjects::telegraphedAttacks){
+        i.render(*renderer);
     }
 
     // Update the remaining health percentage
@@ -743,6 +753,18 @@ void Game::cleanup(bool& remove){
             ++it;
         }
     }
+    std::vector<TelegraphedAttack> tas;
+    {
+        auto it = GlobalObjects::telegraphedAttacks.begin();
+        while (it != GlobalObjects::telegraphedAttacks.end()) {
+
+            if ((it->time < it->maxTime)) {
+                tas.push_back(*it);
+            }
+            ++it;
+        }
+    }
+    GlobalObjects::telegraphedAttacks = tas;
     GlobalObjects::enemies = es;
     GlobalObjects::projectiles = ps;
     GlobalObjects::bosses = bs;

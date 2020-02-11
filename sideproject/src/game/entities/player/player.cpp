@@ -93,6 +93,7 @@ void Player::updatePlayer(double x, double y) {
 void Player::upkeep(double delta){
 
     velocity.x *= speedMultiplier;
+    std::cout << speedMultiplier << std::endl;
     move(delta);
     if (velocity.y <= 0 + GlobalConstants::epsilon){
 
