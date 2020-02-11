@@ -6,14 +6,7 @@
 #include "../../GlobalObjects.h"
 
 const void Movable::render(Renderer &renderer) {
-    SDL_Surface* surface = IMG_Load(textureLocation.c_str());
-    texture = renderer.createTextureFromSurface(surface);
-    {
-        SDL_Rect r = {(int)position.x, (int)position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-        rec = std::make_shared<SDL_Rect>(r);
-    }
     renderer.renderTexture(texture, nullptr, rec.get());
-    SDL_FreeSurface(surface);
 }
 
 const std::string Movable::getTextureLocation() {
@@ -136,11 +129,10 @@ void Movable::move(double delta){
     position = projPosition;
     position.y = std::clamp(position.y, 0.0, 2000.0);
 
-    /*
+
     rec->x = position.x;
 
     rec->y = position.y;
-     */
 
 }
 bool Movable::onPlatform(Platform& p){
@@ -149,4 +141,11 @@ bool Movable::onPlatform(Platform& p){
 }
 void Movable::grounded(double delta) {
 
+}
+
+void Movable::init(Renderer& renderer) {
+    // creates texture
+    SDL_Surface* s = IMG_Load(textureLocation.c_str());
+    texture = renderer.createTextureFromSurface(s);
+    SDL_FreeSurface(s);
 }

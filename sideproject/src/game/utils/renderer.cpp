@@ -15,7 +15,7 @@ Renderer::Renderer(std::pair<int, int> resolution) {
 
     //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(!renderer) {
         std::cerr << "failed to create renderer" << std::endl;
         throw std::runtime_error("Could not create renderer");

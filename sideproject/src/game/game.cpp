@@ -54,8 +54,6 @@ Game::Game()
     effectVolume = 5;
     volumeStep = 12;
 
-
-    GlobalObjects::playerPtr = &player;
     debugshit();
 
     GlobalObjects::resolution.first = screenWidth;
@@ -72,6 +70,8 @@ Game::Game()
     }
     renderer = std::make_unique<Renderer>(GlobalObjects::resolution);
 
+    player.init(*renderer);
+    GlobalObjects::playerPtr = &player;
     //init sound
 
     int result;
@@ -580,7 +580,7 @@ void Game::render() {
 
     // Render the player after the background
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
-    //player.render(*renderer);
+    player.render(*renderer);
 
     for (auto& projectile : GlobalObjects::projectiles) {
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
@@ -615,10 +615,10 @@ void Game::render() {
         }
     }
     for(auto& i : GlobalObjects::enemies) {
-        //i->render(*renderer);
+        i->render(*renderer);
     }
     for(auto& i : GlobalObjects::projectiles) {
-        //i->render(*renderer);
+        i->render(*renderer);
     }
 
     // Update the remaining health percentage
@@ -747,6 +747,9 @@ void Game::cleanup(bool& remove){
 void Game::fillGlobalObjects(Room& room){
     room.fillPlatformVector(GlobalObjects::platforms);
     room.fillEnemyVector(GlobalObjects::enemies);
+    for(auto i : GlobalObjects::enemies) {
+        i.get()->init(*renderer);
+    }
     room.fillDoorVector(GlobalObjects::gates);
 }
 
