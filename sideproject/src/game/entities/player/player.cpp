@@ -53,6 +53,24 @@ Player::Player()
     activeShockBar = shockBar;
     activeShockBar.borderColor = GlobalConstants::YELLOW;
 
+    // Burn
+    burnBar = bleedBar;
+    burnBar.barColor = GlobalConstants::ORANGE;
+    activeBurnBar = burnBar;
+    activeBurnBar.borderColor = GlobalConstants::ORANGE;
+
+    // Rot
+    rotBar = bleedBar;
+    rotBar.barColor = GlobalConstants::BROWN;
+    activeRotBar = rotBar;
+    activeRotBar.borderColor = GlobalConstants::BROWN;
+
+    // Frenzy   // TODO Give a different color
+    frenzyBar = bleedBar;
+    frenzyBar.barColor = GlobalConstants::ORANGE;
+    activeFrenzyBar = frenzyBar;
+    activeFrenzyBar.borderColor = GlobalConstants::ORANGE;
+
     // Player position
     position.x = 50;
     position.y = 50;
@@ -120,12 +138,15 @@ void Player::upkeep(double delta){
         a.lastUsed -= delta;
     }
 
+    // Update status bars
     healthBar.updateBar(vit.healthPercentage());
     staminaBar.updateBar(vit.staminaPercentage());
     bleedBar.updateBar(vit.bleedPercentage());
     shockBar.updateBar(vit.shockPercentage());
+    burnBar.updateBar(vit.burnPercentage());
+    rotBar.updateBar(vit.rotPercentage());
     updateStatusEffectBars();
-    statusBarMultiplier = 1;
+    statusBarMultiplier = 1;    // Reset the offset multiplier (to stack bars ontop of each other)
 }
 void Player::jump(){
     Mix_PlayChannel(-1, GlobalObjects::chunkPtr[1], 0);
@@ -227,7 +248,6 @@ void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT,
 
 }
 void Player::processStatusEffects(statuseffect &status, double delta) {
-    // int heightMultiplier = 1;    // Increase after a bar has updated
     if(status.durationLeft > 0) {
         switch (status.type) {
             case BLEED:
@@ -238,19 +258,20 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
                 setStatusBarPosition(activeShockBar, status);
                 break;
             case BURN:
+                setStatusBarPosition(activeBurnBar, status);
                 break;
             case ROT:
-
+                setStatusBarPosition(activeRotBar, status);
                 break;
             case FRENZY:
                 vit.frenzy = 0;
+                setStatusBarPosition(activeFrenzyBar, status);
                 break;
             default:
                 break;
         }
         status.durationLeft -= delta;
     }
-
 }
 void Player::removeStatusEffect(statuseffect &status) {
     switch(status.type){
@@ -279,7 +300,6 @@ void Player::removeStatusEffect(statuseffect &status) {
         default:
             break;
     }
-
 }
 
 void Player::checkStatusEffects(){
@@ -315,6 +335,12 @@ void Player::updateStatusEffectBars() {
         setStatusBarPosition(bleedBar);
     if (vit.shock > 0)
         setStatusBarPosition(shockBar);
+    if (vit.burn > 0)
+        setStatusBarPosition(burnBar);
+    if (vit.rot > 0)
+        setStatusBarPosition(rotBar);
+    if (vit.frenzy > 0)
+        setStatusBarPosition(frenzyBar);
 }
 
 void Player::setStatusBarPosition(Bar& bar) {

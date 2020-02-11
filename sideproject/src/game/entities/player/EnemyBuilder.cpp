@@ -28,8 +28,6 @@ namespace EnemyBuilder {
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
-                //s.type = BLEED;
-                //s.intensity = 20;
                 s.type = BLEED;
                 s.intensity = 50;
 
