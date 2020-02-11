@@ -168,6 +168,9 @@ Game::Game()
     menu.optionsMenu.effectVolume = effectVolume;
     //GlobalObjects::savedVariables.musicVolume = musicVolume;
     //menu.renderMenu(*renderer);
+
+    // Enable opacity between 0 and 255
+    SDL_SetRenderDrawBlendMode(renderer->getRenderer(), SDL_BLENDMODE_BLEND);
 }
 void Game::makeCheckpoints(){
     SDL_Surface* s = IMG_Load("files/textures/savepoint_01.png");
