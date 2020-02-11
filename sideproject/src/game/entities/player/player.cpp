@@ -37,17 +37,23 @@ Player::Player()
     staminaBar.barColor = {0x00, 0x99, 0x44, 0xFF};
 
     // Bleed
-    bleedBar.width = bleedBar.borderRect.w = GlobalConstants::tileSize*2;
-    bleedBar.height = bleedBar.borderRect.h = 16;
-    bleedBar.backgroundRect.w = bleedBar.barRect.w = bleedBar.width - 8;
-    bleedBar.backgroundRect.h = bleedBar.barRect.h = bleedBar.height - 8;
-    //bleedBar.borderColor = {0xFF, 0xFF, 0xFF, 0xFF};
+    bleedBar.width = bleedBar.borderRect.w = statusBarWidth;
+    bleedBar.height = bleedBar.borderRect.h = statusBarHeight;
+    bleedBar.backgroundRect.w = bleedBar.barRect.w = bleedBar.width - statusBarBackgroundOffset;
+    bleedBar.backgroundRect.h = bleedBar.barRect.h = bleedBar.height - statusBarBackgroundOffset;
     bleedBar.borderColor = GlobalConstants::WHITE;
     bleedBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
 
-    bleedActiveBar = bleedBar;
-    bleedActiveBar.borderColor = GlobalConstants::YELLOW;
-    bleedActive = false;
+    activeBleedBar = bleedBar;
+    activeBleedBar.borderColor = GlobalConstants::YELLOW;
+    currentBleedBar = bleedBar;
+
+    // Shock
+    shockBar = bleedBar;
+    shockBar.barColor = GlobalConstants::BLUE;
+    activeShockBar = shockBar;
+    activeShockBar.borderColor = GlobalConstants::YELLOW;
+    currentShockBar = shockBar;
 
     // Player position
     position.x = 50;
@@ -116,6 +122,12 @@ void Player::upkeep(double delta){
         a.lastUsed -= delta;
     }
 
+    healthBar.updateBar(vit.healthPercentage());
+    staminaBar.updateBar(vit.staminaPercentage());
+    bleedBar.updateBar(vit.bleedPercentage());
+    shockBar.updateBar(vit.shockPercentage());
+    updateStatusEffectBars();
+    statusBarMultiplier = 1;
 }
 void Player::jump(){
     Mix_PlayChannel(-1, GlobalObjects::chunkPtr[1], 0);
@@ -222,14 +234,21 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
         switch (status.type) {
             case BLEED:
                 vit.hp -= ((vit.maxHp * 0.3)/status.duration) * delta/50;
+                setStatusBarPosition(activeBleedBar, status);
 
-                bleedActiveBar.updateBar(status.durationLeft / status.duration);
-                bleedActiveBar.borderRect.x = position.x - bleedActiveBar.width / 4;
-                bleedActiveBar.borderRect.y = position.y - bleedActiveBar.height - 4;
-                bleedActiveBar.backgroundRect.x = bleedActiveBar.barRect.x = bleedActiveBar.borderRect.x + 4;
-                bleedActiveBar.backgroundRect.y = bleedActiveBar.barRect.y = bleedActiveBar.borderRect.y + 4;
+                /*
+                activeBleedBar.updateBar(status.durationLeft / status.duration);
+                activeBleedBar.borderRect.x = position.x - activeBleedBar.width / 4;
+                //activeBleedBar.borderRect.y = position.y - activeBleedBar.height - 4;
+
+                activeBleedBar.borderRect.y = position.y - (activeBleedBar.height+statusBarBackgroundOffset)*statusBarMultiplier++;
+
+                activeBleedBar.backgroundRect.x = activeBleedBar.barRect.x = activeBleedBar.borderRect.x + statusBarBackgroundOffset / 2;
+                activeBleedBar.backgroundRect.y = activeBleedBar.barRect.y = activeBleedBar.borderRect.y + statusBarBackgroundOffset / 2;
+                 */
                 break;
             case SHOCK:
+                setStatusBarPosition(activeShockBar, status);
                 break;
             case BURN:
                 break;
@@ -305,23 +324,23 @@ void Player::checkStatusEffects(){
 }
 
 void Player::updateStatusEffectBars() {
-    /*for (statuseffect effect : statusEffects) {
-        switch (effect.type) {
-            case BLEED:
+    if (vit.bleed > 0)
+        updateStatusEffectBar(bleedBar);
+    if (vit.shock > 0)
+        updateStatusEffectBar(shockBar);
+}
 
-                break;
-            default:
-                break;
-        }
-    }*/
+void Player::updateStatusEffectBar(Bar& bar) {
+    bar.borderRect.x = position.x - bar.width / 4;
+    bar.borderRect.y = position.y - (bar.height+statusBarBackgroundOffset)*statusBarMultiplier++;
+    bar.backgroundRect.x = bar.barRect.x = bar.borderRect.x + statusBarBackgroundOffset / 2;
+    bar.backgroundRect.y = bar.barRect.y = bar.borderRect.y + statusBarBackgroundOffset / 2;
+}
 
-    // TODO make more efficient
-    bleedBar.borderRect.x = position.x - bleedBar.width / 4;
-    bleedBar.borderRect.y = position.y - bleedBar.height - 4;   // TODO Make consistent with multiple status bars
-    bleedBar.backgroundRect.x = bleedBar.barRect.x = bleedBar.borderRect.x + 4;
-    bleedBar.backgroundRect.y = bleedBar.barRect.y = bleedBar.borderRect.y + 4;
-
-    //bleedActiveBar = bleedBar;
-
-    bleedActiveBar.borderColor = GlobalConstants::YELLOW;
+void Player::setStatusBarPosition(Bar& bar, statuseffect& status) {
+    bar.updateBar(status.durationLeft / status.duration);
+    bar.borderRect.x = position.x - bar.width / 4;
+    bar.borderRect.y = position.y - (bar.height+statusBarBackgroundOffset)*statusBarMultiplier++;
+    bar.backgroundRect.x = bar.barRect.x = bar.borderRect.x + statusBarBackgroundOffset / 2;
+    bar.backgroundRect.y = bar.barRect.y = bar.borderRect.y + statusBarBackgroundOffset / 2;
 }

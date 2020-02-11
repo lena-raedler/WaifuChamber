@@ -56,6 +56,7 @@ struct vitals{
     double healthPercentage(){return (double) hp / maxHp;}
     double staminaPercentage(){return (double) stam / maxStam;}
     double bleedPercentage() { return (double) bleed / bleedRes; }
+    double shockPercentage() { return (double) shock / shockRes; }
 
     double bleedRes = 100;
     double shockRes = 100;
@@ -75,7 +76,7 @@ struct vitals{
     bool rotting = false;
     bool frenzied = false;
 
-    double statusDecay = 5;
+    double statusDecay = 3;
 };
 class Player : public Movable {
 public:
@@ -104,9 +105,14 @@ public:
     Inventory inventory;
     Bar healthBar;
     Bar staminaBar;
-    Bar bleedBar, bleedActiveBar;
-    bool bleedActive;
 
+    int statusBarWidth = GlobalConstants::tileSize * 2;
+    int statusBarBackgroundOffset = 4;
+    int statusBarHeight = GlobalConstants::tileSize / 4;
+    int statusBarMultiplier = 1;
+
+    Bar bleedBar, activeBleedBar, currentBleedBar;
+    Bar shockBar, activeShockBar, currentShockBar;
 
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);
@@ -131,6 +137,8 @@ public:
     void checkStatusEffects();
     std::vector<statuseffect> statusEffects;
     void updateStatusEffectBars();
+    void setStatusBarPosition(Bar& bar, statuseffect& status);
+    void updateStatusEffectBar(Bar& bar);
 
 
 

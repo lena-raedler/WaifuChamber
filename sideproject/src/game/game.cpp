@@ -580,7 +580,7 @@ void Game::render() {
 
     // Render the player after the background
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
-    player.render(*renderer);
+    //player.render(*renderer);
 
     for (auto& projectile : GlobalObjects::projectiles) {
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
@@ -615,31 +615,52 @@ void Game::render() {
         }
     }
     for(auto& i : GlobalObjects::enemies) {
-        i->render(*renderer);
+        //i->render(*renderer);
     }
     for(auto& i : GlobalObjects::projectiles) {
-        i->render(*renderer);
+        //i->render(*renderer);
     }
 
     // Update the remaining health percentage
     //updateHealthBar();
-    player.healthBar.updateBar(player.vit.healthPercentage());
-    player.staminaBar.updateBar(player.vit.staminaPercentage());
+    //player.healthBar.updateBar(player.vit.healthPercentage());
+    //player.staminaBar.updateBar(player.vit.staminaPercentage());
 
-    player.bleedBar.updateBar(player.vit.bleedPercentage());
-    //player.bleedActiveBar.updateBar(player.vit.bleedPercentage());
+    //player.bleedBar.updateBar(player.vit.bleedPercentage());
+    //player.activeBleedBar.updateBar(player.vit.bleedPercentage());
 
     // Render the health bar according to how much hp is left
     //renderHealthBar();
     player.healthBar.renderBar(*renderer);
     player.staminaBar.renderBar(*renderer);
 
+    /*
     if (player.vit.bleed > 0) {
         player.updateStatusEffectBars();
         player.bleedBar.renderBar(*renderer);
     }
     else if (player.bleedActive)
-        player.bleedActiveBar.renderBar(*renderer);
+        player.activeBleedBar.renderBar(*renderer);
+    */
+
+    if (player.vit.bleed > 0)
+        player.bleedBar.renderBar(*renderer);
+    else if (player.vit.bleeding)
+        player.activeBleedBar.renderBar(*renderer);
+
+    if (player.vit.shock > 0)
+        player.shockBar.renderBar(*renderer);
+    else if (player.vit.shocked)
+        player.activeShockBar.renderBar(*renderer);
+
+    // TODO make simpler
+    /*if (player.vit.shock > 0) {
+        player.updateStatusEffectBars();
+        player.shockBar.renderBar(*renderer);
+    }
+    else if (player.shockActive)
+        player.activeShockBar.renderBar(*renderer);
+    */
 
     //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
     //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);

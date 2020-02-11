@@ -31,7 +31,7 @@ namespace EnemyBuilder {
                 //s.type = BLEED;
                 //s.intensity = 20;
                 s.type = BLEED;
-                s.intensity = 110;
+                s.intensity = 50;
 
                 p.status.push_back(s);
 
