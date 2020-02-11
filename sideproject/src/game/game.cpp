@@ -72,8 +72,6 @@ Game::Game()
     }
     renderer = std::make_unique<Renderer>(GlobalObjects::resolution);
 
-    loadSavedVariables();
-
     //init sound
 
     int result;
