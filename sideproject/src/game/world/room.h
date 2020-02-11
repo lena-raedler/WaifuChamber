@@ -63,6 +63,7 @@ public:
     int roomId;
     std::vector<gateInformation> gates;
     std::vector<LockedWall> lockedWalls;
+    std::vector<EnemyInformation> enemies;
 
     void clear();
 };
