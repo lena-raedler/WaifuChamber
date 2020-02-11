@@ -57,6 +57,8 @@ struct vitals{
     double staminaPercentage(){return (double) stam / maxStam;}
     double bleedPercentage() { return (double) bleed / bleedRes; }
     double shockPercentage() { return (double) shock / shockRes; }
+    double burnPercentage() { return (double) burn / burnRes; }
+    double rotPercentage() { return (double) rot / rotRes; }
 
     double bleedRes = 100;
     double shockRes = 100;
@@ -112,6 +114,9 @@ public:
     int statusBarMultiplier = 1;
     Bar bleedBar, activeBleedBar;
     Bar shockBar, activeShockBar;
+    Bar burnBar, activeBurnBar;
+    Bar rotBar, activeRotBar;
+    Bar frenzyBar, activeFrenzyBar;
 
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);
