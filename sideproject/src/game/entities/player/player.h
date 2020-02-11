@@ -68,6 +68,8 @@ struct vitals{
     double burn = 0;
     double rot = 0;
     double frenzy = 0;
+
+    double statusDecay = 5;
 };
 class Player : public Movable {
 public:

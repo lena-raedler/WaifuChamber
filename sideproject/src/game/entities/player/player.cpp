@@ -96,6 +96,11 @@ void Player::upkeep(double delta){
         }
     }
     statusEffects = vecS;
+    vit.bleed -= delta * vit.statusDecay;
+    vit.shock -= delta * vit.statusDecay;
+    vit.burn -= delta * vit.statusDecay;
+    vit.rot -= delta * vit.statusDecay;
+    vit.frenzy -= delta * vit.statusDecay;
 
     for(auto& a: GlobalObjects::abilities){
         a.lastUsed -= delta;
