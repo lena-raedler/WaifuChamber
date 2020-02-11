@@ -54,5 +54,5 @@ GATES
 END
 ENEMY
   e_1 48 25
-  e_2 17 1
+  e_1 17 1
 END

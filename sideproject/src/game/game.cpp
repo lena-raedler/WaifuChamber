@@ -224,6 +224,16 @@ void Game::makeCheckpoints(){
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
         GlobalObjects::checkpoints.push_back(c);
     }
+    {
+        Checkpoint c;
+        c.position = utility::convert({9, 3});
+        utility::fillDefaultHitbox(c.hitbox);
+        c.room = "files/rooms/mazement1.txt";
+        c.id = GlobalObjects::checkpoints.size();
+        c.texture = renderer->createTextureFromSurface(s);
+        c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
+        GlobalObjects::checkpoints.push_back(c);
+    }
     SDL_FreeSurface(s);
 
     player.lastCP = &(GlobalObjects::checkpoints[0]);

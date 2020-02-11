@@ -52,3 +52,6 @@ GATES
   gate_26 d -1
   gate_27 e -1
 END
+ENEMY
+  e_1 3 12
+END
