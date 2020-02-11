@@ -137,8 +137,8 @@ public:
     void checkStatusEffects();
     std::vector<statuseffect> statusEffects;
     void updateStatusEffectBars();
+    void setStatusBarPosition(Bar& bar);
     void setStatusBarPosition(Bar& bar, statuseffect& status);
-    void updateStatusEffectBar(Bar& bar);
 
 
 

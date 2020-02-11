@@ -235,17 +235,6 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
             case BLEED:
                 vit.hp -= ((vit.maxHp * 0.3)/status.duration) * delta/50;
                 setStatusBarPosition(activeBleedBar, status);
-
-                /*
-                activeBleedBar.updateBar(status.durationLeft / status.duration);
-                activeBleedBar.borderRect.x = position.x - activeBleedBar.width / 4;
-                //activeBleedBar.borderRect.y = position.y - activeBleedBar.height - 4;
-
-                activeBleedBar.borderRect.y = position.y - (activeBleedBar.height+statusBarBackgroundOffset)*statusBarMultiplier++;
-
-                activeBleedBar.backgroundRect.x = activeBleedBar.barRect.x = activeBleedBar.borderRect.x + statusBarBackgroundOffset / 2;
-                activeBleedBar.backgroundRect.y = activeBleedBar.barRect.y = activeBleedBar.borderRect.y + statusBarBackgroundOffset / 2;
-                 */
                 break;
             case SHOCK:
                 setStatusBarPosition(activeShockBar, status);
@@ -325,22 +314,18 @@ void Player::checkStatusEffects(){
 
 void Player::updateStatusEffectBars() {
     if (vit.bleed > 0)
-        updateStatusEffectBar(bleedBar);
+        setStatusBarPosition(bleedBar);
     if (vit.shock > 0)
-        updateStatusEffectBar(shockBar);
+        setStatusBarPosition(shockBar);
 }
 
-void Player::updateStatusEffectBar(Bar& bar) {
+void Player::setStatusBarPosition(Bar& bar) {
     bar.borderRect.x = position.x - bar.width / 4;
     bar.borderRect.y = position.y - (bar.height+statusBarBackgroundOffset)*statusBarMultiplier++;
     bar.backgroundRect.x = bar.barRect.x = bar.borderRect.x + statusBarBackgroundOffset / 2;
     bar.backgroundRect.y = bar.barRect.y = bar.borderRect.y + statusBarBackgroundOffset / 2;
 }
-
 void Player::setStatusBarPosition(Bar& bar, statuseffect& status) {
     bar.updateBar(status.durationLeft / status.duration);
-    bar.borderRect.x = position.x - bar.width / 4;
-    bar.borderRect.y = position.y - (bar.height+statusBarBackgroundOffset)*statusBarMultiplier++;
-    bar.backgroundRect.x = bar.barRect.x = bar.borderRect.x + statusBarBackgroundOffset / 2;
-    bar.backgroundRect.y = bar.barRect.y = bar.borderRect.y + statusBarBackgroundOffset / 2;
+    setStatusBarPosition(bar);
 }
