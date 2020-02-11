@@ -16,6 +16,7 @@ class Ability {
 public:
     bool aimed = true;
     vec_t origin = {0, 0};
+    vec_t aimOffset;
     std::vector<Projectile> projectiles;
     double cooldown = 2.5;
     double speed;

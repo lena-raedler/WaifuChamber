@@ -70,6 +70,21 @@ namespace utility {
         }
 
     }
+    void fillDefaultHitbox(std::vector<triangle>& vec, int i, vec_t offset){
+        {
+            triangle t{offset,
+                       {static_cast<double>(GlobalConstants::tileSize*i) + offset.x, offset.y},
+                       {offset.x,                         static_cast<double>(GlobalConstants::tileSize * i) + offset.y}};
+            vec.push_back(t);
+        }
+        {
+            triangle t{{static_cast<double>(GlobalConstants::tileSize * i) + offset.x,  static_cast<double>(GlobalConstants::tileSize * i) + offset.y},
+                       {static_cast<double>(GlobalConstants::tileSize * i) + offset.x, offset.y},
+                       {offset.x,  static_cast<double>(GlobalConstants::tileSize * i) + offset.y}};
+            vec.push_back(t);
+        }
+
+    }
     std::vector <value_t> getBarycentricCoordinates(const triangle a,const vec_t b) {
         vec_t v0 = a[1] - a[0];
         vec_t v1 = a[2] - a[0];

@@ -50,9 +50,12 @@ struct vitals{
     int maxMp = 100;
     int mp = 50;
 
-    double stamRegen = 50;
+    int armor;
+
+    double stamRegen = 10;
     double healthPercentage(){return (double) hp / maxHp;}
     double staminaPercentage(){return (double) stam / maxStam;}
+    double bleedPercentage() { return (double) bleed / bleedRes; }
 
     double bleedRes = 100;
     double shockRes = 100;
@@ -85,10 +88,15 @@ public:
     std::chrono::high_resolution_clock::time_point lastSpawnProjectile = std::chrono::high_resolution_clock::now();
     attributes attr;
     vitals vit;
+    double stamRegenMultiplier = 1;
+    double speedMultiplier = 1;
     Checkpoint* lastCP;
     Inventory inventory;
     Bar healthBar;
     Bar staminaBar;
+    Bar bleedBar, bleedActiveBar;
+    bool bleedActive;
+
 
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);
@@ -112,6 +120,7 @@ public:
     void rest();
     void checkStatusEffects();
     std::vector<statuseffect> statusEffects;
+    void updateStatusEffectBars();
 
 
 

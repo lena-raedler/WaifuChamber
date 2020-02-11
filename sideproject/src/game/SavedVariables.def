@@ -6,4 +6,5 @@ SAVE(int, currentCheckpoint, 0)
 SAVE(int, bossesDefeated, 0)
 SAVE(int, rangedWeapon, 0)
 SAVE(int, meleeWeapon, 0)
+SAVE(int, souls, 0)
 #undef SAVE

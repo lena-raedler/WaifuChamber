@@ -58,11 +58,18 @@ void Room::fillDoorVector(std::vector<std::shared_ptr<Gate>>& g){
 }
 void Room::fillEnemyVector(std::vector<std::shared_ptr<Enemy>>& e){
     e.clear();
-    for(auto& it: enemyInformation) {
-        EnemyBuilder::buildEnemy(e, it.second, it.first);
-        if(it.second == 4){
-            e.back()->patrolPoints.push_back(utility::convert({3, 3}));
-            e.back()->patrolPoints.push_back(utility::convert({20, 3}));
+    for(auto& it: enemies) {
+        EnemyBuilder::buildEnemy(e, it.id, it.position);
+        auto eback = e.back();
+        if(eback->ai == PATROL){
+            if(it.patrolPoints.size() == 0){
+                std::cout << "WARNING: Enemy with PATROL behaviour and no patrol points constructed." << std::endl;
+            }
+            for(auto& p : it.patrolPoints){
+                eback->patrolPoints.push_back(utility::convert(p));
+            }
+        } else if(it.patrolPoints.size() > 0){
+            std::cout << "WARNING: Enemy with patrol points with a non-PATROL behaviour constructed." << std::endl;
         }
     }
 }

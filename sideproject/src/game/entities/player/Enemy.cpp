@@ -52,6 +52,8 @@ void Enemy::getHit(double d){
 }
 
 void Enemy::kill(){
+    GlobalObjects::savedVariables.souls += souls;
+    std::cout << "Souls: " << GlobalObjects::savedVariables.souls << std::endl;
     SDL_DestroyTexture(texture);
     //dostuff
 }

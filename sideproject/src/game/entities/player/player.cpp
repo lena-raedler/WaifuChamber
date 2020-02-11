@@ -21,27 +21,37 @@ Player::Player()
     healthBar.width = width;
     healthBar.height = height;
     //healthBar = {x, y, width, height, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}};
-    healthBar.healthBarBorderRect = {x, y, width, height};
-    healthBar.healthBarBackgroundRect = {x+5, y+5, width-10, height-10};
-    healthBar.healthBarRect = {x+5, y+5, width-10, height-10};
+    healthBar.borderRect = {x, y, width, height};
+    healthBar.backgroundRect = {x + 5, y + 5, width - 10, height - 10};
+    healthBar.barRect = {x + 5, y + 5, width - 10, height - 10};
     healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
     healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
 
+    // Stamina
     staminaBar.x = x + width + 5;
     staminaBar.y = healthBar.y;
     staminaBar.width = healthBar.width;
     staminaBar.height = healthBar.height;
-    staminaBar.healthBarBorderRect = {staminaBar.x, staminaBar.y, staminaBar.width, staminaBar.height};
-    staminaBar.healthBarBackgroundRect = {staminaBar.x+5, staminaBar.y+5, staminaBar.width-10, staminaBar.height-10};
-    staminaBar.healthBarRect = staminaBar.healthBarBackgroundRect;
-    //staminaBar.borderColor = {0x80, 0xFF, 0x80, 0xFF};
+    staminaBar.borderRect = {staminaBar.x, staminaBar.y, staminaBar.width, staminaBar.height};
+    staminaBar.backgroundRect = {staminaBar.x + 5, staminaBar.y + 5, staminaBar.width - 10, staminaBar.height - 10};
+    staminaBar.barRect = staminaBar.backgroundRect;
     staminaBar.borderColor = {0x8F, 0xC3, 0x1F, 0xFF};
-    //staminaBar.barColor = {0x00, 0xFF, 0x00, 0xFF};
     staminaBar.barColor = {0x00, 0x99, 0x44, 0xFF};
 
-    //healthBar.healthBarBorderRect({x, y, width, height})
-    //        , healthBarBackgroundRect({x+5, y+5, width-10, height-10})
-    //        , healthBarRect({x+5, y+5, width-10, height-10})
+    // Bleed
+    bleedBar.width = bleedBar.borderRect.w = GlobalConstants::tileSize*2;
+    bleedBar.height = bleedBar.borderRect.h = 16;
+    bleedBar.backgroundRect.w = bleedBar.barRect.w = bleedBar.width - 8;
+    bleedBar.backgroundRect.h = bleedBar.barRect.h = bleedBar.height - 8;
+    //bleedBar.borderColor = {0xFF, 0xFF, 0xFF, 0xFF};
+    bleedBar.borderColor = GlobalConstants::WHITE;
+    bleedBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
+
+    bleedActiveBar = bleedBar;
+    bleedActiveBar.borderColor = GlobalConstants::YELLOW;
+    bleedActive = false;
+
+    // Player position
     position.x = 50;
     position.y = 50;
     textureLocation = "files/textures/test_player.png";
@@ -62,6 +72,7 @@ void Player::updatePlayer(double x, double y) {
 
 void Player::upkeep(double delta){
 
+    velocity.x *= speedMultiplier;
     move(delta);
     if (velocity.y <= 0 + GlobalConstants::epsilon){
 
@@ -80,8 +91,10 @@ void Player::upkeep(double delta){
     std::vector<statuseffect> vecS;
     for(auto& s: statusEffects){
         processStatusEffects(s, delta);
-        if(s.duration > 0){
+        if(s.durationLeft > 0){
             vecS.push_back(s);
+        } else{
+            removeStatusEffect(s);
         }
     }
     statusEffects = vecS;
@@ -152,15 +165,18 @@ void Player::grounded(double delta) {
     if(velocity.y >= 0) {
         jumps = 2;
     }
-    vit.stam += delta * vit.stamRegen;
+    vit.stam += delta * vit.stamRegen * stamRegenMultiplier;
     vit.stam = std::min(vit.stam, vit.maxStam);
 }
 
 void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT, FRENZY
     switch(status.type){
         case BLEED:
+            bleedActive = true;
+            stamRegenMultiplier /= 10;
             break;
         case SHOCK:
+            speedMultiplier /= 2;
             break;
         case BURN:
             break;
@@ -175,11 +191,17 @@ void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT,
 
 }
 void Player::processStatusEffects(statuseffect &status, double delta) {
+    // int heightMultiplier = 1;    // Increase after a bar has updated
     if(status.durationLeft > 0) {
         switch (status.type) {
             case BLEED:
-                std::cout << ((vit.maxHp * 0.3)/status.duration) * delta << std::endl;
                 vit.hp -= ((vit.maxHp * 0.3)/status.duration) * delta;
+
+                bleedActiveBar.updateBar(status.durationLeft / status.duration);
+                bleedActiveBar.borderRect.x = position.x - bleedActiveBar.width / 4;
+                bleedActiveBar.borderRect.y = position.y - bleedActiveBar.height - 4;
+                bleedActiveBar.backgroundRect.x = bleedActiveBar.barRect.x = bleedActiveBar.borderRect.x + 4;
+                bleedActiveBar.backgroundRect.y = bleedActiveBar.barRect.y = bleedActiveBar.borderRect.y + 4;
                 break;
             case SHOCK:
                 break;
@@ -199,8 +221,13 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
 void Player::removeStatusEffect(statuseffect &status) {
     switch(status.type){
         case BLEED:
+            bleedActive = false;
+            stamRegenMultiplier *= 10;
+            vit.bleed = 0;
             break;
         case SHOCK:
+            speedMultiplier *= 2;
+            vit.shock = 0;
             break;
         case BURN:
             break;
@@ -216,12 +243,55 @@ void Player::removeStatusEffect(statuseffect &status) {
 
 void Player::checkStatusEffects(){
     if(vit.bleed >= vit.bleedRes){
-        std::cout << " bleed" << std::endl;
         statuseffect s;
         s.type = BLEED;
-        s.duration = 100;
-        s.durationLeft = 100;
         vit.bleed = -9999;
         applyStatusEffect(s);
     }
+    if(vit.shock >= vit.shockRes){
+        statuseffect s;
+        s.type = SHOCK;
+        vit.shock = -9999;
+        applyStatusEffect(s);
+    }
+    if(vit.burn >= vit.burnRes){
+        statuseffect s;
+        s.type = BURN;
+        vit.burn = -9999;
+        applyStatusEffect(s);
+    }
+    if(vit.rot >= vit.rotRes){
+        statuseffect s;
+        s.type = ROT;
+        vit.rot = -9999;
+        applyStatusEffect(s);
+    }
+    if(vit.frenzy >= vit.frenzyRes){
+        statuseffect s;
+        s.type = FRENZY;
+        vit.frenzy = -9999;
+        applyStatusEffect(s);
+    }
+}
+
+void Player::updateStatusEffectBars() {
+    /*for (statuseffect effect : statusEffects) {
+        switch (effect.type) {
+            case BLEED:
+
+                break;
+            default:
+                break;
+        }
+    }*/
+
+    // TODO make more efficient
+    bleedBar.borderRect.x = position.x - bleedBar.width / 4;
+    bleedBar.borderRect.y = position.y - bleedBar.height - 4;   // TODO Make consistent with multiple status bars
+    bleedBar.backgroundRect.x = bleedBar.barRect.x = bleedBar.borderRect.x + 4;
+    bleedBar.backgroundRect.y = bleedBar.barRect.y = bleedBar.borderRect.y + 4;
+
+    //bleedActiveBar = bleedBar;
+
+    bleedActiveBar.borderColor = GlobalConstants::YELLOW;
 }

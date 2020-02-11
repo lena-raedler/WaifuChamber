@@ -15,8 +15,9 @@ namespace EnemyBuilder {
                 e.velocity = {0,0};
                 e.setMaxHealth(10);
                 e.speed = 10;
-                e.ai = FLEE;
+                e.ai = STATIONARY;
                 e.gravityType = NORMAL;
+                e.souls = 100;
                 utility::fillDefaultHitbox(e.hitbox);
 
                 utility::fillDefaultHitbox(p.hitbox);
@@ -27,7 +28,9 @@ namespace EnemyBuilder {
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
-                s.type = BLEED;
+                //s.type = BLEED;
+                //s.intensity = 20;
+                s.type = SHOCK;
                 s.intensity = 100;
 
                 p.status = s;
@@ -61,6 +64,10 @@ namespace EnemyBuilder {
                 p.fragile = false;
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
+
+                s.type = BLEED;
+                s.intensity = 20;
+                p.status = s;
 
                 a.projectiles.push_back(p);
                 a.speed = 20;

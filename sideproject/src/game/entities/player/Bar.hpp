@@ -20,9 +20,9 @@ public:
 
 //private:
     int x, y, width, height;
-    SDL_Rect healthBarBorderRect;
-    SDL_Rect healthBarBackgroundRect;
-    SDL_Rect healthBarRect;
+    SDL_Rect borderRect;
+    SDL_Rect backgroundRect;
+    SDL_Rect barRect;
     Rgba borderColor;
     Rgba barColor;
 };

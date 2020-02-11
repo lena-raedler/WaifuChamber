@@ -275,7 +275,6 @@ int Game::loop() {
         }
 
         player.velocity += move;
-        player.velocity.x = std::clamp(player.velocity.x, -30.0, 30.0); //terminal velocities
         player.upkeep(deltaTime/deltaDenom);
         for(auto& e : GlobalObjects::enemies){
             e->upkeep(deltaTime/deltaDenom);
@@ -616,10 +615,20 @@ void Game::render() {
     player.healthBar.updateBar(player.vit.healthPercentage());
     player.staminaBar.updateBar(player.vit.staminaPercentage());
 
+    player.bleedBar.updateBar(player.vit.bleedPercentage());
+    //player.bleedActiveBar.updateBar(player.vit.bleedPercentage());
+
     // Render the health bar according to how much hp is left
     //renderHealthBar();
     player.healthBar.renderBar(*renderer);
     player.staminaBar.renderBar(*renderer);
+
+    if (player.vit.bleed > 0) {
+        player.updateStatusEffectBars();
+        player.bleedBar.renderBar(*renderer);
+    }
+    else if (player.bleedActive)
+        player.bleedActiveBar.renderBar(*renderer);
 
     //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
     //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
@@ -662,13 +671,6 @@ void Game::renderHealthBar() {
 }
 
 void Game::debugshit() {
-    vec_t as{1,1};
-    vec_t ae{-1, -1};
-    vec_t bs{1, -1};
-    vec_t be{-1, 1};
-    triangle a{{0,0},{1,1},{0,1}};
-    triangle b{{1,0},{0,1},{1,1}};
-    std::cout << utility::triangleTriangleIntersection(a,b) << " " << utility::lineLineIntersection(as,ae,bs,be)<<std::endl;
 }
 void Game::cleanup(bool& remove){
     std::vector<std::shared_ptr<Projectile>> ps;

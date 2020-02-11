@@ -5,7 +5,7 @@
 #ifndef WAIFU_STATUSEFFECT_H
 #define WAIFU_STATUSEFFECT_H
 
-enum status{BLEED, SHOCK, BURN, ROT, FRENZY};//this is gonna get templated so hard
+enum status{BLEED, SHOCK, BURN, ROT, FRENZY};//this is gonna get templated so hard  // Give me the templates, daddy-o
 /*
  * Bleed = dot + -50% stam regen
  * shock = slow

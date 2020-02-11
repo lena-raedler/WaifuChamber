@@ -22,19 +22,21 @@ namespace AbilityPicker {
         switch(i){
             case 0: //default shot
 
-                utility::fillDefaultHitbox(p.hitbox);
+                utility::fillDefaultHitbox(p.hitbox, 1, {-GlobalConstants::tileSize/2, -GlobalConstants::tileSize/2});
                 p.damage = 20;
                 p.timeToLive = 2000;
                 p.usesPlatforms = false;
                 p.fragile = false;
                 p.gravityType = NOGRAVITY;
+                p.terminalVelocity = {200, 200};
                 p.owner = PLAYER;
                 p.baseInit();
 
                 a.projectiles.push_back(p);
                 a.speed = 47;
                 a.cooldown = 1000;
-                //a.origin = {0, 0};
+                a.origin = {GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
+                a.aimOffset = a.origin;
                 a.aimed = false;
                 break;
             default:
