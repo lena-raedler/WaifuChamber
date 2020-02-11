@@ -52,7 +52,7 @@ void Ability::use(vec_t pos) {
                 int mouse_x, mouse_y;
                 SDL_GetMouseState(&mouse_x, &mouse_y);
                 vec_t vec{static_cast<double>(mouse_x), static_cast<double>(mouse_y)};
-                tmp = (vec - pos) - vec_t{GlobalConstants::tileSize / 2, GlobalConstants::tileSize / 2};
+                tmp = (vec - pos);
                 tmp.normalize();
                 tmp *= speed;
 

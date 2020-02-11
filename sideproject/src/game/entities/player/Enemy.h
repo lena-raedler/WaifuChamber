@@ -4,7 +4,7 @@
 
 #ifndef WAIFU_ENEMY_H
 #define WAIFU_ENEMY_H
-
+#include "../../SavedVariables.h"
 #include "Movable.h"
 #include "player.h"
 #include "Ability.h"

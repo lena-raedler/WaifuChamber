@@ -17,6 +17,7 @@ namespace EnemyBuilder {
                 e.speed = 10;
                 e.ai = STATIONARY;
                 e.gravityType = NORMAL;
+                e.souls = 100;
                 utility::fillDefaultHitbox(e.hitbox);
 
                 utility::fillDefaultHitbox(p.hitbox);

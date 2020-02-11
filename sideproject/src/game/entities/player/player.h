@@ -94,7 +94,6 @@ public:
     Bar healthBar;
     Bar staminaBar;
 
-    int souls;
 
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);

@@ -52,7 +52,8 @@ void Enemy::getHit(double d){
 }
 
 void Enemy::kill(){
-    GlobalObjects::playerPtr->souls+= souls;
+    GlobalObjects::savedVariables.souls += souls;
+    std::cout << "Souls: " << GlobalObjects::savedVariables.souls << std::endl;
     //dostuff
 }
 void Enemy::chase(double d){
