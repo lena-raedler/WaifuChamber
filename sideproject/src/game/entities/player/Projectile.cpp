@@ -35,19 +35,31 @@ void Projectile::resolve(Player& p){
         for(auto& s : status) {
             switch (s.type) {
                 case BLEED:
-                    p.vit.bleed += s.intensity;
+                    std::cout << "hombre" << std::endl;
+                    if(!p.vit.bleeding) {
+                        p.vit.bleed += s.intensity;
+                        std::cout << p.vit.bleed << std::endl;
+                    }
                     break;
                 case SHOCK:
-                    p.vit.shock += s.intensity;
+                    if(!p.vit.shocked) {
+                        p.vit.shock += s.intensity;
+                    }
                     break;
                 case BURN:
-                    p.vit.burn += s.intensity;
+                    if(!p.vit.burning) {
+                        p.vit.burn += s.intensity;
+                    }
                     break;
                 case ROT:
-                    p.vit.rot += s.intensity;
+                    if(!p.vit.rotting) {
+                        p.vit.rot += s.intensity;
+                    }
                     break;
                 case FRENZY:
-                    p.vit.frenzy += s.intensity;
+                    if(!p.vit.frenzied) {
+                        p.vit.frenzy += s.intensity;
+                    }
                     break;
                 default:
                     break;

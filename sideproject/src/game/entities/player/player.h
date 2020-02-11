@@ -69,6 +69,12 @@ struct vitals{
     double rot = 0;
     double frenzy = 0;
 
+    bool bleeding = false;
+    bool shocked = false;
+    bool burning = false;
+    bool rotting = false;
+    bool frenzied = false;
+
     double statusDecay = 5;
 };
 class Player : public Movable {

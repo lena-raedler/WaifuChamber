@@ -102,6 +102,16 @@ void Player::upkeep(double delta){
     vit.rot -= delta * vit.statusDecay;
     vit.frenzy -= delta * vit.statusDecay;
 
+    vit.bleed = std::max(0.0, vit.bleed);
+    vit.shock = std::max(0.0, vit.shock);
+    vit.burn = std::max(0.0, vit.burn);
+    vit.rot = std::max(0.0, vit.rot);
+    vit.frenzy = std::max(0.0, vit.frenzy);
+
+    if(vit.bleed > 0){
+        std::cout << vit.bleed << std::endl;
+    }
+
     for(auto& a: GlobalObjects::abilities){
         a.lastUsed -= delta;
     }
@@ -179,17 +189,21 @@ void Player::grounded(double delta) {
 void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT, FRENZY
     switch(status.type){
         case BLEED:
-            bleedActive = true;
+            vit.bleeding = true;
             stamRegenMultiplier /= 10;
             break;
         case SHOCK:
+            vit.shocked = true;
             speedMultiplier /= 2;
             break;
         case BURN:
+            vit.burning = true;
             break;
         case ROT:
+            vit.rotting = true;
             break;
         case FRENZY:
+            vit.frenzied = true;
             break;
         default:
             break;
@@ -202,7 +216,7 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
     if(status.durationLeft > 0) {
         switch (status.type) {
             case BLEED:
-                vit.hp -= ((vit.maxHp * 0.3)/status.duration) * delta;
+                vit.hp -= ((vit.maxHp * 0.3)/status.duration) * delta/50;
 
                 bleedActiveBar.updateBar(status.durationLeft / status.duration);
                 bleedActiveBar.borderRect.x = position.x - bleedActiveBar.width / 4;
@@ -228,19 +242,26 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
 void Player::removeStatusEffect(statuseffect &status) {
     switch(status.type){
         case BLEED:
-            bleedActive = false;
+            vit.bleeding = false;
             stamRegenMultiplier *= 10;
             vit.bleed = 0;
             break;
         case SHOCK:
+            vit.shocked = false;
             speedMultiplier *= 2;
             vit.shock = 0;
             break;
         case BURN:
+            vit.burning = false;
+            vit.burn = 0;
             break;
         case ROT:
+            vit.rotting = false;
+            vit.rot = 0;
             break;
         case FRENZY:
+            vit.frenzied = false;
+            vit.frenzy = 0;
             break;
         default:
             break;
@@ -252,31 +273,26 @@ void Player::checkStatusEffects(){
     if(vit.bleed >= vit.bleedRes){
         statuseffect s;
         s.type = BLEED;
-        vit.bleed = -9999;
         applyStatusEffect(s);
     }
     if(vit.shock >= vit.shockRes){
         statuseffect s;
         s.type = SHOCK;
-        vit.shock = -9999;
         applyStatusEffect(s);
     }
     if(vit.burn >= vit.burnRes){
         statuseffect s;
         s.type = BURN;
-        vit.burn = -9999;
         applyStatusEffect(s);
     }
     if(vit.rot >= vit.rotRes){
         statuseffect s;
         s.type = ROT;
-        vit.rot = -9999;
         applyStatusEffect(s);
     }
     if(vit.frenzy >= vit.frenzyRes){
         statuseffect s;
         s.type = FRENZY;
-        vit.frenzy = -9999;
         applyStatusEffect(s);
     }
 }
