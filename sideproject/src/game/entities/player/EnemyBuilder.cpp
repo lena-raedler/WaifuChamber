@@ -41,7 +41,7 @@ namespace EnemyBuilder {
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
-                    SDL_Rect r = {pos.first, pos.second, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                    SDL_Rect r = {(int)e.position.x, (int)e.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
                     e.rec = std::make_shared<SDL_Rect>(r);
                 }
                 break;
@@ -71,7 +71,7 @@ namespace EnemyBuilder {
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
-                    SDL_Rect r = {pos.first, pos.second, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                    SDL_Rect r = {(int)e.position.x, (int)e.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
                     e.rec = std::make_shared<SDL_Rect>(r);
                 }
                 break;
@@ -90,7 +90,7 @@ namespace EnemyBuilder {
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
-                    SDL_Rect r = {pos.first, pos.second, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                    SDL_Rect r = {(int)e.position.x, (int)e.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
                     e.rec = std::make_shared<SDL_Rect>(r);
                 }
 
@@ -110,7 +110,7 @@ namespace EnemyBuilder {
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
-                    SDL_Rect r = {pos.first, pos.second, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                    SDL_Rect r = {(int)e.position.x, (int)e.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
                     e.rec = std::make_shared<SDL_Rect>(r);
                 }
 

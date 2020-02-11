@@ -191,7 +191,6 @@ void Game::makeCheckpoints(){
         c.room = "files/rooms/library.txt";
         c.id = GlobalObjects::checkpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
-        std::cout << c.position.y << " " << c.position.x << std::endl;
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
         GlobalObjects::checkpoints.push_back(c);
     }
@@ -540,8 +539,8 @@ void Game::render() {
     player.inventory.renderInventory();
 
     // Render the player after the background
-    //renderer->renderTexture(texture, nullptr, player.rec.get());
     renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
+    player.render(*renderer);
 
     for (auto& projectile : GlobalObjects::projectiles) {
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
@@ -575,12 +574,12 @@ void Game::render() {
             }
         }
     }
-    /*for(auto& i : GlobalObjects::enemies) {
-        i.render(*renderer);
+    for(auto& i : GlobalObjects::enemies) {
+        i->render(*renderer);
     }
     for(auto& i : GlobalObjects::projectiles) {
-        i.render(*renderer);
-    }*/
+        i->render(*renderer);
+    }
 
     // Update the remaining health percentage
     //updateHealthBar();
