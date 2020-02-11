@@ -22,8 +22,7 @@ public:
     bool increaseVolume, decreaseVolume;
     bool increaseEffectVolume, decreaseEffectVolume;
     std::vector<Image> volumeImages, effectVolumeImages;
-    int volume;
-    int effectVolume;
+    int effectVolume, musicVolume;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
     void renderOptionsMenu(Renderer& renderer);
 };

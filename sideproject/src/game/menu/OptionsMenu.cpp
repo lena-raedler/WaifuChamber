@@ -18,7 +18,7 @@ OptionsMenu::OptionsMenu(Renderer& renderer) {
     volumeImages = std::vector<Image>(11);
     effectVolumeImages = std::vector<Image>(11);
 
-    volume = 5;     // Default, goes from 1 to 10
+    musicVolume = 5;     // Default, goes from 1 to 10
     effectVolume = 5;
 
     for (int i = 0; i < 11; i++) {
@@ -43,7 +43,7 @@ OptionsMenu::OptionsMenu(Renderer& renderer) {
 
 void OptionsMenu::renderOptionsMenu(Renderer& renderer) {
     increaseVolumeButton.renderButton(renderer);
-    volumeImages[volume].render(renderer);
+    volumeImages[musicVolume].render(renderer);
     decreaseVolumeButton.renderButton(renderer);
 
     increaseEffectVolumeButton.renderButton(renderer);
@@ -66,16 +66,16 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
         increaseVolumeButton.highlighted = true;
         if (clicked) {      // Unpause or start the game
             increaseVolume = true;
-            if (volume < 10)
-                volume++;
+            if (musicVolume < 10)
+                musicVolume++;
         }
     }
     else if (decreaseVolumeButton.inButton(mouseX, mouseY)) {
         decreaseVolumeButton.highlighted = true;
         if (clicked) {      // Unpause or start the game
             decreaseVolume = true;
-            if (volume > 0)
-                volume--;
+            if (musicVolume > 0)
+                musicVolume--;
         }
     }
     else if (increaseEffectVolumeButton.inButton(mouseX, mouseY)) {
