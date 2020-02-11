@@ -22,6 +22,7 @@
 #include <boost/algorithm/string/compare.hpp>
 #include "../world/gateInformation.h"
 #include "../world/LockedWall.h"
+#include "../entities/player/EnemyInformation.h"
 
 class Room;
 

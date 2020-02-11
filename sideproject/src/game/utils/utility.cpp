@@ -331,6 +331,7 @@ namespace utility {
                     if (line.find("END") != std::string::npos) {
                         break;
                     }
+                    EnemyInformation enemies;
                     std::pair<std::pair<int, int>, int> enemyInformation;
                     std::vector<std::string> enemyStrings;
                     while (line.front() == ' ') {
@@ -346,6 +347,25 @@ namespace utility {
                     int enemyId = std::atoi(idInformation[1].c_str());
                     enemyInformation.second = enemyId;
                     room.enemyInformation.push_back(enemyInformation);
+
+                    // here starts the code for the new vector
+                    enemies.id = std::atoi(idInformation[1].c_str());
+                    enemies.position.first = std::atoi(enemyStrings[1].c_str());
+                    enemies.position.second = std::atoi(enemyStrings[2].c_str());
+                    if(enemyStrings.size() > 3) {
+                        //start patrol positions
+                        std::vector<std::string> patrolStart;
+                        boost::split(patrolStart, enemyStrings[3], boost::is_any_of(","));
+                        enemies.patrolStartPosition.first = std::atoi(patrolStart[0].c_str());
+                        enemies.patrolStartPosition.second = std::atoi(patrolStart[1].c_str());
+
+                        //end patrol positions
+                        std::vector<std::string> patrolEnd;
+                        boost::split(patrolEnd, enemyStrings[4], boost::is_any_of(","));
+                        enemies.patrolEndPosition.first = std::atoi(patrolEnd[0].c_str());
+                        enemies.patrolEndPosition.second = std::atoi(patrolEnd[1].c_str());
+                    }
+                    room.enemies.push_back(enemies);
                 }
             }
             else if(line.find("BOSS") != std::string::npos) {

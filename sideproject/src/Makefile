@@ -661,6 +661,33 @@ game/menu/Menu.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/Menu.cpp.s
 .PHONY : game/menu/Menu.cpp.s
 
+game/menu/OptionsMenu.o: game/menu/OptionsMenu.cpp.o
+
+.PHONY : game/menu/OptionsMenu.o
+
+# target to build an object file
+game/menu/OptionsMenu.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/OptionsMenu.cpp.o
+.PHONY : game/menu/OptionsMenu.cpp.o
+
+game/menu/OptionsMenu.i: game/menu/OptionsMenu.cpp.i
+
+.PHONY : game/menu/OptionsMenu.i
+
+# target to preprocess a source file
+game/menu/OptionsMenu.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/OptionsMenu.cpp.i
+.PHONY : game/menu/OptionsMenu.cpp.i
+
+game/menu/OptionsMenu.s: game/menu/OptionsMenu.cpp.s
+
+.PHONY : game/menu/OptionsMenu.s
+
+# target to generate assembly for a file
+game/menu/OptionsMenu.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/menu/OptionsMenu.cpp.s
+.PHONY : game/menu/OptionsMenu.cpp.s
+
 game/utils/Image.o: game/utils/Image.cpp.o
 
 .PHONY : game/utils/Image.o
@@ -944,6 +971,9 @@ help:
 	@echo "... game/menu/Menu.o"
 	@echo "... game/menu/Menu.i"
 	@echo "... game/menu/Menu.s"
+	@echo "... game/menu/OptionsMenu.o"
+	@echo "... game/menu/OptionsMenu.i"
+	@echo "... game/menu/OptionsMenu.s"
 	@echo "... game/utils/Image.o"
 	@echo "... game/utils/Image.i"
 	@echo "... game/utils/Image.s"
