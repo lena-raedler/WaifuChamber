@@ -62,6 +62,7 @@ void Player::updatePlayer(double x, double y) {
 
 void Player::upkeep(double delta){
 
+    velocity.x *= speedMultiplier;
     move(delta);
     if (velocity.y <= 0 + GlobalConstants::epsilon){
 
@@ -80,8 +81,10 @@ void Player::upkeep(double delta){
     std::vector<statuseffect> vecS;
     for(auto& s: statusEffects){
         processStatusEffects(s, delta);
-        if(s.duration > 0){
+        if(s.durationLeft > 0){
             vecS.push_back(s);
+        } else{
+            removeStatusEffect(s);
         }
     }
     statusEffects = vecS;
@@ -152,15 +155,17 @@ void Player::grounded(double delta) {
     if(velocity.y >= 0) {
         jumps = 2;
     }
-    vit.stam += delta * vit.stamRegen;
+    vit.stam += delta * vit.stamRegen * stamRegenMultiplier;
     vit.stam = std::min(vit.stam, vit.maxStam);
 }
 
 void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT, FRENZY
     switch(status.type){
         case BLEED:
+            stamRegenMultiplier /= 10;
             break;
         case SHOCK:
+            speedMultiplier /= 2;
             break;
         case BURN:
             break;
@@ -178,7 +183,6 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
     if(status.durationLeft > 0) {
         switch (status.type) {
             case BLEED:
-                std::cout << ((vit.maxHp * 0.3)/status.duration) * delta << std::endl;
                 vit.hp -= ((vit.maxHp * 0.3)/status.duration) * delta;
                 break;
             case SHOCK:
@@ -199,8 +203,12 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
 void Player::removeStatusEffect(statuseffect &status) {
     switch(status.type){
         case BLEED:
+            stamRegenMultiplier *= 10;
+            vit.bleed = 0;
             break;
         case SHOCK:
+            speedMultiplier *= 2;
+            vit.shock = 0;
             break;
         case BURN:
             break;
@@ -216,12 +224,33 @@ void Player::removeStatusEffect(statuseffect &status) {
 
 void Player::checkStatusEffects(){
     if(vit.bleed >= vit.bleedRes){
-        std::cout << " bleed" << std::endl;
         statuseffect s;
         s.type = BLEED;
-        s.duration = 100;
-        s.durationLeft = 100;
         vit.bleed = -9999;
+        applyStatusEffect(s);
+    }
+    if(vit.shock >= vit.shockRes){
+        statuseffect s;
+        s.type = SHOCK;
+        vit.shock = -9999;
+        applyStatusEffect(s);
+    }
+    if(vit.burn >= vit.burnRes){
+        statuseffect s;
+        s.type = BURN;
+        vit.burn = -9999;
+        applyStatusEffect(s);
+    }
+    if(vit.rot >= vit.rotRes){
+        statuseffect s;
+        s.type = ROT;
+        vit.rot = -9999;
+        applyStatusEffect(s);
+    }
+    if(vit.frenzy >= vit.frenzyRes){
+        statuseffect s;
+        s.type = FRENZY;
+        vit.frenzy = -9999;
         applyStatusEffect(s);
     }
 }

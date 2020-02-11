@@ -52,6 +52,7 @@ void Enemy::getHit(double d){
 }
 
 void Enemy::kill(){
+    GlobalObjects::playerPtr->souls+= souls;
     //dostuff
 }
 void Enemy::chase(double d){

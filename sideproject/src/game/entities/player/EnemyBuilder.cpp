@@ -15,7 +15,7 @@ namespace EnemyBuilder {
                 e.velocity = {0,0};
                 e.setMaxHealth(10);
                 e.speed = 10;
-                e.ai = FLEE;
+                e.ai = STATIONARY;
                 e.gravityType = NORMAL;
                 utility::fillDefaultHitbox(e.hitbox);
 
@@ -27,7 +27,7 @@ namespace EnemyBuilder {
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
-                s.type = BLEED;
+                s.type = SHOCK;
                 s.intensity = 100;
 
                 p.status = s;

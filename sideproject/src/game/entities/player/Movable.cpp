@@ -40,7 +40,8 @@ void Movable::move(double delta){
         }
     }
 
-    velocity.y = std::clamp(velocity.y, -5000.0, 50.0);
+    velocity.y = std::clamp(velocity.y, -terminalVelocity.y, terminalVelocity.y);
+    velocity.x = std::clamp(velocity.x, -terminalVelocity.x, terminalVelocity.x);
 
     velocity += gravity()*delta;
 
@@ -50,7 +51,7 @@ void Movable::move(double delta){
     if(usesPlatforms){
         double xMax = std::numeric_limits<double>::min();
         double yMax = std::numeric_limits<double>::min();
-        for(triangle& t :hitbox ){//todo remove this
+        for(triangle& t :hitbox ){
             vec_t tmp = t.max();
             xMax = std::max(xMax, tmp.x);
             yMax = std::max(yMax, tmp.y);
