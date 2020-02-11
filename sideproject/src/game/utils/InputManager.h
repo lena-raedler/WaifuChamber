@@ -17,10 +17,12 @@ public:
     uint32_t mouse;
     bool isPressed(KeyboardKey key);
     bool isMousePressed(MouseButton button);
+    bool isMouseHeld(MouseButton button);
     bool keyDown[KEYBOARD_SIZE];
     bool keyUp[KEYBOARD_SIZE];
     bool mouseDown[MOUSE_MAX];
     bool mouseUp[MOUSE_MAX];
+    bool mouseHeld[MOUSE_MAX];
     bool update(); //returns false if user quits
     void init();
     void flush();

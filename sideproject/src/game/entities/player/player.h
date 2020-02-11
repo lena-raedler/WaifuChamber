@@ -90,6 +90,8 @@ public:
     vitals vit;
     double stamRegenMultiplier = 1;
     double speedMultiplier = 1;
+    double staminaCostReduction = 1;
+    double floatStaminaCost = 10;
     Checkpoint* lastCP;
     Inventory inventory;
     Bar healthBar;

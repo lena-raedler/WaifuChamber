@@ -7,12 +7,13 @@
 void Ability::useIfAvail(double delta, vec_t& pos){
     if(isAvail(delta)){
         use(pos);
+        soundUse.play();
     }
 }
 bool Ability::isAvail(double delta) {
-    lastUsed -= delta;
     if (lastUsed < 0){
         lastUsed = cooldown;
+
         return true;
     }
     return false;
@@ -47,6 +48,7 @@ void Ability::use(vec_t pos) {
                     projectile.velocity *=speed;
                 }
                 GlobalObjects::projectiles.push_back(std::make_shared<Projectile>(projectile));
+
                 break;  // Soon (tm)
             case PLAYER:
                 int mouse_x, mouse_y;
@@ -64,6 +66,7 @@ void Ability::use(vec_t pos) {
                     projectile.rec = std::make_shared<SDL_Rect>(r);
                 }
                 GlobalObjects::projectiles.push_back(std::make_shared<Projectile>(projectile));
+                std::cout << GlobalObjects::projectiles.size() << std::endl;
                 break;
         }
     }
