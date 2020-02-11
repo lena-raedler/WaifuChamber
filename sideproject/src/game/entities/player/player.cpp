@@ -189,20 +189,25 @@ void Player::grounded(double delta) {
 void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT, FRENZY
     switch(status.type){
         case BLEED:
+            vit.bleed = 0;
             vit.bleeding = true;
             stamRegenMultiplier /= 10;
             break;
         case SHOCK:
+            vit.shock = 0;
             vit.shocked = true;
             speedMultiplier /= 2;
             break;
         case BURN:
+            vit.burn = 0;
             vit.burning = true;
             break;
         case ROT:
+            vit.rot = 0;
             vit.rotting = true;
             break;
         case FRENZY:
+            vit.frenzy = 0;
             vit.frenzied = true;
             break;
         default:
@@ -229,8 +234,10 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
             case BURN:
                 break;
             case ROT:
+
                 break;
             case FRENZY:
+                vit.frenzy = 0;
                 break;
             default:
                 break;
