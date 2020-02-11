@@ -572,10 +572,20 @@ void Game::render() {
     player.healthBar.updateBar(player.vit.healthPercentage());
     player.staminaBar.updateBar(player.vit.staminaPercentage());
 
+    player.bleedBar.updateBar(player.vit.bleedPercentage());
+    //player.bleedActiveBar.updateBar(player.vit.bleedPercentage());
+
     // Render the health bar according to how much hp is left
     //renderHealthBar();
     player.healthBar.renderBar(*renderer);
     player.staminaBar.renderBar(*renderer);
+
+    if (player.vit.bleed > 0) {
+        player.updateStatusEffectBars();
+        player.bleedBar.renderBar(*renderer);
+    }
+    else if (player.bleedActive)
+        player.bleedActiveBar.renderBar(*renderer);
 
     //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
     //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);

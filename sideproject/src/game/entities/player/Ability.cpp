@@ -27,6 +27,7 @@ void Ability::use(vec_t pos) {
         projectile.position = pos;
         switch (projectile.owner) {
             case HOSTILE:
+                std::cout << "Hostile projectile" << std::endl;
                 if (aimed) {
                     tmp = GlobalObjects::playerPtr->position - pos;
                     tmp.normalize();
@@ -49,6 +50,7 @@ void Ability::use(vec_t pos) {
                 GlobalObjects::projectiles.push_back(std::make_shared<Projectile>(projectile));
                 break;  // Soon (tm)
             case PLAYER:
+                std::cout << "Player projectile" << std::endl;
                 int mouse_x, mouse_y;
                 SDL_GetMouseState(&mouse_x, &mouse_y);
                 vec_t vec{static_cast<double>(mouse_x), static_cast<double>(mouse_y)};

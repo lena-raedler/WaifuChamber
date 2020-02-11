@@ -28,6 +28,8 @@ namespace EnemyBuilder {
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
+                //s.type = BLEED;
+                //s.intensity = 20;
                 s.type = SHOCK;
                 s.intensity = 100;
 
@@ -62,6 +64,10 @@ namespace EnemyBuilder {
                 p.fragile = false;
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
+
+                s.type = BLEED;
+                s.intensity = 20;
+                p.status = s;
 
                 a.projectiles.push_back(p);
                 a.speed = 20;

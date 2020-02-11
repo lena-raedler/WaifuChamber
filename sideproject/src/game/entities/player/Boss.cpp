@@ -18,9 +18,9 @@ void Boss::addHealthBar(int i, Rgba borderColor, Rgba barColor){
     healthBar.width = width;
     healthBar.height = height;
     //healthBar = {x, y, width, height, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}};
-    healthBar.healthBarBorderRect = {x, y, width, height};
-    healthBar.healthBarBackgroundRect = {x+5, y+5, width-10, height-10};
-    healthBar.healthBarRect = {x+5, y+5, width-10, height-10};
+    healthBar.borderRect = {x, y, width, height};
+    healthBar.backgroundRect = {x + 5, y + 5, width - 10, height - 10};
+    healthBar.barRect = {x + 5, y + 5, width - 10, height - 10};
     //healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
     //healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
     healthBar.borderColor = borderColor;

@@ -55,6 +55,7 @@ struct vitals{
     double stamRegen = 10;
     double healthPercentage(){return (double) hp / maxHp;}
     double staminaPercentage(){return (double) stam / maxStam;}
+    double bleedPercentage() { return (double) bleed / bleedRes; }
 
     double bleedRes = 100;
     double shockRes = 100;
@@ -93,6 +94,8 @@ public:
     Inventory inventory;
     Bar healthBar;
     Bar staminaBar;
+    Bar bleedBar, bleedActiveBar;
+    bool bleedActive;
 
 
     /////////////////// Functions /////////////////////////////
@@ -117,6 +120,7 @@ public:
     void rest();
     void checkStatusEffects();
     std::vector<statuseffect> statusEffects;
+    void updateStatusEffectBars();
 
 
 

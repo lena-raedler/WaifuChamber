@@ -4,12 +4,16 @@
 #ifndef WAIFU_GLOBALCONSTANTS_H
 #define WAIFU_GLOBALCONSTANTS_H
 #include <vector>
+#include "./utils/Rgba.hpp"
 
 namespace GlobalConstants {
     constexpr int deltaDenom = 100;
     constexpr int tileSize = 32;
     constexpr double epsilon = 0.001;
 
+    // Colors
+    constexpr Rgba WHITE  = { 0xFF, 0xFF, 0xFF, 0xFF };
+    constexpr Rgba YELLOW = { 0xFF, 0xCC, 0x00, 0xFF };
 };
 
 
