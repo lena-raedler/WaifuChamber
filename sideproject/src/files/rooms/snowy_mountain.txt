@@ -52,3 +52,10 @@ GATES
   gate_16 d -1
   gate_17 l 1
 END
+ENEMY
+  e_2 14 3
+  e_1 16 24
+END
+BOSS
+  b_1 54 9
+END
