@@ -535,6 +535,7 @@ vec_t Game::determineInput(double delta){
         if(GlobalObjects::telegraphedAttacks.size() == 0){
             TelegraphedAttack ta;
             ta.maxTime = 10;
+            ta.damage = 10;
             ta.set(player.position.x-50, player.position.y, 100, 50);
             GlobalObjects::telegraphedAttacks.push_back(ta);
         }
@@ -740,6 +741,20 @@ void Game::renderHealthBar() {
 void Game::debugshit() {
 }
 void Game::cleanup(bool& remove){
+    std::vector<TelegraphedAttack> tas;
+    {
+        auto it = GlobalObjects::telegraphedAttacks.begin();
+        while (it != GlobalObjects::telegraphedAttacks.end()) {
+
+            if ((it->time < it->maxTime)) {
+                tas.push_back(*it);
+            } else{
+                it->fire();
+                std::cout << "Bongo" << std::endl;
+            }
+            ++it;
+        }
+    }
     std::vector<std::shared_ptr<Projectile>> ps;
     {
         auto it = GlobalObjects::projectiles.begin();
@@ -775,17 +790,8 @@ void Game::cleanup(bool& remove){
             ++it;
         }
     }
-    std::vector<TelegraphedAttack> tas;
-    {
-        auto it = GlobalObjects::telegraphedAttacks.begin();
-        while (it != GlobalObjects::telegraphedAttacks.end()) {
 
-            if ((it->time < it->maxTime)) {
-                tas.push_back(*it);
-            }
-            ++it;
-        }
-    }
+
     GlobalObjects::telegraphedAttacks = tas;
     GlobalObjects::enemies = es;
     GlobalObjects::projectiles = ps;
