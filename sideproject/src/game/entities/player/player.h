@@ -79,7 +79,7 @@ struct vitals{
     bool rotting = false;
     bool frenzied = false;
 
-    double statusDecay = 2;
+    double statusDecay = 1.5;
 
     void setStatusToZero(){
         bleed = 0;

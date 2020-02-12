@@ -28,8 +28,10 @@ public:
     SDL_Rect rect;
 
     double time = 0;
-    double maxTime = 100;
+    double maxTime = 20;
     double lingering = 1;
+
+    int aimed = 0; // 0 = no, 1 = x, 2 = y, 3 = x && y
 
     bool fired = false;
     void fire();

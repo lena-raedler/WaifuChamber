@@ -8,6 +8,8 @@
 #include "Ability.h"
 #include "Bar.hpp"
 #include "EnemyBuilder.h"
+#include "BossBuilder.h"
+#include "TelegraphedAbility.h"
 #include "../../utils/Rgba.hpp"
 
 class Boss : public Movable {
@@ -23,10 +25,13 @@ public:
     int phase = 1;
     int id;
     std::vector<std::tuple<Ability, double, int>> abilities;
+    std::vector<std::tuple<TelegraphedAbility, double, int>> telegraphedAbilities;
 
     bool defeated = false;
     double speed;
     std::string name;
+
+    void (*phaseTransitionAbility)(int a, Boss& b);
 
     void addHealthBar(int i, Rgba borderColor, Rgba barColor);
     void upkeep(double d);
@@ -36,6 +41,7 @@ public:
 
     void addAbility(Ability a, double probability, int phase);
     void transitionPhase();
+    void addAbility(TelegraphedAbility a, double probability, int phase);
     // double healthPercentage(){return (double) hp / maxHp;}
 
 

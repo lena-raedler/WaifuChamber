@@ -71,3 +71,23 @@ void Ability::use(vec_t pos) {
         }
     }
 }
+
+void Ability::addProjectile(Projectile& p){
+    projectiles.push_back(p);
+}
+
+
+//Just to make the templated AbilityPicker work
+void Ability::addAttack(TelegraphedAttack& a){
+
+}
+
+void setDamage(int i){
+
+}
+void set(int a,int b, int c, int d){
+
+}
+void spawn(){
+
+}

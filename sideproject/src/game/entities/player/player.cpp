@@ -217,6 +217,7 @@ void Player::kill(){
     for(auto& s: statusEffects){
         removeStatusEffect(s);
     }
+    vit.setStatusToZero();
     statusEffects.clear();
     position = lastCP->position;
     rest();

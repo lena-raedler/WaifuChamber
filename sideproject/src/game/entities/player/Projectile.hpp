@@ -19,7 +19,7 @@ enum projectile_owner{PLAYER, HOSTILE};
 //template <typename HOSTILE = true> maybe later
 class Projectile : public Movable {
 public:
-    Projectile() = default;
+    Projectile();
     Projectile(vec_t position, int angle);
     //FUCK PRIVACY
     // Current position of the projectile as a 2d point

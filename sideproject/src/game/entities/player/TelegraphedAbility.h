@@ -26,7 +26,9 @@ public:
     void useIfAvail(double delta, vec_t& pos);
     bool isAvail(double delta);
     void use(vec_t pos);
+    void addProjectile(Projectile& p); //this function only exists to make the templated AbilityPicker work
 
+    void addAttack(TelegraphedAttack& a);
 };
 
 

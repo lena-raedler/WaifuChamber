@@ -8,6 +8,7 @@
 #include "Movable.h"
 #include "player.h"
 #include "Ability.h"
+#include "TelegraphedAbility.h"
 
 enum Behaviour{CHASE, STATIONARY, FLEE, PATROL, CONSTANT};
 
@@ -18,6 +19,7 @@ public:
     int souls;
     double speed = 10;
     std::vector<Ability> abilities;
+    std::vector<TelegraphedAbility> telegraphedAbilities;
     std::vector<double> probability;
 
     Behaviour ai = CONSTANT;

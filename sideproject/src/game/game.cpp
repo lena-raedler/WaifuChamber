@@ -809,56 +809,8 @@ void Game::fillGlobalObjects(Room& room){
 }
 
 void Game::spawnBoss(int x, int y){
-    Boss boss;
-    Ability supermegadeathlazor;
-    Projectile lazor;
-    lazor.gravityType = NOGRAVITY;
-    lazor.usesPlatforms = false;
-    lazor.damage = 10;
-    utility::fillDefaultHitbox(lazor.hitbox);
-    lazor.timeToLive = 12;
-    lazor.velocity = {0,0};
-    supermegadeathlazor.projectiles.push_back(lazor);
-    supermegadeathlazor.speed = 30;
-    supermegadeathlazor.cooldown = 10;
-    supermegadeathlazor.origin = {GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
-    boss.addAbility(supermegadeathlazor, 1, 1);
-    Ability aoeblast;
-    Projectile blast;
-    blast.gravityType = NOGRAVITY;
-    blast.usesPlatforms = false;
-    blast.damage = 20;
-    blast.timeToLive = 20;
-    utility::fillDefaultHitbox(blast.hitbox);
-    aoeblast.speed = 50;
-    aoeblast.cooldown = 80;
-    aoeblast.origin = {GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
-    aoeblast.aimed = false;
-    for(int i = -1; i < 2; ++i){
-        for(int j = -1; j < 2;++j){
-            if (i == 0 && j == 0){
-                continue;
-            }
-            blast.velocity = {(double)i, (double)j};
-            aoeblast.projectiles.push_back(blast);
-        }
-    }
-    boss.addAbility(aoeblast, 1, 3);
 
-    //boss.addHealthBar(200);
-    //boss.addHealthBar(100);
-    boss.addHealthBar(200, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF});
-    boss.addHealthBar(160, {0x80, 0xFF, 0x80, 0xFF}, {0x00, 0xFF, 0x00, 0xFF});
-    boss.addHealthBar(120, {0x80, 0x80, 0xff, 0xFF}, {0x00, 0x00, 0xFF, 0xFF});
-    //boss.healthBar ( {64, 900, 1500, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}});
-    boss.position ={(double)x, (double)y};
-    boss.speed = 20;
-    boss.id = 1;
-    boss.velocity = {0,0};
-    boss.gravityType = NORMAL;
-    boss.usesPlatforms = true;
-    utility::fillDefaultHitbox(boss.hitbox, 2);
-    GlobalObjects::bosses.push_back(std::make_shared<Boss>(boss));
+    BossBuilder::buildBoss( 1, {20,20});
 }
 
 bool Game::bossDefeated(int i){
@@ -880,9 +832,10 @@ void Game::loadSavedVariables(){
         }
     }
     Ability a;
-    AbilityPicker::pickAbility(a, GlobalObjects::savedVariables.rangedWeapon, PL_RANGED);
+    AbilityPicker<Ability> ap;
+    ap.pickAbility(a, GlobalObjects::savedVariables.rangedWeapon, PL_RANGED);
     GlobalObjects::abilities.push_back(a);
-    AbilityPicker::pickAbility(a, GlobalObjects::savedVariables.meleeWeapon, PL_MELEE);
+    ap.pickAbility(a, GlobalObjects::savedVariables.meleeWeapon, PL_MELEE);
     GlobalObjects::abilities.push_back(a);
 
     musicVolume = GlobalObjects::savedVariables.musicVolume;

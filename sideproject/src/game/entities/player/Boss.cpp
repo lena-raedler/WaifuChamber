@@ -66,10 +66,20 @@ void Boss::upkeep(double d){
         [[maybe_unused]] double& d= std::get<1>(stuff);
         int& p= std::get<2>(stuff);
 
-        if(p <= phase && a.isAvail(d) ){//todo stuff
-            a.use(position);
+        if(p <= phase){//todo stuff
+            a.useIfAvail(d, position);
+            a.lastUsed -= d;
         }
-        a.lastUsed -= d;
+    }
+    for(auto& stuff : telegraphedAbilities){
+        TelegraphedAbility& a= std::get<0>(stuff);
+        [[maybe_unused]] double& d= std::get<1>(stuff);
+        int& p= std::get<2>(stuff);
+
+        if(p <= phase){//todo stuff
+            a.useIfAvail(d, position);
+            a.lastUsed -= d;
+        }
     }
     move(d);
 }
@@ -82,6 +92,9 @@ void Boss::getHit(double d){
 void Boss::addAbility(Ability a, double probability, int phase){
     abilities.push_back({a, probability, phase});
 }
+void Boss::addAbility(TelegraphedAbility a, double probability, int phase){
+    telegraphedAbilities.push_back({a, probability, phase});
+}
 void Boss::kill(){
     GlobalObjects::enemies.clear();
     GlobalObjects::savedVariables.bossesDefeated |= (1 << (id - 1));
@@ -93,27 +106,5 @@ void Boss::kill(){
     //dostuff
 }
 void Boss::transitionPhase() {
-    switch(id) {
-        case 1:
-        switch (++phase) {
-            case 2:
-                /*
-                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {15, 10});
-                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {40, 10});
-                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {45, 10});
-                 */
-                speed *= 1.2;
-                break;
-            case 3:
-                /*
-                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {10, 10});
-                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {30, 10});
-                EnemyBuilder::buildEnemy(GlobalObjects::enemies, 2, {50, 10});
-                 */
-                break;
-        }
-        break;
-        default:
-            break;
-    }
+    (this->phaseTransitionAbility)(++phase, *this);
 }
