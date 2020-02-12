@@ -40,9 +40,7 @@ void Menu::renderMenu(Renderer& renderer) {
         startGameButton.renderButton(renderer);
         optionsGameButton.renderButton(renderer);
         exitGameButton.renderButton(renderer);
-        if (startGame) {
-            saveGameButton.renderButton(renderer);
-        }
+        saveGameButton.renderButton(renderer);
     }
 
     startGameButton.highlighted = false;
@@ -66,7 +64,7 @@ void Menu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
             pause = false;
         }
     }
-    else if (startGame && !inOptions && saveGameButton.inButton(mouseX, mouseY)) {
+    else if (!inOptions && saveGameButton.inButton(mouseX, mouseY)) {
         saveGameButton.highlighted = true;
         if (clicked)
             saveGame = true;
