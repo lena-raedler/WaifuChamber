@@ -5,9 +5,11 @@
 #ifndef WAIFU_ENEMY_H
 #define WAIFU_ENEMY_H
 #include "../../SavedVariables.h"
+#include "../../utils/renderer.h"
 #include "Movable.h"
 #include "player.h"
 #include "Ability.h"
+#include "Sprites.h"
 
 enum Behaviour{CHASE, STATIONARY, FLEE, PATROL, CONSTANT};
 
@@ -19,6 +21,7 @@ public:
     double speed = 10;
     std::vector<Ability> abilities;
     std::vector<double> probability;
+    Sprites enemySprite;
 
     Behaviour ai = CONSTANT;
     int damageOnTouch = 0;
@@ -31,6 +34,10 @@ public:
     void flee(double d);
 
     void upkeep(double delta);
+
+    //overriding functions from movable
+    void init(Renderer& renderer);
+    void render(Renderer& renderer);
 };
 
 

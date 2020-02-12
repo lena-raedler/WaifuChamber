@@ -70,3 +70,21 @@ void Enemy::flee(double d){
     velocity.x *=speed;
 
 }
+void Enemy::init(Renderer &renderer) {
+    SDL_Surface* s = IMG_Load(textureLocation.c_str());
+    texture = renderer.createTextureFromSurface(s);
+    int textureWidth = s->w;
+    SDL_FreeSurface(s);
+    enemySprite.spriteSheet = texture;
+    int x_pos = 0, y_pos = 0;
+    while((textureWidth - GlobalConstants::tileSize) >= x_pos) {
+        SDL_Rect r = {x_pos, y_pos, GlobalConstants::tileSize, GlobalConstants::tileSize};
+        enemySprite.sprites.push_back(r);
+        x_pos += textureWidth/4;
+
+    }
+}
+
+void Enemy::render(Renderer &renderer) {
+    enemySprite.render(renderer, position);
+}
