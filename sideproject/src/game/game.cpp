@@ -165,6 +165,7 @@ Game::Game()
     menu = Menu(*renderer);
     menu.optionsMenu.musicVolume = musicVolume;
     menu.optionsMenu.effectVolume = effectVolume;
+    menu.optionsMenu.debugActive = GlobalObjects::savedVariables.debugActive;
 
     /*
     int imageX = 64;
@@ -422,6 +423,7 @@ void Game::handleMenu() {
     if (menu.saveGame) {  // Only has an effect mid-game
         GlobalObjects::savedVariables.musicVolume = musicVolume;
         GlobalObjects::savedVariables.effectVolume = effectVolume;
+        GlobalObjects::savedVariables.debugActive = menu.optionsMenu.debugActive;
         GlobalObjects::savedVariables.serialize();
         menu.saveGame = false;
     }

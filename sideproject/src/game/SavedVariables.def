@@ -7,4 +7,5 @@ SAVE(int, bossesDefeated, 0)
 SAVE(int, rangedWeapon, 0)
 SAVE(int, meleeWeapon, 0)
 SAVE(int, souls, 0)
+SAVE(int, debugActive, 1)
 #undef SAVE
