@@ -30,12 +30,6 @@ void Button::renderButton(Renderer& renderer) {
         soundEffect.play();
         clicked = false;
     }
-    // Gray background
-    //SDL_SetRenderDrawColor(renderer.getRenderer(), 0x80, 0x80, 0x80, 0xFF);
-    //SDL_RenderFillRect(renderer.getRenderer(), &background);
-
-    //if(available)
-    //itemImage.render(*renderer);
 }
 
 bool Button::inButton(int x2, int y2) {
