@@ -75,6 +75,7 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
         increaseEffectVolumeButton.highlighted = true;
         if (clicked) {
             increaseEffectVolume = true;
+            increaseEffectVolumeButton.clicked = true;
             if (effectVolume < 10)
                 effectVolume++;
         }
@@ -83,6 +84,7 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
         decreaseEffectVolumeButton.highlighted = true;
         if (clicked) {
             decreaseEffectVolume = true;
+            decreaseEffectVolumeButton.clicked = true;
             if (effectVolume > 0)
                 effectVolume--;
         }
@@ -91,6 +93,7 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
         increaseMusicVolumeButton.highlighted = true;
         if (clicked) {
             increaseMusicVolume = true;
+            increaseMusicVolumeButton.clicked = true;
             if (musicVolume < 10)
                 musicVolume++;
         }
@@ -99,6 +102,7 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
         decreaseMusicVolumeButton.highlighted = true;
         if (clicked) {
             decreaseMusicVolume = true;
+            decreaseMusicVolumeButton.clicked = true;
             if (musicVolume > 0)
                 musicVolume--;
         }
@@ -106,7 +110,10 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
     else if (debugActiveButton.inButton(mouseX, mouseY)) {
         debugActiveButton.highlighted = true;
         debugInactiveButton.highlighted = true;
-        if (clicked)
+        if (clicked) {
             debugActive = !debugActive;
+            debugActiveButton.clicked = true;   // Bloated and assigned twice; But at least I don't need to copy the else if()
+            debugInactiveButton.clicked = true;
+        }
     }
 }

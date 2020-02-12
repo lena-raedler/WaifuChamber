@@ -16,6 +16,8 @@ Button::Button(Renderer& renderer, std::string imagePath, std::string imagePathH
     image.getRect()->w = imageHighlighted.getRect()->w = width;
     image.getRect()->h = imageHighlighted.getRect()->h = height;
     highlighted = false;
+    clicked = false;
+    soundEffect.load("button_press_1.wav", MIX_MAX_VOLUME);
 }
 
 void Button::renderButton(Renderer& renderer) {
@@ -24,6 +26,10 @@ void Button::renderButton(Renderer& renderer) {
     else
         image.render(renderer);
 
+    if (clicked) {
+        soundEffect.play();
+        clicked = false;
+    }
     // Gray background
     //SDL_SetRenderDrawColor(renderer.getRenderer(), 0x80, 0x80, 0x80, 0xFF);
     //SDL_RenderFillRect(renderer.getRenderer(), &background);

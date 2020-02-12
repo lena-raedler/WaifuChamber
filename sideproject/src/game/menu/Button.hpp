@@ -7,6 +7,7 @@
 #include "../utils/utility.h"
 #include "../utils/Image.hpp"
 #include "../GlobalConstants.h"
+#include "../entities/player/SoundEffect.h"
 #include <string>
 
 class Button {
@@ -17,7 +18,8 @@ public:
     ~Button() = default;
     int x, y, width, height = 0;
     Image image, imageHighlighted;
-    bool highlighted;
+    bool highlighted, clicked;
+    SoundEffect soundEffect;
     void renderButton(Renderer& renderer);
     bool inButton(int x2, int y2);
 };

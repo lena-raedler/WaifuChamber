@@ -62,21 +62,28 @@ void Menu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
         if (clicked) {      // Unpause or start the game
             startGame = true;
             pause = false;
+            startGameButton.clicked = true;
         }
     }
     else if (!inOptions && saveGameButton.inButton(mouseX, mouseY)) {
         saveGameButton.highlighted = true;
-        if (clicked)
+        if (clicked) {
             saveGame = true;
+            saveGameButton.clicked = true;
+        }
     }
     else if (!inOptions && optionsGameButton.inButton(mouseX, mouseY)) {
         optionsGameButton.highlighted = true;
-        if (clicked)
+        if (clicked) {
             inOptions = true;
+            optionsGameButton.clicked = true;
+        }
     }
     else if (exitGameButton.inButton(mouseX, mouseY)) {
         exitGameButton.highlighted = true;
-        if (clicked)
+        if (clicked) {
             exitGame = true;
+            exitGameButton.clicked = true;
+        }
     }
 }
