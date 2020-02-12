@@ -16,6 +16,7 @@
 #include <memory>
 #include <vector>
 #include "../../GlobalConstants.h"
+#include "Projectile.hpp"
 #include "../../world/Platform.h"
 
 class TelegraphedAttack {
@@ -28,6 +29,7 @@ public:
 
     double time = 0;
     double maxTime = 100;
+    double lingering = 1;
 
     bool fired = false;
     void fire();

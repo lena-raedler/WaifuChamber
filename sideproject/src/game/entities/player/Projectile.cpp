@@ -35,10 +35,8 @@ void Projectile::resolve(Player& p){
         for(auto& s : status) {
             switch (s.type) {
                 case BLEED:
-                    std::cout << "hombre" << std::endl;
                     if(!p.vit.bleeding) {
                         p.vit.bleed += s.intensity;
-                        std::cout << p.vit.bleed << std::endl;
                     }
                     break;
                 case SHOCK:

@@ -93,7 +93,6 @@ void Player::updatePlayer(double x, double y) {
 void Player::upkeep(double delta){
 
     velocity.x *= speedMultiplier;
-    std::cout << speedMultiplier << std::endl;
     move(delta);
     if (velocity.y <= 0 + GlobalConstants::epsilon){
 
@@ -207,6 +206,10 @@ void Player::rest(){
 }
 void Player::kill(){
     Mix_PlayChannel(-1, GlobalObjects::chunkPtr[0], 0);
+    for(auto& s: statusEffects){
+        removeStatusEffect(s);
+    }
+    statusEffects.clear();
     position = lastCP->position;
     rest();
 }
@@ -228,7 +231,7 @@ void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT,
         case SHOCK:
             vit.shock = 0;
             vit.shocked = true;
-            speedMultiplier /= 2;
+            terminalVelocity.x /= 2;
             break;
         case BURN:
             vit.burn = 0;
@@ -252,7 +255,7 @@ void Player::processStatusEffects(statuseffect &status, double delta) {
     if(status.durationLeft > 0) {
         switch (status.type) {
             case BLEED:
-                vit.hp -= ((vit.maxHp * 0.3)/status.duration) * delta/50;
+                vit.hp -= ((vit.maxHp * 0.3)/status.duration) * delta;
                 setStatusBarPosition(activeBleedBar, status);
                 break;
             case SHOCK:
@@ -283,7 +286,7 @@ void Player::removeStatusEffect(statuseffect &status) {
             break;
         case SHOCK:
             vit.shocked = false;
-            speedMultiplier *= 2;
+            terminalVelocity.x *= 2;
             vit.shock = 0;
             break;
         case BURN:
