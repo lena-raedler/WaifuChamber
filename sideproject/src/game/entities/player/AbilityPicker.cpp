@@ -79,7 +79,7 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             p.damage = 40;
             p.timeToLive = 20;
             utility::fillDefaultHitbox(p.hitbox);
-            a.speed = 42;
+            a.speed = 40;
             a.cooldown = 100;
             a.origin = {GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
             a.aimed = false;
