@@ -14,14 +14,22 @@ Player::Player()
     int y = 64;
     int width = 210;
     int height = 30;
+
+    //int x = 64 + 84/4;
+    //int y = 64 + 22/2;
+    //int width = (824 - 84 - 83)/4;
+    //int height = (82 - 23 - 22)/2;
+
     healthBar.x = x;
     healthBar.y = y;
     healthBar.width = width;
     healthBar.height = height;
-    //healthBar = {x, y, width, height, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}};
+    healthBar = {x, y, width, height, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}};
     healthBar.borderRect = {x, y, width, height};
     healthBar.backgroundRect = {x + 5, y + 5, width - 10, height - 10};
+    //healthBar.backgroundRect = {x, y, width, height};
     healthBar.barRect = {x + 5, y + 5, width - 10, height - 10};
+    //healthBar.barRect = {x, y, width, height};
     healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
     healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
 

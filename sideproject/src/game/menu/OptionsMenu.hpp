@@ -19,9 +19,12 @@ public:
     ~OptionsMenu() = default;
     Button increaseEffectVolumeButton, decreaseEffectVolumeButton;
     Button increaseMusicVolumeButton, decreaseMusicVolumeButton;
+    Button debugActiveButton, debugInactiveButton;
     bool increaseEffectVolume, decreaseEffectVolume;
     bool increaseMusicVolume, decreaseMusicVolume;
+    bool debugActive;
     std::vector<Image> effectVolumeImages, musicVolumeImages;
+    //std::vector<Image*> test;     // Maybe change musicVolumeImages to this, more efficient
     int effectVolume, musicVolume;
     void resolveMouseInput(int mouseX, int mouseY, bool clicked);
     void renderOptionsMenu(Renderer& renderer);

@@ -84,10 +84,13 @@ private:
     //Inventory inventory;
     std::vector<Ability> abilities;
     Menu menu;
+    Image healthBarImage;
+
     int effectVolume, musicVolume, volumeStep;
     int getEffectVolume() { return effectVolume * volumeStep; }
     int getMusicVolume() { return musicVolume * volumeStep; }
     void handleMenu();
+    void renderDebugTextures();
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed

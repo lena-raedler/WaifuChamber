@@ -51,6 +51,7 @@ void Menu::renderMenu(Renderer& renderer) {
     saveGameButton.highlighted = false;
 }
 
+// TODO Make a sound when a button is pressed
 void Menu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
     // Options menu
     if (inOptions) {

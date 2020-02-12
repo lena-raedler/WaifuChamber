@@ -159,17 +159,25 @@ Game::Game()
     player.rec = std::make_unique<SDL_Rect>(rectangle);
     inputManager.init();
 
-
-    //inventory = Inventory(*renderer);
     player.inventory = Inventory(*renderer);
 
     // Menu
     menu = Menu(*renderer);
-    //std::cout << "musicVolume " << musicVolume << std::endl;
     menu.optionsMenu.musicVolume = musicVolume;
     menu.optionsMenu.effectVolume = effectVolume;
-    //GlobalObjects::savedVariables.musicVolume = musicVolume;
-    //menu.renderMenu(*renderer);
+
+    /*
+    int imageX = 64;
+    int imageY = 64;
+    int imageWidth = 824/4;
+    int imageHeight = 82/2;
+
+    healthBarImage = utility::loadImage("files/textures/menu/player/health_bar_cropped.png", *renderer);
+    healthBarImage.getRect()->x = imageX;
+    healthBarImage.getRect()->y = imageY;
+    healthBarImage.getRect()->w = imageWidth;
+    healthBarImage.getRect()->h = imageHeight;
+     */
 
     // Enable opacity between 0 and 255
     SDL_SetRenderDrawBlendMode(renderer->getRenderer(), SDL_BLENDMODE_BLEND);
@@ -542,8 +550,6 @@ vec_t Game::determineInput(double delta){
     }
 
     if (inputManager.isMousePressed(MOUSE_LEFT)) {
-
-
         if ((!menu.startGame || menu.pause)) {
             menu.resolveMouseInput(mouseX, mouseY, true);
         }
@@ -592,38 +598,42 @@ void Game::render() {
 
     player.inventory.renderInventory();
 
+    /// Render debug stuff ///
+    if (menu.optionsMenu.debugActive)
+        renderDebugTextures();
+
     // Render the player after the background
-    renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
+    //renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
     player.render(*renderer);
 
     for (auto& projectile : GlobalObjects::projectiles) {
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
-        renderer->renderTriangles(projectile->hitbox, 255, 255, 255, projectile->position);
+        //renderer->renderTriangles(projectile->hitbox, 255, 255, 255, projectile->position);
     }
 
     for (auto& p : GlobalObjects::platforms){
         std::vector<triangle> t = {p->top, p->bot};
-        renderer->renderTriangles(t, 0, 0, 0, {0,0});
+        //renderer->renderTriangles(t, 0, 0, 0, {0,0});
     }
     for (auto& e : GlobalObjects::enemies){
-        renderer->renderTriangles(e->hitbox,255, 255, 0,e->position);
+        //renderer->renderTriangles(e->hitbox,255, 255, 0,e->position);
     }
     for (auto& g : GlobalObjects::gates){
-        renderer->renderTriangles(g->hitbox, 0,255, 255, g->position);
+        //renderer->renderTriangles(g->hitbox, 0,255, 255, g->position);
     }
     for (auto& b : GlobalObjects::bosses){
         scuff2 = true;
-        renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
+        //renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
         b->bars[0].renderBar(*renderer);
         //b.healthBar.renderBar(*renderer);
     }
     for(auto& c : GlobalObjects::checkpoints){
         if(boost::algorithm::equals(currentRoom, c.room)) {
             if (player.lastCP->id == c.id) {
-                renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
+                //renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
                 renderer->renderTexture(c.texture, nullptr, &c.rectangle);
             } else {
-                renderer->renderTriangles(c.hitbox, 0, 120, 0, c.position);
+                //renderer->renderTriangles(c.hitbox, 0, 120, 0, c.position);
                 renderer->renderTexture(c.texture, nullptr, &c.rectangle);
             }
         }
@@ -639,28 +649,11 @@ void Game::render() {
         i.render(*renderer);
     }
 
-    // Update the remaining health percentage
-    //updateHealthBar();
-    //player.healthBar.updateBar(player.vit.healthPercentage());
-    //player.staminaBar.updateBar(player.vit.staminaPercentage());
-
-    //player.bleedBar.updateBar(player.vit.bleedPercentage());
-    //player.activeBleedBar.updateBar(player.vit.bleedPercentage());
-
-    // Render the health bar according to how much hp is left
-    //renderHealthBar();
     player.healthBar.renderBar(*renderer);
     player.staminaBar.renderBar(*renderer);
 
-    /*
-    if (player.vit.bleed > 0) {
-        player.updateStatusEffectBars();
-        player.bleedBar.renderBar(*renderer);
-    }
-    else if (player.bleedActive)
-        player.activeBleedBar.renderBar(*renderer);
-    */
 
+    /// Status effects ///
     if (player.vit.bleed > 0)
         player.bleedBar.renderBar(*renderer);
     else if (player.vit.bleeding)
@@ -671,26 +664,50 @@ void Game::render() {
     else if (player.vit.shocked)
         player.activeShockBar.renderBar(*renderer);
 
-    // TODO make simpler
-    /*if (player.vit.shock > 0) {
-        player.updateStatusEffectBars();
-        player.shockBar.renderBar(*renderer);
-    }
-    else if (player.shockActive)
-        player.activeShockBar.renderBar(*renderer);
-    */
-
-    //SDL_Color hpCol = Renderer::color(1, 1, 1, 1);
-    //SDL_Color barBGCol = Renderer::color(1, 1, 1, 1);
-    //renderer->renderBar(50, 50, 100, 10, 200, hpCol, barBGCol);
-
-//    renderer->renderBar(50, 50, 100, 10, player.vit.hp/player.vit.maxHp, hpCol, barBGCol);
-
-    // Pause menu
+    /// Pause menu ///
     if (menu.pause)
         menu.renderMenu(*renderer);
 
     renderer->render();
+}
+
+void Game::renderDebugTextures() {
+    renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
+
+    for (auto& projectile : GlobalObjects::projectiles) {
+        renderer->renderTriangles(projectile->hitbox, 255, 255, 255, projectile->position);
+    }
+    for (auto& p : GlobalObjects::platforms){
+        std::vector<triangle> t = {p->top, p->bot};
+        renderer->renderTriangles(t, 0, 0, 0, {0,0});
+    }
+    for (auto& e : GlobalObjects::enemies){
+        renderer->renderTriangles(e->hitbox,255, 255, 0,e->position);
+    }
+    for (auto& g : GlobalObjects::gates){
+        renderer->renderTriangles(g->hitbox, 0,255, 255, g->position);
+    }
+    for (auto& b : GlobalObjects::bosses){
+        renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
+    }
+    for(auto& c : GlobalObjects::checkpoints){
+        if(boost::algorithm::equals(currentRoom, c.room)) {
+            if (player.lastCP->id == c.id) {
+                renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
+            } else {
+                renderer->renderTriangles(c.hitbox, 0, 120, 0, c.position);
+            }
+        }
+    }
+    for(auto& i : GlobalObjects::enemies) {
+        //i->render(*renderer);
+    }
+    for(auto& i : GlobalObjects::projectiles) {
+        //i->render(*renderer);
+    }
+    for(auto& i: GlobalObjects::telegraphedAttacks){
+        //i.render(*renderer);
+    }
 }
 
 /*

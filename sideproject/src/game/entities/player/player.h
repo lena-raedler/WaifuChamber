@@ -21,6 +21,7 @@
 #include "../../Inventory/Inventory.hpp"
 #include "Ability.h"
 #include "Bar.hpp"
+#include "../../utils/Image.hpp"
 
 enum lastCheckPoint{//maybe we dont need this
     A1C1,
@@ -105,6 +106,7 @@ public:
     double floatStaminaCost = 10;
     Checkpoint* lastCP;
     Inventory inventory;
+
     Bar healthBar;
     Bar staminaBar;
 
