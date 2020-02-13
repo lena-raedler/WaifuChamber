@@ -40,6 +40,7 @@ namespace GlobalObjects{
     std::vector<Checkpoint*> roomCheckpoints;
     std::vector<Ability> abilities;
     std::vector<TelegraphedAttack> telegraphedAttacks;
+    std::shared_ptr<Renderer> renderPtr;
     void clear(){
         enemies.clear();
         platforms.clear();
@@ -48,6 +49,7 @@ namespace GlobalObjects{
         bosses.clear();
     }
 }
+
 ////////////////////////////////////////////////////////////////
 Game::Game()
     : pause(false)
@@ -71,7 +73,8 @@ Game::Game()
     if(!(IMG_Init(imageFlags) & imageFlags)) {
         throw std::runtime_error("Could not initialize SDL_image");
     }
-    renderer = std::make_unique<Renderer>(GlobalObjects::resolution);
+    GlobalObjects::renderPtr = std::make_shared<Renderer>(GlobalObjects::resolution);
+    renderer = GlobalObjects::renderPtr;
 
     player.init(*renderer);
     GlobalObjects::playerPtr = &player;
@@ -326,7 +329,7 @@ int Game::loop() {
             scuff3 = false;
         }
 
-        //TODO Redo this shit
+        //TODO make enemies respawn & only activate cps when prompted
         for(auto& c: GlobalObjects::roomCheckpoints){
                 if (utility::hitboxCollision(player.hitbox, player.position, c->hitbox, c->position)) {
                     player.rest();
@@ -337,10 +340,6 @@ int Game::loop() {
                     }
                 }
         }
-
-        // Update player
-        // TODO Update player in a separate function
-        //player.updatePlayer(playerPosition.x, playerPosition.y);
 
         render();
         cleanup(scuff3);
@@ -852,6 +851,10 @@ void Game::nonPlayerUpkeep(double deltaTime){
     for(auto& tas : GlobalObjects::telegraphedAttacks){
         tas.update(deltaTime);
     }
+}
+
+void Game::engageBoss(int id){
+
 }
 /*
 int Game::renderInventory2(int argc, char *argv[]) {

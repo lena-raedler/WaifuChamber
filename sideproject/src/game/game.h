@@ -56,7 +56,7 @@ private:
     SDL_Texture* texture;
     SDL_Event e;
     SDL_Rect rectangle;
-    std::unique_ptr<Renderer> renderer;
+    std::shared_ptr<Renderer> renderer;
     bool quit;
     bool pause;
     Image pauseImage;
@@ -103,6 +103,8 @@ private:
     void fillGlobalObjects(Room &room);
 
     void nonPlayerUpkeep(double deltaTime);
+
+    void engageBoss(int id);
 };
 
 

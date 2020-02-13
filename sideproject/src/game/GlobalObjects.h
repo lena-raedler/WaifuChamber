@@ -32,6 +32,7 @@ namespace GlobalObjects {
     extern std::vector<Ability> abilities; //0 ranged 1 melee
     extern std::vector<TelegraphedAttack> telegraphedAttacks;
     extern std::vector<Checkpoint*> roomCheckpoints;
+    extern std::shared_ptr<Renderer> renderPtr;
 };
 
 

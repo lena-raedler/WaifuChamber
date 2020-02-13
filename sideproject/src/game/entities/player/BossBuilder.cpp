@@ -31,6 +31,7 @@ namespace BossBuilder{
         Projectile p;
         switch(id){
             case 1:
+                b.textureLocation = "files/textures/weapons/rabbit.png";
                 abilities.pickAbility(a, 1, BOSS_RANGED);
                 b.addAbility(a, 1, 1);
 

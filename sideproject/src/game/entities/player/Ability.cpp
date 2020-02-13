@@ -66,9 +66,9 @@ void Ability::use(vec_t pos) {
                     projectile.rec = std::make_shared<SDL_Rect>(r);
                 }
                 GlobalObjects::projectiles.push_back(std::make_shared<Projectile>(projectile));
-                std::cout << GlobalObjects::projectiles.size() << std::endl;
                 break;
         }
+        GlobalObjects::projectiles.back()->init(*GlobalObjects::renderPtr);
     }
 }
 

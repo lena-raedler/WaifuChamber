@@ -137,10 +137,7 @@ void Player::upkeep(double delta){
     vit.burn = std::max(0.0, vit.burn);
     vit.rot = std::max(0.0, vit.rot);
     vit.frenzy = std::max(0.0, vit.frenzy);
-
-    if(vit.bleed > 0){
-        std::cout << vit.bleed << std::endl;
-    }
+    
 
     for(auto& a: GlobalObjects::abilities){
         a.lastUsed -= delta;
