@@ -36,7 +36,8 @@ namespace GlobalObjects{
     std::vector<std::shared_ptr<Gate>> gates;
     std::pair<int, int> resolution;
     std::vector<std::shared_ptr<Boss>> bosses;
-    std::vector<Checkpoint> checkpoints;
+    std::vector<Checkpoint> allCheckpoints;
+    std::vector<Checkpoint*> roomCheckpoints;
     std::vector<Ability> abilities;
     std::vector<TelegraphedAttack> telegraphedAttacks;
     void clear(){
@@ -193,64 +194,64 @@ void Game::makeCheckpoints(){
         }
         c.position = utility::convert({3, 6});
         utility::fillDefaultHitbox(c.hitbox);
-        c.id = GlobalObjects::checkpoints.size();
+        c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-        GlobalObjects::checkpoints.push_back(c);
+        GlobalObjects::allCheckpoints.push_back(c);
     }
     {
         Checkpoint c;
         c.position = utility::convert({55, 4});
         utility::fillDefaultHitbox(c.hitbox);
         c.room = "files/rooms/library.txt";
-        c.id = GlobalObjects::checkpoints.size();
+        c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-        GlobalObjects::checkpoints.push_back(c);
+        GlobalObjects::allCheckpoints.push_back(c);
     }
     {
         Checkpoint c;
         c.position = utility::convert({58, 1});
         utility::fillDefaultHitbox(c.hitbox);
         c.room = "files/rooms/plains.txt";
-        c.id = GlobalObjects::checkpoints.size();
+        c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-        GlobalObjects::checkpoints.push_back(c);
+        GlobalObjects::allCheckpoints.push_back(c);
     }
     {
         Checkpoint c;
         c.position = utility::convert({59, 32});
         utility::fillDefaultHitbox(c.hitbox);
         c.room = "files/rooms/fancy_forest.txt";
-        c.id = GlobalObjects::checkpoints.size();
+        c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-        GlobalObjects::checkpoints.push_back(c);
+        GlobalObjects::allCheckpoints.push_back(c);
     }
     {
         Checkpoint c;
         c.position = utility::convert({42, 13});
         utility::fillDefaultHitbox(c.hitbox);
         c.room = "files/rooms/desert1.txt";
-        c.id = GlobalObjects::checkpoints.size();
+        c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-        GlobalObjects::checkpoints.push_back(c);
+        GlobalObjects::allCheckpoints.push_back(c);
     }
     {
         Checkpoint c;
         c.position = utility::convert({9, 3});
         utility::fillDefaultHitbox(c.hitbox);
         c.room = "files/rooms/mazement1.txt";
-        c.id = GlobalObjects::checkpoints.size();
+        c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-        GlobalObjects::checkpoints.push_back(c);
+        GlobalObjects::allCheckpoints.push_back(c);
     }
     SDL_FreeSurface(s);
 
-    player.lastCP = &(GlobalObjects::checkpoints[0]);
+    player.lastCP = &(GlobalObjects::allCheckpoints[0]);
 }
 
 Game::~Game() {
@@ -300,77 +301,8 @@ int Game::loop() {
 
         player.velocity += move;
         player.upkeep(deltaTime/deltaDenom);
-        for(auto& e : GlobalObjects::enemies){
-            e->upkeep(deltaTime/deltaDenom);
-            if (!e->damageOnTouch == 0){
-                if(utility::hitboxCollision(player.hitbox, player.position, e->hitbox, e->position)){
-                    player.getHit(e->damageOnTouch);
-                }
-            }
 
-        }
-
-        for (auto& projectile : GlobalObjects::projectiles) {
-            projectile->textureLocation = "files/textures/weapons/projectile_01.png";
-            projectile->upkeep(deltaTime/deltaDenom);
-            if(projectile->owner == HOSTILE) {
-                if (projectile->collide(player)) {
-                    projectile->resolve(player);
-                }
-            }else if (projectile->owner == PLAYER){
-                for (auto& e : GlobalObjects::enemies) {
-                    if (projectile->collide(*e)) {
-                        e->getHit(projectile->damage);
-                        projectile->alive = false;
-                    }
-                }
-                for (auto& b: GlobalObjects::bosses) {
-                    if (projectile->collide(*b, false)) {
-                        b->getHit(projectile->damage);
-                        projectile->alive = false;
-                    }
-                }
-            }
-            if(projectile->fragile){
-                for(auto& platform: GlobalObjects::platforms){
-                    for(auto& tri: projectile->hitbox){
-                        triangle tmp = tri;
-                        tmp += projectile->position;
-                        if(platform->collide(tmp)){
-                            projectile->alive = false;
-                        }
-                    }
-                }
-            }
-        }
-        for(auto& boss : GlobalObjects::bosses){
-            boss->upkeep(deltaTime/deltaDenom);
-        }
-        bool leave = false;
-        for(auto& gate : GlobalObjects::gates){
-            for(triangle t : player.hitbox) {
-                t+=player.position;
-                if (gate->collide(t)) {
-
-                    currentRoom = gate->nextRoomPath;
-                    std::cout << "moving to " << currentRoom << std::endl;
-                    player.position = gate->newPosition;
-                    GlobalObjects::clear();
-                    room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
-                    fillGlobalObjects(room);
-                    leave = true;
-                    break;
-                }
-
-            }
-            if(leave){
-                break;
-            }
-        }
-
-        for(auto& tas : GlobalObjects::telegraphedAttacks){
-            tas.update(deltaTime/deltaDenom);
-        }
+        nonPlayerUpkeep(deltaTime/deltaDenom);
 
         if(player.vit.hp <= 0){
             std::cout << "GIT GUD" << std::endl;
@@ -381,6 +313,7 @@ int Game::loop() {
             bossFight = false;
             player.kill();
         }
+        //todo fix this shit
         if(!bossFight && room.roomId == 3 && !bossDefeated(1)) {
 
             bossFight = true;
@@ -394,17 +327,15 @@ int Game::loop() {
         }
 
         //TODO Redo this shit
-        for(auto& c: GlobalObjects::checkpoints){
-            if(boost::algorithm::equals(c.room, currentRoom)) {
-                if (utility::hitboxCollision(player.hitbox, player.position, c.hitbox, c.position)) {
+        for(auto& c: GlobalObjects::roomCheckpoints){
+                if (utility::hitboxCollision(player.hitbox, player.position, c->hitbox, c->position)) {
                     player.rest();
-                    player.lastCP = &c;
-                    if(GlobalObjects::savedVariables.currentCheckpoint != c.id){
-                        GlobalObjects::savedVariables.currentCheckpoint = c.id;
+                    player.lastCP = c;
+                    if(GlobalObjects::savedVariables.currentCheckpoint != c->id){
+                        GlobalObjects::savedVariables.currentCheckpoint = c->id;
                         GlobalObjects::savedVariables.serialize();
                     }
                 }
-            }
         }
 
         // Update player
@@ -630,7 +561,7 @@ void Game::render() {
         b->bars[0].renderBar(*renderer);
         //b.healthBar.renderBar(*renderer);
     }
-    for(auto& c : GlobalObjects::checkpoints){
+    for(auto& c : GlobalObjects::allCheckpoints){
         if(boost::algorithm::equals(currentRoom, c.room)) {
             if (player.lastCP->id == c.id) {
                 //renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
@@ -693,7 +624,7 @@ void Game::renderDebugTextures() {
     for (auto& b : GlobalObjects::bosses){
         renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
     }
-    for(auto& c : GlobalObjects::checkpoints){
+    for(auto& c : GlobalObjects::allCheckpoints){
         if(boost::algorithm::equals(currentRoom, c.room)) {
             if (player.lastCP->id == c.id) {
                 renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
@@ -806,6 +737,12 @@ void Game::fillGlobalObjects(Room& room){
         i.get()->init(*renderer);
     }
     room.fillDoorVector(GlobalObjects::gates);
+    GlobalObjects::roomCheckpoints.clear();
+    for(auto& c : GlobalObjects::allCheckpoints){
+        if(boost::algorithm::equals(c.room, currentRoom)) {
+            GlobalObjects::roomCheckpoints.push_back(&c);
+        }
+    }
 }
 
 void Game::spawnBoss(int x, int y){
@@ -825,7 +762,7 @@ void Game::loadSavedVariables(){
     }
     file.close();
     makeCheckpoints();
-    for(auto& c: GlobalObjects::checkpoints){
+    for(auto& c: GlobalObjects::allCheckpoints){
         if(GlobalObjects::savedVariables.currentCheckpoint == c.id){
             player.position = c.position;
             currentRoom = c.room;
@@ -841,6 +778,80 @@ void Game::loadSavedVariables(){
     musicVolume = GlobalObjects::savedVariables.musicVolume;
     effectVolume = GlobalObjects::savedVariables.effectVolume;
 
+}
+
+void Game::nonPlayerUpkeep(double deltaTime){
+    for(auto& e : GlobalObjects::enemies){
+        e->upkeep(deltaTime);
+        if (!e->damageOnTouch == 0){
+            if(utility::hitboxCollision(player.hitbox, player.position, e->hitbox, e->position)){
+                player.getHit(e->damageOnTouch);
+            }
+        }
+
+    }
+
+    for (auto& projectile : GlobalObjects::projectiles) {
+        projectile->textureLocation = "files/textures/weapons/projectile_01.png";
+        projectile->upkeep(deltaTime);
+        if(projectile->owner == HOSTILE) {
+            if (projectile->collide(player)) {
+                projectile->resolve(player);
+            }
+        }else if (projectile->owner == PLAYER){
+            for (auto& e : GlobalObjects::enemies) {
+                if (projectile->collide(*e)) {
+                    e->getHit(projectile->damage);
+                    projectile->alive = false;
+                }
+            }
+            for (auto& b: GlobalObjects::bosses) {
+                if (projectile->collide(*b, false)) {
+                    b->getHit(projectile->damage);
+                    projectile->alive = false;
+                }
+            }
+        }
+        if(projectile->fragile){
+            for(auto& platform: GlobalObjects::platforms){
+                for(auto& tri: projectile->hitbox){
+                    triangle tmp = tri;
+                    tmp += projectile->position;
+                    if(platform->collide(tmp)){
+                        projectile->alive = false;
+                    }
+                }
+            }
+        }
+    }
+    for(auto& boss : GlobalObjects::bosses){
+        boss->upkeep(deltaTime);
+    }
+    bool leave = false;
+    for(auto& gate : GlobalObjects::gates){
+        for(triangle t : player.hitbox) {
+            t+=player.position;
+            if (gate->collide(t)) {
+
+                currentRoom = gate->nextRoomPath;
+                std::cout << "moving to " << currentRoom << std::endl;
+                player.position = gate->newPosition;
+                GlobalObjects::clear();
+                room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
+                fillGlobalObjects(room);
+                leave = true;
+                break;
+            }
+
+        }
+        if(leave){
+            break;
+        }
+    }
+
+    for(auto& tas : GlobalObjects::telegraphedAttacks){
+        tas.update(deltaTime);
+    }
 }
 /*
 int Game::renderInventory2(int argc, char *argv[]) {

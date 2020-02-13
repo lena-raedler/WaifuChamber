@@ -28,9 +28,10 @@ namespace GlobalObjects {
     extern std::vector<std::shared_ptr<Gate>> gates;
     extern std::pair<int, int> resolution;
     extern std::vector<std::shared_ptr<Boss>> bosses;
-    extern std::vector<Checkpoint> checkpoints;
+    extern std::vector<Checkpoint> allCheckpoints;
     extern std::vector<Ability> abilities; //0 ranged 1 melee
     extern std::vector<TelegraphedAttack> telegraphedAttacks;
+    extern std::vector<Checkpoint*> roomCheckpoints;
 };
 
 

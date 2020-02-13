@@ -101,6 +101,8 @@ private:
 
     void spawnBoss(int x, int y);
     void fillGlobalObjects(Room &room);
+
+    void nonPlayerUpkeep(double deltaTime);
 };
 
 
