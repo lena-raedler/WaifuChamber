@@ -130,9 +130,11 @@ void Movable::move(double delta){
     position.y = std::clamp(position.y, 0.0, 2000.0);
 
 
-    if(rec.get() != nullptr) {
+    if(rec.get() != nullptr) {//todo fix
         rec->x = position.x;
         rec->y = position.y;
+    } else{
+        std::cout << "ERROR: rec is NULL for Object" << std::endl;
     }
 }
 bool Movable::onPlatform(Platform& p){
