@@ -21,7 +21,7 @@
 #include "../../Inventory/Inventory.hpp"
 #include "Ability.h"
 #include "Bar.hpp"
-#include "../../utils/Image.hpp"
+#include "../../utils/Image.h"
 
 enum lastCheckPoint{//maybe we dont need this
     A1C1,

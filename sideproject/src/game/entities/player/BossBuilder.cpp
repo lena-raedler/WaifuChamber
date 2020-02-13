@@ -55,8 +55,13 @@ namespace BossBuilder{
                 b.usesPlatforms = true;
                 utility::fillDefaultHitbox(b.hitbox, 2);
                 b.phaseTransitionAbility= &BossBuilder::boss1;
+                {
+                    SDL_Rect r = {(int)b.position.x, (int)b.position.y, GlobalConstants::tileSize*2, GlobalConstants::tileSize*2};
+                    b.rec = std::make_shared<SDL_Rect>(r);
+                }
                 GlobalObjects::bosses.push_back(std::make_shared<Boss>(b));
                 break;
         }
+        GlobalObjects::bosses.back()->init(*GlobalObjects::renderPtr);
     }
 }

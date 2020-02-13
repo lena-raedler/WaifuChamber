@@ -10,7 +10,7 @@
 #include "EnemyBuilder.h"
 #include "BossBuilder.h"
 #include "TelegraphedAbility.h"
-#include "../../utils/Rgba.hpp"
+#include "../../utils/Rgba.h"
 
 class Boss : public Movable {
 public:

@@ -15,7 +15,7 @@
 #include <utility>
 #include <unordered_map>
 #include "renderer.h"
-#include "Image.hpp"
+#include "Image.h"
 #include "../world/Gate.h"
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/erase.hpp>

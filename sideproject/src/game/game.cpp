@@ -22,6 +22,7 @@
 #include "entities/player/Boss.h"
 #include "entities/player/AbilityPicker.h"
 #include "entities/player/TelegraphedAttack.h"
+#include "world/MusicPlayer.h"
 
 Mix_Music *gMusic = NULL;
 Mix_Music *gMusicBoss = NULL;
@@ -41,6 +42,7 @@ namespace GlobalObjects{
     std::vector<Ability> abilities;
     std::vector<TelegraphedAttack> telegraphedAttacks;
     std::shared_ptr<Renderer> renderPtr;
+    MusicPlayer musicPlayer;
     void clear(){
         enemies.clear();
         platforms.clear();
@@ -98,16 +100,15 @@ Game::Game()
     Mix_VolumeChunk(GlobalObjects::chunkPtr[0], 100);
     Mix_VolumeChunk(GlobalObjects::chunkPtr[1], 15);
     Mix_VolumeChunk(GlobalObjects::chunkPtr[2], 80);
-    gMusic=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 1.mp3");
-    gMusicBoss=Mix_LoadMUS("files/music/Hades - Scourge of the Furies 2.mp3");
-    gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
+    initializeMusic();
+
 
     //musicVolume = 60;    // 5/10 on the musicVolume tracker, max = 128
 
     //std::cout << getVolume() << std::endl;
 
-    Mix_VolumeMusic(getMusicVolume());
-    Mix_PlayMusic(gMusic, -1);
+    //Mix_VolumeMusic(getMusicVolume());
+    //Mix_PlayMusic(gMusic, -1);
     //Mix_Volume(-1, getVolume());     // MIX_MAX_VOLUME = 128
     Mix_Volume(-1, getEffectVolume());     // MIX_MAX_VOLUME = 128
 
@@ -131,7 +132,7 @@ Game::Game()
     }
 
     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
-    fillGlobalObjects(room);
+    fillGlobalObjects(room, true);
 
     quit = false;
 
@@ -312,7 +313,7 @@ int Game::loop() {
             GlobalObjects::clear();
             room = utility::parseRoom(player.lastCP->room, *renderer, GlobalObjects::resolution);
             currentRoom = player.lastCP->room;
-            fillGlobalObjects(room);
+            fillGlobalObjects(room, false);
             bossFight = false;
             player.kill();
         }
@@ -320,7 +321,7 @@ int Game::loop() {
         if(!bossFight && room.roomId == 3 && !bossDefeated(1)) {
 
             bossFight = true;
-            Mix_PlayMusic(gMusicBoss, -1);
+            GlobalObjects::musicPlayer.play(BOSS, 0);
             spawnBoss(800, 800);
         }
 
@@ -729,7 +730,14 @@ void Game::cleanup(bool& remove){
     GlobalObjects::projectiles = ps;
     GlobalObjects::bosses = bs;
 }
-void Game::fillGlobalObjects(Room& room){
+void Game::fillGlobalObjects(Room &room, bool initial) {
+    if(!initial) {
+        GlobalObjects::musicPlayer.initialId = room.musicId;
+        GlobalObjects::musicPlayer.initialType = AREAS;
+        GlobalObjects::musicPlayer.play(AREAS, room.musicId);
+    } else{
+        GlobalObjects::musicPlayer.play(OTHER, 0);
+    }
     room.fillPlatformVector(GlobalObjects::platforms);
     room.fillEnemyVector(GlobalObjects::enemies);
     for(auto i : GlobalObjects::enemies) {
@@ -751,6 +759,7 @@ void Game::spawnBoss(int x, int y){
 
 bool Game::bossDefeated(int i){
     int tmp = GlobalObjects::savedVariables.bossesDefeated >> (i - 1);
+    GlobalObjects::musicPlayer.play(AREAS, room.musicId);
     return tmp & 1;
 }
 
@@ -837,7 +846,7 @@ void Game::nonPlayerUpkeep(double deltaTime){
                 player.position = gate->newPosition;
                 GlobalObjects::clear();
                 room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
-                fillGlobalObjects(room);
+                fillGlobalObjects(room, false);
                 leave = true;
                 break;
             }
@@ -854,6 +863,13 @@ void Game::nonPlayerUpkeep(double deltaTime){
 }
 
 void Game::engageBoss(int id){
+
+}
+void Game::initializeMusic(){
+    GlobalObjects::musicPlayer.load(AREAS, "Hades - Scourge of the Furies 1.mp3");
+    GlobalObjects::musicPlayer.load(BOSS, "Hades - Scourge of the Furies 2.mp3");
+    GlobalObjects::musicPlayer.load(OTHER, "Dead Cells OST - Title Menu.mp3");
+    //gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
 
 }
 /*

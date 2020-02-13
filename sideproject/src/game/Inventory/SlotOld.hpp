@@ -5,7 +5,7 @@
 #pragma once
 
 #include "SDL2/SDL.h"
-#include "../utils/Image.hpp"
+#include "../utils/Image.h"
 #include "../utils/utility.h"
 #include "../GlobalConstants.h"
 #include <memory>

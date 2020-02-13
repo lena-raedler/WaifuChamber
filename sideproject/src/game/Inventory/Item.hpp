@@ -5,7 +5,7 @@
 #pragma once
 
 #include <string>
-#include "../utils/Image.hpp"
+#include "../utils/Image.h"
 #include "../utils/utility.h"
 
 class Item {

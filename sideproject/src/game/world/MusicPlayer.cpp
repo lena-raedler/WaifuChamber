@@ -2,7 +2,7 @@
 // Created by auki on 13.02.20.
 //
 
-#include "MusicPlayer.hpp"
+#include "MusicPlayer.h"
 #include "../SavedVariables.h"
 
 Song::~Song(){
@@ -36,6 +36,11 @@ void MusicPlayer::load(MusicType m, std::string s) {
     load(m, s, 0);
 }
 void MusicPlayer::play(MusicType m, int i, int loop) {
+
+    Mix_VolumeMusic(GlobalObjects::savedVariables.musicVolume * 12);
+    if(m == musicType && i == id && Mix_PlayingMusic()){
+        return;
+    }
     musicType = m;
     id = i;//to get which song is being played idk if useful
     switch(m){
@@ -54,6 +59,8 @@ void MusicPlayer::play(MusicType m, int i, int loop) {
                 Mix_PlayMusic(bossThemes[i].music, loop);
             }
             break;
+        default:
+            break;
 
     }
 }
@@ -68,4 +75,26 @@ void MusicPlayer::togglePause(){
         Mix_ResumeMusic();
     }
     paused = !paused;
+}
+void MusicPlayer::playInitial(){
+    switch(initialType){
+        case AREAS:
+            if(areas.size() > initialId) {
+                Mix_PlayMusic(areas[initialId].music, -1);
+            }
+            break;
+        case OTHER:
+            if(other.size() > initialId) {
+                Mix_PlayMusic(other[initialId].music, -1);
+            }
+            break;
+        case BOSS:
+            if(bossThemes.size() > initialId) {
+                Mix_PlayMusic(bossThemes[initialId].music, -1);
+            }
+            break;
+        default:
+            break;
+
+    }
 }

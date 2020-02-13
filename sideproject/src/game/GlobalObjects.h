@@ -17,6 +17,9 @@ class Boss;
 class Checkpoint;
 class Ability;
 class TelegraphedAttack;
+class MusicPlayer;
+class Platform;
+class Renderer;
 struct SavedVariables;
 namespace GlobalObjects {
     extern Mix_Chunk* chunkPtr[3];
@@ -33,6 +36,7 @@ namespace GlobalObjects {
     extern std::vector<TelegraphedAttack> telegraphedAttacks;
     extern std::vector<Checkpoint*> roomCheckpoints;
     extern std::shared_ptr<Renderer> renderPtr;
+    extern MusicPlayer musicPlayer;
 };
 
 

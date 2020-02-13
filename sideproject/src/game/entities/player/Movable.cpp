@@ -130,10 +130,10 @@ void Movable::move(double delta){
     position.y = std::clamp(position.y, 0.0, 2000.0);
 
 
-    rec->x = position.x;
-
-    rec->y = position.y;
-
+    if(rec.get() != nullptr) {
+        rec->x = position.x;
+        rec->y = position.y;
+    }
 }
 bool Movable::onPlatform(Platform& p){
     return true;

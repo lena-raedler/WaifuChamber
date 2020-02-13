@@ -5,7 +5,7 @@
 #pragma once
 
 #include "Button.hpp"
-#include "../utils/Image.hpp"
+#include "../utils/Image.h"
 #include "../utils/renderer.h"
 #include "../utils/utility.h"
 #include <string>
