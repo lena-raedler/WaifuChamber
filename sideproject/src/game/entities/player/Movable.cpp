@@ -127,8 +127,9 @@ void Movable::move(double delta){
 
     }
     position = projPosition;
-    position.y = std::clamp(position.y, 0.0, 2000.0);
+    position.y = std::clamp(position.y, 0.0, static_cast<double>(GlobalObjects::resolution.second));
 
+    position.x = std::clamp(position.x, 0.0, static_cast<double>(GlobalObjects::resolution.first));
 
     if(rec.get() != nullptr) {//todo fix
         rec->x = position.x;
@@ -146,8 +147,14 @@ void Movable::grounded(double delta) {
 }
 
 void Movable::init(Renderer& renderer) {
+    SDL_Rect r = {(int)position.x, (int)position.y, GlobalConstants::tileSize*size.x, GlobalConstants::tileSize*size.y};
+    rec = std::make_shared<SDL_Rect>(r);
     // creates texture
     SDL_Surface* s = IMG_Load(textureLocation.c_str());
     texture = renderer.createTextureFromSurface(s);
     SDL_FreeSurface(s);
+}
+
+void Movable::init(){
+    init(*GlobalObjects::renderPtr);
 }

@@ -21,9 +21,6 @@ void TelegraphedAttack::fire(){
     p.usesPlatforms = false;
     p.rec = std::make_shared<SDL_Rect>(rect);
     GlobalObjects::projectiles.push_back(std::make_shared<Projectile>(p));
-    std::cout << p.hitbox[0] << std::endl;
-    std::cout << p.hitbox[1] << std::endl;
-    std::cout << p.position << std::endl;
 }
 
 void TelegraphedAttack::render(Renderer& renderer){

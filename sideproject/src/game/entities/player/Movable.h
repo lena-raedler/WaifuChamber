@@ -39,6 +39,7 @@ public:
     vec_t position; // {0, 0};
     vec_t velocity; // {0, 0};
     vec_t terminalVelocity = {30, 50};
+    Vec2<int> size = {1,1};
     vec_t minPos;
     vec_t maxPos;
     bool usesPlatforms = true;
@@ -54,6 +55,7 @@ public:
     vec_t gravity();
     void init(Renderer& renderer);
 
+    void init();
 };
 
 

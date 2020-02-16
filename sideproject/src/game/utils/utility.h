@@ -35,6 +35,8 @@ namespace utility {
     bool triangleTriangleIntersection(const triangle a, const vec_t offseta, const triangle b, const vec_t offsetb);
     bool lineLineIntersection(const vec_t a1, const vec_t a2,const vec_t b1, const vec_t b2);
     void fillDefaultHitbox(std::vector<triangle>& vec, int i, vec_t offset);
+    void fillDefaultHitbox(std::vector<triangle>& vec, int x,int y, vec_t offset);
+    void fillDefaultHitbox(std::vector<triangle>& vec, int x,int y);
     void fillDefaultHitbox(std::vector<triangle>& v);
     int bongo();
     Room parseRoom(std::string path, Renderer &renderer, std::pair<int, int> resolution);

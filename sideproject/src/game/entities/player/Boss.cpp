@@ -66,7 +66,7 @@ void Boss::upkeep(double d){
         [[maybe_unused]] double& d= std::get<1>(stuff);
         int& p= std::get<2>(stuff);
 
-        if(p <= phase){//todo stuff
+        if(p <= phase){
             a.useIfAvail(d, position);
             a.lastUsed -= d;
         }
@@ -76,7 +76,7 @@ void Boss::upkeep(double d){
         [[maybe_unused]] double& d= std::get<1>(stuff);
         int& p= std::get<2>(stuff);
 
-        if(p <= phase){//todo stuff
+        if(p <= phase){
             a.useIfAvail(d, position);
             a.lastUsed -= d;
         }

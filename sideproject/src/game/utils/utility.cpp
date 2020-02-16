@@ -52,35 +52,24 @@ namespace utility {
     }
     void fillDefaultHitbox(std::vector<triangle>& vec){
 
-        fillDefaultHitbox(vec, 1);
+        fillDefaultHitbox(vec, 1, 1, {0,0});
 
     }
-    void fillDefaultHitbox(std::vector<triangle>& vec, int i){
-        {
-            triangle t{{0,                         0},
-                       {static_cast<double>(GlobalConstants::tileSize*i), 0},
-                       {0,                         static_cast<double>(GlobalConstants::tileSize * i)}};
-            vec.push_back(t);
-        }
-        {
-            triangle t{{static_cast<double>(GlobalConstants::tileSize * i),  static_cast<double>(GlobalConstants::tileSize * i)},
-                       {static_cast<double>(GlobalConstants::tileSize * i), 0},
-                       {0,  static_cast<double>(GlobalConstants::tileSize * i)}};
-            vec.push_back(t);
-        }
+    void fillDefaultHitbox(std::vector<triangle>& vec, int x, int y){
+        fillDefaultHitbox(vec, x, y, {0,0});
 
     }
-    void fillDefaultHitbox(std::vector<triangle>& vec, int i, vec_t offset){
+    void fillDefaultHitbox(std::vector<triangle>& vec, int x,int y, vec_t offset){
         {
             triangle t{offset,
-                       {static_cast<double>(GlobalConstants::tileSize*i) + offset.x, offset.y},
-                       {offset.x,                         static_cast<double>(GlobalConstants::tileSize * i) + offset.y}};
+                       {static_cast<double>(GlobalConstants::tileSize*x) + offset.x, offset.y},
+                       {offset.x,                         static_cast<double>(GlobalConstants::tileSize * y) + offset.y}};
             vec.push_back(t);
         }
         {
-            triangle t{{static_cast<double>(GlobalConstants::tileSize * i) + offset.x,  static_cast<double>(GlobalConstants::tileSize * i) + offset.y},
-                       {static_cast<double>(GlobalConstants::tileSize * i) + offset.x, offset.y},
-                       {offset.x,  static_cast<double>(GlobalConstants::tileSize * i) + offset.y}};
+            triangle t{{static_cast<double>(GlobalConstants::tileSize * x) + offset.x,  static_cast<double>(GlobalConstants::tileSize * y) + offset.y},
+                       {static_cast<double>(GlobalConstants::tileSize * x) + offset.x, offset.y},
+                       {offset.x,  static_cast<double>(GlobalConstants::tileSize * y) + offset.y}};
             vec.push_back(t);
         }
 

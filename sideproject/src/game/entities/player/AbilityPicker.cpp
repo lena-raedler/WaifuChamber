@@ -12,7 +12,7 @@ void AbilityPicker<T>::plRanged(int i, T& a){
     switch(i){
         case 0: //default shot
 
-            utility::fillDefaultHitbox(p.hitbox, 1, {-GlobalConstants::tileSize/2, -GlobalConstants::tileSize/2});
+            utility::fillDefaultHitbox(p.hitbox, 1,1, {-GlobalConstants::tileSize/2, -GlobalConstants::tileSize/2});
             p.damage = 20;
             p.timeToLive = 2000;
             p.usesPlatforms = false;
@@ -20,7 +20,7 @@ void AbilityPicker<T>::plRanged(int i, T& a){
             p.gravityType = NOGRAVITY;
             p.terminalVelocity = {200, 200};
             p.owner = PLAYER;
-            p.baseInit();
+            p.init();
 
             a.soundUse.load("smb_fireball.wav");
             a.addProjectile(p);
@@ -53,6 +53,7 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
     Projectile p;
     TelegraphedAttack attack;
     statuseffect s;
+    p.textureLocation = "textures/weapons/projectile_01.png";
     switch(i){
         case 1: //lazor
             p.gravityType = NOGRAVITY;
@@ -64,6 +65,7 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             utility::fillDefaultHitbox(p.hitbox);
             p.timeToLive = 12;
             p.velocity = {0, 0};
+            p.init();
             a.addProjectile(p);
             a.speed = 30;
             a.cooldown = 10;
@@ -78,6 +80,7 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             p.usesPlatforms = false;
             p.damage = 40;
             p.timeToLive = 20;
+            p.init();
             utility::fillDefaultHitbox(p.hitbox);
             a.speed = 40;
             a.cooldown = 100;

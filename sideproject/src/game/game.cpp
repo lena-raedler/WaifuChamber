@@ -683,7 +683,6 @@ void Game::cleanup(bool& remove){
                 tas.push_back(*it);
             } else{
                 it->fire();
-                std::cout << "Bongo" << std::endl;
             }
             ++it;
         }
@@ -719,6 +718,8 @@ void Game::cleanup(bool& remove){
 
             if (!it->get()->defeated) {
                 bs.push_back(*it);
+            } else{
+                std::cout << "YOU DEFEATED" << std::endl;
             }
             ++it;
         }
@@ -798,7 +799,6 @@ void Game::nonPlayerUpkeep(double deltaTime){
         }
 
     }
-
     for (auto& projectile : GlobalObjects::projectiles) {
         projectile->textureLocation = "files/textures/weapons/projectile_01.png";
         projectile->upkeep(deltaTime);
