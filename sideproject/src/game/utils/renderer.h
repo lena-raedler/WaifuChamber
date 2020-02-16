@@ -13,6 +13,7 @@
 #include <vector>
 #include <utility>
 #include "triangle.h"
+#include "../GlobalConstants.h"
 
 
 class Renderer {
@@ -32,6 +33,7 @@ public:
     static SDL_Color color(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
     SDL_Renderer* getRenderer();
     SDL_Surface* createSurface(std::string path);
+    void renderSprite(SDL_Texture* texture, vec_t pos, SDL_Rect* rect);
 
 private:
     SDL_Window* window;

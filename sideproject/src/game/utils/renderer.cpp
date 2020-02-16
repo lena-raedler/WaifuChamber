@@ -92,3 +92,11 @@ SDL_Surface* Renderer::createSurface(std::string path) {
     }
     return surface;
 }
+
+void Renderer::renderSprite(SDL_Texture *texture, vec_t pos, SDL_Rect *rect) {
+    int x = (int)pos.x;
+    int y = (int)pos.y;
+    SDL_Rect renderRect = {x, y, GlobalConstants::tileSize, GlobalConstants::tileSize};
+    //render to screen
+    SDL_RenderCopy(renderer, texture, rect, &renderRect);
+}

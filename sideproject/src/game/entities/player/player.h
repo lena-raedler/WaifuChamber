@@ -22,6 +22,7 @@
 #include "Ability.h"
 #include "Bar.hpp"
 #include "../../utils/Image.h"
+#include "Sprites.h"
 
 enum lastCheckPoint{//maybe we dont need this
     A1C1,
@@ -178,6 +179,10 @@ public:
 
 
     void dashTo(vec_t dest);
+    // sprites -> override functions from movable
+    Sprites playerSprite;
+    void init(Renderer& renderer);
+    void render(Renderer& renderer);
 
     bool areWeThereYet(vec_t dest);
 

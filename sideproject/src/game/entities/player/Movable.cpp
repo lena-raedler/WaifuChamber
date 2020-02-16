@@ -160,6 +160,13 @@ void Movable::move(double delta){
 
 
     }
+    vec_t tmp = projPosition - position;
+    auto length = tmp.length();
+    if(length < 0.5) {
+        isIdle = true;
+    } else {
+        isIdle = false;
+    }
     position = projPosition;
     position.y = std::clamp(position.y, 0.0, static_cast<double>(GlobalObjects::resolution.second));
 

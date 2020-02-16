@@ -41,7 +41,7 @@ namespace EnemyBuilder {
                 a.cooldown = 10;
 
                 e.abilities.push_back(a);
-                e.textureLocation = "files/textures/skeleton_01.png";
+                e.textureLocation = "files/textures/jellyfish.png";
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
@@ -75,7 +75,7 @@ namespace EnemyBuilder {
                 a.cooldown = 10;
 
                 e.abilities.push_back(a);
-                e.textureLocation = "files/textures/skeleton_01.png";
+                e.textureLocation = "files/textures/jellyfish.png";
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
@@ -94,7 +94,7 @@ namespace EnemyBuilder {
                 utility::fillDefaultHitbox(p.hitbox);
                 e.iframes = true;
                 e.damageOnTouch = 70;
-                e.textureLocation = "files/textures/skeleton_01.png";
+                e.textureLocation = "files/textures/jellyfish.png";
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
@@ -114,7 +114,7 @@ namespace EnemyBuilder {
                 utility::fillDefaultHitbox(p.hitbox);
                 e.iframes = true;
                 e.damageOnTouch = 70;
-                e.textureLocation = "files/textures/skeleton_01.png";
+                e.textureLocation = "files/textures/jellyfish.png";
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {

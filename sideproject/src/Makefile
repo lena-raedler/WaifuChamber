@@ -553,6 +553,87 @@ game/entities/player/Projectile.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Projectile.cpp.s
 .PHONY : game/entities/player/Projectile.cpp.s
 
+game/entities/player/Sprites.o: game/entities/player/Sprites.cpp.o
+
+.PHONY : game/entities/player/Sprites.o
+
+# target to build an object file
+game/entities/player/Sprites.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Sprites.cpp.o
+.PHONY : game/entities/player/Sprites.cpp.o
+
+game/entities/player/Sprites.i: game/entities/player/Sprites.cpp.i
+
+.PHONY : game/entities/player/Sprites.i
+
+# target to preprocess a source file
+game/entities/player/Sprites.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Sprites.cpp.i
+.PHONY : game/entities/player/Sprites.cpp.i
+
+game/entities/player/Sprites.s: game/entities/player/Sprites.cpp.s
+
+.PHONY : game/entities/player/Sprites.s
+
+# target to generate assembly for a file
+game/entities/player/Sprites.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Sprites.cpp.s
+.PHONY : game/entities/player/Sprites.cpp.s
+
+game/entities/player/TelegraphedAbility.o: game/entities/player/TelegraphedAbility.cpp.o
+
+.PHONY : game/entities/player/TelegraphedAbility.o
+
+# target to build an object file
+game/entities/player/TelegraphedAbility.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/TelegraphedAbility.cpp.o
+.PHONY : game/entities/player/TelegraphedAbility.cpp.o
+
+game/entities/player/TelegraphedAbility.i: game/entities/player/TelegraphedAbility.cpp.i
+
+.PHONY : game/entities/player/TelegraphedAbility.i
+
+# target to preprocess a source file
+game/entities/player/TelegraphedAbility.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/TelegraphedAbility.cpp.i
+.PHONY : game/entities/player/TelegraphedAbility.cpp.i
+
+game/entities/player/TelegraphedAbility.s: game/entities/player/TelegraphedAbility.cpp.s
+
+.PHONY : game/entities/player/TelegraphedAbility.s
+
+# target to generate assembly for a file
+game/entities/player/TelegraphedAbility.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/TelegraphedAbility.cpp.s
+.PHONY : game/entities/player/TelegraphedAbility.cpp.s
+
+game/entities/player/TelegraphedAttack.o: game/entities/player/TelegraphedAttack.cpp.o
+
+.PHONY : game/entities/player/TelegraphedAttack.o
+
+# target to build an object file
+game/entities/player/TelegraphedAttack.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/TelegraphedAttack.cpp.o
+.PHONY : game/entities/player/TelegraphedAttack.cpp.o
+
+game/entities/player/TelegraphedAttack.i: game/entities/player/TelegraphedAttack.cpp.i
+
+.PHONY : game/entities/player/TelegraphedAttack.i
+
+# target to preprocess a source file
+game/entities/player/TelegraphedAttack.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/TelegraphedAttack.cpp.i
+.PHONY : game/entities/player/TelegraphedAttack.cpp.i
+
+game/entities/player/TelegraphedAttack.s: game/entities/player/TelegraphedAttack.cpp.s
+
+.PHONY : game/entities/player/TelegraphedAttack.s
+
+# target to generate assembly for a file
+game/entities/player/TelegraphedAttack.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/TelegraphedAttack.cpp.s
+.PHONY : game/entities/player/TelegraphedAttack.cpp.s
+
 game/entities/player/player.o: game/entities/player/player.cpp.o
 
 .PHONY : game/entities/player/player.o
@@ -959,6 +1040,15 @@ help:
 	@echo "... game/entities/player/Projectile.o"
 	@echo "... game/entities/player/Projectile.i"
 	@echo "... game/entities/player/Projectile.s"
+	@echo "... game/entities/player/Sprites.o"
+	@echo "... game/entities/player/Sprites.i"
+	@echo "... game/entities/player/Sprites.s"
+	@echo "... game/entities/player/TelegraphedAbility.o"
+	@echo "... game/entities/player/TelegraphedAbility.i"
+	@echo "... game/entities/player/TelegraphedAbility.s"
+	@echo "... game/entities/player/TelegraphedAttack.o"
+	@echo "... game/entities/player/TelegraphedAttack.i"
+	@echo "... game/entities/player/TelegraphedAttack.s"
 	@echo "... game/entities/player/player.o"
 	@echo "... game/entities/player/player.i"
 	@echo "... game/entities/player/player.s"

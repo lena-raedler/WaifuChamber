@@ -82,7 +82,7 @@ Player::Player()
     // Player position
     position.x = 50;
     position.y = 50;
-    textureLocation = "files/textures/test_player.png";
+    textureLocation = "files/textures/edgy_player.png";
     usesPlatforms = true;
 }
 
@@ -397,4 +397,48 @@ bool Player::areWeThereYet(vec_t dest){
 
 bool Player::hasKey(Gate &g) {
     return (g.keyId == -1) || (1 & (keys >> g.keyId));
+}
+
+//functions for sprites - just leave me here
+void Player::init(Renderer &renderer) {
+    SDL_Surface* s = IMG_Load(textureLocation.c_str());
+    texture = renderer.createTextureFromSurface(s);
+    int textureWidth = s->w;
+    int textureHeight = s->h;
+    SDL_FreeSurface(s);
+    playerSprite.spriteSheet = texture;
+    int x_pos = 0;
+    int y_pos = textureHeight/4;
+    while((textureHeight - 2*(textureHeight/4)) >= y_pos ) {
+        while((textureWidth - (textureWidth/3)) >= x_pos) {
+            SDL_Rect r = {x_pos, y_pos, textureWidth/3, textureHeight/4};
+            playerSprite.sprites.push_back(r);
+            x_pos += textureWidth/3;
+        }
+        x_pos = 0;
+        y_pos += textureHeight/4;
+    }
+    //add idle position
+    SDL_Rect r = {textureWidth/3, 0, textureWidth/3, textureHeight/4};
+    playerSprite.sprites.push_back(r);
+}
+
+
+void Player::render(Renderer &renderer) {
+    Sprites toRender;
+    toRender.spriteSheet = playerSprite.spriteSheet;
+    if(isIdle) {
+        toRender.sprites.push_back(playerSprite.sprites[6]);
+    }
+    else if(velocity.x < 0) {
+        for(int i = 0; i < 3; i++) {
+            toRender.sprites.push_back(playerSprite.sprites[i]);
+        }
+    }
+    else {
+        for(int i = 3; i < 6; i++) {
+            toRender.sprites.push_back(playerSprite.sprites[i]);
+        }
+    }
+    toRender.render(renderer, position);
 }
