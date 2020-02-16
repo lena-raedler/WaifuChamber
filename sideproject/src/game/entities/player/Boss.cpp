@@ -86,7 +86,6 @@ void Boss::upkeep(double d){
 void Boss::getHit(double d){
     if(healthbars.size() > 0){
         healthbars[0].first -= d;
-        std::cout << healthbars[0].first << std::endl;
     }
 }
 void Boss::addAbility(Ability a, double probability, int phase){
