@@ -6,9 +6,10 @@
 
 #include "Button.hpp"
 #include "OptionsMenu.hpp"
-#include "../utils/Image.hpp"
+#include "../utils/Image.h"
 #include "../utils/renderer.h"
 #include "../utils/utility.h"
+#include "../world/MusicPlayer.h"
 
 class Game;
 class Menu {

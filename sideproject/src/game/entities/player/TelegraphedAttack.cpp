@@ -7,7 +7,10 @@
 
 void TelegraphedAttack::fire(){
     Projectile p;
+
     p.position ={static_cast<double>(x), static_cast<double>(y)};
+
+
     p.damage = damage;
     p.gravityType = NOGRAVITY;
     p.velocity ={0.0, 0.0};
@@ -36,10 +39,30 @@ void TelegraphedAttack::render(Renderer& renderer){
     SDL_RenderDrawLine(renderer.getRenderer(), x+w, y, x+w, y+h);
     SDL_RenderDrawLine(renderer.getRenderer(), x, y, x, y+h);
     SDL_RenderDrawLine(renderer.getRenderer(), x, y+h, x+w, y+h);
+    SDL_SetRenderDrawColor(renderer.getRenderer(), 255, 0, 0, 20);
+    SDL_RenderFillRect(renderer.getRenderer(), &rect);
 
 }
 
 void TelegraphedAttack::spawn(){
+    switch(aimed){
+        case 0:
+            break;
+        case 1:
+            x = GlobalObjects::playerPtr->position.x - w/2;
+            break;
+        case 2:
+            y = GlobalObjects::playerPtr->position.y - h/2;
+            break;
+        case 3:
+            x =GlobalObjects::playerPtr->position.x - w/2;
+            y =GlobalObjects::playerPtr->position.y - h/2;
+            break;
+        default:
+            break;
+
+    }
+    rect ={x, y, w, h};
     GlobalObjects::telegraphedAttacks.push_back(*this);
 }
 void TelegraphedAttack::update(double delta){

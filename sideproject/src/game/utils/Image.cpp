@@ -2,7 +2,7 @@
 // Created by bnorb on 23.01.20.
 //
 
-#include "Image.hpp"
+#include "Image.h"
 
 Image::Image() {}
 

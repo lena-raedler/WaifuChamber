@@ -5,7 +5,7 @@
 #pragma once
 #include "../utils/renderer.h"
 #include "../utils/utility.h"
-#include "../utils/Image.hpp"
+#include "../utils/Image.h"
 #include "../GlobalConstants.h"
 #include "../entities/player/SoundEffect.h"
 #include <string>

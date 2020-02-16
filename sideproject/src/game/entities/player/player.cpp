@@ -138,9 +138,6 @@ void Player::upkeep(double delta){
     vit.rot = std::max(0.0, vit.rot);
     vit.frenzy = std::max(0.0, vit.frenzy);
 
-    if(vit.bleed > 0){
-        std::cout << vit.bleed << std::endl;
-    }
 
     for(auto& a: GlobalObjects::abilities){
         a.lastUsed -= delta;
@@ -217,6 +214,7 @@ void Player::kill(){
     for(auto& s: statusEffects){
         removeStatusEffect(s);
     }
+    vit.setStatusToZero();
     statusEffects.clear();
     position = lastCP->position;
     rest();

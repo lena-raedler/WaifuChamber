@@ -27,3 +27,9 @@ void TelegraphedAbility::use(vec_t pos) {
         ta.spawn();
     }
 }
+void TelegraphedAbility::addProjectile(Projectile& p){//this function only exists to make the templated AbilityPicker work
+}
+
+void TelegraphedAbility::addAttack(TelegraphedAttack& a){
+    attack.push_back(a);
+}

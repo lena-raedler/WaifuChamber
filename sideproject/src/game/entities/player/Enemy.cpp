@@ -37,9 +37,11 @@ void Enemy::upkeep(double delta){
     move(delta);
 
     for(Ability& a : abilities){
-        if(a.isAvail(delta)){
-            a.use(position);
-        }
+        a.useIfAvail(delta, position);
+        a.lastUsed -= delta;
+    }
+    for(auto& a: telegraphedAbilities){
+        a.useIfAvail(delta, position);
         a.lastUsed -= delta;
     }
 }

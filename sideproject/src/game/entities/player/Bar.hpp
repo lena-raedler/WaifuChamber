@@ -6,7 +6,7 @@
 
 #include "SDL2/SDL.h"
 #include "../../utils/renderer.h"
-#include "../../utils/Rgba.hpp"
+#include "../../utils/Rgba.h"
 
 class Bar {
 public:

@@ -17,7 +17,7 @@
 #include <utility>
 #include "utils/utility.h"
 #include "world/room.h"
-#include "utils/Image.hpp"
+#include "utils/Image.h"
 #include "SavedVariables.h"
 #include <fstream>
 #include "Inventory/Inventory.hpp"
@@ -56,7 +56,7 @@ private:
     SDL_Texture* texture;
     SDL_Event e;
     SDL_Rect rectangle;
-    std::unique_ptr<Renderer> renderer;
+    std::shared_ptr<Renderer> renderer;
     bool quit;
     bool pause;
     Image pauseImage;
@@ -100,7 +100,13 @@ private:
     bool scuff3 = false;
 
     void spawnBoss(int x, int y);
-    void fillGlobalObjects(Room &room);
+    void fillGlobalObjects(Room &room, bool initial);
+
+    void nonPlayerUpkeep(double deltaTime);
+
+    void engageBoss(int id);
+
+    void initializeMusic();
 };
 
 

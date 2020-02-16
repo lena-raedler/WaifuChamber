@@ -5,6 +5,9 @@
 #include "Projectile.hpp"
 #include "../../GlobalObjects.h"
 
+Projectile::Projectile() : Movable(){
+    terminalVelocity = {2000, 2000};
+}
 Projectile::Projectile(vec_t positionTmp, int angle)
     : angle(angle)
     , status()

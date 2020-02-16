@@ -15,6 +15,8 @@
 
 class Ability {
 public:
+    void addProjectile(Projectile& p);
+    void addAttack(TelegraphedAttack& a);
     bool aimed = true;
     vec_t origin = {0, 0};
     vec_t aimOffset;
@@ -26,6 +28,9 @@ public:
     void useIfAvail(double delta, vec_t& pos);
     bool isAvail(double delta);
     void use(vec_t pos);
+    void setDamage(int i);
+    void set(int a,int b, int c, int d);
+    void spawn();
 };
 
 

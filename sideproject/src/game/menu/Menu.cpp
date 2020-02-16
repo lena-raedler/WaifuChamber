@@ -3,6 +3,7 @@
 //
 
 #include "Menu.hpp"
+#include "../GlobalObjects.h"
 //#include "../game.h"
 
 
@@ -63,6 +64,7 @@ void Menu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
             startGame = true;
             pause = false;
             startGameButton.clicked = true;
+            GlobalObjects::musicPlayer.playInitial();
         }
     }
     else if (!inOptions && saveGameButton.inButton(mouseX, mouseY)) {

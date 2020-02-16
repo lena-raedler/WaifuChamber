@@ -4,7 +4,7 @@
 #ifndef WAIFU_GLOBALCONSTANTS_H
 #define WAIFU_GLOBALCONSTANTS_H
 #include <vector>
-#include "./utils/Rgba.hpp"
+#include "utils/Rgba.h"
 
 namespace GlobalConstants {
     constexpr int deltaDenom = 100;

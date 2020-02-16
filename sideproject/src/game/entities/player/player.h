@@ -21,7 +21,7 @@
 #include "../../Inventory/Inventory.hpp"
 #include "Ability.h"
 #include "Bar.hpp"
-#include "../../utils/Image.hpp"
+#include "../../utils/Image.h"
 
 enum lastCheckPoint{//maybe we dont need this
     A1C1,
@@ -79,7 +79,7 @@ struct vitals{
     bool rotting = false;
     bool frenzied = false;
 
-    double statusDecay = 2;
+    double statusDecay = 1.5;
 
     void setStatusToZero(){
         bleed = 0;
