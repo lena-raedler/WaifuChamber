@@ -46,6 +46,7 @@ void Boss::upkeep(double d){
             transitionPhase();
         }
     } else{
+        BossBuilder::bossDefeated(id);
         defeated = true;
         kill();
         return;

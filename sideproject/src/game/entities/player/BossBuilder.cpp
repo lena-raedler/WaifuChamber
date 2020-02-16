@@ -69,4 +69,14 @@ namespace BossBuilder{
         }
         GlobalObjects::bosses.back()->init(*GlobalObjects::renderPtr);
     }
+
+    void bossDefeated(int i){
+        switch(i) {
+            case 1:
+                GlobalObjects::playerPtr->addKey(0);
+                break;
+            default:
+                break;
+        }
+    }
 }

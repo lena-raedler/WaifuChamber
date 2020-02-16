@@ -396,5 +396,10 @@ bool Player::areWeThereYet(vec_t dest){
 }
 
 bool Player::hasKey(Gate &g) {
-    return (g.keyId == -1) || (1 & (keys >> g.keyId));
+    return (g.keyId == -1) || (1 & (GlobalObjects::savedVariables.keys >> g.keyId));
+}
+
+void Player::addKey(int keyId){
+    GlobalObjects::savedVariables.keys |= (1 << keyId);
+    GlobalObjects::savedVariables.serialize();
 }
