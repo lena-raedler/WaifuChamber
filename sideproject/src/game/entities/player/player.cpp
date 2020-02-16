@@ -381,5 +381,20 @@ void Player::init(Renderer &renderer) {
 
 
 void Player::render(Renderer &renderer) {
-    playerSprite.render(renderer, position, (int)velocity.x, isIdle);
+    Sprites toRender;
+    toRender.spriteSheet = playerSprite.spriteSheet;
+    if(isIdle) {
+        toRender.sprites.push_back(playerSprite.sprites[6]);
+    }
+    else if(velocity.x < 0) {
+        for(int i = 0; i < 3; i++) {
+            toRender.sprites.push_back(playerSprite.sprites[i]);
+        }
+    }
+    else {
+        for(int i = 3; i < 6; i++) {
+            toRender.sprites.push_back(playerSprite.sprites[i]);
+        }
+    }
+    toRender.render(renderer, position);
 }
