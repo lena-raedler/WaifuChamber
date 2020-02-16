@@ -381,5 +381,5 @@ void Player::init(Renderer &renderer) {
 
 
 void Player::render(Renderer &renderer) {
-    playerSprite.render(renderer, position, (int)velocity.x);
+    playerSprite.render(renderer, position, (int)velocity.x, isIdle);
 }

@@ -53,6 +53,7 @@ public:
     std::vector<triangle> hitbox; //RELATIVE!!!!!!
     vec_t gravity();
     void init(Renderer& renderer);
+    bool isIdle;
 
 };
 
