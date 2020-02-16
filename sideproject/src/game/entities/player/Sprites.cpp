@@ -21,9 +21,11 @@ void Sprites::render(Renderer &renderer, vec_t pos, int orientation) {
     if(orientation >= 0) {
         toRender = {sprites[3], sprites[4], sprites[5]};
     }
+    //add idle position here
     if(currentFrame++ >= maxFrame) {
         currentFrame = 0;
         ++activeSprite %= toRender.size(); //theoretically can be 0 !!
     }
     renderer.renderSprite(spriteSheet, pos, &toRender[activeSprite]);
+
 }

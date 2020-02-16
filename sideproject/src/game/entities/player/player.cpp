@@ -359,8 +359,8 @@ void Player::setStatusBarPosition(Bar& bar, statuseffect& status) {
 void Player::init(Renderer &renderer) {
     SDL_Surface* s = IMG_Load(textureLocation.c_str());
     texture = renderer.createTextureFromSurface(s);
-    int textureWidth = s->w;  //36 * 4
-    int textureHeight = s->h; //48 * 4
+    int textureWidth = s->w;
+    int textureHeight = s->h;
     SDL_FreeSurface(s);
     playerSprite.spriteSheet = texture;
     int x_pos = 0;
@@ -374,6 +374,9 @@ void Player::init(Renderer &renderer) {
         x_pos = 0;
         y_pos += textureHeight/4;
     }
+    //add idle position
+    SDL_Rect r = {textureWidth/3, 0, textureWidth/3, textureHeight/4};
+    playerSprite.sprites.push_back(r);
 }
 
 
