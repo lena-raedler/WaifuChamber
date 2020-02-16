@@ -8,6 +8,7 @@
 #include <SDL2/SDL.h>
 #include <cstdint>
 #include "KeyboardMapping.h"
+#include "Vec2.h"
 
 class InputManager {
 public:
@@ -26,6 +27,8 @@ public:
     bool update(); //returns false if user quits
     void init();
     void flush();
+
+    Vec2<double> mouseVec();
 };
 
 

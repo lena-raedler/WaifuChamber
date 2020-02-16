@@ -89,6 +89,7 @@ struct Vec2 {
         x /= div;
         y /= div;
     }
+
 };
 using vec_t = Vec2<value_t>;
 

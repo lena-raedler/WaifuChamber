@@ -3,6 +3,8 @@
 //
 
 #include "InputManager.h"
+#include "Vec2.h"
+
 void InputManager::init(){
     keyboard = SDL_GetKeyboardState(nullptr);
 }
@@ -120,4 +122,8 @@ void InputManager::flush() {
         this->mouseDown[i] = false;
         this->mouseUp[i]   = false;
     }
+}
+
+vec_t InputManager::mouseVec(){
+    return{static_cast<double>(mouseX),static_cast<double>(mouseY)};
 }
