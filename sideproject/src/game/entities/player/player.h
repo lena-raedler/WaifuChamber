@@ -21,6 +21,7 @@
 #include "../../Inventory/Inventory.hpp"
 #include "Ability.h"
 #include "Bar.hpp"
+#include "Sprites.h"
 
 enum lastCheckPoint{//maybe we dont need this
     A1C1,
@@ -145,7 +146,10 @@ public:
     void setStatusBarPosition(Bar& bar, statuseffect& status);
 
 
-
+    // sprites -> override functions from movable
+    Sprites playerSprite;
+    void init(Renderer& renderer);
+    void render(Renderer& renderer);
 
 
 

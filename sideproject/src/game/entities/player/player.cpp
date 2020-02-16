@@ -74,7 +74,7 @@ Player::Player()
     // Player position
     position.x = 50;
     position.y = 50;
-    textureLocation = "files/textures/test_player.png";
+    textureLocation = "files/textures/edgy_player.png";
     usesPlatforms = true;
 }
 
@@ -353,4 +353,30 @@ void Player::setStatusBarPosition(Bar& bar) {
 void Player::setStatusBarPosition(Bar& bar, statuseffect& status) {
     bar.updateBar(status.durationLeft / status.duration);
     setStatusBarPosition(bar);
+}
+
+//functions for sprites - just leave me here
+void Player::init(Renderer &renderer) {
+    SDL_Surface* s = IMG_Load(textureLocation.c_str());
+    texture = renderer.createTextureFromSurface(s);
+    int textureWidth = s->w;  //36 * 4
+    int textureHeight = s->h; //48 * 4
+    SDL_FreeSurface(s);
+    playerSprite.spriteSheet = texture;
+    int x_pos = 0;
+    int y_pos = textureHeight/4;
+    while((textureHeight - 2*(textureHeight/4)) >= y_pos ) {
+        while((textureWidth - (textureWidth/3)) >= x_pos) {
+            SDL_Rect r = {x_pos, y_pos, textureWidth/3, textureHeight/4};
+            playerSprite.sprites.push_back(r);
+            x_pos += textureWidth/3;
+        }
+        x_pos = 0;
+        y_pos += textureHeight/4;
+    }
+}
+
+
+void Player::render(Renderer &renderer) {
+    playerSprite.render(renderer, position, (int)velocity.x);
 }
