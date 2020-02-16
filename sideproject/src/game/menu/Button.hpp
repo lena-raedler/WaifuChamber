@@ -15,6 +15,7 @@ class Button {
 public:
     Button() = default;
     Button(Renderer& renderer, std::string imagePath, std::string imagePathHighlighted, int x, int y, int width, int height);
+    Button(Renderer& renderer, std::string imagePath, std::string imagePathHighlighted, std::string soundPath, int soundVolume, int xTmp, int yTmp, int widthTmp, int heightTmp);
     ~Button() = default;
     int x, y, width, height = 0;
     Image image, imageHighlighted;

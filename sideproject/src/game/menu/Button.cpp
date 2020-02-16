@@ -17,7 +17,24 @@ Button::Button(Renderer& renderer, std::string imagePath, std::string imagePathH
     image.getRect()->h = imageHighlighted.getRect()->h = height;
     highlighted = false;
     clicked = false;
-    soundEffect.load("button_press_1.wav", MIX_MAX_VOLUME);
+    soundEffect.load("menu/CURSOL_SELECT.wav", MIX_MAX_VOLUME*3/4);
+}
+
+// TODO Duplicated because I'm lazy
+Button::Button(Renderer& renderer, std::string imagePath, std::string imagePathHighlighted, std::string soundPath, int soundVolume, int xTmp, int yTmp, int widthTmp, int heightTmp) {
+    x = xTmp;
+    y = yTmp;
+    width = widthTmp;
+    height = heightTmp;
+    image = utility::loadImage(imagePath, renderer);
+    imageHighlighted = utility::loadImage(imagePathHighlighted, renderer);
+    image.getRect()->x = imageHighlighted.getRect()->x = x;
+    image.getRect()->y = imageHighlighted.getRect()->y = y;
+    image.getRect()->w = imageHighlighted.getRect()->w = width;
+    image.getRect()->h = imageHighlighted.getRect()->h = height;
+    highlighted = false;
+    clicked = false;
+    soundEffect.load(soundPath, soundVolume);
 }
 
 void Button::renderButton(Renderer& renderer) {

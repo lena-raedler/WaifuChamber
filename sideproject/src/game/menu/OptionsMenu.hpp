@@ -20,6 +20,7 @@ public:
     Button increaseEffectVolumeButton, decreaseEffectVolumeButton;
     Button increaseMusicVolumeButton, decreaseMusicVolumeButton;
     Button debugActiveButton, debugInactiveButton;
+    Button returnButton;
     bool increaseEffectVolume, decreaseEffectVolume;
     bool increaseMusicVolume, decreaseMusicVolume;
     bool debugActive;

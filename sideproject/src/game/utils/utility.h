@@ -6,6 +6,7 @@
 #define WAIFU_UTILITY_H
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include <SDL2/SDL_ttf.h>
 #include "Vec2.h"
 #include "triangle.h"
 #include <vector>
@@ -23,6 +24,7 @@
 #include "../world/gateInformation.h"
 #include "../world/LockedWall.h"
 #include "../entities/player/EnemyInformation.h"
+//#include "PositionSize.hpp"
 
 class Room;
 
@@ -40,11 +42,16 @@ namespace utility {
     void fillDefaultHitbox(std::vector<triangle>& v);
     int bongo();
     Room parseRoom(std::string path, Renderer &renderer, std::pair<int, int> resolution);
+    Image loadImage(std::string path);
     Image loadImage(std::string path, Renderer& renderer);
     void fillDefaultHitbox(std::vector<triangle>& vec, int i);
     vec_t getMax(std::vector<triangle>& tris);
     vec_t getMin(std::vector<triangle>& tris);
 
+    TTF_Font* loadFont();
+    TTF_Font* loadFont(int fontSize);
+    TTF_Font* loadFont(std::string fontPath, int fontSize);
+    SDL_Texture* loadFromRenderedText(TTF_Font* font, std::string textureText, SDL_Color textColor, SDL_Rect& positionSize);
 }
 
 

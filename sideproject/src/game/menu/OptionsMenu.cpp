@@ -36,15 +36,20 @@ OptionsMenu::OptionsMenu(Renderer& renderer) {
     }
 
     increaseEffectVolumeButton = Button(renderer, "files/textures/menu/options/increase_effect_volume.png", "files/textures/menu/options/increase_effect_volume_highlighted.png", x + width * 2 + widthGap * 2, y, width, height);
+
     increaseMusicVolumeButton = Button(renderer, "files/textures/menu/options/increase_music_volume.png", "files/textures/menu/options/increase_music_volume_highlighted.png", x + width * 2 + widthGap * 2, y+height+heightGap, width, height);
 
     debugActiveButton = Button(renderer, "files/textures/menu/options/debug_active.png", "files/textures/menu/options/debug_active_highlighted.png", x+decreaseEffectVolumeButton.width+widthGap, y+(height+heightGap)*2, width, height);
+
     debugInactiveButton = Button(renderer, "files/textures/menu/options/debug_inactive.png", "files/textures/menu/options/debug_inactive_highlighted.png", x+decreaseEffectVolumeButton.width+widthGap, y+(height+heightGap)*2, width, height);
+
+    returnButton = Button(renderer, "files/textures/menu/options/return.png", "files/textures/menu/options/return_highlighted.png", x+width+widthGap, y+(height+heightGap)*3, width, height);
 
     increaseEffectVolume = false;
     decreaseEffectVolume = false;
     increaseMusicVolume = false;
     decreaseMusicVolume = false;
+    // returnButton.clicked = false     // Not needed because I will handle this within the button
     debugActive = false;
 }
 
@@ -62,12 +67,15 @@ void OptionsMenu::renderOptionsMenu(Renderer& renderer) {
     else
         debugInactiveButton.renderButton(renderer);
 
+    returnButton.renderButton(renderer);
+
     increaseEffectVolumeButton.highlighted = false;
     decreaseEffectVolumeButton.highlighted = false;
     increaseMusicVolumeButton.highlighted = false;
     decreaseMusicVolumeButton.highlighted = false;
     debugActiveButton.highlighted = false;
     debugInactiveButton.highlighted = false;
+    returnButton.highlighted = false;
 }
 
 void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
@@ -115,5 +123,10 @@ void OptionsMenu::resolveMouseInput(int mouseX, int mouseY, bool clicked) {
             debugActiveButton.clicked = true;   // Bloated and assigned twice; But at least I don't need to copy the else if()
             debugInactiveButton.clicked = true;
         }
+    }
+    else if (returnButton.inButton(mouseX, mouseY)) {
+        returnButton.highlighted = true;
+        if (clicked)
+            returnButton.clicked = true;
     }
 }

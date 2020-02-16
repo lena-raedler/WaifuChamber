@@ -23,6 +23,7 @@
 #include "Bar.hpp"
 #include "../../utils/Image.h"
 #include "Sprites.h"
+#include "../../SavedVariables.h"
 
 enum lastCheckPoint{//maybe we dont need this
     A1C1,
@@ -137,8 +138,6 @@ public:
 
     double dashRange = 128;
 
-    int keys = 0;
-
     int statusBarWidth = GlobalConstants::tileSize * 2;
     int statusBarBackgroundOffset = 4;
     int statusBarHeight = GlobalConstants::tileSize / 4;
@@ -187,6 +186,8 @@ public:
     bool areWeThereYet(vec_t dest);
 
     bool hasKey(Gate &g);
+
+    void addKey(int keyId);
 };
 
 

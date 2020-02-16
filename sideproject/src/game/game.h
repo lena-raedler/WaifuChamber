@@ -7,6 +7,7 @@
 
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+#include <SDL2/SDL_ttf.h>
 #include "SDL2/SDL2_gfxPrimitives.h"
 #include <string>
 #include <memory>
@@ -26,6 +27,7 @@
 #include "Inventory/Slot.hpp"
 #include "entities/player/Ability.h"
 #include "menu/Menu.hpp"
+#include "utils/Text.hpp"
 
 // QT Widget
 //#include "Calculator/calculator.hpp"
@@ -92,6 +94,19 @@ private:
     int getMusicVolume() { return musicVolume * volumeStep; }
     void handleMenu();
     void renderDebugTextures();
+
+    //Globally used font
+    TTF_Font *gFont = nullptr;
+    bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
+    bool loadMedia();
+
+    //The actual hardware texture
+    SDL_Texture* mTexture;
+    int mWidth = 0;
+    int mHeight = 0;
+    void renderTTF( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
+
+    Text testText;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed
