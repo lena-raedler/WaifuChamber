@@ -31,13 +31,13 @@ void TelegraphedAttack::render(Renderer& renderer){
     } else{
         tmp.h *= (time/maxTime);
     }
-    SDL_RenderFillRect(renderer.getRenderer(), &tmp);
+    boxRGBA(renderer.getRenderer(), tmp.x, tmp.y,tmp.x+ tmp.w,tmp.y+ tmp.h, 255, 0, 0,120);
     SDL_RenderDrawLine(renderer.getRenderer(), x, y, x+w, y);
     SDL_RenderDrawLine(renderer.getRenderer(), x+w, y, x+w, y+h);
     SDL_RenderDrawLine(renderer.getRenderer(), x, y, x, y+h);
     SDL_RenderDrawLine(renderer.getRenderer(), x, y+h, x+w, y+h);
     SDL_SetRenderDrawColor(renderer.getRenderer(), 255, 0, 0, 20);
-    SDL_RenderFillRect(renderer.getRenderer(), &rect);
+    boxRGBA(renderer.getRenderer(), rect.x, rect.y, rect.x +rect.w, rect.y+rect.h, 255, 0, 0,20);
 
 }
 

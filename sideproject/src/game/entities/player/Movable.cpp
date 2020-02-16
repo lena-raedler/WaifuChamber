@@ -123,6 +123,40 @@ void Movable::move(double delta){
 
             }
         }
+        for(auto& g: GlobalObjects::gates){
+
+
+            for(triangle t : hitbox) {
+                vec_t min = utility::getMin(g->hitbox);
+                vec_t max = utility::getMax(g->hitbox);
+                min+=g->position;
+                max+=g->position;
+                t += position;
+                bool collide = g->collide(t);
+                if (fragile && collide) {
+                    alive = false;
+                    return;
+                }
+                if(collide && !hasKey(*g)){
+                    if (position.x <= min.x) {//above
+                        projPosition.x = min.x - xMax; //maybe add epsilon idk
+                        if (velocity.x > 0) {
+                            velocity.x = 0;
+                        } else {
+                            projPosition.x += velocity.x * delta;
+                        }
+                    } else {//below
+                        projPosition.x = max.x;
+                        if (velocity.x < 0) {
+                            velocity.x = 0;
+                        } else {
+                            projPosition.x += velocity.x * delta;
+                        }
+
+                    }
+                }
+            }
+        }
 
 
     }
@@ -157,4 +191,8 @@ void Movable::init(Renderer& renderer) {
 
 void Movable::init(){
     init(*GlobalObjects::renderPtr);
+}
+
+bool Movable::hasKey(Gate& g){
+    return false;
 }

@@ -394,3 +394,7 @@ void Player::dashTo(vec_t dest){
 bool Player::areWeThereYet(vec_t dest){
     return (dest - position).length() <= GlobalConstants::epsilon;
 }
+
+bool Player::hasKey(Gate &g) {
+    return (g.keyId == -1) || (1 & (keys >> g.keyId));
+}

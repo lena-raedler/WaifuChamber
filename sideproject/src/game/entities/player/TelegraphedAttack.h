@@ -16,6 +16,7 @@
 #include <memory>
 #include <vector>
 #include "../../GlobalConstants.h"
+#include "SDL2/SDL2_gfxPrimitives.h"
 #include "Projectile.hpp"
 #include "../../world/Platform.h"
 

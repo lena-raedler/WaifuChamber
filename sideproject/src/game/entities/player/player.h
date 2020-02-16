@@ -136,6 +136,8 @@ public:
 
     double dashRange = 128;
 
+    int keys = 0;
+
     int statusBarWidth = GlobalConstants::tileSize * 2;
     int statusBarBackgroundOffset = 4;
     int statusBarHeight = GlobalConstants::tileSize / 4;
@@ -178,6 +180,8 @@ public:
     void dashTo(vec_t dest);
 
     bool areWeThereYet(vec_t dest);
+
+    bool hasKey(Gate &g);
 };
 
 

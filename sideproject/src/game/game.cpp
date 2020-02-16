@@ -864,7 +864,7 @@ void Game::nonPlayerUpkeep(double deltaTime){
     for(auto& gate : GlobalObjects::gates){
         for(triangle t : player.hitbox) {
             t+=player.position;
-            if (gate->collide(t)) {
+            if (player.hasKey(*gate) && gate->collide(t)) {
 
                 currentRoom = gate->nextRoomPath;
                 std::cout << "moving to " << currentRoom << std::endl;

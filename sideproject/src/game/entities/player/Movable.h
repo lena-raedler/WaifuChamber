@@ -56,6 +56,8 @@ public:
     void init(Renderer& renderer);
 
     void init();
+
+    virtual bool hasKey(Gate &g);
 };
 
 
