@@ -294,7 +294,7 @@ bool loadMedia()
 
 	//Open the font
 	//gFont = TTF_OpenFont( "16_true_type_fonts/lazy.ttf", 28 );
-	gFont = TTF_OpenFont( "/home/bnorb/CLionProjects/WaifuChamber/exercises/test/lazy.ttf", 28 );
+	gFont = TTF_OpenFont( "/home/lena/Documents/cpp_exercises/WaifuChamber/exercises/test/lazy.ttf", 28 );
 	if( gFont == NULL )
 	{
 		printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );

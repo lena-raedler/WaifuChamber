@@ -402,6 +402,18 @@ namespace utility {
                     room.bossInformation.push_back(bossInformation);
                 }
             }
+            else if(line.find("MUSIC") != std::string::npos) {
+                while(line.find("END") == std::string::npos) {
+                    std::getline(roomFile, line);
+                    if(line.find("END") != std::string::npos) {
+                        break;
+                    }
+                    while(line.front() == ' ') {
+                        boost::algorithm::erase_first(line, " ");
+                    }
+                    room.musicId = std::atoi(line.c_str());
+                }
+            }
 
         }
 
