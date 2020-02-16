@@ -418,7 +418,7 @@ namespace utility {
     }
 
     Image loadImage(std::string path) {
-        loadImage(path, *GlobalObjects::renderPtr);
+        return loadImage(path, *GlobalObjects::renderPtr);
     }
     Image loadImage(std::string path, Renderer& renderer) {
         SDL_Surface* surface = IMG_Load(path.c_str());
