@@ -11,6 +11,7 @@
 #include "BossBuilder.h"
 #include "TelegraphedAbility.h"
 #include "../../utils/Rgba.h"
+#include "../../utils/Text.hpp"
 
 class Boss : public Movable {
 public:
@@ -30,6 +31,7 @@ public:
     bool defeated = false;
     double speed;
     std::string name;
+    Text nameText;
 
     void (*phaseTransitionAbility)(int a, Boss& b);
 

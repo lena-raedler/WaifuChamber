@@ -417,6 +417,9 @@ namespace utility {
 
     }
 
+    Image loadImage(std::string path) {
+        loadImage(path, *GlobalObjects::renderPtr);
+    }
     Image loadImage(std::string path, Renderer& renderer) {
         SDL_Surface* surface = IMG_Load(path.c_str());
         if (!surface)
@@ -459,5 +462,45 @@ namespace utility {
         return min;
     }
 
+    // Default font and size
+    TTF_Font* loadFont() {
+        return loadFont(40);
+    }
+    TTF_Font* loadFont(int fontSize) {
+        return loadFont("files/freefont-20120503/FreeSerif.ttf", fontSize);
+    }
+    TTF_Font* loadFont(std::string fontPath, int fontSize) {
+        TTF_Font* font = TTF_OpenFont(fontPath.c_str(), fontSize);
+        if (font == nullptr) {
+            printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+        }
+        return font;
+    }
 
+    SDL_Texture* loadFromRenderedText(TTF_Font* font, std::string textureText, SDL_Color textColor, SDL_Rect& rect) {
+        SDL_Texture* fontTexture = nullptr;
+
+        //Render text surface
+        SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str(), textColor);
+        if( textSurface == nullptr ) {
+            printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
+        }
+        else {
+            //Create texture from surface pixels
+            fontTexture = SDL_CreateTextureFromSurface(GlobalObjects::renderPtr->getRenderer(), textSurface );
+            if (fontTexture == nullptr) {
+                printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
+            }
+            else {
+                //Get image dimensions
+                rect.w = textSurface->w;
+                rect.h = textSurface->h;
+            }
+
+            //Get rid of old surface
+            SDL_FreeSurface(textSurface);
+        }
+
+        return fontTexture;
+    }
 }

@@ -19,7 +19,7 @@ public:
     Menu(Renderer& renderer);
     ~Menu() = default;
     bool startGame, saveGame, inOptions, exitGame, pause;
-    Button startGameButton;
+    Button startGameButton, continueGameButton;
     Button optionsGameButton;
     Button exitGameButton;
     Button saveGameButton;

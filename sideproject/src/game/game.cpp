@@ -78,6 +78,24 @@ Game::Game()
     GlobalObjects::renderPtr = std::make_shared<Renderer>(GlobalObjects::resolution);
     renderer = GlobalObjects::renderPtr;
 
+
+    /// SDL_TTF ///
+    //Initialize SDL_ttf
+
+    //bool ttfSuccess;
+    if (TTF_Init() == -1) {
+        printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+        //ttfSuccess = false;
+    }
+
+    // Text::Text(std::string text, std::string fontPath, int fontSize, SDL_Color messageColor)
+    //testText = Text("Hello, I am a sample text :)", "files/freefont-20120503/FreeSerif.ttf", 40, {0, 0, 0});
+    testText = Text("Yo guys, what's up?", 80, {0x88, 0x88, 0x88});
+    //loadMedia();
+    testText.changeText("I am a different text now");
+    /// END ///
+
+
     player.init(*renderer);
     GlobalObjects::playerPtr = &player;
     //init sound
@@ -268,6 +286,10 @@ Game::~Game() {
     Mix_Quit();
     IMG_Quit();
     SDL_Quit();
+
+    TTF_CloseFont( gFont );
+    TTF_Quit();
+
 }
 
 int Game::loop() {
@@ -360,6 +382,7 @@ void Game::handleMenu() {
     }
 
     // Options menu
+    // TODO The optionsMen.boolSomething doesn't need to get set to false; I can do this within the Button itself
     if (menu.inOptions) {
         if (menu.optionsMenu.increaseMusicVolume) {
             if (getMusicVolume() <= 108)
@@ -380,6 +403,10 @@ void Game::handleMenu() {
             if (getEffectVolume() >= 12)
                 effectVolume--;
             menu.optionsMenu.decreaseEffectVolume = false;
+        }
+        else if (menu.optionsMenu.returnButton.clicked) {
+            menu.inOptions = !menu.inOptions;
+            menu.optionsMenu.returnButton.clicked = false;
         }
 
         Mix_VolumeMusic(getMusicVolume());
@@ -579,6 +606,7 @@ void Game::render() {
         //renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
         b->bars[0].renderBar(*renderer);
         //b.healthBar.renderBar(*renderer);
+        b->nameText.render();
     }
     for(auto& c : GlobalObjects::allCheckpoints){
         if(boost::algorithm::equals(currentRoom, c.room)) {
@@ -627,6 +655,10 @@ void Game::render() {
         drawDashHelper();
     }
 
+    //testText.render();
+    //renderTTF( (1920-mWidth)/2, (1080-mHeight)/2 );
+    //SDL_RenderCopyEx( *renderer, mTexture, clip, &renderQuad, angle, center, flip );
+
     renderer->render();
 }
 
@@ -658,15 +690,15 @@ void Game::renderDebugTextures() {
             }
         }
     }
-    for(auto& i : GlobalObjects::enemies) {
+    //for(auto& i : GlobalObjects::enemies) {
         //i->render(*renderer);
-    }
-    for(auto& i : GlobalObjects::projectiles) {
+    //}
+    //for(auto& i : GlobalObjects::projectiles) {
         //i->render(*renderer);
-    }
-    for(auto& i: GlobalObjects::telegraphedAttacks){
+    //}
+    //for(auto& i: GlobalObjects::telegraphedAttacks){
         //i.render(*renderer);
-    }
+    //}
 }
 
 /*
@@ -924,4 +956,87 @@ void Game::drawDashHelper(){
     playerToMouse *= std::min(player.dashRange, length);
     vec_t tmp = playerToMouse + playerMiddle;
     SDL_RenderDrawLine(renderer->getRenderer(), playerMiddle.x, playerMiddle.y, tmp.x, tmp.y);
+}
+
+
+bool Game::loadFromRenderedText(std::string textureText, SDL_Color textColor) {
+    //Get rid of preexisting texture
+    //free();
+    if (mTexture != nullptr) {
+        SDL_DestroyTexture( mTexture );
+        mTexture = nullptr;
+        mWidth = 0;
+        mHeight = 0;
+    }
+
+    //Render text surface
+    SDL_Surface* textSurface = TTF_RenderText_Solid( gFont, textureText.c_str(), textColor );
+    if( textSurface == nullptr )
+    {
+        printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
+    }
+    else
+    {
+        //Create texture from surface pixels
+        mTexture = SDL_CreateTextureFromSurface(renderer->getRenderer(), textSurface );
+        if( mTexture == nullptr )
+        {
+            printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
+        }
+        else
+        {
+            //Get image dimensions
+            mWidth = textSurface->w;
+            mHeight = textSurface->h;
+        }
+
+        //Get rid of old surface
+        SDL_FreeSurface( textSurface );
+    }
+
+    //Return success
+    return mTexture != nullptr;
+}
+
+bool Game::loadMedia() {
+    //Loading success flag
+    bool success = true;
+
+    //Open the font
+    //gFont = TTF_OpenFont( "16_true_type_fonts/lazy.ttf", 28 );
+    //gFont = TTF_OpenFont( "/home/bnorb/CLionProjects/WaifuChamber/exercises/test/lazy.ttf", 28 );
+    gFont = TTF_OpenFont( "files/freefont-20120503/FreeSerif.ttf", 40 );
+    if( gFont == NULL )
+    {
+        printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+        success = false;
+    }
+    else
+    {
+        //Render text
+        SDL_Color textColor = { 0, 0, 0 };
+        if( !loadFromRenderedText( "Fuck you CMake DansGame", textColor ) )
+        {
+            printf( "Failed to render text texture!\n" );
+            success = false;
+        }
+    }
+
+    return success;
+}
+
+void Game::renderTTF( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
+{
+    //Set rendering space and render to screen
+    SDL_Rect renderQuad = { x, y, mWidth, mHeight };
+
+    //Set clip rendering dimensions
+    if( clip != nullptr )
+    {
+        renderQuad.w = clip->w;
+        renderQuad.h = clip->h;
+    }
+
+    //Render to screen
+    SDL_RenderCopyEx( renderer->getRenderer(), mTexture, clip, &renderQuad, angle, center, flip );
 }
