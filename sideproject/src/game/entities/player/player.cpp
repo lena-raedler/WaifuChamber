@@ -99,8 +99,23 @@ void Player::updatePlayer(double x, double y) {
 }
 
 void Player::upkeep(double delta){
-
+    if(dashingUp){
+        velocity = (dashDest - dashOrigin) * dashSpeed;
+        dashDuration -= delta;
+        if(dashDuration < 0){
+            dashingUp = false;
+            terminalVelocity={30, 50};
+            gravityType = NORMAL;
+            dashDuration = dashFullDuration;
+            velocity *= 0.5;
+            if(velocity.y < -15){
+                velocity.y = -15;
+            }
+            iframes = false;
+        }
+    }
     velocity.x *= speedMultiplier;
+
     move(delta);
     if (velocity.y <= 0 + GlobalConstants::epsilon){
 
@@ -362,4 +377,20 @@ void Player::setStatusBarPosition(Bar& bar) {
 void Player::setStatusBarPosition(Bar& bar, statuseffect& status) {
     bar.updateBar(status.durationLeft / status.duration);
     setStatusBarPosition(bar);
+}
+
+vec_t Player::getMiddle(){
+    return{position.x+GlobalConstants::tileSize/2, position.y + GlobalConstants::tileSize/2};
+}
+
+void Player::dashTo(vec_t dest){
+    vit.stam -= dashStaminaCost;
+    iframes = true;
+    gravityType = NOGRAVITY;
+    terminalVelocity = {100, 100};
+    dashOrigin = getMiddle();
+    dashDest = dest;
+}
+bool Player::areWeThereYet(vec_t dest){
+    return (dest - position).length() <= GlobalConstants::epsilon;
 }

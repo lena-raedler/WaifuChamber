@@ -108,6 +108,12 @@ public:
     const int pauseCooldown = 250;  //ms
     int spawnProjectileCooldown = 250;  //ms no const because different weapons will have different cds
     const double jumpSpeed = -40;
+    vec_t dashOrigin;
+    vec_t dashDest;
+    double dashSpeed = 10;
+    int dashFullDuration = 1;
+    double dashDuration = dashFullDuration;
+
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point lastHit;
     std::chrono::high_resolution_clock::time_point lastPause = std::chrono::high_resolution_clock::now();
@@ -118,11 +124,17 @@ public:
     double speedMultiplier = 1;
     double staminaCostReduction = 1;
     double floatStaminaCost = 10;
+    double dashStaminaCost = 150;
     Checkpoint* lastCP;
     Inventory inventory;
 
     Bar healthBar;
     Bar staminaBar;
+
+    bool dashingDown = false;
+    bool dashingUp = false;
+
+    double dashRange = 128;
 
     int statusBarWidth = GlobalConstants::tileSize * 2;
     int statusBarBackgroundOffset = 4;
@@ -149,6 +161,8 @@ public:
     void grounded(double delta);
     void rangedAttack();
 
+    vec_t getMiddle();
+
     void applyStatusEffect(statuseffect &status);
     void processStatusEffects(statuseffect &status, double delta);
     void removeStatusEffect(statuseffect &status);
@@ -161,10 +175,9 @@ public:
     void setStatusBarPosition(Bar& bar, statuseffect& status);
 
 
+    void dashTo(vec_t dest);
 
-
-
-
+    bool areWeThereYet(vec_t dest);
 };
 
 

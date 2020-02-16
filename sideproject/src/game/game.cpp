@@ -505,6 +505,25 @@ vec_t Game::determineInput(double delta){
         Mix_PauseMusic();
     }
 
+    if(inputManager.keyDown[KEY_LEFT_SHIFT]){
+        player.dashingDown = true;
+    }
+    if(inputManager.keyUp[KEY_LEFT_SHIFT]){
+        player.dashingDown = false;
+
+        if(player.vit.stam >= 0) {
+            player.dashingUp = true;
+            vec_t playerMiddle = player.getMiddle();
+            vec_t playerToMouse = inputManager.mouseVec() - playerMiddle;
+            double length = playerToMouse.length();
+            playerToMouse.normalize();
+            playerToMouse *= std::min(player.dashRange, length);
+            vec_t tmp = playerToMouse + playerMiddle;
+
+            player.dashTo(tmp);
+        }
+    }
+
     // Check mouse position for button highlighting.
 
 
@@ -601,6 +620,12 @@ void Game::render() {
     /// Pause menu ///
     if (menu.pause)
         menu.renderMenu(*renderer);
+
+    /// Dash Range ///
+
+    if(player.dashingDown){
+        drawDashHelper();
+    }
 
     renderer->render();
 }
@@ -881,3 +906,22 @@ int Game::renderInventory2(int argc, char *argv[]) {
     application.quit();
 }
 */
+
+void Game::drawDashHelper(){
+    int r = 255;
+    int b = 255;
+    int g = 255;
+    int a = 255;
+    if(player.vit.stam <= 0){
+        b = 0;
+        g = 0;
+    }
+    vec_t playerMiddle = player.getMiddle();
+    circleRGBA(renderer->getRenderer(), playerMiddle.x, playerMiddle.y, player.dashRange, r, g, b, a);
+    vec_t playerToMouse = inputManager.mouseVec() - playerMiddle;
+    double length = playerToMouse.length();
+    playerToMouse.normalize();
+    playerToMouse *= std::min(player.dashRange, length);
+    vec_t tmp = playerToMouse + playerMiddle;
+    SDL_RenderDrawLine(renderer->getRenderer(), playerMiddle.x, playerMiddle.y, tmp.x, tmp.y);
+}
