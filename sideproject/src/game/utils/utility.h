@@ -25,6 +25,7 @@
 #include "../world/LockedWall.h"
 #include "../entities/player/EnemyInformation.h"
 //#include "PositionSize.hpp"
+#include <iostream>
 
 class Room;
 

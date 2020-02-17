@@ -6,6 +6,7 @@
 
 #include <SDL2/SDL_ttf.h>
 #include <string>
+#include <iostream>
 #include "PositionSize.hpp"
 #include "../GlobalObjects.h"
 #include "utility.h"

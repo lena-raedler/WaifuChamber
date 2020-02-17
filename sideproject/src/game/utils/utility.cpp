@@ -462,6 +462,7 @@ namespace utility {
         return min;
     }
 
+
     // Default font and size
     TTF_Font* loadFont() {
         return loadFont(40);
@@ -469,11 +470,12 @@ namespace utility {
     TTF_Font* loadFont(int fontSize) {
         return loadFont("files/freefont-20120503/FreeSerif.ttf", fontSize);
     }
-    TTF_Font* loadFont(std::string fontPath, int fontSize) {
+    TTF_Font* loadFont(std::string fontPath, int fontSize) {    // TODO Throws error, but still works somehow...
         TTF_Font* font = TTF_OpenFont(fontPath.c_str(), fontSize);
-        if (font == nullptr) {
-            printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+        if (!font) {
+            std::cerr << "Within loadFont(): Failed to load lazy font! SDL_ttf Error: %s" << TTF_GetError() << std::endl;
         }
+        //std::cout << TTF_GetFontStyle(font) << std::endl;
         return font;
     }
 
@@ -482,13 +484,13 @@ namespace utility {
 
         //Render text surface
         SDL_Surface* textSurface = TTF_RenderText_Solid(font, textureText.c_str(), textColor);
-        if( textSurface == nullptr ) {
+        if (!textSurface) {
             printf( "Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError() );
         }
         else {
             //Create texture from surface pixels
             fontTexture = SDL_CreateTextureFromSurface(GlobalObjects::renderPtr->getRenderer(), textSurface );
-            if (fontTexture == nullptr) {
+            if (!fontTexture) {
                 printf( "Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError() );
             }
             else {

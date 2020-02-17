@@ -88,11 +88,12 @@ Game::Game()
         //ttfSuccess = false;
     }
 
+    //Text testText = Text();
     // Text::Text(std::string text, std::string fontPath, int fontSize, SDL_Color messageColor)
     //testText = Text("Hello, I am a sample text :)", "files/freefont-20120503/FreeSerif.ttf", 40, {0, 0, 0});
-    testText = Text("Yo guys, what's up?", 80, {0x88, 0x88, 0x88});
+    //testText = Text("Yo guys, what's up?", 80, {0x88, 0x88, 0x88});
     //loadMedia();
-    testText.changeText("I am a different text now");
+    //testText.changeText("I am a different text now");
     /// END ///
 
 
