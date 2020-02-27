@@ -47,9 +47,9 @@ namespace BossBuilder{
 
                 //boss.addHealthBar(200);
                 //boss.addHealthBar(100);
-                b.addHealthBar(200, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF});
-                b.addHealthBar(160, {0x80, 0xFF, 0x80, 0xFF}, {0x00, 0xFF, 0x00, 0xFF});
-                b.addHealthBar(180, {0x80, 0x80, 0xff, 0xFF}, {0x00, 0x00, 0xFF, 0xFF});
+                b.addHealthBar(20, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF});
+                b.addHealthBar(16, {0x80, 0xFF, 0x80, 0xFF}, {0x00, 0xFF, 0x00, 0xFF});
+                b.addHealthBar(18, {0x80, 0x80, 0xff, 0xFF}, {0x00, 0x00, 0xFF, 0xFF});
                 //boss.healthBar ( {64, 900, 1500, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}});
                 b.position = utility::convert(pos);
                 b.speed = 20;
@@ -60,7 +60,8 @@ namespace BossBuilder{
                 utility::fillDefaultHitbox(b.hitbox, b.size.x, b.size.y);
                 b.phaseTransitionAbility= &BossBuilder::boss1;
                 //b.name = "Juergen";
-                b.nameText = Text("Juergen", 30, {0xFF, 0xFF, 0xFF});
+                //b.nameText = Text("Juergen", 30, {0xFF, 0xFF, 0xFF});
+                b.nameText = Text();
                 b.nameText.rect.x = b.bars[0].x;
                 //b.nameText.positionSize.y = b.bars[0].y + b.bars[0].height/2 - b.nameText.positionSize.height/2;
                 b.nameText.rect.y = b.bars[0].y - b.nameText.rect.h;

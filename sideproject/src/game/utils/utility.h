@@ -26,6 +26,7 @@
 #include "../entities/player/EnemyInformation.h"
 #include "../entities/player/PickupItems.h"
 //#include "PositionSize.hpp"
+#include <iostream>
 
 class Room;
 

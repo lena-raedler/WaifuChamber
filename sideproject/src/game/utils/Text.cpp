@@ -24,15 +24,17 @@ Text::Text(std::string message, std::string fontPath, int fontSize, SDL_Color me
 
 // If I pass message and fontPath as a reference the other constructors throw errors
 Text::Text(std::string message, std::string fontPath, int fontSize, SDL_Color messageColor, int x, int y)
-    : font(utility::loadFont(fontPath, fontSize))
-    , message(message)
+    : message(message)
     , fontSize(fontSize)
     , messageColor(messageColor)
 {
+    font = utility::loadFont(fontPath, fontSize);
+
     if (font == nullptr) {
-        printf( "Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError() );
+        std::cerr << "Within Text(): Failed to load lazy font! SDL_ttf Error: %s" << TTF_GetError() << std::endl;
     }
     else {
+        //std::cout << "fuck you" << std::endl;
         loadText();
 
 

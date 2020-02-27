@@ -1,0 +1,20 @@
+//
+// Created by auki on 27.02.20.
+//
+
+#ifndef WAIFU_PICKUPFUNCTIONS_HPP
+#define WAIFU_PICKUPFUNCTIONS_HPP
+
+
+#include "../../GlobalObjects.h"
+#include "player.h"
+
+namespace PickupFunctions {
+    void test(){
+        GlobalObjects::playerPtr->addKey(2);
+    }
+
+};
+
+
+#endif //WAIFU_PICKUPFUNCTIONS_HPP

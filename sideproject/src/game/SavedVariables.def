@@ -9,4 +9,5 @@ SAVE(int, meleeWeapon, 0)
 SAVE(int, souls, 0)
 SAVE(int, debugActive, 1)
 SAVE(int, keys, 0)
+SAVE(int, pickups, 0)
 #undef SAVE

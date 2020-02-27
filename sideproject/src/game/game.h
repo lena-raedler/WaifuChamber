@@ -28,6 +28,7 @@
 #include "entities/player/Ability.h"
 #include "menu/Menu.hpp"
 #include "utils/Text.hpp"
+#include "./world/Map.hpp"
 
 // QT Widget
 //#include "Calculator/calculator.hpp"
@@ -87,6 +88,7 @@ private:
     //Inventory inventory;
     std::vector<Ability> abilities;
     Menu menu;
+    Map map;
     Image healthBarImage;
 
     int effectVolume, musicVolume, volumeStep;
@@ -106,7 +108,7 @@ private:
     int mHeight = 0;
     void renderTTF( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
 
-    Text testText;
+    //Text testText;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed
@@ -125,6 +127,8 @@ private:
     void initializeMusic();
 
     void drawDashHelper();
+
+    void insertMessages();
 };
 
 

@@ -23,6 +23,9 @@
 #include "entities/player/AbilityPicker.h"
 #include "entities/player/TelegraphedAttack.h"
 #include "world/MusicPlayer.h"
+#include "utils/LingeringText.hpp"
+#include "world/Message.hpp"
+#include "entities/player/Pickup.hpp"
 
 Mix_Music *gMusic = NULL;
 Mix_Music *gMusicBoss = NULL;
@@ -42,6 +45,9 @@ namespace GlobalObjects{
     std::vector<Ability> abilities;
     std::vector<TelegraphedAttack> telegraphedAttacks;
     std::shared_ptr<Renderer> renderPtr;
+    std::vector<LingeringText> texts;
+    std::vector<Message> messages;
+    std::vector<Pickup> pickups;
     MusicPlayer musicPlayer;
     void clear(){
         enemies.clear();
@@ -49,6 +55,9 @@ namespace GlobalObjects{
         projectiles.clear();
         gates.clear();
         bosses.clear();
+        messages.clear();
+        texts.clear();
+        telegraphedAttacks.clear();
     }
 }
 
@@ -88,11 +97,12 @@ Game::Game()
         //ttfSuccess = false;
     }
 
+    //Text testText = Text();
     // Text::Text(std::string text, std::string fontPath, int fontSize, SDL_Color messageColor)
     //testText = Text("Hello, I am a sample text :)", "files/freefont-20120503/FreeSerif.ttf", 40, {0, 0, 0});
-    testText = Text("Yo guys, what's up?", 80, {0x88, 0x88, 0x88});
+    //testText = Text("Yo guys, what's up?", 80, {0x88, 0x88, 0x88});
     //loadMedia();
-    testText.changeText("I am a different text now");
+    //testText.changeText("I am a different text now");
     /// END ///
 
 
@@ -150,7 +160,14 @@ Game::Game()
     }
 
     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
+    insertMessages();
+    room.visited = true;
     fillGlobalObjects(room, true);
+
+    // Map
+    map.startPixels.x = GlobalObjects::resolution.first/2;
+    map.startPixels.y = GlobalObjects::resolution.second/2;
+    map.addTile(room.position);
 
     quit = false;
 
@@ -304,7 +321,7 @@ int Game::loop() {
         deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
 
         // If the game is paused, no input shall be accepted, except for quit (escape) and unpause (p)
-        if (pause) {
+        if (pause || map.inMap) {
             determineInput(1);
             render();
             continue;
@@ -328,7 +345,32 @@ int Game::loop() {
         player.velocity += move;
         player.upkeep(deltaTime/deltaDenom);
 
-        nonPlayerUpkeep(deltaTime/deltaDenom);
+        bool atCp = false;
+        for(auto& c: GlobalObjects::roomCheckpoints){
+            if (utility::hitboxCollision(player.hitbox, player.position, c->hitbox, c->position)) {
+                LingeringText t;
+                t.text.changeText("Checkpoint");
+                t.duration = 1;
+                t.id = 11;
+                t.text.rect = {static_cast<int>(player.position.x - 50), static_cast<int>(player.position.y - 40)};
+                t.text.changeFontSize(20);
+                t.print();
+                player.rest();
+                player.lastCP = c;
+                atCp = true;
+                if(GlobalObjects::savedVariables.currentCheckpoint != c->id){
+                    GlobalObjects::savedVariables.currentCheckpoint = c->id;
+                    GlobalObjects::savedVariables.serialize();
+                }
+            }
+        }
+
+        if(atCp){
+            GlobalObjects::projectiles.clear();
+        }
+        else {
+            nonPlayerUpkeep(deltaTime / deltaDenom);
+        }
 
         if(player.vit.hp <= 0){
             std::cout << "GIT GUD" << std::endl;
@@ -339,6 +381,7 @@ int Game::loop() {
             bossFight = false;
             player.kill();
         }
+        /*
         //todo fix this shit
         if(!bossFight && room.roomId == 3 && !bossDefeated(1)) {
 
@@ -346,23 +389,8 @@ int Game::loop() {
             GlobalObjects::musicPlayer.play(BOSS, 0);
             spawnBoss(800, 800);
         }
+*/
 
-        if(scuff3 && GlobalObjects::bosses.size() == 0){
-            Mix_PlayMusic(gMusicVic, 1);
-            scuff3 = false;
-        }
-
-        //TODO make enemies respawn & only activate cps when prompted
-        for(auto& c: GlobalObjects::roomCheckpoints){
-                if (utility::hitboxCollision(player.hitbox, player.position, c->hitbox, c->position)) {
-                    player.rest();
-                    player.lastCP = c;
-                    if(GlobalObjects::savedVariables.currentCheckpoint != c->id){
-                        GlobalObjects::savedVariables.currentCheckpoint = c->id;
-                        GlobalObjects::savedVariables.serialize();
-                    }
-                }
-        }
 
         render();
         cleanup(scuff3);
@@ -430,6 +458,14 @@ vec_t Game::determineInput(double delta){
                 menu.pause = !menu.pause;
         }
     }
+    if(inputManager.isPressed(KEY_E)){
+        /* Interact with stuff*/
+        for(auto& p : GlobalObjects::pickups){
+            if(utility::hitboxCollision(player.hitbox, player.position, p.m.hitbox, p.m.position)){
+                player.addPickup(p);
+            }
+        }
+    }
 
     if(inputManager.isPressed(KEY_O)){
         std::cout << "Quitting..." << std::endl;
@@ -451,10 +487,27 @@ vec_t Game::determineInput(double delta){
         }
     }
 
+    // Map
+    if (inputManager.isPressed(KEY_M)) {
+        if (player.canPause()) {
+            player.pause();
+            map.inMap = !map.inMap;
+            if (map.inMap) {
+                std::cout << "Show map" << std::endl;
+            }
+            else {
+                std::cout << "Hide map" << std::endl;
+            }
+        }
+    }
+
     vec_t out{0, 0};
 
     // If the game is paused ignore all other input
     if (pause)
+        return out;
+
+    if (map.inMap)
         return out;
 
     // check which buttons were pressed
@@ -596,12 +649,13 @@ void Game::render() {
         std::vector<triangle> t = {p->top, p->bot};
         //renderer->renderTriangles(t, 0, 0, 0, {0,0});
     }
+    /*
     for (auto& e : GlobalObjects::enemies){
         //renderer->renderTriangles(e->hitbox,255, 255, 0,e->position);
     }
     for (auto& g : GlobalObjects::gates){
         //renderer->renderTriangles(g->hitbox, 0,255, 255, g->position);
-    }
+    } */
     for (auto& b : GlobalObjects::bosses){
         scuff2 = true;
         //renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
@@ -657,9 +711,15 @@ void Game::render() {
         drawDashHelper();
     }
 
+    for(auto& lt: GlobalObjects::texts){
+        lt.text.render();
+    }
     //testText.render();
     //renderTTF( (1920-mWidth)/2, (1080-mHeight)/2 );
     //SDL_RenderCopyEx( *renderer, mTexture, clip, &renderQuad, angle, center, flip );
+
+    if (map.inMap)
+        map.render();
 
     renderer->render();
 }
@@ -691,6 +751,9 @@ void Game::renderDebugTextures() {
                 renderer->renderTriangles(c.hitbox, 0, 120, 0, c.position);
             }
         }
+    }
+    for(auto& m : GlobalObjects::messages){
+        renderer->renderTriangles(m.m.hitbox, 255, 50, 120, m.m.position);
     }
     //for(auto& i : GlobalObjects::enemies) {
         //i->render(*renderer);
@@ -778,9 +841,32 @@ void Game::cleanup(bool& remove){
             if (!it->get()->defeated) {
                 bs.push_back(*it);
             } else{
+                GlobalObjects::musicPlayer.play(AREAS, room.musicId);
                 std::cout << "YOU DEFEATED" << std::endl;
             }
             ++it;
+        }
+    }
+    {
+        auto it = GlobalObjects::texts.begin();
+        while (it != GlobalObjects::texts.end()) {
+
+            if ((it->duration > 0)) {
+                ++it;
+            } else{
+                it = GlobalObjects::texts.erase(it);
+            }
+        }
+    }
+    {
+        auto it = GlobalObjects::pickups.begin();
+        while (it != GlobalObjects::pickups.end()) {
+
+            if ((!player.hasPickup(it->id))) {
+                ++it;
+            } else{
+                it = GlobalObjects::pickups.erase(it);
+            }
         }
     }
 
@@ -800,11 +886,14 @@ void Game::fillGlobalObjects(Room &room, bool initial) {
     }
     room.fillPlatformVector(GlobalObjects::platforms);
     room.fillEnemyVector(GlobalObjects::enemies);
-    for(auto i : GlobalObjects::enemies) {
+    for(auto& i : GlobalObjects::enemies) {
         i.get()->init(*renderer);
     }
     room.fillBossVector(GlobalObjects::bosses);
-    for(auto i : GlobalObjects::bosses) {
+    if(GlobalObjects::bosses.size() > 0){
+        GlobalObjects::musicPlayer.play(BOSS, GlobalObjects::bosses[0]->id - 1);
+    }
+    for(auto& i : GlobalObjects::bosses) {
         i.get()->init(*renderer);
     }
     room.fillDoorVector(GlobalObjects::gates);
@@ -902,16 +991,36 @@ void Game::nonPlayerUpkeep(double deltaTime){
     for(auto& gate : GlobalObjects::gates){
         for(triangle t : player.hitbox) {
             t+=player.position;
-            if (player.hasKey(*gate) && gate->collide(t)) {
+            if (gate->collide(t)) {
+                if(player.hasKey(*gate)){
+                    currentRoom = gate->nextRoomPath;
+                    std::cout << "moving to " << currentRoom << std::endl;
+                    player.position = gate->newPosition;
+                    GlobalObjects::clear();
+                    int oldMusic = room.musicId;
+                    room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
+                    room.visited = true;
+                    map.addTile(room.position);
+                    if(room.musicId == -1){
+                        room.musicId = oldMusic;
+                    }
+                    insertMessages();
+                    fillGlobalObjects(room, false);
+                    leave = true;
+                    break;
 
-                currentRoom = gate->nextRoomPath;
-                std::cout << "moving to " << currentRoom << std::endl;
-                player.position = gate->newPosition;
-                GlobalObjects::clear();
-                room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
-                fillGlobalObjects(room, false);
-                leave = true;
-                break;
+                }
+                else{
+                    LingeringText t;
+                    t.text.changeText("Locked");
+                    t.duration = 1;
+                    t.id = 11;
+                    t.text.rect = {static_cast<int>(player.position.x - 50), static_cast<int>(player.position.y - 40)};
+                    t.text.changeFontSize(20);
+                    t.print();
+                }
+
+
             }
 
         }
@@ -923,6 +1032,15 @@ void Game::nonPlayerUpkeep(double deltaTime){
     for(auto& tas : GlobalObjects::telegraphedAttacks){
         tas.update(deltaTime);
     }
+    for(auto& m: GlobalObjects::messages){
+        if(utility::hitboxCollision(player.hitbox, player.position, m.m.hitbox, m.m.position)){
+            m.print();
+        }
+    }
+
+    for(auto& lt : GlobalObjects::texts){
+        lt.upkeep(deltaTime);
+    }
 }
 
 void Game::engageBoss(int id){
@@ -932,6 +1050,8 @@ void Game::initializeMusic(){
     GlobalObjects::musicPlayer.load(AREAS, "Hades - Scourge of the Furies 1.mp3");
     GlobalObjects::musicPlayer.load(BOSS, "Hades - Scourge of the Furies 2.mp3");
     GlobalObjects::musicPlayer.load(OTHER, "Dead Cells OST - Title Menu.mp3");
+    GlobalObjects::musicPlayer.load(AREAS, "Dead Cells OST - The Promenade.mp3");
+    GlobalObjects::musicPlayer.load(AREAS, "Pyre Original Soundtrack - Will of the Scribes.mp3");
     //gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
 
 }
@@ -1045,4 +1165,21 @@ void Game::renderTTF( int x, int y, SDL_Rect* clip, double angle, SDL_Point* cen
 
     //Render to screen
     SDL_RenderCopyEx( renderer->getRenderer(), mTexture, clip, &renderQuad, angle, center, flip );
+}
+void Game::insertMessages(){
+    switch(room.roomId){
+
+        case 1:
+            Message m;
+            utility::fillDefaultHitbox(m.m.hitbox);
+            m.m.position = {320, 960};
+            m.t.text.changeText("W/Space : Jump");
+            m.t.id = 1001;
+            m.t.duration = 20;
+            GlobalObjects::messages.push_back(m);
+            m.t.text.changeText("LMB : Shoot");
+            m.t.id = 1002;
+            m.m.position = {640, 960};
+            GlobalObjects::messages.push_back(m);
+    }
 }
