@@ -28,19 +28,19 @@ public:
     std::vector<Song> bossThemes;
 
     MusicType musicType;
-    int id;
+    size_t id;
 
     MusicType initialType;
-    int initialId;
+    size_t initialId;
     bool paused = false;
 
     void togglePause();
 
     void load(MusicType m, std::string s);
     void play(MusicType m, std::string s);
-    void play(MusicType m, int i);
+    void play(MusicType m, size_t i);
     void play(MusicType m, std::string s, int loop);
-    void play(MusicType m, int i, int loop);
+    void play(MusicType m, size_t i, int loop);
 
     void load(MusicType m, std::string s, int st);
 

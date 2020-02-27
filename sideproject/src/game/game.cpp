@@ -612,12 +612,13 @@ void Game::render() {
         std::vector<triangle> t = {p->top, p->bot};
         //renderer->renderTriangles(t, 0, 0, 0, {0,0});
     }
+    /*
     for (auto& e : GlobalObjects::enemies){
         //renderer->renderTriangles(e->hitbox,255, 255, 0,e->position);
     }
     for (auto& g : GlobalObjects::gates){
         //renderer->renderTriangles(g->hitbox, 0,255, 255, g->position);
-    }
+    } */
     for (auto& b : GlobalObjects::bosses){
         scuff2 = true;
         //renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
