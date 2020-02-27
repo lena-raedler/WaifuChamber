@@ -7,6 +7,7 @@ namespace EnemyBuilder {
     void buildEnemy(std::vector<std::shared_ptr<Enemy>>& vece, int id, std::pair<int, int> pos){//hardcoded because fuck that shit
         Enemy e;
         Projectile p;
+        p.textureLocation = "files/textures/weapons/Arrow.png";
         Ability a;
         statuseffect s;
         switch(id){

@@ -283,6 +283,33 @@ game/Inventory/Item.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Item.cpp.s
 .PHONY : game/Inventory/Item.cpp.s
 
+game/Inventory/Item2.o: game/Inventory/Item2.cpp.o
+
+.PHONY : game/Inventory/Item2.o
+
+# target to build an object file
+game/Inventory/Item2.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Item2.cpp.o
+.PHONY : game/Inventory/Item2.cpp.o
+
+game/Inventory/Item2.i: game/Inventory/Item2.cpp.i
+
+.PHONY : game/Inventory/Item2.i
+
+# target to preprocess a source file
+game/Inventory/Item2.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Item2.cpp.i
+.PHONY : game/Inventory/Item2.cpp.i
+
+game/Inventory/Item2.s: game/Inventory/Item2.cpp.s
+
+.PHONY : game/Inventory/Item2.s
+
+# target to generate assembly for a file
+game/Inventory/Item2.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/Inventory/Item2.cpp.s
+.PHONY : game/Inventory/Item2.cpp.s
+
 game/Inventory/RangedWeapon.o: game/Inventory/RangedWeapon.cpp.o
 
 .PHONY : game/Inventory/RangedWeapon.o
@@ -391,6 +418,33 @@ game/entities/player/Ability.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Ability.cpp.s
 .PHONY : game/entities/player/Ability.cpp.s
 
+game/entities/player/AbilityPicker.o: game/entities/player/AbilityPicker.cpp.o
+
+.PHONY : game/entities/player/AbilityPicker.o
+
+# target to build an object file
+game/entities/player/AbilityPicker.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/AbilityPicker.cpp.o
+.PHONY : game/entities/player/AbilityPicker.cpp.o
+
+game/entities/player/AbilityPicker.i: game/entities/player/AbilityPicker.cpp.i
+
+.PHONY : game/entities/player/AbilityPicker.i
+
+# target to preprocess a source file
+game/entities/player/AbilityPicker.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/AbilityPicker.cpp.i
+.PHONY : game/entities/player/AbilityPicker.cpp.i
+
+game/entities/player/AbilityPicker.s: game/entities/player/AbilityPicker.cpp.s
+
+.PHONY : game/entities/player/AbilityPicker.s
+
+# target to generate assembly for a file
+game/entities/player/AbilityPicker.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/AbilityPicker.cpp.s
+.PHONY : game/entities/player/AbilityPicker.cpp.s
+
 game/entities/player/Bar.o: game/entities/player/Bar.cpp.o
 
 .PHONY : game/entities/player/Bar.o
@@ -444,6 +498,33 @@ game/entities/player/Boss.s: game/entities/player/Boss.cpp.s
 game/entities/player/Boss.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Boss.cpp.s
 .PHONY : game/entities/player/Boss.cpp.s
+
+game/entities/player/BossBuilder.o: game/entities/player/BossBuilder.cpp.o
+
+.PHONY : game/entities/player/BossBuilder.o
+
+# target to build an object file
+game/entities/player/BossBuilder.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/BossBuilder.cpp.o
+.PHONY : game/entities/player/BossBuilder.cpp.o
+
+game/entities/player/BossBuilder.i: game/entities/player/BossBuilder.cpp.i
+
+.PHONY : game/entities/player/BossBuilder.i
+
+# target to preprocess a source file
+game/entities/player/BossBuilder.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/BossBuilder.cpp.i
+.PHONY : game/entities/player/BossBuilder.cpp.i
+
+game/entities/player/BossBuilder.s: game/entities/player/BossBuilder.cpp.s
+
+.PHONY : game/entities/player/BossBuilder.s
+
+# target to generate assembly for a file
+game/entities/player/BossBuilder.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/BossBuilder.cpp.s
+.PHONY : game/entities/player/BossBuilder.cpp.s
 
 game/entities/player/Enemy.o: game/entities/player/Enemy.cpp.o
 
@@ -552,6 +633,33 @@ game/entities/player/Projectile.s: game/entities/player/Projectile.cpp.s
 game/entities/player/Projectile.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Projectile.cpp.s
 .PHONY : game/entities/player/Projectile.cpp.s
+
+game/entities/player/Shopkeeper.o: game/entities/player/Shopkeeper.cpp.o
+
+.PHONY : game/entities/player/Shopkeeper.o
+
+# target to build an object file
+game/entities/player/Shopkeeper.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Shopkeeper.cpp.o
+.PHONY : game/entities/player/Shopkeeper.cpp.o
+
+game/entities/player/Shopkeeper.i: game/entities/player/Shopkeeper.cpp.i
+
+.PHONY : game/entities/player/Shopkeeper.i
+
+# target to preprocess a source file
+game/entities/player/Shopkeeper.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Shopkeeper.cpp.i
+.PHONY : game/entities/player/Shopkeeper.cpp.i
+
+game/entities/player/Shopkeeper.s: game/entities/player/Shopkeeper.cpp.s
+
+.PHONY : game/entities/player/Shopkeeper.s
+
+# target to generate assembly for a file
+game/entities/player/Shopkeeper.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/entities/player/Shopkeeper.cpp.s
+.PHONY : game/entities/player/Shopkeeper.cpp.s
 
 game/entities/player/Sprites.o: game/entities/player/Sprites.cpp.o
 
@@ -823,6 +931,33 @@ game/utils/InputManager.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/InputManager.cpp.s
 .PHONY : game/utils/InputManager.cpp.s
 
+game/utils/Text.o: game/utils/Text.cpp.o
+
+.PHONY : game/utils/Text.o
+
+# target to build an object file
+game/utils/Text.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/Text.cpp.o
+.PHONY : game/utils/Text.cpp.o
+
+game/utils/Text.i: game/utils/Text.cpp.i
+
+.PHONY : game/utils/Text.i
+
+# target to preprocess a source file
+game/utils/Text.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/Text.cpp.i
+.PHONY : game/utils/Text.cpp.i
+
+game/utils/Text.s: game/utils/Text.cpp.s
+
+.PHONY : game/utils/Text.s
+
+# target to generate assembly for a file
+game/utils/Text.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/utils/Text.cpp.s
+.PHONY : game/utils/Text.cpp.s
+
 game/utils/renderer.o: game/utils/renderer.cpp.o
 
 .PHONY : game/utils/renderer.o
@@ -903,6 +1038,33 @@ game/world/Gate.s: game/world/Gate.cpp.s
 game/world/Gate.cpp.s:
 	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/Gate.cpp.s
 .PHONY : game/world/Gate.cpp.s
+
+game/world/MusicPlayer.o: game/world/MusicPlayer.cpp.o
+
+.PHONY : game/world/MusicPlayer.o
+
+# target to build an object file
+game/world/MusicPlayer.cpp.o:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/MusicPlayer.cpp.o
+.PHONY : game/world/MusicPlayer.cpp.o
+
+game/world/MusicPlayer.i: game/world/MusicPlayer.cpp.i
+
+.PHONY : game/world/MusicPlayer.i
+
+# target to preprocess a source file
+game/world/MusicPlayer.cpp.i:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/MusicPlayer.cpp.i
+.PHONY : game/world/MusicPlayer.cpp.i
+
+game/world/MusicPlayer.s: game/world/MusicPlayer.cpp.s
+
+.PHONY : game/world/MusicPlayer.s
+
+# target to generate assembly for a file
+game/world/MusicPlayer.cpp.s:
+	$(MAKE) -f CMakeFiles/waifu.dir/build.make CMakeFiles/waifu.dir/game/world/MusicPlayer.cpp.s
+.PHONY : game/world/MusicPlayer.cpp.s
 
 game/world/Platform.o: game/world/Platform.cpp.o
 
@@ -1010,6 +1172,9 @@ help:
 	@echo "... game/Inventory/Item.o"
 	@echo "... game/Inventory/Item.i"
 	@echo "... game/Inventory/Item.s"
+	@echo "... game/Inventory/Item2.o"
+	@echo "... game/Inventory/Item2.i"
+	@echo "... game/Inventory/Item2.s"
 	@echo "... game/Inventory/RangedWeapon.o"
 	@echo "... game/Inventory/RangedWeapon.i"
 	@echo "... game/Inventory/RangedWeapon.s"
@@ -1022,12 +1187,18 @@ help:
 	@echo "... game/entities/player/Ability.o"
 	@echo "... game/entities/player/Ability.i"
 	@echo "... game/entities/player/Ability.s"
+	@echo "... game/entities/player/AbilityPicker.o"
+	@echo "... game/entities/player/AbilityPicker.i"
+	@echo "... game/entities/player/AbilityPicker.s"
 	@echo "... game/entities/player/Bar.o"
 	@echo "... game/entities/player/Bar.i"
 	@echo "... game/entities/player/Bar.s"
 	@echo "... game/entities/player/Boss.o"
 	@echo "... game/entities/player/Boss.i"
 	@echo "... game/entities/player/Boss.s"
+	@echo "... game/entities/player/BossBuilder.o"
+	@echo "... game/entities/player/BossBuilder.i"
+	@echo "... game/entities/player/BossBuilder.s"
 	@echo "... game/entities/player/Enemy.o"
 	@echo "... game/entities/player/Enemy.i"
 	@echo "... game/entities/player/Enemy.s"
@@ -1040,6 +1211,9 @@ help:
 	@echo "... game/entities/player/Projectile.o"
 	@echo "... game/entities/player/Projectile.i"
 	@echo "... game/entities/player/Projectile.s"
+	@echo "... game/entities/player/Shopkeeper.o"
+	@echo "... game/entities/player/Shopkeeper.i"
+	@echo "... game/entities/player/Shopkeeper.s"
 	@echo "... game/entities/player/Sprites.o"
 	@echo "... game/entities/player/Sprites.i"
 	@echo "... game/entities/player/Sprites.s"
@@ -1070,6 +1244,9 @@ help:
 	@echo "... game/utils/InputManager.o"
 	@echo "... game/utils/InputManager.i"
 	@echo "... game/utils/InputManager.s"
+	@echo "... game/utils/Text.o"
+	@echo "... game/utils/Text.i"
+	@echo "... game/utils/Text.s"
 	@echo "... game/utils/renderer.o"
 	@echo "... game/utils/renderer.i"
 	@echo "... game/utils/renderer.s"
@@ -1079,6 +1256,9 @@ help:
 	@echo "... game/world/Gate.o"
 	@echo "... game/world/Gate.i"
 	@echo "... game/world/Gate.s"
+	@echo "... game/world/MusicPlayer.o"
+	@echo "... game/world/MusicPlayer.i"
+	@echo "... game/world/MusicPlayer.s"
 	@echo "... game/world/Platform.o"
 	@echo "... game/world/Platform.i"
 	@echo "... game/world/Platform.s"

@@ -34,6 +34,7 @@ public:
     SDL_Renderer* getRenderer();
     SDL_Surface* createSurface(std::string path);
     void renderSprite(SDL_Texture* texture, vec_t pos, SDL_Rect* rect);
+    void renderSprite(SDL_Texture* texture, vec_t pos, SDL_Rect* rect, Vec2<int> size);
 
 private:
     SDL_Window* window;

@@ -16,6 +16,7 @@ public:
     SDL_Texture* spriteSheet;
     std::vector<SDL_Rect> sprites;
     void render(Renderer& renderer, vec_t pos);
+    void render(Renderer& renderer, vec_t pos, Vec2<int> size);
 
 private:
     //for rendering purposes

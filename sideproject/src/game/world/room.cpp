@@ -73,6 +73,14 @@ void Room::fillEnemyVector(std::vector<std::shared_ptr<Enemy>>& e){
         }
     }
 }
+
+void Room::fillBossVector(std::vector<std::shared_ptr<Boss>>& b) {
+    b.clear();
+    for(auto& it: bossInformation) {
+        BossBuilder::buildBoss(it.second, it.first);
+    }
+}
+
 void Room::printP() {
     for(auto i : platformPositions) {
         std::cout << i.first << " " << i.second << std::endl;

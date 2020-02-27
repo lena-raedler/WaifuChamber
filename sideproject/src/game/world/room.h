@@ -16,6 +16,7 @@
 #include "Gate.h"
 #include "Platform.h"
 #include "../entities/player/EnemyBuilder.h"
+#include "../entities/player/BossBuilder.h"
 
 enum TileType{
     BLANK,
@@ -47,6 +48,7 @@ public:
     void fillPlatformVector(std::vector<std::shared_ptr<Platform>>& p);
     void fillDoorVector(std::vector<std::shared_ptr<Gate>>& g);
     void fillEnemyVector(std::vector<std::shared_ptr<Enemy>>& e);
+    void fillBossVector(std::vector<std::shared_ptr<Boss>>& b);
 
     void printP();
     SDL_Rect backgroundRectangle;
