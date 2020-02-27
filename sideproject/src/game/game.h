@@ -125,6 +125,8 @@ private:
     void initializeMusic();
 
     void drawDashHelper();
+
+    void insertMessages();
 };
 
 

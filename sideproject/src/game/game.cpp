@@ -24,6 +24,7 @@
 #include "entities/player/TelegraphedAttack.h"
 #include "world/MusicPlayer.h"
 #include "utils/LingeringText.hpp"
+#include "world/Message.hpp"
 
 Mix_Music *gMusic = NULL;
 Mix_Music *gMusicBoss = NULL;
@@ -44,6 +45,7 @@ namespace GlobalObjects{
     std::vector<TelegraphedAttack> telegraphedAttacks;
     std::shared_ptr<Renderer> renderPtr;
     std::vector<LingeringText> texts;
+    std::vector<Message> messages;
     MusicPlayer musicPlayer;
     void clear(){
         enemies.clear();
@@ -51,6 +53,9 @@ namespace GlobalObjects{
         projectiles.clear();
         gates.clear();
         bosses.clear();
+        messages.clear();
+        texts.clear();
+        telegraphedAttacks.clear();
     }
 }
 
@@ -152,6 +157,7 @@ Game::Game()
     }
 
     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
+    insertMessages();
     fillGlobalObjects(room, true);
 
     quit = false;
@@ -712,6 +718,9 @@ void Game::renderDebugTextures() {
             }
         }
     }
+    for(auto& m : GlobalObjects::messages){
+        renderer->renderTriangles(m.m.hitbox, 255, 50, 120, m.m.position);
+    }
     //for(auto& i : GlobalObjects::enemies) {
         //i->render(*renderer);
     //}
@@ -948,6 +957,7 @@ void Game::nonPlayerUpkeep(double deltaTime){
                     if(room.musicId == -1){
                         room.musicId = oldMusic;
                     }
+                    insertMessages();
                     fillGlobalObjects(room, false);
                     leave = true;
                     break;
@@ -974,6 +984,11 @@ void Game::nonPlayerUpkeep(double deltaTime){
 
     for(auto& tas : GlobalObjects::telegraphedAttacks){
         tas.update(deltaTime);
+    }
+    for(auto& m: GlobalObjects::messages){
+        if(utility::hitboxCollision(player.hitbox, player.position, m.m.hitbox, m.m.position)){
+            m.print();
+        }
     }
 
     for(auto& lt : GlobalObjects::texts){
@@ -1103,4 +1118,21 @@ void Game::renderTTF( int x, int y, SDL_Rect* clip, double angle, SDL_Point* cen
 
     //Render to screen
     SDL_RenderCopyEx( renderer->getRenderer(), mTexture, clip, &renderQuad, angle, center, flip );
+}
+void Game::insertMessages(){
+    switch(room.roomId){
+
+        case 1:
+            Message m;
+            utility::fillDefaultHitbox(m.m.hitbox);
+            m.m.position = {320, 960};
+            m.t.text.changeText("W/Space : Jump");
+            m.t.id = 1001;
+            m.t.duration = 20;
+            GlobalObjects::messages.push_back(m);
+            m.t.text.changeText("RMB : Shoot");
+            m.t.id = 1002;
+            m.m.position = {640, 960};
+            GlobalObjects::messages.push_back(m);
+    }
 }

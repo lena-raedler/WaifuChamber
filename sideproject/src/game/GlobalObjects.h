@@ -22,6 +22,7 @@ class MusicPlayer;
 class Platform;
 class Renderer;
 class LingeringText;
+class Message;
 struct SavedVariables;
 namespace GlobalObjects {
     extern Mix_Chunk* chunkPtr[3];
@@ -40,6 +41,7 @@ namespace GlobalObjects {
     extern std::shared_ptr<Renderer> renderPtr;
     extern MusicPlayer musicPlayer;
     extern std::vector<LingeringText> texts;
+    extern std::vector<Message> messages;
 };
 
 
