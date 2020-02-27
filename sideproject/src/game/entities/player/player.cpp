@@ -245,13 +245,16 @@ void Player::grounded(double delta) {
 }
 
 void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT, FRENZY
+    std::string str;
     switch(status.type){
         case BLEED:
+            str = "BLEEDING";
             vit.bleed = 0;
             vit.bleeding = true;
             stamRegenMultiplier /= 10;
             break;
         case SHOCK:
+            str = "SHOCKED";
             vit.shock = 0;
             vit.shocked = true;
             terminalVelocity.x /= 2;
@@ -271,6 +274,13 @@ void Player::applyStatusEffect(statuseffect &status) {//BLEED, SHOCK, BURN, ROT,
         default:
             break;
     }
+    LingeringText keyText;
+    keyText.text.changeText(str);
+    keyText.text.rect = {static_cast<int>(position.x - 50), static_cast<int>(position.y - 40)};
+    keyText.text.changeFontSize(20);
+    keyText.id = 1;
+    keyText.duration = 15;
+    keyText.print();
     statusEffects.push_back(status);
 
 }
