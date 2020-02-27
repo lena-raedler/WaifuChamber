@@ -63,7 +63,7 @@ public:
     std::vector<std::pair<std::pair<int, int >, int>> bossInformation;
     std::pair<int, int> newStartPosition;
     int roomId;
-    int musicId = 0;
+    int musicId = -1;
     std::vector<gateInformation> gates;
     std::vector<LockedWall> lockedWalls;
     std::vector<EnemyInformation> enemies;

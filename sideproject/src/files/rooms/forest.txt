@@ -56,3 +56,6 @@ ENEMY
   e_1 10 3
   e_1 59 22
 END
+MUSIC
+  1
+END

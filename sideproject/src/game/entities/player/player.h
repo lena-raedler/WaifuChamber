@@ -148,6 +148,7 @@ public:
     Bar rotBar, activeRotBar;
     Bar frenzyBar, activeFrenzyBar;
 
+
     /////////////////// Functions /////////////////////////////
     void updatePlayer(double x, double y);
     void jump();
