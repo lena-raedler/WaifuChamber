@@ -159,7 +159,13 @@ Game::Game()
 
     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
     insertMessages();
+    room.visited = true;
     fillGlobalObjects(room, true);
+
+    // Map
+    map.startPixels.x = GlobalObjects::resolution.first/2;
+    map.startPixels.y = GlobalObjects::resolution.second/2;
+    map.addTile(room.position);
 
     quit = false;
 
@@ -313,7 +319,7 @@ int Game::loop() {
         deltaTime = (double)((now - last)*1000 / (double)SDL_GetPerformanceFrequency() );
 
         // If the game is paused, no input shall be accepted, except for quit (escape) and unpause (p)
-        if (pause) {
+        if (pause || map.inMap) {
             determineInput(1);
             render();
             continue;
@@ -474,10 +480,27 @@ vec_t Game::determineInput(double delta){
         }
     }
 
+    // Map
+    if (inputManager.isPressed(KEY_M)) {
+        if (player.canPause()) {
+            player.pause();
+            map.inMap = !map.inMap;
+            if (map.inMap) {
+                std::cout << "Show map" << std::endl;
+            }
+            else {
+                std::cout << "Hide map" << std::endl;
+            }
+        }
+    }
+
     vec_t out{0, 0};
 
     // If the game is paused ignore all other input
     if (pause)
+        return out;
+
+    if (map.inMap)
         return out;
 
     // check which buttons were pressed
@@ -687,6 +710,9 @@ void Game::render() {
     //testText.render();
     //renderTTF( (1920-mWidth)/2, (1080-mHeight)/2 );
     //SDL_RenderCopyEx( *renderer, mTexture, clip, &renderQuad, angle, center, flip );
+
+    if (map.inMap)
+        map.render();
 
     renderer->render();
 }
@@ -955,6 +981,8 @@ void Game::nonPlayerUpkeep(double deltaTime){
                     GlobalObjects::clear();
                     int oldMusic = room.musicId;
                     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
+                    room.visited = true;
+                    map.addTile(room.position);
                     if(room.musicId == -1){
                         room.musicId = oldMusic;
                     }

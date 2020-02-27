@@ -27,3 +27,7 @@ SDL_Rect* Image::getRect() {
 void Image::render(Renderer& renderer) {
     renderer.renderTexture(texture, nullptr, &rect);
 }
+
+void Image::render() {
+    GlobalObjects::renderPtr->renderTexture(texture, nullptr, &rect);
+}

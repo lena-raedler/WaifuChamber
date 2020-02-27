@@ -28,6 +28,7 @@
 #include "entities/player/Ability.h"
 #include "menu/Menu.hpp"
 #include "utils/Text.hpp"
+#include "./world/Map.hpp"
 
 // QT Widget
 //#include "Calculator/calculator.hpp"
@@ -87,6 +88,7 @@ private:
     //Inventory inventory;
     std::vector<Ability> abilities;
     Menu menu;
+    Map map;
     Image healthBarImage;
 
     int effectVolume, musicVolume, volumeStep;

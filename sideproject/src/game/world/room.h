@@ -68,6 +68,7 @@ public:
     std::vector<LockedWall> lockedWalls;
     std::vector<EnemyInformation> enemies;
     Vec2<int> position;
+    bool visited = false;
 
     void clear();
 };
