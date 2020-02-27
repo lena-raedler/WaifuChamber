@@ -108,3 +108,22 @@ void Boss::kill(){
 void Boss::transitionPhase() {
     (this->phaseTransitionAbility)(++phase, *this);
 }
+
+// init and render the sprite
+void Boss::init(Renderer &renderer) {
+    SDL_Surface* s = IMG_Load(textureLocation.c_str());
+    texture = renderer.createTextureFromSurface(s);
+    int textureWidth = s->w;
+    SDL_FreeSurface(s);
+    bossSprite.spriteSheet = texture;
+    int x_pos = 0, y_pos = 0;
+    while((textureWidth - (textureWidth/4)) >= x_pos) {
+        SDL_Rect r = {x_pos, y_pos, GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
+        bossSprite.sprites.push_back(r);
+        x_pos += textureWidth/4;
+    }
+}
+
+void Boss::render(Renderer &renderer) {
+    bossSprite.render(renderer, position);
+}

@@ -12,6 +12,7 @@
 #include "TelegraphedAbility.h"
 #include "../../utils/Rgba.h"
 #include "../../utils/Text.hpp"
+#include "Sprites.h"
 
 class Boss : public Movable {
 public:
@@ -46,6 +47,10 @@ public:
     void addAbility(TelegraphedAbility a, double probability, int phase);
     // double healthPercentage(){return (double) hp / maxHp;}
 
+    // for sprite purposes
+    Sprites bossSprite;
+    void render(Renderer& renderer);
+    void init(Renderer& renderer);
 
 };
 

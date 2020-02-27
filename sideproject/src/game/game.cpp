@@ -607,6 +607,7 @@ void Game::render() {
         b->bars[0].renderBar(*renderer);
         //b.healthBar.renderBar(*renderer);
         b->nameText.render();
+        b->render(*renderer);
     }
     for(auto& c : GlobalObjects::allCheckpoints){
         if(boost::algorithm::equals(currentRoom, c.room)) {
@@ -799,6 +800,10 @@ void Game::fillGlobalObjects(Room &room, bool initial) {
     room.fillPlatformVector(GlobalObjects::platforms);
     room.fillEnemyVector(GlobalObjects::enemies);
     for(auto i : GlobalObjects::enemies) {
+        i.get()->init(*renderer);
+    }
+    room.fillBossVector(GlobalObjects::bosses);
+    for(auto i : GlobalObjects::bosses) {
         i.get()->init(*renderer);
     }
     room.fillDoorVector(GlobalObjects::gates);
