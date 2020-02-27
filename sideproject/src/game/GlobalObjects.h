@@ -21,6 +21,7 @@ class TelegraphedAttack;
 class MusicPlayer;
 class Platform;
 class Renderer;
+class LingeringText;
 struct SavedVariables;
 namespace GlobalObjects {
     extern Mix_Chunk* chunkPtr[3];
@@ -38,6 +39,7 @@ namespace GlobalObjects {
     extern std::vector<Checkpoint*> roomCheckpoints;
     extern std::shared_ptr<Renderer> renderPtr;
     extern MusicPlayer musicPlayer;
+    extern std::vector<LingeringText> texts;
 };
 
 

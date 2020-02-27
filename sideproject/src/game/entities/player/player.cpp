@@ -4,6 +4,8 @@
 
 #include "player.h"
 #include "../../GlobalObjects.h"
+#include "../../utils/Text.hpp"
+#include "../../utils/LingeringText.hpp"
 //#include "../../utils/Rgba.hpp"
 
 
@@ -400,6 +402,14 @@ bool Player::hasKey(Gate &g) {
 }
 
 void Player::addKey(int keyId){
+    std::string str ="Found key #" + std::to_string(keyId);
+    LingeringText keyText;
+    keyText.text.changeText(str);
+    keyText.text.rect = {static_cast<int>(position.x - 50), static_cast<int>(position.y - 40)};
+    keyText.text.changeFontSize(20);
+    keyText.id = 1;
+    keyText.duration = 100;
+    keyText.print();
     GlobalObjects::savedVariables.keys |= (1 << keyId);
     GlobalObjects::savedVariables.serialize();
 }

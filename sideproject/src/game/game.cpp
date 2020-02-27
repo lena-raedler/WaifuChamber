@@ -23,6 +23,7 @@
 #include "entities/player/AbilityPicker.h"
 #include "entities/player/TelegraphedAttack.h"
 #include "world/MusicPlayer.h"
+#include "utils/LingeringText.hpp"
 
 Mix_Music *gMusic = NULL;
 Mix_Music *gMusicBoss = NULL;
@@ -42,6 +43,7 @@ namespace GlobalObjects{
     std::vector<Ability> abilities;
     std::vector<TelegraphedAttack> telegraphedAttacks;
     std::shared_ptr<Renderer> renderPtr;
+    std::vector<LingeringText> texts;
     MusicPlayer musicPlayer;
     void clear(){
         enemies.clear();
@@ -328,7 +330,32 @@ int Game::loop() {
         player.velocity += move;
         player.upkeep(deltaTime/deltaDenom);
 
-        nonPlayerUpkeep(deltaTime/deltaDenom);
+        bool atCp = false;
+        for(auto& c: GlobalObjects::roomCheckpoints){
+            if (utility::hitboxCollision(player.hitbox, player.position, c->hitbox, c->position)) {
+                LingeringText t;
+                t.text.changeText("Checkpoint");
+                t.duration = 1;
+                t.id = 11;
+                t.text.rect = {static_cast<int>(player.position.x - 50), static_cast<int>(player.position.y - 40)};
+                t.text.changeFontSize(20);
+                t.print();
+                player.rest();
+                player.lastCP = c;
+                atCp = true;
+                if(GlobalObjects::savedVariables.currentCheckpoint != c->id){
+                    GlobalObjects::savedVariables.currentCheckpoint = c->id;
+                    GlobalObjects::savedVariables.serialize();
+                }
+            }
+        }
+
+        if(atCp){
+            GlobalObjects::projectiles.clear();
+        }
+        else {
+            nonPlayerUpkeep(deltaTime / deltaDenom);
+        }
 
         if(player.vit.hp <= 0){
             std::cout << "GIT GUD" << std::endl;
@@ -347,22 +374,7 @@ int Game::loop() {
             spawnBoss(800, 800);
         }
 
-        if(scuff3 && GlobalObjects::bosses.size() == 0){
-            Mix_PlayMusic(gMusicVic, 1);
-            scuff3 = false;
-        }
 
-        //TODO make enemies respawn & only activate cps when prompted
-        for(auto& c: GlobalObjects::roomCheckpoints){
-                if (utility::hitboxCollision(player.hitbox, player.position, c->hitbox, c->position)) {
-                    player.rest();
-                    player.lastCP = c;
-                    if(GlobalObjects::savedVariables.currentCheckpoint != c->id){
-                        GlobalObjects::savedVariables.currentCheckpoint = c->id;
-                        GlobalObjects::savedVariables.serialize();
-                    }
-                }
-        }
 
         render();
         cleanup(scuff3);
@@ -429,6 +441,9 @@ vec_t Game::determineInput(double delta){
             else
                 menu.pause = !menu.pause;
         }
+    }
+    if(inputManager.isPressed(KEY_E)){
+        /* Interact with stuff*/
     }
 
     if(inputManager.isPressed(KEY_O)){
@@ -657,6 +672,9 @@ void Game::render() {
         drawDashHelper();
     }
 
+    for(auto& lt: GlobalObjects::texts){
+        lt.text.render();
+    }
     //testText.render();
     //renderTTF( (1920-mWidth)/2, (1080-mHeight)/2 );
     //SDL_RenderCopyEx( *renderer, mTexture, clip, &renderQuad, angle, center, flip );
@@ -783,6 +801,17 @@ void Game::cleanup(bool& remove){
             ++it;
         }
     }
+    {
+        auto it = GlobalObjects::texts.begin();
+        while (it != GlobalObjects::texts.end()) {
+
+            if ((it->duration > 0)) {
+                ++it;
+            } else{
+                it = GlobalObjects::texts.erase(it);
+            }
+        }
+    }
 
 
     GlobalObjects::telegraphedAttacks = tas;
@@ -902,20 +931,33 @@ void Game::nonPlayerUpkeep(double deltaTime){
     for(auto& gate : GlobalObjects::gates){
         for(triangle t : player.hitbox) {
             t+=player.position;
-            if (player.hasKey(*gate) && gate->collide(t)) {
+            if (gate->collide(t)) {
+                if(player.hasKey(*gate)){
+                    currentRoom = gate->nextRoomPath;
+                    std::cout << "moving to " << currentRoom << std::endl;
+                    player.position = gate->newPosition;
+                    GlobalObjects::clear();
+                    int oldMusic = room.musicId;
+                    room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
+                    if(room.musicId == -1){
+                        room.musicId = oldMusic;
+                    }
+                    fillGlobalObjects(room, false);
+                    leave = true;
+                    break;
 
-                currentRoom = gate->nextRoomPath;
-                std::cout << "moving to " << currentRoom << std::endl;
-                player.position = gate->newPosition;
-                GlobalObjects::clear();
-                int oldMusic = room.musicId;
-                room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
-                if(room.musicId == -1){
-                    room.musicId = oldMusic;
                 }
-                fillGlobalObjects(room, false);
-                leave = true;
-                break;
+                else{
+                    LingeringText t;
+                    t.text.changeText("Locked");
+                    t.duration = 1;
+                    t.id = 11;
+                    t.text.rect = {static_cast<int>(player.position.x - 50), static_cast<int>(player.position.y - 40)};
+                    t.text.changeFontSize(20);
+                    t.print();
+                }
+
+
             }
 
         }
@@ -926,6 +968,10 @@ void Game::nonPlayerUpkeep(double deltaTime){
 
     for(auto& tas : GlobalObjects::telegraphedAttacks){
         tas.update(deltaTime);
+    }
+
+    for(auto& lt : GlobalObjects::texts){
+        lt.upkeep(deltaTime);
     }
 }
 
