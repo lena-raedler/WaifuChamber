@@ -24,6 +24,7 @@
 #include "../../utils/Image.h"
 #include "Sprites.h"
 #include "../../SavedVariables.h"
+#include "Pickup.hpp"
 
 enum lastCheckPoint{//maybe we dont need this
     A1C1,
@@ -189,6 +190,12 @@ public:
     bool hasKey(Gate &g);
 
     void addKey(int keyId);
+
+    bool hasPickup(int i);
+
+    void addPickup(int i);
+
+    void addPickup(Pickup &p);
 };
 
 

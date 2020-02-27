@@ -25,6 +25,7 @@
 #include "world/MusicPlayer.h"
 #include "utils/LingeringText.hpp"
 #include "world/Message.hpp"
+#include "entities/player/Pickup.hpp"
 
 Mix_Music *gMusic = NULL;
 Mix_Music *gMusicBoss = NULL;
@@ -46,6 +47,7 @@ namespace GlobalObjects{
     std::shared_ptr<Renderer> renderPtr;
     std::vector<LingeringText> texts;
     std::vector<Message> messages;
+    std::vector<Pickup> pickups;
     MusicPlayer musicPlayer;
     void clear(){
         enemies.clear();
@@ -458,6 +460,11 @@ vec_t Game::determineInput(double delta){
     }
     if(inputManager.isPressed(KEY_E)){
         /* Interact with stuff*/
+        for(auto& p : GlobalObjects::pickups){
+            if(utility::hitboxCollision(player.hitbox, player.position, p.m.hitbox, p.m.position)){
+                player.addPickup(p);
+            }
+        }
     }
 
     if(inputManager.isPressed(KEY_O)){
@@ -851,6 +858,17 @@ void Game::cleanup(bool& remove){
             }
         }
     }
+    {
+        auto it = GlobalObjects::pickups.begin();
+        while (it != GlobalObjects::pickups.end()) {
+
+            if ((!player.hasPickup(it->id))) {
+                ++it;
+            } else{
+                it = GlobalObjects::pickups.erase(it);
+            }
+        }
+    }
 
 
     GlobalObjects::telegraphedAttacks = tas;
@@ -1159,7 +1177,7 @@ void Game::insertMessages(){
             m.t.id = 1001;
             m.t.duration = 20;
             GlobalObjects::messages.push_back(m);
-            m.t.text.changeText("RMB : Shoot");
+            m.t.text.changeText("LMB : Shoot");
             m.t.id = 1002;
             m.m.position = {640, 960};
             GlobalObjects::messages.push_back(m);

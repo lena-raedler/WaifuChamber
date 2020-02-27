@@ -423,7 +423,22 @@ void Player::addKey(int keyId){
     GlobalObjects::savedVariables.keys |= (1 << keyId);
     GlobalObjects::savedVariables.serialize();
 }
+bool Player::hasPickup(int i) {
+    return (1 & (GlobalObjects::savedVariables.pickups >> i));
+}
 
+void Player::addPickup(Pickup& p){
+    std::string str ="Found " + p.name;
+    LingeringText keyText;
+    keyText.text.changeText(str);
+    keyText.text.rect = {static_cast<int>(position.x - 50), static_cast<int>(position.y - 40)};
+    keyText.text.changeFontSize(20);
+    keyText.id = 1;
+    keyText.duration = 100;
+    keyText.print();
+    GlobalObjects::savedVariables.pickups |= (1 << p.id);
+    GlobalObjects::savedVariables.serialize();
+}
 //functions for sprites - just leave me here
 void Player::init(Renderer &renderer) {
     SDL_Surface* s = IMG_Load(textureLocation.c_str());
