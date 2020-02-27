@@ -125,5 +125,5 @@ void Boss::init(Renderer &renderer) {
 }
 
 void Boss::render(Renderer &renderer) {
-    bossSprite.render(renderer, position);
+    bossSprite.render(renderer, position, size);
 }

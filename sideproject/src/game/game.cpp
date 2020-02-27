@@ -587,6 +587,7 @@ void Game::render() {
     player.render(*renderer);
 
     for (auto& projectile : GlobalObjects::projectiles) {
+        projectile.get()->render(*renderer);
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
         //renderer->renderTriangles(projectile->hitbox, 255, 255, 255, projectile->position);
     }

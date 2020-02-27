@@ -9,6 +9,7 @@ template <class T>
 void AbilityPicker<T>::plRanged(int i, T& a){
     SoundEffect s;
     Projectile p;
+    p.textureLocation = "files/textures/weapons/Arrow.png";
     switch(i){
         case 0: //default shot
 
@@ -53,7 +54,7 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
     Projectile p;
     TelegraphedAttack attack;
     statuseffect s;
-    p.textureLocation = "textures/weapons/projectile_01.png";
+    p.textureLocation = "textures/weapons/Arrow.png";
     switch(i){
         case 1: //lazor
             p.gravityType = NOGRAVITY;
