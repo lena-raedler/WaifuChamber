@@ -408,13 +408,34 @@ namespace utility {
                     std::getline(roomFile, line);
                     if(line.find("END") != std::string::npos) {
                         break;
-                    } while(line.front() == ' ') {
+                    }
+                    while(line.front() == ' ') {
                         boost::algorithm::erase_first(line, " ");
                     }
                     std::vector<std::string> roomCoords;
                     boost::split(roomCoords, line, boost::is_any_of(","));
                     room.position.x = std::atoi(roomCoords[0].c_str());
                     room.position.y = std::atoi(roomCoords[1].c_str());
+                }
+            }
+            else if(line.find("PICKUP") != std::string::npos) {
+                while(line.find("END") == std::string::npos) {
+                    std::getline(roomFile, line);
+                    if(line.find("END") != std::string::npos) {
+                        break;
+                    }
+                    while(line.front() == ' ') {
+                        boost::algorithm::erase_first(line, " ");
+                    }
+                    PickupItems pickedUp;
+                    std::vector<std::string> pickupStrings;
+                    boost::split(pickupStrings, line, boost::is_space());
+                    pickedUp.id = std::atoi(pickupStrings[0].c_str());
+                    pickedUp.position.y = std::atoi(pickupStrings[1].c_str());
+                    pickedUp.position.x = std::atoi(pickupStrings[2].c_str());
+                    pickedUp.position.x *= GlobalConstants::tileSize;
+                    pickedUp.position.y *= GlobalConstants::tileSize;
+                    room.pickupItems.push_back(pickedUp);
                 }
             }
 

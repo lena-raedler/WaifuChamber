@@ -24,6 +24,7 @@
 #include "../world/gateInformation.h"
 #include "../world/LockedWall.h"
 #include "../entities/player/EnemyInformation.h"
+#include "../entities/player/PickupItems.h"
 //#include "PositionSize.hpp"
 
 class Room;

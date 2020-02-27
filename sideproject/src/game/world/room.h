@@ -17,6 +17,7 @@
 #include "Platform.h"
 #include "../entities/player/EnemyBuilder.h"
 #include "../entities/player/BossBuilder.h"
+#include "../entities/player/PickupItems.h"
 
 enum TileType{
     BLANK,
@@ -68,6 +69,7 @@ public:
     std::vector<LockedWall> lockedWalls;
     std::vector<EnemyInformation> enemies;
     Vec2<int> position;
+    std::vector<PickupItems> pickupItems;
 
     void clear();
 };
