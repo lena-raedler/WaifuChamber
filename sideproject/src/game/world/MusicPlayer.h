@@ -13,14 +13,16 @@
 enum MusicType{AREAS, OTHER, BOSS};
 class Song{
 public:
-    ~Song();
     Mix_Music* music = NULL;
     std::string name;
     int start = 0;
+    void free();
 };
 class MusicPlayer {
 
+
 public:
+    ~MusicPlayer();
     std::vector<Song> areas;
     std::vector<Song> other;
     std::vector<Song> bossThemes;

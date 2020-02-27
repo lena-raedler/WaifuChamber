@@ -908,7 +908,11 @@ void Game::nonPlayerUpkeep(double deltaTime){
                 std::cout << "moving to " << currentRoom << std::endl;
                 player.position = gate->newPosition;
                 GlobalObjects::clear();
+                int oldMusic = room.musicId;
                 room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
+                if(room.musicId == -1){
+                    room.musicId = oldMusic;
+                }
                 fillGlobalObjects(room, false);
                 leave = true;
                 break;
@@ -932,6 +936,8 @@ void Game::initializeMusic(){
     GlobalObjects::musicPlayer.load(AREAS, "Hades - Scourge of the Furies 1.mp3");
     GlobalObjects::musicPlayer.load(BOSS, "Hades - Scourge of the Furies 2.mp3");
     GlobalObjects::musicPlayer.load(OTHER, "Dead Cells OST - Title Menu.mp3");
+    GlobalObjects::musicPlayer.load(AREAS, "Dead Cells OST - The Promenade.mp3");
+    GlobalObjects::musicPlayer.load(AREAS, "Pyre Original Soundtrack - Will of the Scribes.mp3");
     //gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
 
 }

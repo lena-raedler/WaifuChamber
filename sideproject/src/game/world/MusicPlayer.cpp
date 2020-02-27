@@ -5,8 +5,19 @@
 #include "MusicPlayer.h"
 #include "../SavedVariables.h"
 
-Song::~Song(){
+void Song::free(){
     Mix_FreeMusic(music);
+}
+MusicPlayer::~MusicPlayer(){
+    for(auto a : areas){
+        a.free();
+    }
+    for(auto b : bossThemes){
+        b.free();
+    }
+    for(auto c : other){
+        c.free();
+    }
 }
 void MusicPlayer::load(MusicType m, std::string s, int st) {
     std::string str = "files/music/" + s;
