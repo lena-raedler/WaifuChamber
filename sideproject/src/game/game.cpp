@@ -366,6 +366,7 @@ int Game::loop() {
             bossFight = false;
             player.kill();
         }
+        /*
         //todo fix this shit
         if(!bossFight && room.roomId == 3 && !bossDefeated(1)) {
 
@@ -373,7 +374,7 @@ int Game::loop() {
             GlobalObjects::musicPlayer.play(BOSS, 0);
             spawnBoss(800, 800);
         }
-
+*/
 
 
         render();
@@ -796,6 +797,7 @@ void Game::cleanup(bool& remove){
             if (!it->get()->defeated) {
                 bs.push_back(*it);
             } else{
+                GlobalObjects::musicPlayer.play(AREAS, room.musicId);
                 std::cout << "YOU DEFEATED" << std::endl;
             }
             ++it;
@@ -829,11 +831,14 @@ void Game::fillGlobalObjects(Room &room, bool initial) {
     }
     room.fillPlatformVector(GlobalObjects::platforms);
     room.fillEnemyVector(GlobalObjects::enemies);
-    for(auto i : GlobalObjects::enemies) {
+    for(auto& i : GlobalObjects::enemies) {
         i.get()->init(*renderer);
     }
     room.fillBossVector(GlobalObjects::bosses);
-    for(auto i : GlobalObjects::bosses) {
+    if(GlobalObjects::bosses.size() > 0){
+        GlobalObjects::musicPlayer.play(BOSS, GlobalObjects::bosses[0]->id - 1);
+    }
+    for(auto& i : GlobalObjects::bosses) {
         i.get()->init(*renderer);
     }
     room.fillDoorVector(GlobalObjects::gates);
