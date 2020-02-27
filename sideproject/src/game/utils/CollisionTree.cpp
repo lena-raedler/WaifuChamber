@@ -4,7 +4,7 @@
 //TODO
 #include "CollisionTree.h"
 
-{
+/*{
 using bounding_box_t = std::pair<vec_t, vec_t>;
 explicit CollisionTree(const particle_field_t& particles)
 {
@@ -83,4 +83,4 @@ CollisionTree::bool isInsideBox(const vec_t& position, const bounding_box_t& bou
 }
 
 
-}
+}*/
