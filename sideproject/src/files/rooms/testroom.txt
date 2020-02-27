@@ -56,3 +56,6 @@ ENEMY
   e_3 50 24
   e_3 10 32
 END
+COORDINATES
+  0,0
+END

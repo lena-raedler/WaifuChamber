@@ -403,6 +403,20 @@ namespace utility {
                     room.musicId = std::atoi(line.c_str());
                 }
             }
+            else if(line.find("COORDINATES") != std::string::npos) {
+                while(line.find("END") == std::string::npos) {
+                    std::getline(roomFile, line);
+                    if(line.find("END") != std::string::npos) {
+                        break;
+                    } while(line.front() == ' ') {
+                        boost::algorithm::erase_first(line, " ");
+                    }
+                    std::vector<std::string> roomCoords;
+                    boost::split(roomCoords, line, boost::is_any_of(","));
+                    room.position.x = std::atoi(roomCoords[0].c_str());
+                    room.position.y = std::atoi(roomCoords[1].c_str());
+                }
+            }
 
         }
 
