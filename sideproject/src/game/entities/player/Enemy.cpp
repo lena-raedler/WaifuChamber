@@ -87,23 +87,34 @@ void Enemy::flee(double d){
 
 }
 void Enemy::init(Renderer &renderer) {
-    SDL_Surface* s = IMG_Load(textureLocation.c_str());
-    texture = renderer.createTextureFromSurface(s);
-    int textureWidth = s->w;
-    SDL_FreeSurface(s);
-    enemySprite.spriteSheet = texture;
-    int x_pos = 0, y_pos = 0;
-    while((textureWidth - GlobalConstants::tileSize) >= x_pos) {
-        SDL_Rect r = {x_pos, y_pos, GlobalConstants::tileSize, GlobalConstants::tileSize};
-        enemySprite.sprites.push_back(r);
-        x_pos += textureWidth/4;
+    if(hasSprite) {
+        SDL_Surface *s = IMG_Load(textureLocation.c_str());
+        texture = renderer.createTextureFromSurface(s);
+        int textureWidth = s->w;
+        SDL_FreeSurface(s);
+        enemySprite.spriteSheet = texture;
+        int x_pos = 0, y_pos = 0;
+        while ((textureWidth - GlobalConstants::tileSize) >= x_pos) {
+            SDL_Rect r = {x_pos, y_pos, GlobalConstants::tileSize, GlobalConstants::tileSize};
+            enemySprite.sprites.push_back(r);
+            x_pos += textureWidth / 4;
 
+        }
+    } else {
+        SDL_Rect r = {(int)position.x, (int)position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
+        rec = std::make_shared<SDL_Rect>(r);
+        SDL_Surface* s = IMG_Load(textureLocation.c_str());
+        texture = renderer.createTextureFromSurface(s);
+        SDL_FreeSurface(s);
     }
 }
 
 void Enemy::render(Renderer &renderer) {
-    enemySprite.render(renderer, position);
-
+    if(hasSprite) {
+        enemySprite.render(renderer, position);
+    } else {
+        renderer.renderTexture(texture, nullptr, rec.get());
+    }
     // Health bar
     if (health < maxHealth)
         healthBar.renderBar(renderer);

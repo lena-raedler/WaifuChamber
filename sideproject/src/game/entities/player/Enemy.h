@@ -26,6 +26,7 @@ public:
     std::vector<Ability> abilities;
     std::vector<TelegraphedAbility> telegraphedAbilities;
     std::vector<double> probability;
+    bool hasSprite = true;
     Sprites enemySprite;
 
     Behaviour ai = CONSTANT;

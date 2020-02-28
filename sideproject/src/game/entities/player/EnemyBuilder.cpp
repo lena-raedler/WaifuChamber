@@ -88,6 +88,7 @@ namespace EnemyBuilder {
                 }
                 break;
             case 3: //spikes
+                e.hasSprite = false;
                 e.position = utility::convert(pos);
                 e.setMaxHealth(10);
                 e.speed = 10;
@@ -98,7 +99,7 @@ namespace EnemyBuilder {
                 utility::fillDefaultHitbox(p.hitbox);
                 e.iframes = true;
                 e.damageOnTouch = 70;
-                e.textureLocation = "files/textures/spikes_01.png";
+                e.textureLocation = "files/textures/spike_01.png";
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
@@ -108,6 +109,7 @@ namespace EnemyBuilder {
 
                 break;
             case 4: //spikes
+                e.hasSprite = false;
                 e.position = utility::convert(pos);
                 e.setMaxHealth(10);
                 e.speed = 10;
