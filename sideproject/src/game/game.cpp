@@ -529,7 +529,7 @@ vec_t Game::determineInput(double delta){
         out.x += -speed;}
     if(inputManager.isPressed(KEY_D)) {
         out.x += speed;}
-    if(inputManager.isPressed(KEY_W) || inputManager.isPressed(KEY_SPACE)) {
+    if(inputManager.keyDown[KEY_W] || inputManager.keyDown[KEY_SPACE]) {
         if (player.canJump()) {
             player.jump();
         }
@@ -898,6 +898,7 @@ void Game::cleanup(bool& remove){
             }
         }
     }
+    //std::cout << GlobalObjects::lockedWalls.size() << std::endl;
 
 
     GlobalObjects::telegraphedAttacks = tas;
@@ -933,7 +934,7 @@ void Game::fillGlobalObjects(Room &room, bool initial) {
         }
     }
     for(auto& lw: room.lockedWalls){
-        if(utility::decode(GlobalObjects::savedVariables.oneways, lw.id)){
+        if(!utility::decode(GlobalObjects::savedVariables.oneways, lw.id)){
             lw.init();
             GlobalObjects::lockedWalls.push_back(lw);
         }

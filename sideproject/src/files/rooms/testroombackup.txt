@@ -54,3 +54,12 @@ END
 COORDINATES
   0,0
 END
+	PICKUP
+	  0 39 24
+	END
+	ENEMY
+      e_1 10 15
+      e_3 15 15
+      e_3 50 24
+      e_3 10 32
+    END
