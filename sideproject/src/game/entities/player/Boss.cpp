@@ -121,14 +121,14 @@ void Boss::init(Renderer &renderer) {
     SDL_FreeSurface(s);
     bossSprite.spriteSheet = texture;
     int x_pos = 0, y_pos = 0;
-    while((textureHeight - (textureHeight/4)) >= y_pos) {
+    while((textureHeight - (textureHeight/2)) >= y_pos) {
         while ((textureWidth - (textureWidth / 4)) >= x_pos) {
             SDL_Rect r = {x_pos, y_pos, GlobalConstants::tileSize / 2, GlobalConstants::tileSize / 2};
             bossSprite.sprites.push_back(r);
             x_pos += textureWidth / 4;
         }
         x_pos = 0;
-        y_pos += textureHeight / 4;
+        y_pos += textureHeight / 2;
     }
 }
 
