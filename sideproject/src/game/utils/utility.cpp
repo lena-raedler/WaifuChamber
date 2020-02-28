@@ -281,6 +281,15 @@ namespace utility {
                             room.lockedWalls.push_back(wall);
 
                         }
+                        if(c == '>') {
+                            LockedWall wall;
+                            wall.id = lockedWallId;
+                            wall.position.first = y;
+                            wall.position.second = x;
+                            wall.orientation = true;
+                            room.lockedWalls.push_back(wall);
+
+                        }
                         if(tilePath.find("none") != std::string::npos) {
                             y += GlobalConstants::tileSize;
                             continue;
