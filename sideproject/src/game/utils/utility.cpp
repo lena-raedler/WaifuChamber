@@ -210,6 +210,7 @@ namespace utility {
                             platformPosition.second = x;
                             platformPositionVector.push_back(platformPosition);
                         }
+                        // regular unlocked doors
                         if(c == 'd') {
                             std::pair<int, int> gatePosition;
                             gatePosition.first = y;
@@ -234,6 +235,13 @@ namespace utility {
                             gatePosition.second = x;
                             gatePositions.push_back(std::make_pair(gatePosition, c));
                         }
+                        if(c == 'y') {
+                            std::pair<int, int> gatePosition;
+                            gatePosition.first = y;
+                            gatePosition.second = x;
+                            gatePositions.push_back(std::make_pair(gatePosition, c));
+                        }
+                        // locked doors
                         if(c == 'l') {
                             std::pair<int, int> gatePosition;
                             gatePosition.first = y;
