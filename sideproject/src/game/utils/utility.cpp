@@ -240,6 +240,12 @@ namespace utility {
                             gatePosition.second = x;
                             gatePositions.push_back(std::make_pair(gatePosition, c));
                         }
+                        if(c == 'x') {
+                            std::pair<int, int> gatePosition;
+                            gatePosition.first = y;
+                            gatePosition.second = x;
+                            gatePositions.push_back(std::make_pair(gatePosition, c));
+                        }
                         if(c == 'w') {
                             std::pair<int, int> wallPosition;
                             wallPosition.first =y;
@@ -306,7 +312,7 @@ namespace utility {
                             std::pair<std::pair<int, int>, std::string> gateInfo;
                             for(auto i : gatePositions) {
                                 if (moreGateInfo[1].front() == i.second) {
-                                    if(i.second == 'l') {
+                                    if(i.second == 'l' || i.second == 'x') {
                                         allGateInfo.leftLocked = true;
                                         allGateInfo.rightLocked = true;
                                     } else {
