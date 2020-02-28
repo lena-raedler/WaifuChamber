@@ -99,3 +99,15 @@ void Room::clear() {
     doorPositions.clear();
     enemyInformation.clear();
 }
+
+// 992 864
+void Room::removeLockedWall(LockedWall lockedWall) {
+    for(auto const& [key, val] : tileMap) {
+        if((val.x == lockedWall.position.first) && (val.y == lockedWall.position.second)) {
+            tileMap.erase(key);
+        }
+    }
+    SDL_DestroyTexture(lockedWall.texture);
+    auto it = std::find(lockedWalls.begin(), lockedWalls.end(), lockedWall);
+    lockedWalls.erase(it);
+}

@@ -278,7 +278,13 @@ namespace utility {
                             wall.position.first = y;
                             wall.position.second = x;
                             wall.orientation = true;
-                            room.lockedWalls.push_back(wall);
+                            wall.texture = texture;
+                            if(GlobalObjects::savedVariables.oneways == lockedWallId) {
+                                room.lockedWalls.push_back(wall);
+                            } else {
+                                SDL_DestroyTexture(texture);
+                                break;
+                            }
 
                         }
                         if(c == '>') {
@@ -286,8 +292,14 @@ namespace utility {
                             wall.id = lockedWallId;
                             wall.position.first = y;
                             wall.position.second = x;
-                            wall.orientation = true;
-                            room.lockedWalls.push_back(wall);
+                            wall.orientation = false;
+                            wall.texture = texture;
+                            if(GlobalObjects::savedVariables.oneways == lockedWallId) {
+                                room.lockedWalls.push_back(wall);
+                            } else {
+                                SDL_DestroyTexture(texture);
+                                break;
+                            }
 
                         }
                         if(tilePath.find("none") != std::string::npos) {

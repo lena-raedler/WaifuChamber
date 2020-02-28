@@ -18,11 +18,20 @@ struct LockedWall {
     bool closed = true;
     std::vector<triangle> hitboxOpen;
     std::vector<triangle> hitbox;
+    SDL_Texture* texture;
 
     void init();
 
 
     void unlock(vec_t pos);
+
+    bool operator== (const LockedWall& other) const {
+        if(id == other.id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 };
 
 #endif //WAIFU_LOCKEDWALL_H

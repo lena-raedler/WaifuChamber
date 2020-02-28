@@ -1080,6 +1080,9 @@ void Game::nonPlayerUpkeep(double deltaTime){
     for(auto& lw : GlobalObjects::lockedWalls){
         if(utility::hitboxCollision(player.hitbox, player.position, lw.hitboxOpen, lw.pos_double)){
             lw.unlock(player.position);
+            auto it = std::find(GlobalObjects::lockedWalls.begin(), GlobalObjects::lockedWalls.end(), lw);
+            GlobalObjects::lockedWalls.erase(it);
+            room.removeLockedWall(lw);
         }
 
     }

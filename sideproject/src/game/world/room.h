@@ -73,4 +73,5 @@ public:
     std::vector<PickupItems> pickupItems;
 
     void clear();
+    void removeLockedWall(LockedWall lockedWall);
 };
