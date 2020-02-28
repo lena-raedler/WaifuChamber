@@ -26,9 +26,11 @@ public:
     Vec2<int> startPixels;
     Vec2<int> currentPosition;
     bool inMap = false;
+    Image background;
 
     /// Functions ///
     //void initCurrentTile();
+    void initBackground();
     void addTile(Vec2<int> position);
     //void updateCurrentTile();
     void render();

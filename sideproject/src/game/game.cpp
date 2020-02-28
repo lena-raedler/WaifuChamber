@@ -167,12 +167,11 @@ Game::Game()
     fillGlobalObjects(room, true);
 
     // Map
-    //map.startPixels.x = GlobalObjects::resolution.first/2;
-    //map.startPixels.y = GlobalObjects::resolution.second/2;
-    //map.currentPosition = room.position;
-    //map.currentTile = MapTile(utility::loadImage("files/textures/brick_03.png"), map.currentPosition);
-    //map.addTile(room.position);
-    //map.initCurrentTile();
+    map.startPixels.x = GlobalObjects::resolution.first/2;
+    map.startPixels.y = GlobalObjects::resolution.second/2;
+    map.currentPosition = room.position;
+    map.addTile(room.position);
+    map.initBackground();
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
 
@@ -318,13 +317,6 @@ int Game::loop() {
     unsigned long long now = SDL_GetPerformanceCounter();
     unsigned long long last = 0;
     double deltaTime = 0;
-
-    map.startPixels.x = GlobalObjects::resolution.first/2;
-    map.startPixels.y = GlobalObjects::resolution.second/2;
-    map.currentPosition = room.position;
-    std::cout << "Position: " << room.position << std::endl;
-    map.addTile(room.position);
-    //map.currentTile = MapTile(utility::loadImage("files/textures/brick_03.png"), map.currentPosition);
 
     while(!quit && !menu.exitGame) {
         last = now;
@@ -643,15 +635,6 @@ void Game::render() {
         return;
     }
 
-    // Map
-    if (map.inMap) {
-        renderer->renderColor(0, 0, 0, 0);
-        renderer->clear();
-        map.render();
-        renderer->render();
-        return;
-    }
-
     // Room
     room.render(*renderer);
 
@@ -747,6 +730,13 @@ void Game::render() {
     //testText.render();
     //renderTTF( (1920-mWidth)/2, (1080-mHeight)/2 );
     //SDL_RenderCopyEx( *renderer, mTexture, clip, &renderQuad, angle, center, flip );
+
+    // Map
+    if (map.inMap) {
+        map.render();
+        //renderer->render();
+        //return;
+    }
 
     renderer->render();
 }

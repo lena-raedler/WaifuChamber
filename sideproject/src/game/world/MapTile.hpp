@@ -9,11 +9,12 @@
 #include "../GlobalObjects.h"
 #include "../utils/Image.h"
 #include "../utils/Vec2.h"
+#include "../utils/utility.h"
 
 class MapTile {
 public:
     /// Constructor & Destructor ///
-    MapTile() = default;
+    MapTile();
     MapTile(Image image, Vec2<int> position);
     MapTile(Image image, Image imageHighlighted, Vec2<int> position);
     ~MapTile() = default;
