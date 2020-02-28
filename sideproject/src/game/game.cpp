@@ -165,14 +165,16 @@ Game::Game()
     fillGlobalObjects(room, true);
 
     // Map
-    map.startPixels.x = GlobalObjects::resolution.first/2;
-    map.startPixels.y = GlobalObjects::resolution.second/2;
-    map.addTile(room.position);
-
-    quit = false;
+    //map.startPixels.x = GlobalObjects::resolution.first/2;
+    //map.startPixels.y = GlobalObjects::resolution.second/2;
+    //map.currentPosition = room.position;
+    //map.currentTile = MapTile(utility::loadImage("files/textures/brick_03.png"), map.currentPosition);
+    //map.addTile(room.position);
+    //map.initCurrentTile();
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
 
+    quit = false;
     left = false;
     right = false;
     isFalling = false;
@@ -314,6 +316,13 @@ int Game::loop() {
     unsigned long long now = SDL_GetPerformanceCounter();
     unsigned long long last = 0;
     double deltaTime = 0;
+
+    map.startPixels.x = GlobalObjects::resolution.first/2;
+    map.startPixels.y = GlobalObjects::resolution.second/2;
+    map.currentPosition = room.position;
+    std::cout << "Position: " << room.position << std::endl;
+    map.addTile(room.position);
+    //map.currentTile = MapTile(utility::loadImage("files/textures/brick_03.png"), map.currentPosition);
 
     while(!quit && !menu.exitGame) {
         last = now;
@@ -502,6 +511,8 @@ vec_t Game::determineInput(double delta){
             map.inMap = !map.inMap;
             if (map.inMap) {
                 std::cout << "Show map" << std::endl;
+                map.currentPosition = room.position;
+                //map.updateCurrentTile();
             }
             else {
                 std::cout << "Hide map" << std::endl;
@@ -523,7 +534,7 @@ vec_t Game::determineInput(double delta){
         out.x += -speed;}
     if(inputManager.isPressed(KEY_D)) {
         out.x += speed;}
-    if(inputManager.isPressed(KEY_W)) {
+    if(inputManager.isPressed(KEY_W) || inputManager.isPressed(KEY_SPACE)) {
         if (player.canJump()) {
             player.jump();
         }
@@ -630,6 +641,15 @@ void Game::render() {
         return;
     }
 
+    // Map
+    if (map.inMap) {
+        renderer->renderColor(0, 0, 0, 0);
+        renderer->clear();
+        map.render();
+        renderer->render();
+        return;
+    }
+
     // Room
     room.render(*renderer);
 
@@ -725,9 +745,6 @@ void Game::render() {
     //testText.render();
     //renderTTF( (1920-mWidth)/2, (1080-mHeight)/2 );
     //SDL_RenderCopyEx( *renderer, mTexture, clip, &renderQuad, angle, center, flip );
-
-    if (map.inMap)
-        map.render();
 
     renderer->render();
 }
@@ -1010,6 +1027,7 @@ void Game::nonPlayerUpkeep(double deltaTime){
                     int oldMusic = room.musicId;
                     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
                     room.visited = true;
+                    map.currentPosition = room.position;
                     map.addTile(room.position);
                     if(room.musicId == -1){
                         room.musicId = oldMusic;

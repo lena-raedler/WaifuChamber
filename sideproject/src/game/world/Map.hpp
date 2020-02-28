@@ -10,6 +10,8 @@
 #include "../utils/Vec2.h"
 #include "../GlobalObjects.h"
 #include "../GlobalConstants.h"
+#include "MapTile.hpp"
+#include <iostream>
 
 class Map {
 public:
@@ -18,14 +20,16 @@ public:
     ~Map() = default;
 
     /// Fields ///
-    std::vector<Image> tiles;
-    Image currentTile;
+    std::vector<MapTile> tiles;
+    //MapTile currentTile;
     int offset = 10;
     Vec2<int> startPixels;
     Vec2<int> currentPosition;
     bool inMap = false;
 
     /// Functions ///
+    //void initCurrentTile();
     void addTile(Vec2<int> position);
+    //void updateCurrentTile();
     void render();
 };
