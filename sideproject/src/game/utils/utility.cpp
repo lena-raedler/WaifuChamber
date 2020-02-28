@@ -467,8 +467,8 @@ namespace utility {
                     std::vector<std::string> pickupStrings;
                     boost::split(pickupStrings, line, boost::is_space());
                     pickedUp.id = std::atoi(pickupStrings[0].c_str());
-                    pickedUp.position.y = std::atoi(pickupStrings[1].c_str());
-                    pickedUp.position.x = std::atoi(pickupStrings[2].c_str());
+                    pickedUp.position.x = std::atoi(pickupStrings[1].c_str());
+                    pickedUp.position.y = std::atoi(pickupStrings[2].c_str());
                     pickedUp.position.x *= GlobalConstants::tileSize;
                     pickedUp.position.y *= GlobalConstants::tileSize;
                     room.pickupItems.push_back(pickedUp);
