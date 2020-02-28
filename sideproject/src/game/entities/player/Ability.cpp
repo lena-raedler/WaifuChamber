@@ -58,7 +58,6 @@ void Ability::use(vec_t pos) {
                 tmp.normalize();
                 tmp *= speed;
 
-
                 projectile.velocity = tmp;
                 {
                     SDL_Rect r = {(int) projectile.position.x, (int) projectile.position.y, GlobalConstants::tileSize,

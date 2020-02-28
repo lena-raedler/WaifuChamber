@@ -14,6 +14,7 @@ void AbilityPicker<T>::plRanged(int i, T& a){
         case 0: //default shot
 
             utility::fillDefaultHitbox(p.hitbox, 1,1, {-GlobalConstants::tileSize/2, -GlobalConstants::tileSize/2});
+            //utility::fillDefaultHitbox(p.hitbox, 1,1, {0, 0});
             p.damage = 20;
             p.timeToLive = 2000;
             p.usesPlatforms = false;
@@ -21,7 +22,13 @@ void AbilityPicker<T>::plRanged(int i, T& a){
             p.gravityType = NOGRAVITY;
             p.terminalVelocity = {200, 200};
             p.owner = PLAYER;
+
+            // Doesn't change the texture position for some reason...
+            p.position.x -= GlobalConstants::tileSize/2;;
+            p.position.y -= GlobalConstants::tileSize/2;
             p.init();
+            p.rec->x -= GlobalConstants::tileSize/2;
+            p.rec->y -= GlobalConstants::tileSize/2;
 
             a.soundUse.load("smb_fireball.wav");
             a.addProjectile(p);
