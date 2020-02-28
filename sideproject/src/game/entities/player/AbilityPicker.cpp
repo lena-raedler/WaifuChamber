@@ -108,6 +108,22 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             a.lastUsed = 200;
             a.addAttack(attack);
             break;
+        case 4://bleed bullets
+            p.gravityType = NOGRAVITY;
+            p.usesPlatforms = false;
+            p.damage = 10;
+            p.fragile = false;
+            s.type = BLEED;
+            s.intensity = 60;
+            p.status.push_back(s);
+            utility::fillDefaultHitbox(p.hitbox);
+            p.timeToLive = 12;
+            p.velocity = {0, 0};
+            p.init();
+            a.addProjectile(p);
+            a.speed = 50;
+            a.cooldown = 40;
+            break;
         default:
             break;
     }

@@ -56,6 +56,9 @@ GATES
   gate_17 l 2
   gate_18 e -1
 END
+BOSS
+  b_1 30 29
+END
 COORDINATES
   0,0
 END

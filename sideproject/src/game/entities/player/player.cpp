@@ -237,7 +237,7 @@ void Player::kill(){
 }
 void Player::grounded(double delta) {
     if(velocity.y >= 0) {
-        jumps = 2;
+        jumps = utility::decode(GlobalObjects::savedVariables.upgrades, 1) ? 2 : 1;
     }
     vit.stam += delta * vit.stamRegen * stamRegenMultiplier;
     vit.stam = std::min(vit.stam, vit.maxStam);
@@ -433,8 +433,11 @@ void Player::addPickup(Pickup& p){
     keyText.text.rect = {static_cast<int>(position.x - 50), static_cast<int>(position.y - 40)};
     keyText.text.changeFontSize(20);
     keyText.id = 1;
-    keyText.duration = 100;
-    keyText.print();
+    keyText.duration = 10;
+    if(p.id > 10) {
+        keyText.print();
+    }
+    p.collect();
     GlobalObjects::savedVariables.pickups |= (1 << p.id);
     GlobalObjects::savedVariables.serialize();
 }

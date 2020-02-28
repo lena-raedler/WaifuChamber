@@ -25,6 +25,9 @@ namespace BossBuilder{
         }
 
     }
+    void boss1true(int i, Boss& b){
+        return;
+    }
     void buildBoss(int id, std::pair<int, int> pos){
         AbilityPicker<Ability> abilities;
         AbilityPicker<TelegraphedAbility> telegraphedAbilities;
@@ -34,6 +37,32 @@ namespace BossBuilder{
         Projectile p;
         switch(id){
             case 1:
+                b.position = utility::convert(pos);
+                b.textureLocation = "files/textures/skeleton.png";
+                abilities.pickAbility(a, 4, BOSS_RANGED);
+                b.addAbility(a, 1, 1);
+
+                b.addHealthBar(200, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF});
+                b.speed = 20;
+                b.id = 1;
+                b.velocity = {0, 0};
+                b.gravityType = NORMAL;
+                b.usesPlatforms = true;
+                utility::fillDefaultHitbox(b.hitbox, b.size.x, b.size.y);
+                b.phaseTransitionAbility= &BossBuilder::boss1true;
+                //b.name = "Juergen";
+                //b.nameText = Text("Juergen", 30, {0xFF, 0xFF, 0xFF});
+                b.nameText = Text();
+                b.nameText.rect.x = b.bars[0].x;
+                //b.nameText.positionSize.y = b.bars[0].y + b.bars[0].height/2 - b.nameText.positionSize.height/2;
+                b.nameText.rect.y = b.bars[0].y - b.nameText.rect.h;
+
+                {
+                    SDL_Rect r = {(int)b.position.x, (int)b.position.y, GlobalConstants::tileSize*b.size.x, GlobalConstants::tileSize*b.size.y};
+                    b.rec = std::make_shared<SDL_Rect>(r);
+                }
+                GlobalObjects::bosses.push_back(std::make_shared<Boss>(b));
+                break;
             case 2:
                 b.size = {2,2};
                 b.textureLocation = "files/textures/skeleton.png";
@@ -81,7 +110,9 @@ namespace BossBuilder{
         switch(i) {
             case 1:
                 GlobalObjects::playerPtr->addKey(2);
+                utility::encode(GlobalObjects::savedVariables.upgrades, 0);
                 break;
+            case 2:
             default:
                 break;
         }

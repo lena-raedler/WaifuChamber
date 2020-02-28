@@ -57,7 +57,7 @@ GATES
   gate_14 d -1
 END
 PICKUP
-  0 42 3
+  0 2 41
 END
 COORDINATES
   0,0

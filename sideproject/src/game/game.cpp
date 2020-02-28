@@ -374,6 +374,7 @@ int Game::loop() {
 
         if(atCp){
             GlobalObjects::projectiles.clear();
+            skipMovement = false;
         }
         else {
             nonPlayerUpkeep(deltaTime / deltaDenom);
@@ -479,6 +480,7 @@ vec_t Game::determineInput(double delta){
         for(auto& p : GlobalObjects::pickups){
             if(utility::hitboxCollision(player.hitbox, player.position, p->m.hitbox, p->m.position)){
                 player.addPickup(*p);
+                p->pFunction();
             }
         }
     }
@@ -538,7 +540,7 @@ vec_t Game::determineInput(double delta){
             player.jump();
         }
     }
-    if(inputManager.isPressed(KEY_S)) {
+    if(inputManager.isPressed(KEY_S) && utility::decode(GlobalObjects::savedVariables.upgrades,0)) {
         // player.velocity = {0, 0};    // Makes the player hover lol
         if(player.vit.stam > 0){
             player.velocity.y *= 0.2;
@@ -767,6 +769,9 @@ void Game::renderDebugTextures() {
     for (auto& b : GlobalObjects::bosses){
         renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
     }
+    for (auto& b : GlobalObjects::pickups){
+        renderer->renderTriangles(b->m.hitbox, 255, 120, 255, b->m.position);
+    }
     for(auto& c : GlobalObjects::allCheckpoints){
         if(boost::algorithm::equals(currentRoom, c.room)) {
             if (player.lastCP->id == c.id) {
@@ -947,10 +952,8 @@ void Game::fillGlobalObjects(Room &room, bool initial) {
         pu.m.init();
         pu.m.gravityType = NORMAL;
         if(!utility::decode(GlobalObjects::savedVariables.pickups, p.id)){
-            std::cout << "oyyoyoy" << std::endl;
             pu.id = p.id;
             pu.m.position = {static_cast<double>(p.position.x), static_cast<double>(p.position.y)};
-            std::cout << pu.m.position << std::endl;
             pu.setFunction();
             GlobalObjects::pickups.push_back(std::make_shared<Pickup>(pu));
         }
