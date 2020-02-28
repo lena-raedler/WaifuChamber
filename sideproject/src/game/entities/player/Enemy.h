@@ -11,6 +11,7 @@
 #include "Ability.h"
 #include "TelegraphedAbility.h"
 #include "Sprites.h"
+#include "Bar.hpp"
 
 enum Behaviour{CHASE, STATIONARY, FLEE, PATROL, CONSTANT};
 
@@ -18,6 +19,8 @@ class Enemy : public Movable{
 public:
     int maxHealth = 1;
     int health = maxHealth;
+    Bar healthBar;
+    int healthBarOffset = 2;
     int souls = 100;
     double speed = 10;
     std::vector<Ability> abilities;
@@ -36,6 +39,7 @@ public:
     void flee(double d);
 
     void upkeep(double delta);
+    double healthPercentage(){return (double) health / maxHealth;}
 
     //overriding functions from movable
     void init(Renderer& renderer);

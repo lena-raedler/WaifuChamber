@@ -10,16 +10,43 @@ namespace EnemyBuilder {
         p.textureLocation = "files/textures/weapons/Arrow.png";
         Ability a;
         statuseffect s;
+
         switch(id){
             case 1: //Skelly
                 e.position = utility::convert(pos);
                 e.velocity = {0,0};
-                e.setMaxHealth(10);
+                e.setMaxHealth(60);
                 e.speed = 10;
                 e.ai = STATIONARY;
                 e.gravityType = NORMAL;
                 e.souls = 100;
                 utility::fillDefaultHitbox(e.hitbox);
+
+                // Health bar
+                /*
+                e.healthBar.x = e.position.x;
+                e.healthBar.y = e.position.y - GlobalConstants::tileSize/2;
+                e.healthBar.width = GlobalConstants::tileSize;
+                e.healthBar.height = GlobalConstants::tileSize/2;
+                e.healthBar.borderRect = {e.healthBar.x, e.healthBar.y, e.healthBar.width, e.healthBar.height};
+                e.healthBar.backgroundRect = {e.healthBar.x + e.healthBarOffset, e.healthBar.width - 2*e.healthBarOffset, e.healthBar.height - 2*e.healthBarOffset};
+                e.healthBar.barRect = e.healthBar.backgroundRect;
+                //e.healthBar.backgroundRect.w = e.healthBar.barRect.w = e.healthBar.width - e.healthBarOffset;
+                //e.healthBar.backgroundRect.h = e.healthBar.barRect.h = e.healthBar.height - e.healthBarOffset;
+                e.healthBar.borderColor = GlobalConstants::WHITE;
+                e.healthBar.barColor = GlobalConstants::RED;
+                */
+
+                e.healthBar.x = e.position.x;
+                e.healthBar.y = e.position.y;
+                e.healthBar.width = GlobalConstants::tileSize;
+                e.healthBar.height = GlobalConstants::tileSize/4;
+                e.healthBar = {static_cast<int>(e.position.x), static_cast<int>(e.position.y), e.healthBar.width, e.healthBar.height, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}};
+                e.healthBar.borderRect = {static_cast<int>(e.position.x), static_cast<int>(e.position.y), e.healthBar.width, e.healthBar.height};
+                e.healthBar.backgroundRect = {static_cast<int>(e.position.x + e.healthBarOffset), static_cast<int>(e.position.y + e.healthBarOffset), e.healthBar.width - 2*e.healthBarOffset, e.healthBar.height - 2*e.healthBarOffset};
+                e.healthBar.barRect = {static_cast<int>(e.position.x + e.healthBarOffset), static_cast<int>(e.position.y + e.healthBarOffset), e.healthBar.width - 2*e.healthBarOffset, e.healthBar.height - 2*e.healthBarOffset};
+                e.healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
+                e.healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
 
                 utility::fillDefaultHitbox(p.hitbox);
                 p.damage = 20;
@@ -127,6 +154,9 @@ namespace EnemyBuilder {
             default:
                 break;
         }
+
+
+
         GlobalObjects::enemies.push_back(std::make_shared<Enemy>(e));
     };
 

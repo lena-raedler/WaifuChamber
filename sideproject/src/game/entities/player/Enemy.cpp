@@ -44,6 +44,10 @@ void Enemy::upkeep(double delta){
         a.useIfAvail(delta, position);
         a.lastUsed -= delta;
     }
+
+    healthBar.updateBar(healthPercentage());
+    healthBar.x = position.x;
+    healthBar.y = position.y - GlobalConstants::tileSize/2;
 }
 void Enemy::setMaxHealth(int i) {
     maxHealth = i;
@@ -89,4 +93,8 @@ void Enemy::init(Renderer &renderer) {
 
 void Enemy::render(Renderer &renderer) {
     enemySprite.render(renderer, position);
+
+    // Health bar
+    if (health < maxHealth)
+        healthBar.renderBar(renderer);
 }

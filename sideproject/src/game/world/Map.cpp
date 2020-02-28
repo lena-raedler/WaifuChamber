@@ -11,16 +11,22 @@ Map::Map() {
     startPixels.y = GlobalObjects::resolution.second;
 }
 
+void Map::init() {
+    initBackground();
+    initVisitedTiles();
+}
+
 void Map::initBackground() {
     background = utility::loadImage("files/textures/map/Map2Transparent.png");
     background.getRect()->w = GlobalObjects::resolution.first;
     background.getRect()->h = GlobalObjects::resolution.second;
 }
 
-void Map::addTile(Vec2<int> position) {
-    std::cout << "x: " << startPixels.x << std::endl;
-    std::cout << "y: " << startPixels.y << std::endl;
+void Map::initVisitedTiles() {
 
+}
+
+void Map::addTile(Vec2<int> position) {
     Image tile = utility::loadImage("files/textures/map/VisitedTile2.png");
     tile.getRect()->x = startPixels.x + position.x*(GlobalConstants::tileSize + offset);
     tile.getRect()->y = startPixels.y + position.y*(GlobalConstants::tileSize + offset);

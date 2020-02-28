@@ -171,7 +171,7 @@ Game::Game()
     map.startPixels.y = GlobalObjects::resolution.second/2;
     map.currentPosition = room.position;
     map.addTile(room.position);
-    map.initBackground();
+    map.init();
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
 
@@ -695,7 +695,6 @@ void Game::render() {
     for(auto& i : GlobalObjects::projectiles) {
         i->render(*renderer);
     }
-
     for(auto& i: GlobalObjects::telegraphedAttacks){
         i.render(*renderer);
     }
