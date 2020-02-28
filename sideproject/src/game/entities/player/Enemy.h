@@ -13,7 +13,7 @@
 #include "Sprites.h"
 #include "Bar.hpp"
 
-enum Behaviour{CHASE, STATIONARY, FLEE, PATROL, CONSTANT};
+enum Behaviour{CHASE, STATIONARY, FLEE, PATROL, CONSTANT, CHASEXY};
 
 class Enemy : public Movable{
 public:

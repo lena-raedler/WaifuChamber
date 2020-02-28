@@ -17,7 +17,7 @@ void AbilityPicker<T>::plRanged(int i, T& a){
             p.damage = 20;
             p.timeToLive = 2000;
             p.usesPlatforms = false;
-            p.fragile = false;
+            p.fragile = true;
             p.gravityType = NOGRAVITY;
             p.terminalVelocity = {200, 200};
             p.owner = PLAYER;
@@ -60,6 +60,7 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             p.gravityType = NOGRAVITY;
             p.usesPlatforms = false;
             p.damage = 20;
+            p.fragile = true;
             s.type = SHOCK;
             s.intensity = 40;
             p.status.push_back(s);
@@ -79,6 +80,7 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             p.status.push_back(s);
             p.gravityType = NOGRAVITY;
             p.usesPlatforms = false;
+            p.fragile = true;
             p.damage = 40;
             p.timeToLive = 20;
             p.init();

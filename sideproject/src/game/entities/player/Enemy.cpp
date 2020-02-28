@@ -31,6 +31,12 @@ void Enemy::upkeep(double delta){
             break;
         case CONSTANT:
             break;
+        case CHASEXY:
+            velocity.x = std::clamp(playerPos.x - position.x, -1.0, 1.0);
+            velocity.y = std::clamp(playerPos.y - position.y, -1.0, 1.0);
+            velocity.normalize();
+            velocity *=speed;
+            break;
         default:
             break;
     }

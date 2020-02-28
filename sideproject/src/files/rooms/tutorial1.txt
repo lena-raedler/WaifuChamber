@@ -59,6 +59,9 @@ GATES
   gate_06 l 1
   gate_07 y -1
 END
+ENEMY
+  e_01 30 32
+END
 COORDINATES
   0,0
 END

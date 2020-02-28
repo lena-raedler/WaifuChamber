@@ -34,6 +34,7 @@ namespace BossBuilder{
         Projectile p;
         switch(id){
             case 1:
+            case 2:
                 b.size = {2,2};
                 b.textureLocation = "files/textures/skeleton.png";
                 abilities.pickAbility(a, 1, BOSS_RANGED);
@@ -47,9 +48,9 @@ namespace BossBuilder{
 
                 //boss.addHealthBar(200);
                 //boss.addHealthBar(100);
-                b.addHealthBar(20, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF});
-                b.addHealthBar(16, {0x80, 0xFF, 0x80, 0xFF}, {0x00, 0xFF, 0x00, 0xFF});
-                b.addHealthBar(18, {0x80, 0x80, 0xff, 0xFF}, {0x00, 0x00, 0xFF, 0xFF});
+                b.addHealthBar(200, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF});
+                b.addHealthBar(160, {0x80, 0xFF, 0x80, 0xFF}, {0x00, 0xFF, 0x00, 0xFF});
+                b.addHealthBar(180, {0x80, 0x80, 0xff, 0xFF}, {0x00, 0x00, 0xFF, 0xFF});
                 //boss.healthBar ( {64, 900, 1500, 30, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}});
                 b.position = utility::convert(pos);
                 b.speed = 20;
@@ -79,7 +80,7 @@ namespace BossBuilder{
     void bossDefeated(int i){
         switch(i) {
             case 1:
-                GlobalObjects::playerPtr->addKey(0);
+                GlobalObjects::playerPtr->addKey(2);
                 break;
             default:
                 break;

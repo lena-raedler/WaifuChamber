@@ -26,10 +26,11 @@ namespace EnemyBuilder {
                 p.damage = 20;
                 p.timeToLive = 100;
                 p.usesPlatforms = false;
-                p.fragile = false;
+                p.fragile = true;
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
+                /*
                 s.type = BLEED;
                 s.intensity = 50;
 
@@ -38,6 +39,7 @@ namespace EnemyBuilder {
                 s.type = SHOCK;
                 p.status.push_back(s);
 
+                 */
                 a.projectiles.push_back(p);
                 a.speed = 20;
                 a.cooldown = 10;
@@ -64,7 +66,7 @@ namespace EnemyBuilder {
                 p.damage = 20;
                 p.timeToLive = 100;
                 p.usesPlatforms = false;
-                p.fragile = false;
+                p.fragile = true;
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
@@ -125,6 +127,19 @@ namespace EnemyBuilder {
                 }
 
                 break;
+            case 5: // chasing jelly
+                e.position = utility::convert(pos);
+                utility::fillDefaultHitbox(e.hitbox);
+                e.setMaxHealth(30);
+                e.speed = 16;
+                e.ai = CHASEXY;
+                e.gravityType = NOGRAVITY;
+                e.damageOnTouch = 30;
+                e.textureLocation = "files/textures/jellyfish.png";
+                {
+                    SDL_Rect r = {(int)e.position.x, (int)e.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                    e.rec = std::make_shared<SDL_Rect>(r);
+                }
             default:
                 break;
         }

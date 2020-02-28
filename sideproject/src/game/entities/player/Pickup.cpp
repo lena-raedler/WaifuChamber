@@ -3,3 +3,13 @@
 //
 
 #include "Pickup.hpp"
+
+void Pickup::setFunction() {
+    switch(id){
+        case 0:
+            pFunction = &PickupFunctions::dungeonBossKey;
+            break;
+        default:
+            break;
+    }
+}
