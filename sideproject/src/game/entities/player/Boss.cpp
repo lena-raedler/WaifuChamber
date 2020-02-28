@@ -117,16 +117,32 @@ void Boss::init(Renderer &renderer) {
     SDL_Surface* s = IMG_Load(textureLocation.c_str());
     texture = renderer.createTextureFromSurface(s);
     int textureWidth = s->w;
+    int textureHeight = s->h;
     SDL_FreeSurface(s);
     bossSprite.spriteSheet = texture;
     int x_pos = 0, y_pos = 0;
-    while((textureWidth - (textureWidth/4)) >= x_pos) {
-        SDL_Rect r = {x_pos, y_pos, GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
-        bossSprite.sprites.push_back(r);
-        x_pos += textureWidth/4;
+    while((textureHeight - (textureHeight/4)) >= y_pos) {
+        while ((textureWidth - (textureWidth / 4)) >= x_pos) {
+            SDL_Rect r = {x_pos, y_pos, GlobalConstants::tileSize / 2, GlobalConstants::tileSize / 2};
+            bossSprite.sprites.push_back(r);
+            x_pos += textureWidth / 4;
+        }
+        x_pos = 0;
+        y_pos += textureHeight / 4;
     }
 }
 
 void Boss::render(Renderer &renderer) {
+    Sprites toRender;
+    toRender.spriteSheet = bossSprite.spriteSheet;
+    if(velocity.x < 0) {
+        for(int i = 0; i < 4; i++) {
+            toRender.render(renderer, position, size);
+        }
+    } else {
+        for(int i = 4; i < 8; i++) {
+            toRender.render(renderer, position, size);
+        }
+    }
     bossSprite.render(renderer, position, size);
 }
