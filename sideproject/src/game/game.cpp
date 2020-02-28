@@ -396,6 +396,7 @@ int Game::loop() {
 
         // check for levelUp
         if(GlobalObjects::savedVariables.souls >= 4500) {
+            utility::displayMessage("Level Up!", player.position, 7, 14335);
             player.levelUp();
             GlobalObjects::savedVariables.level += 1;
             GlobalObjects::savedVariables.souls = 0;
