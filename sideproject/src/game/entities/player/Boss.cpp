@@ -137,12 +137,12 @@ void Boss::render(Renderer &renderer) {
     toRender.spriteSheet = bossSprite.spriteSheet;
     if(velocity.x < 0) {
         for(int i = 0; i < 4; i++) {
-            toRender.render(renderer, position, size);
+            toRender.sprites.push_back(bossSprite.sprites[i]);
         }
     } else {
         for(int i = 4; i < 8; i++) {
-            toRender.render(renderer, position, size);
+            toRender.sprites.push_back(bossSprite.sprites[i]);
         }
     }
-    bossSprite.render(renderer, position, size);
+    toRender.render(renderer, position, size);
 }

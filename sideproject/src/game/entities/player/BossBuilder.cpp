@@ -38,7 +38,7 @@ namespace BossBuilder{
         switch(id){
             case 1:
                 b.position = utility::convert(pos);
-                b.textureLocation = "files/textures/skeleton.png";
+                b.textureLocation = "files/textures/boos/boss1_spritesheet.png";
                 abilities.pickAbility(a, 4, BOSS_RANGED);
                 b.addAbility(a, 1, 1);
 
