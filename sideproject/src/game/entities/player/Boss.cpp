@@ -103,6 +103,7 @@ void Boss::kill(){
         GlobalObjects::savedVariables.serialize(file);
     }
     file.close();
+    GlobalObjects::savedVariables.souls += souls;
     //dostuff
 }
 void Boss::transitionPhase() {

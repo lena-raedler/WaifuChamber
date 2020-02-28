@@ -53,7 +53,6 @@ struct vitals{
     double stam = 100;
     int maxMp = 100;
     int mp = 50;
-
     int armor;
 
     double stamRegen = 10;
@@ -116,6 +115,7 @@ public:
     double dashSpeed = 10;
     int dashFullDuration = 1;
     double dashDuration = dashFullDuration;
+    int level = 1;
 
     std::chrono::high_resolution_clock::time_point lastJump = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point lastHit;
@@ -196,6 +196,8 @@ public:
     void addPickup(int i);
 
     void addPickup(Pickup &p);
+
+    void levelUp();
 };
 
 

@@ -482,3 +482,9 @@ void Player::render(Renderer &renderer) {
     }
     toRender.render(renderer, position);
 }
+
+// level up function
+void Player::levelUp() {
+    vit.maxHp *= 1.1;
+    vit.maxStam *= 1.1;
+}

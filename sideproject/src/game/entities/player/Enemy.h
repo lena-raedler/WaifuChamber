@@ -18,7 +18,7 @@ class Enemy : public Movable{
 public:
     int maxHealth = 1;
     int health = maxHealth;
-    int souls;
+    int souls = 100;
     double speed = 10;
     std::vector<Ability> abilities;
     std::vector<TelegraphedAbility> telegraphedAbilities;

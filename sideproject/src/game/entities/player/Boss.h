@@ -22,6 +22,7 @@ public:
     //std::unique_ptr<Bar> healthBar;
     Bar healthBar;
     std::vector<Bar> bars;
+    int souls = 2000;
 
     //virtual void specialStuff(double d);
     int phase = 1;

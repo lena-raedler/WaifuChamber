@@ -391,6 +391,14 @@ int Game::loop() {
         }
 */
 
+        // check for levelUp
+        if(GlobalObjects::savedVariables.souls >= 4500) {
+            player.levelUp();
+            GlobalObjects::savedVariables.level += 1;
+            GlobalObjects::savedVariables.souls = 0;
+            GlobalObjects::savedVariables.serialize();
+
+        }
 
         render();
         cleanup(scuff3);
@@ -938,6 +946,8 @@ void Game::loadSavedVariables(){
 
     musicVolume = GlobalObjects::savedVariables.musicVolume;
     effectVolume = GlobalObjects::savedVariables.effectVolume;
+    player.level = GlobalObjects::savedVariables.level;
+    std::cout << "level: " << player.level << std::endl;
 
 }
 
