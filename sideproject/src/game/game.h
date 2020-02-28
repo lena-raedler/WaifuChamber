@@ -29,6 +29,7 @@
 #include "menu/Menu.hpp"
 #include "utils/Text.hpp"
 #include "./world/Map.hpp"
+#include "./utils/Popup.hpp"
 
 // QT Widget
 //#include "Calculator/calculator.hpp"
@@ -109,7 +110,7 @@ private:
     int mHeight = 0;
     void renderTTF( int x, int y, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE );
 
-    //Text testText;
+    Popup popup;
 
     /////////////////////////////////DELETE THIS////////////////////////////////////////////////////////
     //this is just to quickly test things, everything below this will be removed

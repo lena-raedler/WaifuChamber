@@ -225,6 +225,11 @@ Game::Game()
 
     // Enable opacity between 0 and 255
     SDL_SetRenderDrawBlendMode(renderer->getRenderer(), SDL_BLENDMODE_BLEND);
+
+    // Popup for upgrades
+    popup = Popup("Float received!");
+    popup.text.rect.x = GlobalObjects::resolution.first/2 - popup.text.rect.w/2;
+    popup.text.rect.y = GlobalObjects::resolution.second/2 - popup.text.rect.h/2;
 }
 void Game::makeCheckpoints(){
     SDL_Surface* s = IMG_Load("files/textures/savepoint_01.png");
@@ -739,6 +744,9 @@ void Game::render() {
     //testText.render();
     //renderTTF( (1920-mWidth)/2, (1080-mHeight)/2 );
     //SDL_RenderCopyEx( *renderer, mTexture, clip, &renderQuad, angle, center, flip );
+
+    // Popup
+    popup.displayPopup();
 
     // Map
     if (map.inMap) {
