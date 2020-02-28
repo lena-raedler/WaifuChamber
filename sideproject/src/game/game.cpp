@@ -253,9 +253,9 @@ void Game::makeCheckpoints(){
     }
     {
         Checkpoint c;
-        c.position = utility::convert({58, 1});
+        c.position = utility::convert({40, 7});
         utility::fillDefaultHitbox(c.hitbox);
-        c.room = "files/rooms/plains.txt";
+        c.room = "files/rooms/forest1.txt";
         c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
@@ -959,8 +959,10 @@ void Game::fillGlobalObjects(Room &room, bool initial) {
         }
     }
     for(auto& lw: room.lockedWalls){
+        lw.id = room.roomId;
         if(!utility::decode(GlobalObjects::savedVariables.oneways, lw.id)){
             lw.init();
+
             GlobalObjects::lockedWalls.push_back(lw);
         }
     }

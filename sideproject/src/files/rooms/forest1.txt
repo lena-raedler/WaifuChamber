@@ -1,5 +1,5 @@
 ID
-ROOM_3
+ROOM_8
 END
 BACKGROUND
 files/backgrounds/dungeon_01.png
