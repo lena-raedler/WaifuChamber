@@ -104,6 +104,8 @@ void Boss::kill(){
     }
     file.close();
     GlobalObjects::savedVariables.souls += souls;
+    SDL_DestroyTexture(bossSprite.spriteSheet);
+    SDL_DestroyTexture(texture);
     //dostuff
 }
 void Boss::transitionPhase() {
