@@ -10,11 +10,12 @@ namespace EnemyBuilder {
         p.textureLocation = "files/textures/weapons/Arrow.png";
         Ability a;
         statuseffect s;
+
         switch(id){
             case 1: //Skelly
                 e.position = utility::convert(pos);
                 e.velocity = {0,0};
-                e.setMaxHealth(10);
+                e.setMaxHealth(60);
                 e.speed = 10;
                 e.ai = STATIONARY;
                 e.gravityType = NORMAL;
@@ -25,10 +26,11 @@ namespace EnemyBuilder {
                 p.damage = 20;
                 p.timeToLive = 100;
                 p.usesPlatforms = false;
-                p.fragile = false;
+                p.fragile = true;
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
+                /*
                 s.type = BLEED;
                 s.intensity = 50;
 
@@ -37,6 +39,7 @@ namespace EnemyBuilder {
                 s.type = SHOCK;
                 p.status.push_back(s);
 
+                 */
                 a.projectiles.push_back(p);
                 a.speed = 20;
                 a.cooldown = 10;
@@ -63,7 +66,7 @@ namespace EnemyBuilder {
                 p.damage = 20;
                 p.timeToLive = 100;
                 p.usesPlatforms = false;
-                p.fragile = false;
+                p.fragile = true;
                 p.gravityType = NOGRAVITY;
                 p.baseInit();
 
@@ -124,9 +127,35 @@ namespace EnemyBuilder {
                 }
 
                 break;
+            case 5: // chasing jelly
+                e.position = utility::convert(pos);
+                utility::fillDefaultHitbox(e.hitbox);
+                e.setMaxHealth(30);
+                e.speed = 16;
+                e.ai = CHASEXY;
+                e.gravityType = NOGRAVITY;
+                e.damageOnTouch = 30;
+                e.textureLocation = "files/textures/jellyfish.png";
+                {
+                    SDL_Rect r = {(int)e.position.x, (int)e.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                    e.rec = std::make_shared<SDL_Rect>(r);
+                }
             default:
                 break;
         }
+
+        // Health bar
+        e.healthBar.x = e.position.x;
+        e.healthBar.y = e.position.y - GlobalConstants::tileSize/2;
+        e.healthBar.width = GlobalConstants::tileSize;
+        e.healthBar.height = GlobalConstants::tileSize/4;
+        e.healthBar = {static_cast<int>(e.position.x), static_cast<int>(e.position.y), e.healthBar.width, e.healthBar.height, {0xFF, 0x80, 0x80, 0xFF}, {0xFF, 0x00, 0x00, 0xFF}};
+        e.healthBar.borderRect = {static_cast<int>(e.position.x), static_cast<int>(e.position.y), e.healthBar.width, e.healthBar.height};
+        e.healthBar.backgroundRect = {static_cast<int>(e.position.x + e.healthBarOffset), static_cast<int>(e.position.y + e.healthBarOffset), e.healthBar.width - 2*e.healthBarOffset, e.healthBar.height - 2*e.healthBarOffset};
+        e.healthBar.barRect = {static_cast<int>(e.position.x + e.healthBarOffset), static_cast<int>(e.position.y + e.healthBarOffset), e.healthBar.width - 2*e.healthBarOffset, e.healthBar.height - 2*e.healthBarOffset};
+        e.healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
+        e.healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
+
         GlobalObjects::enemies.push_back(std::make_shared<Enemy>(e));
     };
 

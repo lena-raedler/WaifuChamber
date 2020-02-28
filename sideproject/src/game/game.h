@@ -63,6 +63,7 @@ private:
     std::shared_ptr<Renderer> renderer;
     bool quit;
     bool pause;
+    bool skipMovement;
     Image pauseImage;
     SDL_Surface* surface;
     Player player;

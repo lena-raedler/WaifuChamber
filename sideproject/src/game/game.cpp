@@ -47,7 +47,7 @@ namespace GlobalObjects{
     std::shared_ptr<Renderer> renderPtr;
     std::vector<LingeringText> texts;
     std::vector<Message> messages;
-    std::vector<Pickup> pickups;
+    std::vector<std::shared_ptr<Pickup>> pickups;
     std::vector<LockedWall> lockedWalls;
     MusicPlayer musicPlayer;
     void clear(){
@@ -171,7 +171,7 @@ Game::Game()
     map.startPixels.y = GlobalObjects::resolution.second/2;
     map.currentPosition = room.position;
     map.addTile(room.position);
-    map.initBackground();
+    map.init();
 
     pauseImage = utility::loadImage("files/backgrounds/pauseTransparent.png", *renderer);
 
@@ -234,7 +234,7 @@ void Game::makeCheckpoints(){
         if(!c.texture) {
             std::cerr << SDL_GetError() << std::endl;
         }
-        c.position = utility::convert({3, 6});
+        c.position = utility::convert({3, 32});
         utility::fillDefaultHitbox(c.hitbox);
         c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
@@ -243,9 +243,9 @@ void Game::makeCheckpoints(){
     }
     {
         Checkpoint c;
-        c.position = utility::convert({55, 4});
+        c.position = utility::convert({55, 30});
         utility::fillDefaultHitbox(c.hitbox);
-        c.room = "files/rooms/library.txt";
+        c.room = "files/rooms/dungeon1.txt";
         c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
@@ -345,8 +345,12 @@ int Game::loop() {
             break;
         }
 
-        player.velocity += move;
-        player.upkeep(deltaTime/deltaDenom);
+
+
+        if(!skipMovement) {
+            player.velocity += move;
+            player.upkeep(deltaTime / deltaDenom);
+        }
 
         bool atCp = false;
         for(auto& c: GlobalObjects::roomCheckpoints){
@@ -370,6 +374,7 @@ int Game::loop() {
 
         if(atCp){
             GlobalObjects::projectiles.clear();
+            skipMovement = false;
         }
         else {
             nonPlayerUpkeep(deltaTime / deltaDenom);
@@ -473,8 +478,9 @@ vec_t Game::determineInput(double delta){
     if(inputManager.isPressed(KEY_E)){
         /* Interact with stuff*/
         for(auto& p : GlobalObjects::pickups){
-            if(utility::hitboxCollision(player.hitbox, player.position, p.m.hitbox, p.m.position)){
-                player.addPickup(p);
+            if(utility::hitboxCollision(player.hitbox, player.position, p->m.hitbox, p->m.position)){
+                player.addPickup(*p);
+                p->pFunction();
             }
         }
     }
@@ -534,7 +540,7 @@ vec_t Game::determineInput(double delta){
             player.jump();
         }
     }
-    if(inputManager.isPressed(KEY_S)) {
+    if(inputManager.isPressed(KEY_S) && utility::decode(GlobalObjects::savedVariables.upgrades,0)) {
         // player.velocity = {0, 0};    // Makes the player hover lol
         if(player.vit.stam > 0){
             player.velocity.y *= 0.2;
@@ -695,7 +701,6 @@ void Game::render() {
     for(auto& i : GlobalObjects::projectiles) {
         i->render(*renderer);
     }
-
     for(auto& i: GlobalObjects::telegraphedAttacks){
         i.render(*renderer);
     }
@@ -727,6 +732,9 @@ void Game::render() {
 
     for(auto& lt: GlobalObjects::texts){
         lt.text.render();
+    }
+    for(auto& lt: GlobalObjects::pickups){
+        lt->m.render(*GlobalObjects::renderPtr);
     }
     //testText.render();
     //renderTTF( (1920-mWidth)/2, (1080-mHeight)/2 );
@@ -760,6 +768,9 @@ void Game::renderDebugTextures() {
     }
     for (auto& b : GlobalObjects::bosses){
         renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
+    }
+    for (auto& b : GlobalObjects::pickups){
+        renderer->renderTriangles(b->m.hitbox, 255, 120, 255, b->m.position);
     }
     for(auto& c : GlobalObjects::allCheckpoints){
         if(boost::algorithm::equals(currentRoom, c.room)) {
@@ -880,7 +891,7 @@ void Game::cleanup(bool& remove){
         auto it = GlobalObjects::pickups.begin();
         while (it != GlobalObjects::pickups.end()) {
 
-            if ((!player.hasPickup(it->id))) {
+            if ((!player.hasPickup(it->get()->id))) {
                 ++it;
             } else{
                 it = GlobalObjects::pickups.erase(it);
@@ -931,6 +942,20 @@ void Game::fillGlobalObjects(Room &room, bool initial) {
     for(auto& c : GlobalObjects::allCheckpoints){
         if(boost::algorithm::equals(c.room, currentRoom)) {
             GlobalObjects::roomCheckpoints.push_back(&c);
+        }
+    }
+    for(auto& p :room.pickupItems){
+
+        Pickup pu;
+        pu.m.textureLocation = "files/texures/weapons/projectile01.png";
+        utility::fillDefaultHitbox(pu.m.hitbox);
+        pu.m.init();
+        pu.m.gravityType = NORMAL;
+        if(!utility::decode(GlobalObjects::savedVariables.pickups, p.id)){
+            pu.id = p.id;
+            pu.m.position = {static_cast<double>(p.position.x), static_cast<double>(p.position.y)};
+            pu.setFunction();
+            GlobalObjects::pickups.push_back(std::make_shared<Pickup>(pu));
         }
     }
     for(auto& lw: room.lockedWalls){
@@ -1026,6 +1051,7 @@ void Game::nonPlayerUpkeep(double deltaTime){
         boss->upkeep(deltaTime);
     }
     bool leave = false;
+    skipMovement = false;
     for(auto& gate : GlobalObjects::gates){
         for(triangle t : player.hitbox) {
             t+=player.position;
@@ -1036,6 +1062,8 @@ void Game::nonPlayerUpkeep(double deltaTime){
                     player.position = gate->newPosition;
                     GlobalObjects::clear();
                     int oldMusic = room.musicId;
+                    skipMovement = true;
+                    player.velocity ={0,0};
                     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
                     room.visited = true;
                     map.currentPosition = room.position;
@@ -1218,17 +1246,17 @@ void Game::renderTTF( int x, int y, SDL_Rect* clip, double angle, SDL_Point* cen
 void Game::insertMessages(){
     switch(room.roomId){
 
-        case 1:
+        case 2:
             Message m;
             utility::fillDefaultHitbox(m.m.hitbox);
-            m.m.position = {320, 960};
+            m.m.position = utility::convert(4, 32);
             m.t.text.changeText("W/Space : Jump");
             m.t.id = 1001;
             m.t.duration = 20;
             GlobalObjects::messages.push_back(m);
             m.t.text.changeText("LMB : Shoot");
             m.t.id = 1002;
-            m.m.position = {640, 960};
+            m.m.position = utility::convert(52, 31);
             GlobalObjects::messages.push_back(m);
     }
 }

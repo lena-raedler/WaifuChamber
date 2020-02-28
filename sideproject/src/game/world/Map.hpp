@@ -29,9 +29,9 @@ public:
     Image background;
 
     /// Functions ///
-    //void initCurrentTile();
+    void init();
+    void initVisitedTiles();
     void initBackground();
     void addTile(Vec2<int> position);
-    //void updateCurrentTile();
     void render();
 };

@@ -31,6 +31,12 @@ void Enemy::upkeep(double delta){
             break;
         case CONSTANT:
             break;
+        case CHASEXY:
+            velocity.x = std::clamp(playerPos.x - position.x, -1.0, 1.0);
+            velocity.y = std::clamp(playerPos.y - position.y, -1.0, 1.0);
+            velocity.normalize();
+            velocity *=speed;
+            break;
         default:
             break;
     }
@@ -44,6 +50,14 @@ void Enemy::upkeep(double delta){
         a.useIfAvail(delta, position);
         a.lastUsed -= delta;
     }
+
+    healthBar.updateBar(healthPercentage());
+    healthBar.x = position.x;
+    healthBar.y = position.y - GlobalConstants::tileSize/2;
+    healthBar.borderRect.x = healthBar.x;
+    healthBar.borderRect.y = healthBar.y;
+    healthBar.backgroundRect.x = healthBar.barRect.x = healthBar.x + healthBarOffset;
+    healthBar.backgroundRect.y = healthBar.barRect.y = healthBar.y + healthBarOffset;
 }
 void Enemy::setMaxHealth(int i) {
     maxHealth = i;
@@ -89,4 +103,8 @@ void Enemy::init(Renderer &renderer) {
 
 void Enemy::render(Renderer &renderer) {
     enemySprite.render(renderer, position);
+
+    // Health bar
+    if (health < maxHealth)
+        healthBar.renderBar(renderer);
 }

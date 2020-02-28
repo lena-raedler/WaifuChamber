@@ -10,9 +10,9 @@
 #include "player.h"
 
 namespace PickupFunctions {
-    void test(){
-        GlobalObjects::playerPtr->addKey(2);
-    }
+    void test();
+
+    void dungeonBossKey();
 
 };
 

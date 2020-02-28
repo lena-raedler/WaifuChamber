@@ -125,8 +125,8 @@ void Movable::move(double delta){
         }
         for(auto& lw: GlobalObjects::lockedWalls){
             if(utility::hitboxCollision(hitbox, position, lw.hitbox, lw.pos_double)){
-                if(position.x <= lw.hitbox[0].min().x) {//above
-                    projPosition.x = lw.hitbox[1].min().x - xMax; //maybe add epsilon idk
+                if(position.x <= lw.hitbox[0].min().x + lw.pos_double.x) {//above
+                    projPosition.x = lw.hitbox[1].min().x - xMax + lw.pos_double.x; //maybe add epsilon idk
                     if(velocity.x > 0){
                         velocity.x = 0;
                     }
@@ -135,7 +135,7 @@ void Movable::move(double delta){
                     }
                 }
                 else{//below
-                    projPosition.x = lw.hitbox[0].max().x;
+                    projPosition.x = lw.hitbox[0].max().x + lw.pos_double.x;
                     if(velocity.x < 0){
                         velocity.x = 0;
                     }

@@ -7,6 +7,7 @@
 
 
 #include "Movable.h"
+#include "PickupFunctions.hpp"
 
 class Pickup {
 public:
@@ -17,6 +18,7 @@ public:
     void collect(){
         (this->pFunction)();
     }
+    void setFunction();
 };
 
 

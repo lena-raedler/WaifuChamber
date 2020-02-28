@@ -44,7 +44,7 @@ namespace GlobalObjects {
     extern MusicPlayer musicPlayer;
     extern std::vector<LingeringText> texts;
     extern std::vector<Message> messages;
-    extern std::vector<Pickup> pickups;
+    extern std::vector<std::shared_ptr<Pickup>> pickups;
     extern std::vector<LockedWall> lockedWalls;
 };
 
