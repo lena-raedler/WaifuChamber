@@ -11,4 +11,5 @@ SAVE(int, debugActive, 1)
 SAVE(int, keys, 0)
 SAVE(int, pickups, 0)
 SAVE(int, level, 1)
+SAVE(int, oneways, 0)
 #undef SAVE

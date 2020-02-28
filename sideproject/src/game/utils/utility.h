@@ -50,6 +50,11 @@ namespace utility {
     vec_t getMax(std::vector<triangle>& tris);
     vec_t getMin(std::vector<triangle>& tris);
 
+    bool decode(int saved, int i);
+    void encode(int& toSave, int i);
+
+    void displayMessage(std::string str, vec_t position, int duration, int id);
+
     TTF_Font* loadFont();
     TTF_Font* loadFont(int fontSize);
     TTF_Font* loadFont(std::string fontPath, int fontSize);

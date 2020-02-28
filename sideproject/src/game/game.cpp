@@ -48,6 +48,7 @@ namespace GlobalObjects{
     std::vector<LingeringText> texts;
     std::vector<Message> messages;
     std::vector<Pickup> pickups;
+    std::vector<LockedWall> lockedWalls;
     MusicPlayer musicPlayer;
     void clear(){
         enemies.clear();
@@ -58,6 +59,7 @@ namespace GlobalObjects{
         messages.clear();
         texts.clear();
         telegraphedAttacks.clear();
+        lockedWalls.clear();
     }
 }
 
@@ -664,13 +666,13 @@ void Game::render() {
         renderDebugTextures();
 
     // Render the player after the background
-    //renderer->renderTriangles(player.hitbox, 255, 0, 0, player.position);
+    //renderer->renderTriangles(player.hitboxOpen, 255, 0, 0, player.position);
     player.render(*renderer);
 
     for (auto& projectile : GlobalObjects::projectiles) {
         projectile.get()->render(*renderer);
         //renderer->renderTexture(projectile.imageNew.getTexture(), nullptr, projectile.rec.get());
-        //renderer->renderTriangles(projectile->hitbox, 255, 255, 255, projectile->position);
+        //renderer->renderTriangles(projectile->hitboxOpen, 255, 255, 255, projectile->position);
     }
 
     for (auto& p : GlobalObjects::platforms){
@@ -679,14 +681,14 @@ void Game::render() {
     }
     /*
     for (auto& e : GlobalObjects::enemies){
-        //renderer->renderTriangles(e->hitbox,255, 255, 0,e->position);
+        //renderer->renderTriangles(e->hitboxOpen,255, 255, 0,e->position);
     }
     for (auto& g : GlobalObjects::gates){
-        //renderer->renderTriangles(g->hitbox, 0,255, 255, g->position);
+        //renderer->renderTriangles(g->hitboxOpen, 0,255, 255, g->position);
     } */
     for (auto& b : GlobalObjects::bosses){
         scuff2 = true;
-        //renderer->renderTriangles(b->hitbox, 255, 0, 255, b->position);
+        //renderer->renderTriangles(b->hitboxOpen, 255, 0, 255, b->position);
         b->bars[0].renderBar(*renderer);
         //b.healthBar.renderBar(*renderer);
         b->nameText.render();
@@ -695,10 +697,10 @@ void Game::render() {
     for(auto& c : GlobalObjects::allCheckpoints){
         if(boost::algorithm::equals(currentRoom, c.room)) {
             if (player.lastCP->id == c.id) {
-                //renderer->renderTriangles(c.hitbox, 0, 255, 0, c.position);
+                //renderer->renderTriangles(c.hitboxOpen, 0, 255, 0, c.position);
                 renderer->renderTexture(c.texture, nullptr, &c.rectangle);
             } else {
-                //renderer->renderTriangles(c.hitbox, 0, 120, 0, c.position);
+                //renderer->renderTriangles(c.hitboxOpen, 0, 120, 0, c.position);
                 renderer->renderTexture(c.texture, nullptr, &c.rectangle);
             }
         }
@@ -894,6 +896,17 @@ void Game::cleanup(bool& remove){
             }
         }
     }
+    {
+        auto it = GlobalObjects::lockedWalls.begin();
+        while (it != GlobalObjects::lockedWalls.end()) {
+
+            if (it->closed) {
+                ++it;
+            } else{
+                it = GlobalObjects::lockedWalls.erase(it);
+            }
+        }
+    }
 
 
     GlobalObjects::telegraphedAttacks = tas;
@@ -926,6 +939,12 @@ void Game::fillGlobalObjects(Room &room, bool initial) {
     for(auto& c : GlobalObjects::allCheckpoints){
         if(boost::algorithm::equals(c.room, currentRoom)) {
             GlobalObjects::roomCheckpoints.push_back(&c);
+        }
+    }
+    for(auto& lw: room.lockedWalls){
+        if(utility::decode(GlobalObjects::savedVariables.oneways, lw.id)){
+            lw.init();
+            GlobalObjects::lockedWalls.push_back(lw);
         }
     }
 }
@@ -1064,6 +1083,13 @@ void Game::nonPlayerUpkeep(double deltaTime){
         if(utility::hitboxCollision(player.hitbox, player.position, m.m.hitbox, m.m.position)){
             m.print();
         }
+    }
+
+    for(auto& lw : GlobalObjects::lockedWalls){
+        if(utility::hitboxCollision(player.hitbox, player.position, lw.hitboxOpen, lw.pos_double)){
+            lw.unlock(player.position);
+        }
+
     }
 
     for(auto& lt : GlobalObjects::texts){

@@ -24,6 +24,7 @@ class Renderer;
 class LingeringText;
 class Message;
 class Pickup;
+class LockedWall;
 struct SavedVariables;
 namespace GlobalObjects {
     extern Mix_Chunk* chunkPtr[3];
@@ -44,6 +45,7 @@ namespace GlobalObjects {
     extern std::vector<LingeringText> texts;
     extern std::vector<Message> messages;
     extern std::vector<Pickup> pickups;
+    extern std::vector<LockedWall> lockedWalls;
 };
 
 

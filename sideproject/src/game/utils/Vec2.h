@@ -15,10 +15,6 @@ struct Vec2 {
     T x = 0;
     T y = 0;
 
-
-
-
-
     Vec2& operator+=(const Vec2& rhs)
     {
         x += rhs.x;

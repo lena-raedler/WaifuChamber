@@ -4,6 +4,7 @@
 #include "utility.h"
 
 #include "../world/room.h"
+#include "LingeringText.hpp"
 
 namespace utility {
     bool hitboxCollision(std::vector<triangle> a, vec_t posA, std::vector<triangle> b, vec_t posB){
@@ -539,5 +540,23 @@ namespace utility {
         }
 
         return fontTexture;
+    }
+    //checks if bit lsb-i is set in toDecode
+    bool decode(int toDecode, int i) {
+        return 1 & (toDecode >> i);
+    }
+
+    void encode(int& toEncode, int i){
+        toEncode |= (1 << i);
+        GlobalObjects::savedVariables.serialize();
+    }
+    void displayMessage(std::string str, vec_t position, int duration, int id){
+        LingeringText keyText;
+        keyText.text.changeText(str);
+        keyText.text.rect = {static_cast<int>(position.x - 50), static_cast<int>(position.y - 40)};
+        keyText.text.changeFontSize(20);
+        keyText.id = id;
+        keyText.duration = duration;
+        keyText.print();
     }
 }
