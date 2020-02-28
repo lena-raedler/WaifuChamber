@@ -105,8 +105,8 @@ void Renderer::renderSprite(SDL_Texture *texture, vec_t pos, SDL_Rect *rect, Vec
     int x = (int) pos.x;
     int y = (int) pos.y;
     SDL_Rect renderRect = {x, y, GlobalConstants::tileSize, GlobalConstants::tileSize};
-    renderRect.w = rect->w * size.x;
-    renderRect.h = rect->h * size.y;
+    renderRect.w = rect->w * 2*size.x;
+    renderRect.h = rect->h * 2*size.y;
     //render to screen
     SDL_RenderCopy(renderer, texture, rect, &renderRect);
 }
