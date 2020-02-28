@@ -82,8 +82,7 @@ Player::Player()
     activeFrenzyBar.borderColor = GlobalConstants::ORANGE;
 
     // Player position
-    position.x = 50;
-    position.y = 50;
+    position = utility::convert({3, 30});
     textureLocation = "files/textures/edgy_player.png";
     usesPlatforms = true;
 }
