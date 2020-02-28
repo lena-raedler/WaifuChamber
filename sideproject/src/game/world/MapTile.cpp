@@ -3,3 +3,21 @@
 //
 
 #include "MapTile.hpp"
+
+MapTile::MapTile(Image image, Vec2<int> position)
+    : MapTile(image, image, position)
+{}
+
+MapTile::MapTile(Image image, Image imageHighlighted, Vec2<int> position)
+    : image(image)
+    , imageHighlighted(imageHighlighted)
+    , position(position)
+{}
+
+void MapTile::render() {
+    image.render();
+}
+
+void MapTile::renderHighlighted() {
+    imageHighlighted.render();
+}

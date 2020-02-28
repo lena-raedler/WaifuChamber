@@ -8,11 +8,22 @@
 #include "SDL2/SDL_image.h"
 #include "../GlobalObjects.h"
 #include "../utils/Image.h"
+#include "../utils/Vec2.h"
 
 class MapTile {
 public:
-    MapTile();
+    /// Constructor & Destructor ///
+    MapTile() = default;
+    MapTile(Image image, Vec2<int> position);
+    MapTile(Image image, Image imageHighlighted, Vec2<int> position);
     ~MapTile() = default;
 
+    /// Fields ///
     Image image;
+    Image imageHighlighted;
+    Vec2<int> position;
+
+    /// Functions ///
+    void render();
+    void renderHighlighted();
 };
