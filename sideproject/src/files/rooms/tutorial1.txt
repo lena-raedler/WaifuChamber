@@ -56,8 +56,8 @@ GATES
   gate_04 e -1
   gate_03 d -1
   gate_05 h -1
-  gate_06 l 1
-  gate_07 y -1
+  gate_06 l 3
+  gate_07 g -1
 END
 ENEMY
   e_01 30 32
