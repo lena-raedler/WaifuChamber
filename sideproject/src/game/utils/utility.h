@@ -50,6 +50,8 @@ namespace utility {
     vec_t getMax(std::vector<triangle>& tris);
     vec_t getMin(std::vector<triangle>& tris);
 
+
+    vec_t convert(int i, int j);
     bool decode(int saved, int i);
     void encode(int& toSave, int i);
 

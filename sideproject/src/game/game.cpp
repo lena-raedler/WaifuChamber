@@ -234,7 +234,7 @@ void Game::makeCheckpoints(){
         if(!c.texture) {
             std::cerr << SDL_GetError() << std::endl;
         }
-        c.position = utility::convert({3, 6});
+        c.position = utility::convert({3, 32});
         utility::fillDefaultHitbox(c.hitbox);
         c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
@@ -345,8 +345,12 @@ int Game::loop() {
             break;
         }
 
-        player.velocity += move;
-        player.upkeep(deltaTime/deltaDenom);
+
+
+        if(!skipMovement) {
+            player.velocity += move;
+            player.upkeep(deltaTime / deltaDenom);
+        }
 
         bool atCp = false;
         for(auto& c: GlobalObjects::roomCheckpoints){
@@ -1026,6 +1030,7 @@ void Game::nonPlayerUpkeep(double deltaTime){
         boss->upkeep(deltaTime);
     }
     bool leave = false;
+    skipMovement = false;
     for(auto& gate : GlobalObjects::gates){
         for(triangle t : player.hitbox) {
             t+=player.position;
@@ -1036,6 +1041,7 @@ void Game::nonPlayerUpkeep(double deltaTime){
                     player.position = gate->newPosition;
                     GlobalObjects::clear();
                     int oldMusic = room.musicId;
+                    skipMovement = true;
                     room = utility::parseRoom(currentRoom, *renderer, GlobalObjects::resolution);
                     room.visited = true;
                     map.currentPosition = room.position;

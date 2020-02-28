@@ -51,6 +51,11 @@ namespace utility {
     vec_t convert(std::pair<int, int> p){
         return {(double) p.first * GlobalConstants::tileSize, (double) p.second * GlobalConstants::tileSize};
     }
+
+    vec_t convert(int i, int j) {
+        return convert({i, j});
+    }
+
     void fillDefaultHitbox(std::vector<triangle>& vec){
 
         fillDefaultHitbox(vec, 1, 1, {0,0});
