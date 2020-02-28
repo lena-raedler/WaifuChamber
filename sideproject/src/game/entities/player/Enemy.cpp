@@ -48,6 +48,10 @@ void Enemy::upkeep(double delta){
     healthBar.updateBar(healthPercentage());
     healthBar.x = position.x;
     healthBar.y = position.y - GlobalConstants::tileSize/2;
+    healthBar.borderRect.x = healthBar.x;
+    healthBar.borderRect.y = healthBar.y;
+    healthBar.backgroundRect.x = healthBar.barRect.x = healthBar.x + healthBarOffset;
+    healthBar.backgroundRect.y = healthBar.barRect.y = healthBar.y + healthBarOffset;
 }
 void Enemy::setMaxHealth(int i) {
     maxHealth = i;
