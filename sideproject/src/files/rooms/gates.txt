@@ -3,8 +3,8 @@ gate_02 files/rooms/tutorial1.txt 3 16
 gate_03 files/rooms/testroom.txt 57 31
 gate_04 files/rooms/testroom.txt 57 16
 gate_05 files/rooms/dungeon1.txt 1 31
-gate_06 files/rooms/castle.txt 58 31
-gate_07 files/rooms/plains.txt 3 12
+gate_06 files/rooms/forest1.txt 3 20
+gate_07 files/rooms/forest1.txt 3 7
 gate_08 files/rooms/dungeon4.txt 57 31
 gate_09 files/rooms/tutorial1.txt 8 3
 gate_10 files/rooms/dungeon2.txt 57 26
@@ -16,10 +16,10 @@ gate_15 files/rooms/dungeon5.txt 57 32
 gate_16 files/rooms/testroom.txt 3 32
 gate_17 files/rooms/desert1.txt 3 30
 gate_18 files/rooms/snowy_mountain.txt 57 9
-gate_19 files/rooms/desert2.txt 2 30
-gate_20 files/rooms/desert1.txt 57 29
-gate_21 files/rooms/mazement1.txt 4 30
-gate_22 files/rooms/desert2.txt 4 3
+gate_19 files/rooms/tutorial1.txt 57 20
+gate_20 files/rooms/forest2.txt 3 20
+gate_21 files/rooms/tutorial1.txt 57 33
+gate_22 files/rooms/forest2.txt 3 33
 gate_23 files/rooms/mazement2.txt 6 30
 gate_24 files/rooms/mazement1.txt 7 3
 gate_25 files/rooms/mazement3.txt 57 18

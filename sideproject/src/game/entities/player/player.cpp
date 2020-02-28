@@ -417,7 +417,7 @@ void Player::addKey(int keyId){
     keyText.text.rect = {static_cast<int>(position.x - 50), static_cast<int>(position.y - 40)};
     keyText.text.changeFontSize(20);
     keyText.id = 1;
-    keyText.duration = 100;
+    keyText.duration = 10;
     keyText.print();
     GlobalObjects::savedVariables.keys |= (1 << keyId);
     GlobalObjects::savedVariables.serialize();
