@@ -10,7 +10,6 @@ TILES
   f = files/textures/gravel_01
   p = files/textures/gravel_01
   d = files/textures/door_01
-  e = files/textures/door_01
 END
 LAYOUT
   wccccccccccccccccccccccccccccccccccccccccccccccccccccccccccw
@@ -55,12 +54,12 @@ END
 COORDINATES
   0,0
 END
-PICKUP
-   0 39 24
-END
-ENEMY
-  e_1 10 15
-  e_3 15 15
-  e_3 50 24
-  e_3 10 32
-END
+	PICKUP
+	  0 39 24
+	END
+	ENEMY
+      e_1 10 15
+      e_3 15 15
+      e_3 50 24
+      e_3 10 32
+    END

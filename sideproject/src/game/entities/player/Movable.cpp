@@ -134,6 +134,16 @@ void Movable::move(double delta){
                         projPosition.x += velocity.x*delta;
                     }
                 }
+                else{//below
+                    projPosition.x = lw.hitbox[0].max().x;
+                    if(velocity.x < 0){
+                        velocity.x = 0;
+                    }
+                    else{
+                        projPosition.x += velocity.x*delta;
+                    }
+
+                }
             }
 
         }

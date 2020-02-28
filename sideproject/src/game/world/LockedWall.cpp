@@ -15,5 +15,5 @@ void LockedWall::init(){
 void LockedWall::unlock(vec_t pos){
     utility::encode(GlobalObjects::savedVariables.oneways, id);
     closed = false;
-    utility::displayMessage("Unlocked!", pos, 100, 1234);
+    utility::displayMessage("Unlocked!", pos, 10, 1234);
 }
