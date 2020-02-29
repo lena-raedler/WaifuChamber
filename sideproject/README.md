@@ -16,7 +16,7 @@ Final version of our project for the [Advanced C++](https://git.uibk.ac.at/c7031
 - [SDL2_gfx](http://www.ferzkopp.net/wordpress/2016/01/02/sdl_gfx-sdl2_gfx/ "SDL2_gfx") version >= 1.0.4
 - [Boost](https://www.boost.org/ "Boost C++")
 
-## Installion and Start
+## Installation and Start
 All tools that are listed in the Prerequisites chapter must be installed beforehand or the program will crash. After everything is installed either build and start the program through an IDE (e.g. CLion, Visual Studio) or execute the following lines within the /src directory: 
 
 ```bash
@@ -24,6 +24,31 @@ foo@bar:~$ cmake CMakeLists.txt
 foo@bar:~$ make
 foo@bar:~$ ./waifu
 ``` 
+
+Within the options menu you can turn Debug on and off. We recommend playing with Debug on due to some bugs and exact hitbox textures. 
+
+## How to Play
+| Key                   | Effect                | Comment   |
+|:---------------------:|:---------------------:|:---------:|
+| W / Space             | Jump                  | Resets when grounded, double jump is collectable           |
+| S                     | Float                 | Hold to float, drains stamina |
+| A                     | Move left             |           |
+| B                     | Move right            |           |
+| R                     | Fully heal character  | Used to easily playtest the game. Doesn't drain uses |
+| T                     | Fully heal character | Normal usage of healing potion drains usage |
+| Y | Reset healing potion usages | Was initially used for playtesting, but can be used at will|
+| Shift + Left mouse button | Dash              | A helper circle shows where the player will dash to |
+| Left mouse button     | Shoot projectile | The projectile moves towards the position of the mouse at the time of using |
+| Escape | Display menu, pause game, go one step back | Overloaded key depending on the use case |
+| O | Exit game | Exits immediately in case the program is stuck or something doesn't work as intended |
+
+When the game is started the player is greeted with the main menu. From there options can be set (don't forget to save!), the game can be exit or started. When the game is started the player starts at the last checkpoint. 
+
+To start the game anew the player has to do one of two things:
+ 
+- Manually change the values in the /savegame.txt file (check game/SavedVariables.def to see which line corresponds to which entry)
+
+- Replace /savegame.txt with /savegame_fresh.txt
 
 ## Custom Specifications
 Initially we were tasked to program a top down RPG like Pokémon, but we decided to take on the task from the previous year, which was to create a Metroidvania-like sidescroller. From the custom_spec.txt file that we provided at the start of this project we have completed the following objecives (optional specs in bold): 
@@ -41,7 +66,7 @@ Initially we were tasked to program a top down RPG like Pokémon, but we decided
     - [x] jumping
     - [ ] dropping from platforms
     - [x] interacting with game entities (save points, doors etc)
-    + [ ] **dodge roll (with air dash being unlockable)**
+    + [x] **dodge roll (with air dash being unlockable)**
     - [x] some form of consecutive jump (jump resets or double jump)
 - main combat
     - [x] melee and/or ranged
@@ -99,8 +124,20 @@ While working on the project we included a lot of other features that we found f
 - [x] Music- and effect volume can be controlled within the options menu
 - [x] Bosses have telgraphed attacks (attack that have a charge up time and then have a big area of effect)
 - [x] Float ability (uses stamina)
+- [x] Manual save through the menu
+- [x] Healing potion that can be used three times (reset by pressing 'y') that fully heals the player (estus is bestus). When empty an empty healing potion gets displayed
+- [x] Tutorial level that teaches the player how to play the game (when moving to the red boxes (hitboxes) a message gets displayed)
+- [x] Wallclimb when being close to the top of a platform
+- [x] Enemies have different types (standing still, move towards the player, patroling)
+- [x] Bosses have names that are displayed over their health bars. 
 
 There are more, but they are either too miniscule to list or there are too many to list them all. 
 
-## Known Bugs
+## Known Major Bugs
 - The textures for the player projectiles are displaced a little bit in comparison to their hitbox. We therefore recommend playing with the debug option turned on (turn on and off within the option menu in-game) so that the hitbox is visible. 
+
+- The game can get laggy from time to time (especially when starting, changing rooms or when a lot of projectiles and / or enemies)
+
+- When the game lags it can happen that the player falls through floors (not out of bounds though)
+
+- When the player is right next to a wall (next pixel), a platform is above them and they jump then the player hits the platform with their head and falls down again. 
