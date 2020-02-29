@@ -54,8 +54,11 @@ LAYOUT
   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 END
 GATES
-  gate_29 h -1
-  gate_30 d -1
+  gate_29 d -1
+  gate_30 h -1
+END
+MUSIC
+  2
 END
 BOSS
   b_3 32 15

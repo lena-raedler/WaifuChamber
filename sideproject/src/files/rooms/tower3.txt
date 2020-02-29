@@ -11,7 +11,7 @@ TILES
   p = files/textures/leaves_01
   d = files/textures/door_01
   g = files/textures/door_01
-  e = files/textures/door_01
+  e = none
   h = none
   l = files/textures/door_01
   < = files/textures/smaller_lock
@@ -53,8 +53,8 @@ LAYOUT
   ffffffffffffffffffffffffffffdddfffffffffffffffffffffffffffff
 END
 GATES
-  gate_33 l 4
-  gate_34 x 4
+  gate_33 d -1
+  gate_34 e -1
 END
 ENEMY
   e_6 26 5

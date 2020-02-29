@@ -14,6 +14,8 @@ namespace PickupFunctions {
 
     void dungeonBossKey();
     void forestKey();
+    void towerKey1();
+    void towerKey2();
 
 };
 

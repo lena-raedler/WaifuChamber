@@ -281,7 +281,7 @@ void Game::makeCheckpoints(){
     }
     {
         Checkpoint c;
-        c.position = utility::convert({30, 7});
+        c.position = utility::convert({30, 4});
         utility::fillDefaultHitbox(c.hitbox);
         c.room = "files/rooms/tower3.txt";
         c.id = GlobalObjects::allCheckpoints.size();
@@ -1170,10 +1170,12 @@ void Game::initializeMusic(){
     GlobalObjects::musicPlayer.load(AREAS, "Hades - Scourge of the Furies 1.mp3");
     GlobalObjects::musicPlayer.load(BOSS, "Hades - Scourge of the Furies 2.mp3");
     GlobalObjects::musicPlayer.load(BOSS, "Pyre Original Soundtrack - Night Howlers.mp3");
+
     GlobalObjects::musicPlayer.load(BOSS, "Pyre Original Soundtrack - Will of the Scribes.mp3");
     GlobalObjects::musicPlayer.load(OTHER, "Dead Cells OST - Title Menu.mp3");
+    GlobalObjects::musicPlayer.load(BOSS, "Boss Boss Boss - Katana ZERO.mp3");
     GlobalObjects::musicPlayer.load(AREAS, "Dead Cells OST - The Promenade.mp3");
-    GlobalObjects::musicPlayer.load(AREAS, "Pyre Original Soundtrack - Will of the Scribes.mp3");
+    GlobalObjects::musicPlayer.load(AREAS, "Dead Cells - ClockTower (Official Soundtrack).mp3");
     //gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
 
 }

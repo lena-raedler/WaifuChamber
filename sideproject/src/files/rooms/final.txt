@@ -53,7 +53,10 @@ LAYOUT
   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
 END
 BOSS
-  b_2 3 32
+  b_4 3 32
+END
+MUSIC
+  2
 END
 COORDINATES
   0,0

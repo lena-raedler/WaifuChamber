@@ -17,7 +17,7 @@ TILES
   < = files/textures/smaller_lock
 END
 LAYOUT
-  wcccccccccccccccccccccccccccdddccccccccccccccccccccccccccccw
+  wccccccccccccccccccccccccccclllccccccccccccccccccccccccccccw
   w..........................................................w
   w..........................................................w
   w...........................ppp............................w
@@ -53,8 +53,11 @@ LAYOUT
   fffffffffffffffffffffffeeeffffffffffffffffffffffffffffffffff
 END
 GATES
-  gate_31 d -1
+  gate_31 l 4
   gate_32 e -1
+END
+PICKUP
+  2 53 12
 END
 ENEMY
   e_6 30 3
