@@ -50,7 +50,7 @@ namespace GlobalObjects{
     std::vector<std::shared_ptr<Pickup>> pickups;
     std::vector<LockedWall> lockedWalls;
     MusicPlayer musicPlayer;
-    //std::shared_ptr<Popup> popup;
+    std::shared_ptr<Popup> popup;
     void clear(){
         enemies.clear();
         platforms.clear();
@@ -228,10 +228,10 @@ Game::Game()
     SDL_SetRenderDrawBlendMode(renderer->getRenderer(), SDL_BLENDMODE_BLEND);
 
     // Popup for upgrades
-    //GlobalObjects::popup = std::make_shared<Popup>();
-    //*GlobalObjects::popup = Popup("I am a popup :)");
-    //GlobalObjects::popup->text.rect.x = GlobalObjects::resolution.first/2 - GlobalObjects::popup->text.rect.w/2;
-    //GlobalObjects::popup->text.rect.y = GlobalObjects::resolution.second/2 - GlobalObjects::popup->text.rect.h/2;
+    GlobalObjects::popup = std::make_shared<Popup>();
+    *GlobalObjects::popup = Popup("I am a popup :)");
+    GlobalObjects::popup->text.rect.x = GlobalObjects::resolution.first/2 - GlobalObjects::popup->text.rect.w/2;
+    GlobalObjects::popup->text.rect.y = GlobalObjects::resolution.second/2 - GlobalObjects::popup->text.rect.h/2;
 }
 void Game::makeCheckpoints(){
     SDL_Surface* s = IMG_Load("files/textures/savepoint_01.png");
@@ -748,7 +748,7 @@ void Game::render() {
     //SDL_RenderCopyEx( *renderer, mTexture, clip, &renderQuad, angle, center, flip );
 
     // Popup
-    //GlobalObjects::popup->displayPopup();
+    GlobalObjects::popup->displayPopup();
 
     // Map
     if (map.inMap) {

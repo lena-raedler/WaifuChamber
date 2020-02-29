@@ -111,7 +111,7 @@ namespace BossBuilder{
             case 1:
                 GlobalObjects::playerPtr->addKey(2);
                 utility::encode(GlobalObjects::savedVariables.upgrades, 0);
-                //GlobalObjects::popup->changePopup("Float received!");
+                GlobalObjects::popup->changePopup("Float received!");
                 break;
             case 2:
             default:

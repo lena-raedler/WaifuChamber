@@ -2,6 +2,7 @@
 // Created by auki on 12.02.20.
 //
 #include "Boss.h"
+#include "../../utils/Popup.hpp"
 
 #ifndef WAIFU_BOSSBUILDER_H
 #define WAIFU_BOSSBUILDER_H
