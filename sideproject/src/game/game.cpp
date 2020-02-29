@@ -316,7 +316,6 @@ Game::~Game() {
 
     TTF_CloseFont( gFont );
     TTF_Quit();
-
 }
 
 int Game::loop() {
