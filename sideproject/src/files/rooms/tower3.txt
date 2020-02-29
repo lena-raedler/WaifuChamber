@@ -60,5 +60,5 @@ ENEMY
   e_6 26 5
 END
 COORDINATES
-  0,0
+  0,1
 END

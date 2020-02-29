@@ -57,5 +57,5 @@ GATES
   gate_10 d -1
 END
 COORDINATES
-  0,0
+  3,2
 END

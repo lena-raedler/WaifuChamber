@@ -63,5 +63,5 @@ BOSS
   b_1 30 29
 END
 COORDINATES
-  0,0
+  1,3
 END

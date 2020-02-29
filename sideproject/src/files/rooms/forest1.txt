@@ -66,5 +66,5 @@ MUSIC
   1
 END
 COORDINATES
-  0,0
+  4,3
 END

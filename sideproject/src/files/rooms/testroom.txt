@@ -55,5 +55,5 @@ GATES
   gate_08 l 1
 END
 COORDINATES
-  0,0
+  2,3
 END

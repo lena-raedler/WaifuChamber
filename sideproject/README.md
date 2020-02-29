@@ -37,7 +37,8 @@ Within the options menu you can turn Debug on and off. We recommend playing with
 | E                     | Pickup items          | Pickup keys |
 | R                     | Fully heal character  | Used to easily playtest the game. Doesn't drain uses |
 | T                     | Fully heal character | Normal usage of healing potion drains usage |
-| Y | Reset healing potion usages | Was initially used for playtesting, but can be used at will|
+| Y                     | Reset healing potion usages | Was initially used for playtesting, but can be used at will|
+| M                     | Map                   | Does not get saved! Only shows visited rooms and the current room for this session |
 | Shift + Left mouse button | Dash              | A helper circle shows where the player will dash to |
 | Left mouse button     | Shoot projectile | The projectile moves towards the position of the mouse at the time of using |
 | Escape | Display menu, pause game, go one step back | Overloaded key depending on the use case |
@@ -142,3 +143,4 @@ There are more, but they are either too miniscule to list or there are too many 
 - When the game lags it can happen that the player falls through floors (not out of bounds though)
 
 - When the player is right next to a wall (next pixel), a platform is above them and they jump then the player hits the platform with their head and falls down again. 
+

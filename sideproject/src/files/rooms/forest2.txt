@@ -68,5 +68,5 @@ ENEMY
   e_3 1 32
 END
 COORDINATES
-  0,0
+  5,3
 END
