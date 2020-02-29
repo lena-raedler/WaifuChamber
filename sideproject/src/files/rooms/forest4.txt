@@ -55,6 +55,16 @@ END
 GATES
   gate_29 h -1
 END
+ENEMY
+  e_5 15 14
+  e_5 45 14
+END
+BOSS
+  b_2 32 32
+END
+MUSIC
+  1
+END
 COORDINATES
   0,0
 END

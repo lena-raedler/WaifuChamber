@@ -59,6 +59,12 @@ GATES
   gate_22 g -1
   gate_23 h -1
 END
+PICKUP
+  1 21 16
+END
+MUSIC
+  1
+END
 COORDINATES
   0,0
 END

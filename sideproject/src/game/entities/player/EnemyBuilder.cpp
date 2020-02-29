@@ -3,12 +3,16 @@
 //
 
 #include "EnemyBuilder.h"
+#include "AbilityPicker.h"
+
 namespace EnemyBuilder {
     void buildEnemy(std::vector<std::shared_ptr<Enemy>>& vece, int id, std::pair<int, int> pos){//hardcoded because fuck that shit
         Enemy e;
         Projectile p;
+        AbilityPicker<TelegraphedAbility> telegraphedAbilities;
         p.textureLocation = "files/textures/weapons/Arrow.png";
         Ability a;
+        TelegraphedAbility ta;
         statuseffect s;
 
         switch(id){
@@ -133,6 +137,9 @@ namespace EnemyBuilder {
                 e.position = utility::convert(pos);
                 utility::fillDefaultHitbox(e.hitbox);
                 e.setMaxHealth(30);
+                s.type = SHOCK;
+                s.intensity = 90;
+                e.statusOnTouch = s;
                 e.speed = 16;
                 e.ai = CHASEXY;
                 e.gravityType = NOGRAVITY;
@@ -142,6 +149,26 @@ namespace EnemyBuilder {
                     SDL_Rect r = {(int)e.position.x, (int)e.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
                     e.rec = std::make_shared<SDL_Rect>(r);
                 }
+                break;
+            case 6:
+                e.position = utility::convert(pos);
+                utility::fillDefaultHitbox(e.hitbox);
+                e.setMaxHealth(30);
+                s.type = SHOCK;
+                s.intensity = 90;
+                e.statusOnTouch = s;
+                e.speed = 16;
+                e.ai = STATIONARY;
+                e.gravityType = NOGRAVITY;
+                e.damageOnTouch = 30;
+                e.textureLocation = "files/textures/jellyfish.png";
+                telegraphedAbilities.pickAbility(ta, 1, NPC_RANGED);
+                e.telegraphedAbilities.push_back(ta);
+                {
+                    SDL_Rect r = {(int)e.position.x, (int)e.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
+                    e.rec = std::make_shared<SDL_Rect>(r);
+                }
+                break;
             default:
                 break;
         }
@@ -158,6 +185,7 @@ namespace EnemyBuilder {
         e.healthBar.borderColor = {0xFF, 0x80, 0x80, 0xFF};
         e.healthBar.barColor = {0xFF, 0x00, 0x00, 0xFF};
 
+        e.init(*GlobalObjects::renderPtr);
         GlobalObjects::enemies.push_back(std::make_shared<Enemy>(e));
     };
 

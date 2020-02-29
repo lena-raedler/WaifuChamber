@@ -284,7 +284,7 @@ namespace utility {
                             wall.position.second = x;
                             wall.orientation = true;
                             wall.texture = texture;
-                            if(GlobalObjects::savedVariables.oneways == lockedWallId) {
+                            if(!decode(GlobalObjects::savedVariables.oneways, lockedWallId)) {
                                 room.lockedWalls.push_back(wall);
                             } else {
                                 SDL_DestroyTexture(texture);

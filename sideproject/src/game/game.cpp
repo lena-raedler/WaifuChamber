@@ -58,6 +58,7 @@ namespace GlobalObjects{
         gates.clear();
         bosses.clear();
         messages.clear();
+        pickups.clear();
         texts.clear();
         telegraphedAttacks.clear();
         lockedWalls.clear();
@@ -270,9 +271,9 @@ void Game::makeCheckpoints(){
     }
     {
         Checkpoint c;
-        c.position = utility::convert({59, 32});
+        c.position = utility::convert({4, 24});
         utility::fillDefaultHitbox(c.hitbox);
-        c.room = "files/rooms/fancy_forest.txt";
+        c.room = "files/rooms/dungeon5.txt";
         c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
@@ -280,9 +281,9 @@ void Game::makeCheckpoints(){
     }
     {
         Checkpoint c;
-        c.position = utility::convert({42, 13});
+        c.position = utility::convert({30, 4});
         utility::fillDefaultHitbox(c.hitbox);
-        c.room = "files/rooms/desert1.txt";
+        c.room = "files/rooms/tower3.txt";
         c.id = GlobalObjects::allCheckpoints.size();
         c.texture = renderer->createTextureFromSurface(s);
         c.rectangle = {(int)c.position.x, (int)c.position.y, GlobalConstants::tileSize, GlobalConstants::tileSize};
@@ -406,11 +407,11 @@ int Game::loop() {
 */
 
         // check for levelUp
-        if(GlobalObjects::savedVariables.souls >= 4500) {
+        if(GlobalObjects::savedVariables.souls >= 4500 && player.level < 5) {
             utility::displayMessage("Level Up!", player.position, 7, 14335);
             player.levelUp();
             GlobalObjects::savedVariables.level += 1;
-            GlobalObjects::savedVariables.souls = 0;
+            GlobalObjects::savedVariables.souls -= 4500;
             GlobalObjects::savedVariables.serialize();
 
         }
@@ -611,10 +612,10 @@ vec_t Game::determineInput(double delta){
         Mix_PauseMusic();
     }
 
-    if(inputManager.keyDown[KEY_LEFT_SHIFT]){
+    if(inputManager.keyDown[KEY_LEFT_SHIFT] && utility::decode(GlobalObjects::savedVariables.upgrades, 2)){
         player.dashingDown = true;
     }
-    if(inputManager.keyUp[KEY_LEFT_SHIFT]){
+    if(inputManager.keyUp[KEY_LEFT_SHIFT] && utility::decode(GlobalObjects::savedVariables.upgrades, 2)){
         player.dashingDown = false;
 
         if(player.vit.stam >= 0) {
@@ -969,9 +970,9 @@ void Game::fillGlobalObjects(Room &room, bool initial) {
     }
     for(auto& lw: room.lockedWalls){
         lw.id = room.roomId;
+        std::cout << "ID:" << lw.id << std::endl;
         if(!utility::decode(GlobalObjects::savedVariables.oneways, lw.id)){
             lw.init();
-
             GlobalObjects::lockedWalls.push_back(lw);
         }
     }
@@ -1011,6 +1012,9 @@ void Game::loadSavedVariables(){
     musicVolume = GlobalObjects::savedVariables.musicVolume;
     effectVolume = GlobalObjects::savedVariables.effectVolume;
     player.level = GlobalObjects::savedVariables.level;
+    player.vit.maxHp = 90 + 10*player.level;
+    player.vit.maxStam = 90 + 10*player.level;
+    GlobalObjects::abilities[0].projectiles[0].damage = (18 + 2*player.level);
     std::cout << "level: " << player.level << std::endl;
 
 }
@@ -1021,6 +1025,36 @@ void Game::nonPlayerUpkeep(double deltaTime){
         if (!e->damageOnTouch == 0){
             if(utility::hitboxCollision(player.hitbox, player.position, e->hitbox, e->position)){
                 player.getHit(e->damageOnTouch);
+                statuseffect s = e->statusOnTouch;
+                switch (s.type) {
+                    case BLEED:
+                        if(!player.vit.bleeding) {
+                            player.vit.bleed += s.intensity;
+                        }
+                        break;
+                    case SHOCK:
+                        if(!player.vit.shocked) {
+                            player.vit.shock += s.intensity;
+                        }
+                        break;
+                    case BURN:
+                        if(!player.vit.burning) {
+                            player.vit.burn += s.intensity;
+                        }
+                        break;
+                    case ROT:
+                        if(!player.vit.rotting) {
+                            player.vit.rot += s.intensity;
+                        }
+                        break;
+                    case FRENZY:
+                        if(!player.vit.frenzied) {
+                            player.vit.frenzy += s.intensity;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -1119,8 +1153,6 @@ void Game::nonPlayerUpkeep(double deltaTime){
     for(auto& lw : GlobalObjects::lockedWalls){
         if(utility::hitboxCollision(player.hitbox, player.position, lw.hitboxOpen, lw.pos_double)){
             lw.unlock(player.position);
-            auto it = std::find(GlobalObjects::lockedWalls.begin(), GlobalObjects::lockedWalls.end(), lw);
-            GlobalObjects::lockedWalls.erase(it);
             room.removeLockedWall(lw);
         }
 
@@ -1137,9 +1169,13 @@ void Game::engageBoss(int id){
 void Game::initializeMusic(){
     GlobalObjects::musicPlayer.load(AREAS, "Hades - Scourge of the Furies 1.mp3");
     GlobalObjects::musicPlayer.load(BOSS, "Hades - Scourge of the Furies 2.mp3");
+    GlobalObjects::musicPlayer.load(BOSS, "Pyre Original Soundtrack - Night Howlers.mp3");
+
+    GlobalObjects::musicPlayer.load(BOSS, "Pyre Original Soundtrack - Will of the Scribes.mp3");
     GlobalObjects::musicPlayer.load(OTHER, "Dead Cells OST - Title Menu.mp3");
+    GlobalObjects::musicPlayer.load(BOSS, "Boss Boss Boss - Katana ZERO.mp3");
     GlobalObjects::musicPlayer.load(AREAS, "Dead Cells OST - The Promenade.mp3");
-    GlobalObjects::musicPlayer.load(AREAS, "Pyre Original Soundtrack - Will of the Scribes.mp3");
+    GlobalObjects::musicPlayer.load(AREAS, "Dead Cells - ClockTower (Official Soundtrack).mp3");
     //gMusicVic=Mix_LoadMUS("files/music/Victory.mp3");
 
 }

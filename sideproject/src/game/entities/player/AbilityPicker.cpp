@@ -50,6 +50,23 @@ void AbilityPicker<T>::plMelee(int i, T& a){
 }
 template <class T>
 void AbilityPicker<T>::npcRanged(int i, T& a){
+    Projectile p;
+    TelegraphedAttack attack;
+    statuseffect s;
+    p.textureLocation = "textures/weapons/Arrow.png";
+    switch(i){
+        case 1: // telegraphed beam 4xscreenheight
+            attack.damage = 20;
+            attack.aimed = 1;
+            attack.maxTime = 20;
+            attack.set(GlobalObjects::playerPtr->position.x-32, 32, 64, 1000);
+            a.cooldown = 20;
+            a.lastUsed = 20;
+            a.addAttack(attack);
+            break;
+        default:
+            break;
+    }
 
 }
 template <class T>
@@ -130,6 +147,65 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             a.addProjectile(p);
             a.speed = 50;
             a.cooldown = 40;
+            break;
+        case 5://shock bullets
+            p.gravityType = NOGRAVITY;
+            p.usesPlatforms = false;
+            p.damage = 15;
+            p.fragile = false;
+            s.type = SHOCK;
+            s.intensity = 40;
+            p.status.push_back(s);
+            utility::fillDefaultHitbox(p.hitbox);
+            p.timeToLive = 12;
+            p.velocity = {0, 0};
+            p.init();
+            a.addProjectile(p);
+            a.speed = 50;
+            a.cooldown = 30;
+            break;
+        case 6: // telegraphed beam 4xscreenheight
+            attack.damage = 20;
+            attack.aimed = 1;
+            attack.maxTime = 20;
+            attack.set(GlobalObjects::playerPtr->position.x-16, 32, 64, 1000);
+            a.cooldown = 20;
+            a.lastUsed = 20;
+            a.addAttack(attack);
+            break;
+        case 7:
+            attack.damage = 40;
+            attack.aimed = 3;
+            attack.maxTime = 12;
+            attack.set(0, GlobalObjects::playerPtr->position.y, 1000, 64);
+            a.cooldown = 45;
+            a.lastUsed = 45;
+            a.addAttack(attack);
+            break;
+        case 8:
+            s.type = BLEED;
+            s.intensity = 90;
+            p.status.push_back(s);
+            p.gravityType = NORMAL;
+            p.usesPlatforms = false;
+            p.fragile = true;
+            p.damage = 40;
+            p.timeToLive = 20;
+            p.init();
+            utility::fillDefaultHitbox(p.hitbox);
+            a.speed = 40;
+            a.cooldown = 140;
+            a.origin = {GlobalConstants::tileSize/2, GlobalConstants::tileSize/2};
+            a.aimed = false;
+            for(int i = -1; i < 2; ++i){
+                for(int j = -1; j < 2;++j){
+                    if (i == 0 && j == 0){
+                        continue;
+                    }
+                    p.velocity = {(double)i, (double)j};
+                    a.addProjectile(p);
+                }
+            }
             break;
         default:
             break;
