@@ -104,7 +104,7 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             p.status.push_back(s);
             p.gravityType = NOGRAVITY;
             p.usesPlatforms = false;
-            p.fragile = true;
+            p.fragile = false;
             p.damage = 40;
             p.timeToLive = 20;
             p.init();
@@ -153,8 +153,6 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             p.usesPlatforms = false;
             p.damage = 15;
             p.fragile = false;
-            s.type = SHOCK;
-            s.intensity = 40;
             p.status.push_back(s);
             utility::fillDefaultHitbox(p.hitbox);
             p.timeToLive = 12;
@@ -162,10 +160,10 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             p.init();
             a.addProjectile(p);
             a.speed = 50;
-            a.cooldown = 30;
+            a.cooldown = 50;
             break;
-        case 6: // telegraphed beam 4xscreenheight
-            attack.damage = 20;
+        case 6:
+            attack.damage = 80;
             attack.aimed = 1;
             attack.maxTime = 20;
             attack.set(GlobalObjects::playerPtr->position.x-16, 32, 64, 1000);
@@ -188,7 +186,7 @@ void AbilityPicker<T>::bossRanged(int i, T& a){
             p.status.push_back(s);
             p.gravityType = NORMAL;
             p.usesPlatforms = false;
-            p.fragile = true;
+            p.fragile = false;
             p.damage = 40;
             p.timeToLive = 20;
             p.init();

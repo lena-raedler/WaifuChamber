@@ -1291,10 +1291,11 @@ void Game::renderTTF( int x, int y, SDL_Rect* clip, double angle, SDL_Point* cen
     SDL_RenderCopyEx( renderer->getRenderer(), mTexture, clip, &renderQuad, angle, center, flip );
 }
 void Game::insertMessages(){
+    Message m;
     switch(room.roomId){
 
         case 2:
-            Message m;
+
             utility::fillDefaultHitbox(m.m.hitbox);
             m.m.position = utility::convert(4, 32);
             m.t.text.changeText("W/Space : Jump");
@@ -1303,7 +1304,16 @@ void Game::insertMessages(){
             GlobalObjects::messages.push_back(m);
             m.t.text.changeText("LMB : Shoot");
             m.t.id = 1002;
-            m.m.position = utility::convert(52, 31);
+            m.m.position = utility::convert(51, 31);
             GlobalObjects::messages.push_back(m);
+            break;
+        case 5:
+            m.t.text.changeText("E : Pick up Key");
+            m.t.id = 1002;
+            m.m.position = utility::convert(51, 31);
+            GlobalObjects::messages.push_back(m);
+            break;
+        default:
+            break;
     }
 }

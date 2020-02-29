@@ -14,7 +14,7 @@ gate_13 files/rooms/dungeon4.txt 57 3
 gate_14 files/rooms/dungeon2.txt 3 26
 gate_15 files/rooms/dungeon5.txt 57 32
 gate_16 files/rooms/testroom.txt 3 32
-gate_17 files/rooms/desert1.txt 3 30
+gate_17 files/rooms/dungeon4.txt 3 30
 gate_18 files/rooms/tower1.txt 57 31
 gate_19 files/rooms/tutorial1.txt 57 7
 gate_20 files/rooms/forest2.txt 3 7
