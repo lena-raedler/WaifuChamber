@@ -22,5 +22,6 @@ public:
 
     /// Functions ///
     void changePopup(std::string message);
+    void changePopup(std::string message, int timeTmp);
     void displayPopup();
 };

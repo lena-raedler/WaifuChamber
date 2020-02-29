@@ -22,7 +22,7 @@ gate_21 files/rooms/tutorial1.txt 57 20
 gate_22 files/rooms/forest2.txt 3 20
 gate_23 files/rooms/forest4.txt 28 3
 gate_24 files/rooms/forest1.txt 57 7
-gate_25 files/rooms/forest3.txt 12 31
+gate_25 files/rooms/forest3.txt 10 31
 gate_26 files/rooms/forest1.txt 57 20
 gate_27 files/rooms/forest2.txt 17 3
 gate_28 files/rooms/forest2.txt 57 3

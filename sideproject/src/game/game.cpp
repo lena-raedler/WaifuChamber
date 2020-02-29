@@ -230,7 +230,7 @@ Game::Game()
 
     // Popup for upgrades
     GlobalObjects::popup = std::make_shared<Popup>();
-    *GlobalObjects::popup = Popup("I am a popup :)");
+    *GlobalObjects::popup = Popup("I am a popup :)", 0);
     GlobalObjects::popup->text.rect.x = GlobalObjects::resolution.first/2 - GlobalObjects::popup->text.rect.w/2;
     GlobalObjects::popup->text.rect.y = GlobalObjects::resolution.second/2 - GlobalObjects::popup->text.rect.h/2;
 }

@@ -4,7 +4,7 @@ Final version of our project for the [Advanced C++](https://git.uibk.ac.at/c7031
 ## Authors
 - [Lukas Aukenthaler](https://github.com/DrGurk "Lukas") <lukas.aukenthaler@student.uibk.ac.at>
 - [Bernd Menia](https://github.com/BerndMenia "Bernd Menia") <bernd.menia@student.uibk.ac.at>
-- [Lena Rädler](https://github.com/lena-raedler "Lena Rädler") <.raedler@student.uibk.ac.at>
+- [Lena Rädler](https://github.com/lena-raedler "Lena Rädler") <anna-lena.raedler@student.uibk.ac.at>
 
 ## Prerequisites
 - C++ version >= 17
@@ -34,6 +34,7 @@ Within the options menu you can turn Debug on and off. We recommend playing with
 | S                     | Float                 | Hold to float, drains stamina |
 | A                     | Move left             |           |
 | B                     | Move right            |           |
+| E                     | Pickup items          | Pickup keys |
 | R                     | Fully heal character  | Used to easily playtest the game. Doesn't drain uses |
 | T                     | Fully heal character | Normal usage of healing potion drains usage |
 | Y | Reset healing potion usages | Was initially used for playtesting, but can be used at will|
@@ -136,7 +137,7 @@ There are more, but they are either too miniscule to list or there are too many 
 ## Known Major Bugs
 - The textures for the player projectiles are displaced a little bit in comparison to their hitbox. We therefore recommend playing with the debug option turned on (turn on and off within the option menu in-game) so that the hitbox is visible. 
 
-- The game can get laggy from time to time (especially when starting, changing rooms or when a lot of projectiles and / or enemies)
+- The game can get laggy from time to time (especially when starting, changing rooms or when a lot of projectiles and / or enemies are displayed)
 
 - When the game lags it can happen that the player falls through floors (not out of bounds though)
 

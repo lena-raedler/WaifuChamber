@@ -60,7 +60,7 @@ GATES
   gate_23 h -1
 END
 PICKUP
-  1 21 16
+  1 20 20
 END
 MUSIC
   1

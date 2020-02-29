@@ -82,9 +82,8 @@ namespace BossBuilder{
                 b.usesPlatforms = true;
                 utility::fillDefaultHitbox(b.hitbox, b.size.x, b.size.y);
                 b.phaseTransitionAbility= &BossBuilder::boss1true;
-                //b.name = "Juergen";
-                //b.nameText = Text("Juergen", 30, {0xFF, 0xFF, 0xFF});
-                b.nameText = Text();
+                b.name = "Igorrr the Imperishable";
+                b.nameText = Text(b.name, 30, {0xFF, 0xFF, 0xFF});
                 b.nameText.rect.x = b.bars[0].x;
                 //b.nameText.positionSize.y = b.bars[0].y + b.bars[0].height/2 - b.nameText.positionSize.height/2;
                 b.nameText.rect.y = b.bars[0].y - b.nameText.rect.h;
@@ -97,7 +96,7 @@ namespace BossBuilder{
                 break;
             case 4:
                 b.size = {2,2};
-                b.textureLocation = "files/textures/skeleton.png";
+                b.textureLocation = "files/textures/boss/boss1_spritesheet.png";
                 abilities.pickAbility(a, 1, BOSS_RANGED);
                 b.addAbility(a, 1, 1);
 
@@ -121,9 +120,8 @@ namespace BossBuilder{
                 b.usesPlatforms = true;
                 utility::fillDefaultHitbox(b.hitbox, b.size.x, b.size.y);
                 b.phaseTransitionAbility= &BossBuilder::boss1;
-                //b.name = "Juergen";
-                //b.nameText = Text("Juergen", 30, {0xFF, 0xFF, 0xFF});
-                b.nameText = Text();
+                b.name = "Jürgen the Destroyer";
+                b.nameText = Text(b.name, 30, {0xFF, 0xFF, 0xFF});
                 b.nameText.rect.x = b.bars[0].x;
                 //b.nameText.positionSize.y = b.bars[0].y + b.bars[0].height/2 - b.nameText.positionSize.height/2;
                 b.nameText.rect.y = b.bars[0].y - b.nameText.rect.h;
@@ -135,7 +133,7 @@ namespace BossBuilder{
                 GlobalObjects::bosses.push_back(std::make_shared<Boss>(b));
                 break;
             case 2:
-                b.textureLocation = "files/textures/skeleton.png";
+                b.textureLocation = "files/textures/boss/boss1_spritesheet.png";
                 abilities.pickAbility(a, 5, BOSS_RANGED);
                 b.addAbility(a, 1, 1);
 
@@ -156,9 +154,8 @@ namespace BossBuilder{
                 b.usesPlatforms = true;
                 utility::fillDefaultHitbox(b.hitbox, b.size.x, b.size.y);
                 b.phaseTransitionAbility= &BossBuilder::boss2;
-                //b.name = "Juergen";
-                //b.nameText = Text("Juergen", 30, {0xFF, 0xFF, 0xFF});
-                b.nameText = Text();
+                b.name = "Manfred the Merciless";
+                b.nameText = Text(b.name, 30, {0xFF, 0xFF, 0xFF});
                 b.nameText.rect.x = b.bars[0].x;
                 //b.nameText.positionSize.y = b.bars[0].y + b.bars[0].height/2 - b.nameText.positionSize.height/2;
                 b.nameText.rect.y = b.bars[0].y - b.nameText.rect.h;
@@ -170,7 +167,7 @@ namespace BossBuilder{
                 GlobalObjects::bosses.push_back(std::make_shared<Boss>(b));
                 break;
             case 3:
-                b.textureLocation = "files/textures/skeleton.png";
+                b.textureLocation = "files/textures/boss/boss1_spritesheet.png";
                 abilities.pickAbility(a, 8, BOSS_RANGED);
                 b.addAbility(a, 1, 2);
 
@@ -190,9 +187,8 @@ namespace BossBuilder{
                 b.usesPlatforms = true;
                 utility::fillDefaultHitbox(b.hitbox, b.size.x, b.size.y);
                 b.phaseTransitionAbility= &BossBuilder::boss3;
-                //b.name = "Juergen";
-                //b.nameText = Text("Juergen", 30, {0xFF, 0xFF, 0xFF});
-                b.nameText = Text();
+                b.name = "Dieter the Dire";
+                b.nameText = Text(b.name, 30, {0xFF, 0xFF, 0xFF});
                 b.nameText.rect.x = b.bars[0].x;
                 //b.nameText.positionSize.y = b.bars[0].y + b.bars[0].height/2 - b.nameText.positionSize.height/2;
                 b.nameText.rect.y = b.bars[0].y - b.nameText.rect.h;
@@ -212,15 +208,19 @@ namespace BossBuilder{
             case 1:
                 GlobalObjects::playerPtr->addKey(2);
                 utility::encode(GlobalObjects::savedVariables.upgrades, 0);
-                GlobalObjects::popup->changePopup("Float received!");
+                GlobalObjects::popup->changePopup("Float received!", 240);
                 break;
             case 2:
                 utility::encode(GlobalObjects::savedVariables.upgrades, 1);
+                GlobalObjects::popup->changePopup("Double jump received! :o", 240);
                 break;
             case 3:
                 utility::encode(GlobalObjects::savedVariables.upgrades, 2);
+                GlobalObjects::popup->changePopup("Dash received! (use with Shift + Left mouse button :)", 240);
                 break;
             case 4:
+                GlobalObjects::popup->changePopup("Congratulations =]", 240);
+                break;
             default:
                 break;
         }
