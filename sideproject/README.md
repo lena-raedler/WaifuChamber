@@ -136,6 +136,8 @@ While working on the project we included a lot of other features that we found f
 There are more, but they are either too miniscule to list or there are too many to list them all. 
 
 ## Known Major Bugs
+- After defeating the first boss the shortcut to the start room does not open. Exit the game and start it again to "teleport" yourself to the last checkpoint and continue the game from there on. 
+
 - The textures for the player projectiles are displaced a little bit in comparison to their hitbox. We therefore recommend playing with the debug option turned on (turn on and off within the option menu in-game) so that the hitbox is visible. 
 
 - The game can get laggy from time to time (especially when starting, changing rooms or when a lot of projectiles and / or enemies are displayed)
