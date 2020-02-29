@@ -99,7 +99,7 @@ namespace EnemyBuilder {
                 utility::fillDefaultHitbox(p.hitbox);
                 e.iframes = true;
                 e.damageOnTouch = 70;
-                e.textureLocation = "files/textures/spike_01.png";
+                e.textureLocation = "files/textures/spike_01_cropped.png";
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
@@ -120,7 +120,7 @@ namespace EnemyBuilder {
                 utility::fillDefaultHitbox(p.hitbox);
                 e.iframes = true;
                 e.damageOnTouch = 70;
-                e.textureLocation = "files/textures/spike_01.png";
+                e.textureLocation = "files/textures/spike_01_cropped.png";
 
                 //rectangle is filled with the given position of the enemy and the global tilesize
                 {
