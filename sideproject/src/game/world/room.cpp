@@ -77,7 +77,7 @@ void Room::fillEnemyVector(std::vector<std::shared_ptr<Enemy>>& e){
 void Room::fillBossVector(std::vector<std::shared_ptr<Boss>>& b) {
     b.clear();
     for(auto& it: bossInformation) {
-        if(!utility::decode(GlobalObjects::savedVariables.bossesDefeated, it.second)) {
+        if(!utility::decode(GlobalObjects::savedVariables.bossesDefeated, it.second -1)) {
             BossBuilder::buildBoss(it.second, it.first);
         }
     }

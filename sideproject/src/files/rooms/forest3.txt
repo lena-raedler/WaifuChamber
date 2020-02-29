@@ -56,6 +56,14 @@ GATES
   gate_27 h -1
   gate_28 e -1
 END
+ENEMY
+  e_3 38 19
+  e_3 44 19
+  e_3 45 19
+  e_3 29 24
+  e_3 30 24
+  e_3 56 15
+END
 COORDINATES
   0,0
 END

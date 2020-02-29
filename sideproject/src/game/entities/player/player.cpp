@@ -487,6 +487,6 @@ void Player::render(Renderer &renderer) {
 
 // level up function
 void Player::levelUp() {
-    vit.maxHp *= 1.1;
-    vit.maxStam *= 1.1;
+    vit.maxHp += 10;
+    vit.maxStam += 10;
 }

@@ -13,6 +13,7 @@ namespace PickupFunctions {
     void test();
 
     void dungeonBossKey();
+    void forestKey();
 
 };
 

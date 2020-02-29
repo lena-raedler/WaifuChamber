@@ -30,6 +30,7 @@ public:
     Sprites enemySprite;
 
     Behaviour ai = CONSTANT;
+    statuseffect statusOnTouch;
     int damageOnTouch = 0;
     std::vector<vec_t> patrolPoints;
     size_t patrolCounter = 0;

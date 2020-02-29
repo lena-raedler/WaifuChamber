@@ -9,6 +9,8 @@ void Pickup::setFunction() {
         case 0:
             pFunction = &PickupFunctions::dungeonBossKey;
             break;
+        case 1:
+            pFunction =&PickupFunctions::forestKey;
         default:
             break;
     }

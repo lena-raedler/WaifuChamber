@@ -13,4 +13,8 @@ namespace PickupFunctions {
         GlobalObjects::playerPtr->addKey(1);
     }
 
+    void forestKey(){
+        GlobalObjects::playerPtr->addKey(3);
+    }
+
 };

@@ -47,6 +47,7 @@ void MusicPlayer::load(MusicType m, std::string s) {
     load(m, s, 0);
 }
 void MusicPlayer::play(MusicType m, size_t i, int loop) {
+    std::cout << "Now Playing: " << i << std::endl;
 
     Mix_VolumeMusic(GlobalObjects::savedVariables.musicVolume * 12);
     if(m == musicType && i == id && Mix_PlayingMusic()){
