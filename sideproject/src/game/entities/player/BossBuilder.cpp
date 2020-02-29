@@ -120,7 +120,7 @@ namespace BossBuilder{
                 b.usesPlatforms = true;
                 utility::fillDefaultHitbox(b.hitbox, b.size.x, b.size.y);
                 b.phaseTransitionAbility= &BossBuilder::boss1;
-                b.name = "Jürgen the Destroyer";
+                b.name = "Juergen the Destroyer";
                 b.nameText = Text(b.name, 30, {0xFF, 0xFF, 0xFF});
                 b.nameText.rect.x = b.bars[0].x;
                 //b.nameText.positionSize.y = b.bars[0].y + b.bars[0].height/2 - b.nameText.positionSize.height/2;
