@@ -17,7 +17,7 @@ Final version of our project for the [Advanced C++](https://git.uibk.ac.at/c7031
 - [Boost](https://www.boost.org/ "Boost C++")
 
 ## Installion and Start
-All tools that are listed in the Prerequisites chapter must be installed beforehand or the program will crash. After everything is installed either build and start the program through an IDE (e.g. CLion, Visual Studio) or execute the following lines within the /game directory: 
+All tools that are listed in the Prerequisites chapter must be installed beforehand or the program will crash. After everything is installed either build and start the program through an IDE (e.g. CLion, Visual Studio) or execute the following lines within the /src directory: 
 
 ```bash
 foo@bar:~$ cmake CMakeLists.txt 
@@ -92,14 +92,15 @@ Initially we were tasked to program a top down RPG like Pokémon, but we decided
 While working on the project we included a lot of other features that we found fitting. Some of them are: 
 
 - [x] Locked doors that can be unlocked with a key
-- [x] Text popup when receiving a key or an item (e.g. float, double jump)
+- [x] Popup text when receiving a key or an item (e.g. float, double jump)
 - [x] Player and enemy sprites to mimic movement in both directions and a default animation while standing still
 - [x] Status effects (bleeding, shocked), they are visible when applied
 - [x] Sound effects (shooting, jumping, dying, pressing a button, ...)
 - [x] Music- and effect volume can be controlled within the options menu
-- [x] 
+- [x] Bosses have telgraphed attacks (attack that have a charge up time and then have a big area of effect)
+- [x] Float ability (uses stamina)
 
 There are more, but they are either too miniscule to list or there are too many to list them all. 
 
-## Work in Progress
-The textures for the player projectiles are displaced a little bit in comparison to their hitbox. We therefore recommend playing with the debug option turned on (turn on and off within the option menu in-game) so that the hitbox is visible. 
+## Known Bugs
+- The textures for the player projectiles are displaced a little bit in comparison to their hitbox. We therefore recommend playing with the debug option turned on (turn on and off within the option menu in-game) so that the hitbox is visible. 
